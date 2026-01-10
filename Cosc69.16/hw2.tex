@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{microtype}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+For this lab assignment, you will be compiling short C programs and then
+reverse engineering them to see what they look like inside. This assignment
+will be performed individually, first on the Unix command line and then in
+the GHIDRA reverse engineering framework.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single
+}
+
+\begin{problem}{1} The following is a short C program. Place it in a file named
+\texttt{first.c} and compile it with
+\texttt{cc -o first first.c} to produce an executable.
+You can run this with \texttt{./first}.
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+    if (argc > 1) {
+        printf("Hello world. %s\n", argv[1]);
+    } else {
+        printf("Aloha!\n");
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\begin{enumerate}
+  \item What file format and architecture is your file? You can find this by
+        running the \texttt{file} command on your executable.
+  \item Disassemble your executable with the \texttt{objdump -d} command,
+        and write down the \texttt{main} function’s disassembly.
+  \item Add some comments to the disassembly, marking the return value
+        (\texttt{0}) of \texttt{main}, the address of two strings
+        (\texttt{"Hello world argv[1]"} and \texttt{"Aloha!"}), and the
+        registers that store \texttt{int argc} and \texttt{char **argv}.
+        Note we typically will call adding such comments \emph{annotation}.
+  \item \texttt{objdump -d} often doesn’t include strings in its listing, but
+        \texttt{objdump -D} will. Include the lines of the string in your
+        document.
+  \item Why are the bytes of the string interpreted as machine language?
+  \item Use an ASCII table to decode the bytes of the strings. C strings end
+        with a null byte (\texttt{0}), so you should include each and every
+        byte from the beginning to the null.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}{2} Let’s try a program that’s a little more complicated, which we’ll call
+\texttt{second.c}.
+
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int square(int i) {
+    return i * i;
+}
+
+int main(int argc, char **argv) {
+    for (int i = 0; i < 10; i++) {
+        printf("The square of %d is %d.\n", i, square(i));
+    }
+}
+\end{lstlisting}
+
+\vspace{1em}
+
+\begin{enumerate}
+  \item Compile the program with both
+        \texttt{cc -O3 second-fast second.c} and
+        \texttt{cc -Os second-small second.c}.
+        The \texttt{-O} flags tell the compiler to optimize the build, with
+        \texttt{-O3} making the fastest code and \texttt{-Os} making the
+        smallest code.
+  \item Disassemble both of these files with \texttt{objdump -d}. What’s
+        different about their \texttt{main} functions? Which one is easier
+        to understand, and why?
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}{3}
+Our first two programs included symbols, so we could easily tell where
+\texttt{main} was and what the variable names were. For this third program,
+we will strip the symbols to leave an executable more like those that are
+distributed commercially. Compile it with
+\texttt{cc -o third third.c} and do \texttt{objdump -d} before and after
+stripping the binary with \texttt{strip third}.
+
+\vspace{1em}
+
+What are the differences between these two \texttt{objdump} outputs, and why?
+
+
+\newpage 
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+
+__attribute__((noinline))
+void guess(int g) {
+    if (g == 42)
+        printf("That's right!\n");
+    else
+        printf("Nope, that's the wrong number.\n");
+}
+
+int main(int argc, char **argv) {
+    if (argc == 2) {
+        guess(atoi(argv[1]));
+    } else {
+        printf("Give me a number?\n");
+    }
+}
+\end{lstlisting}
+
+\vspace{1.5em}
+
+Instead of \texttt{objdump}, we’ll use GHIDRA for this assignment, a free
+reverse engineering tool developed by the National Security Agency.
+
+\vspace{1em}
+
+After opening GHIDRA, create a New Project. After the file is imported,
+open it and click Yes to have GHIDRA auto-analyze the executable.
+
+\vspace{1em}
+
+\begin{enumerate}
+  \item In the Symbols pane, practice navigating between functions.
+  \item Because the binary is stripped, GHIDRA does not know local function
+        or variable names, though it may identify standard library calls
+        such as \texttt{atoi()}.
+  \item Navigate to the function that calls \texttt{atoi()}. Rename it
+        \texttt{main}.
+  \item Find and name the \texttt{guess()} function.
+  \item Rename the local variables in \texttt{guess()} to match the
+        original source code.
+  \item Comment each line of the assembly for \texttt{guess()} and paste
+        the commented disassembly into your report.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}{4} For extra credit, repeat the third section using tools such as Binary Ninja,
+IDA Pro, Radare2, or Cutter.
+
+\end{problem}
+\end{document}

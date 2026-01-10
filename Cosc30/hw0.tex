@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+\textbf{\textit{It's in the syllabus.}} Read the syllabus on Canvas. If you have any questions, communicate
+with us on \#general channel in Slack.
+
+\begin{enumerate}
+    \item[(a)] Are late submissions allowed? How many missing homework problems will be forgiven if we have given out 24 problems by the end of the class?
+
+    \item[(b)] Are working sessions required? Do we use every X-hour?
+
+    \item[(c)] Under what conditions are we allowed to collaborate? (There are three rules. Look for italics.)
+
+    \item[(d)] If I cannot attend the lectures, what do I do? How about work sessions and exams?
+
+    \item[(e)] Will my final grade get worse if my classmates perform better and earn extra points, assuming my raw grades do not change? (In other words, is helping others a viable strategy in this class, game-theoretically speaking?) Explain briefly your analysis.
+
+    \item[(f)] Write the following sentence: ``I have read and understood the syllabus.''
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item [(a)] Late submissions are not allowed. The bottom $20\%$ of homework problems are dropped from the raw grade calculation: so about 4 problems would be forgiven if there are a total of 24 problems by the end of class.  
+        \item [(b)] Yes, all working sessions are required, and we use every X-hour. 
+        \item [(c)] From the syllabus: ``the submitted work should be clearly marked with the names of the group members, each group individually writes down and submit their own version of solutions in their own words, and properly cites everyone and everything you have consulted."
+        \item [(d)] It is okay to not be able to attend the lectures live, but I should inform the instructor/TAs if I cannot attend a work session or an exam. 
+
+        \item[(e)] No. Since the final letter grade is the maximum of the fixed grade and the curved grade, my grade cannot decrease if my raw score remains unchanged, even if my classmates perform better. Improved class performance would only raise the class average and potentially lower my curved grade, but my fixed grade would remain the same. Therefore, helping classmates cannot hurt my final grade and helping others is a viable (and weakly dominant) strategy in this class.
+
+        \item[(f)] I have read and understood the syllabus. 
+    \end{enumerate}
+\end{solution}
+
+
+\begin{problem}{2}
+\textbf{\textit{12 days of Christmas.}} Read the lyrics of ``The Twelve Days of Christmas''. (Or, if you
+already know the song, sing it out loud.)
+
+\begin{enumerate}
+    \item[(a)] How many gifts did you receive from your true-love throughout the whole twelve
+    days of Christmas?
+
+    \item[(b)] If the pattern continues, how many gifts will you receive throughout the whole
+    \(n\) days of Christmas, for an arbitrary positive integer \(n\)? Express your solution
+    in terms of a function of \(n\).
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] I received $364$ gifts throughout the whole twelve days of christmas. 
+        \item [(b)] Every day of Christmas, I receive $1 + \cdots + x$ gifts. The sum of upto $x$ natural numbers can be calculated using the formula $\frac{x(x+1)}{2}$. Hence on the $x-$th day of christmas I receive $\frac{x(x+1)}{2}$ gifts. To calculate the number of gifts I would get throughout the whole $n$ days of Christmas, we can sum over $\frac{x(x+1)}{2}$. I.e. for any arbitrary positive integer $n$, the gifts I would receive through out the $n$ days would be $\sum_{x=1}^n \frac{x(x+1)}{2}$. 
+    \end{enumerate}    
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+\textbf{\textit{Pigeon.}} Draw a pigeon that captures your energy now and the part of yourself that you
+want to improve on this term. (Never draw things before? Find a reference picture and go for it. Or, unleash the artistic nature that is always in you.)
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    
+    \centering
+    \includegraphics[width=0.5\linewidth]{assests/2B26F7FC-37B3-4A0B-BD01-1A360959BC0D_4_5005_c.jpeg}
+\end{solution}
+\end{document}

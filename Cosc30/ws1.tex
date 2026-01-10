@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+     Prove that at least seven people in this room were born on the same day of the week.
+    (How many people do we need for this statement to be true?)
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    There are $7$ days in a week. Let $H$ be the set of days in a week (pigeonholes), and $P$ the set of all people in the room (pigeons) with $\mid P \mid = x$, and $f$ be the function that maps every person to the day they were born.  
+
+    Now, since we have $x$ pigeons and $7$ pigeonholes and we need to have at least $7$ pigeons in $1$ pigeonhole. We can find the number of pigeons using the c-fold pigeonhole equation: 
+    \begin{align*}
+        \text{number of pigeons} & = (\text{number of pigeons in 1 hole} -1) \cdot (\text{ number of pigeon holes})+ 1 \\ 
+        x &= (7-1) \cdot 7 + 1 \\ 
+        x & = 6 \cdot 7  + 1 \\ 
+        x &= 43
+    \end{align*}
+    I.e  we need $6 \times 7 + 1 = 43$ people in the room for at least seven of them to have been born on the same day. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    Pick $11$ distinct integers of your liking into a set $S$. Prove that you can always find three integers from $S$, each differ from the other two by some multiple of $5$s; in other words, the three integers share the same remainder modulo $5$. For example, if we choose
+    \[S := \{31, 41, 59, 26, 53, 58, 97, 93, 23, 84, 62\},\] 
+    then the three numbers $31, 41, 26$ share the same remainder modulo $5$. 
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    For any $x \in S$, consider it's remainder mod $5$. There are exactly $5$ such possibilities. Let this be the set $H$. 
+    \[H = \{0, 1, 2, 3, 4\}\]
+    Let the elements of set $S$ be the pigeons, the elements of set $H$ be the pigeonholes. Now, since we have $11$ pigeons and $5$ pigeonholes, we can find the c-fold number using the equation: 
+    \begin{align*}
+        \text{number of pigeons} & = c \cdot \text{ number of pigeon holes} + 1 \\ 
+        11 &= c \cdot 5 + 1 \\ 
+        c & = 2
+    \end{align*}
+    Define a function $f:S \to H$ that maps every integer to it's remainder modulo $5$. By the c-fold pigeonhole principle we know that if there are $n$ pigeonholes but more than $c \cdot n$ pigeons, then at least one pigeonhole contains $c + 1$ pigeons. Hence, that there would at least be $3$ $(c + 1)$ integers in $S$ that share the same remainder modulo $5$. 
+\end{solution}
+
+\begin{problem}{3}
+    Pick $16$ distinct integers in $[1 ..30]$. Prove that there is at least a pair that adds up to $31$. (Notation $[1 \ldots 30]$ is a shorthand for the set $\{n \in N : 1 \leq n \leq 30\}$.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Integers in the interval $[1\ldots 30]$ can be partitioned into exactly $15$ disjoint pairs that add up to $31$. Define the set of all such pairs 
+    \[S = \{(1, 30), (2, 29), \cdots, (15, 16)\}\]
+    
+    Let $P$ be the set of the 16 distinct integers. The elements of $S$ are the pigeonholes, and the elements of $P$ are the pigeons. Since integer in $P$ belongs to exactly one of these pairs (they're disjoint). Thus by assigning each integer to the pair it belongs in puts $16$ pigeons in $15$ holes. And by the (1-fold) pigeon hole principle, at least one pigeonhole (pair) must have two pigeons (integers in the set $P$). I.e. there is at least one pair in $P$ that adds up to $31$. 
+\end{solution}
+
+\end{document}

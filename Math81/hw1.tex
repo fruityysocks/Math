@@ -1,0 +1,148 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange.
+
+
+\begin{problem}{1}
+For $f(x)=x^4-1$ and $g(x) = 3x^2+3x$ find: the quotient and remainder
+after dividing $f$~by~$g$; the gcd of $f$ and $g$; and the expression
+of this gcd in the form $af+bg$ for some $a,b \in \Q[x]$.  For the
+last two, you'll need to recall the Euclidean Algorithm and the Bezout Identity.
+\end{problem}
+
+
+\begin{problem}{2}
+Prove that two polynomials $f, g \in \Z[x]$ are relatively prime in
+$\Q[x]$ (i.e., they share no common nonconstant factor) if and only if
+the ideal $(f,g)\subset \Z[x]$ contains a nonzero integer.
+\end{problem}
+
+
+\begin{problem}{3}
+Decide whether each of the following polynomials is irreducible, and
+if not, then find the factorization into monic irreducibles.
+\begin{enumerate}\renewcommand{\itemsep}{3mm}
+\item $x^4+1 \in \R[x]$
+
+\item $x^4+1 \in \Q[x]$
+
+\item $x^7 + 66x^6 - 77x + 737 \in \Q[x]$
+
+\item $x^4+x^3+x^2+x+1 \in \Q[x]$
+
+\item $x^3+5x^2-9x+3 \in \Q[x]$
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}{4}
+\textit{Irreducible polynomials over finite fields.}
+Let $\F_3$ be the field with three elements.
+\begin{enumerate}\renewcommand{\itemsep}{3mm}
+\item Determine all the monic irreducible polynomials of degree $\leq
+3$ in $\F_3[x]$.
+
+\item Determine the number of monic irreducible polynomials of degree
+$4$ in $\F_3[x]$. \\ 
+\textbf{Hint.} This is easier than determining all of them.
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}{5(a)}\textit{Symmetric polynomials.} Let $R$ be a commutative ring with 1 and $R[x_1,\dotsc,x_n]$ the ring
+of polynomials in the variables $x_1,\dotsc,x_n$ with coefficients in
+$R$.  Consider the symmetric group $S_n$ acting on the set
+$\{x_1,\dotsc,x_n\}$ by permutations.  Extend this action linearly to
+$R[x_1,x_2,\dotsc,x_n]$; for example, if $\sigma = (123) \in S_3$, then
+$$
+\sigma\cdot (x_1x_2 - 6x_3^2 + 7x_2x_3^2) = x_2x_3 - 6x_1^2 + 7x_3x_1^2.
+$$  
+Then this action satisfies $\sigma\cdot(f+g)=\sigma\cdot f +
+\sigma\cdot g$ and $\sigma\cdot(fg) = (\sigma\cdot f)(\sigma\cdot g)$
+for all $\sigma \in S_n$ and all $f,g \in
+R[x_1,\dotsc,x_n]$.
+
+Let $S \subset R[x_1,\dotsc,x_n]$ be the subset fixed under the
+action of $S_n$.  Prove that $S$ is a subring with 1.  This is called
+the \textbf{ring of symmetric polynomials}.
+
+\end{problem}
+
+
+\begin{problem}{5(b)} For each $n \geq 0$, define polynomials $e_i \in
+R[x_1,\dotsc,x_n]$ by  $e_0=1$ and
+$$
+e_1  {}= x_1+\dotsm+x_n,
+\quad
+e_2  {}= \sum_{1 \leq i < j \leq n}x_ix_j,
+\quad 
+\dotsc, {} \quad
+e_n  {}= x_1\dotsm x_n
+$$
+and $e_k=0$ for $k > n$. In words, $e_k$ is the sum of all distinct
+products of subsets of $k$ distinct variables.  Prove that each $e_k$
+is a symmetric polynomial.  These are called the \textbf{elementary
+symmetric polynomials}.
+\end{problem}
+
+\begin{problem}{5(c)}The \textbf{generic polynomial} of degree $n$ is the polynomial
+$$
+f(x) = (x-x_1)(x-x_2)\dotsm (x-x_n)
+$$
+in the ring $R[x_1,\dotsc,x_n][x]$ of polynomials in $x$ with
+coefficients in $R[x_1,\dotsc,x_n]$.  Prove (by induction) that
+
+\begin{align*}
+    f(x) &= (x-x_1)(x-x_2)\dotsm (x-x_n)=x^n - e_1 x^{n-1} + e_2 x^{n-2} + \dotsm
++ (-1)^ne_n  \\
+&= \sum_{j=0}^n (-1)^{n-j} e_{n-j} x^j.
+\end{align*}
+
+\end{problem}
+
+\begin{problem}{5(d)}For each $k \geq 1$, define the \textbf{power sums} $p_k =
+x_1^k + \dotsm + x_n^k$ in $R[x_1,\dotsc,x_n]$.  Clearly, the power
+sums are symmetric.  Verify the following identities by hand:
+$$
+p_1=e_1, \quad p_2 = e_1p_1 - 2e_2, \quad p_3 = e_1p_2 - e_2p_1 + 3e_3
+$$
+In general \textbf{Newton's identities} in $R[x_1,\dotsc,x_n]$ are
+(recall that $e_k=0$ for $k>n$):
+$$
+p_k - e_1 p_{k-1} + e_2 p_{k-2} - \dotsm + (-1)^{k-1}e_{k-1}p_1 +
+(-1)^k k e_k = 0.
+$$
+Prove Newton's identities whenever $k \geq n$.\\
+
+    \textbf{Hint.} For each $i$, consider the equation in part (c) for $f(x_i)$ and
+sum all these equations together.  This gives Newton's identity for
+$k=n$.  Set extra variables to zero to get the identities for $k > n$
+from this.  (Fun. Can you come up with a proof when $1 \leq k \leq n$?)
+\end{problem}
+
+
+\begin{problem}{6}\textit{Use the force, my Newton!}
+\begin{enumerate}\renewcommand{\itemsep}{3mm}
+\item If $x,y,z$ are complex numbers satisfying
+$$
+x+y+z=1, \qquad x^2+y^2+z^2=6, \qquad x^3+y^3+z^3=7,
+$$
+then prove that $x^n + y^n + z^n$ is rational for any positive integer
+$n$.
+
+\item Calculate $x^4+y^4+z^4$.
+
+\item Prove that each of $x,y,z$ are not rational numbers.  
+\end{enumerate}  
+\end{problem}
+
+
+\vfill
+
+\end{document}

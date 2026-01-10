@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    \textbf{Size and power sets.}
+
+    A function $f$ from domain $A$ to codomain $B$ is called a bijection if there exists another function $f^{-1}$ from $B$ to $A$, such that $f^{-1}(f(a)) = a$ for every element $a \in A$, and $f(f^{-1}(b)) = b$ for every element $b \in B$. The size of a finite set is the number of elements inside (which is always a nonnegative integer).
+
+    \begin{enumerate}
+        \item State the Pigeonhole Principle as a quantified proposition, and state its contrapositive.
+
+        \item Argue that if there is a bijection from a finite set $A$ to another finite set $B$, then $A$ and $B$ have the same size, using the contrapositive statement of the Pigeonhole Principle.
+    \end{enumerate}
+
+    The power set $\mathrm{Pow}(S)$ of a set $S$ is the set containing all subsets of $S$; in notation,
+    \[
+    A \in \mathrm{Pow}(S) \text{ if and only if } A \subseteq S.
+    \]
+
+    \begin{enumerate}
+        \item If a finite set $S$ has size $n$, what is the size of $\mathrm{Pow}(S)$? Justify your answer using (b).
+    \end{enumerate}
+\end{problem}
+
+\begin{problem} {2}
+    \textbf{Algebra for quantifiers.}
+
+    \begin{enumerate}
+        \item Write down the English meaning of the following propositions. Do they have the same meaning? Why?
+        \begin{itemize}
+            \item $\forall$ even $n \in \mathbb{Z}\; \exists$ prime $p \in \mathbb{Z}\; \exists$ prime $q \in \mathbb{Z}$ such that $n = p + q$.
+            \item $\exists$ prime $p \in \mathbb{Z}\; \forall$ even $n \in \mathbb{Z}\; \exists$ prime $q \in \mathbb{Z}$ such that $n = p + q$.
+            \item $\forall$ even $n \in \mathbb{Z}\; \exists$ prime $q \in \mathbb{Z}\; \exists$ prime $p \in \mathbb{Z}$ such that $n = p + q$.
+        \end{itemize}
+
+        \item Does the following implication rule hold for arbitrary predicates $P(x)$ and $Q(x)$? Why or why not?
+        \begin{itemize}
+            \item $\forall x \, (P(x) \lor Q(x))$ implies $(\forall x \, P(x)) \lor (\forall x \, Q(x))$
+            \item $\forall x \, (P(x) \land Q(x))$ implies $(\forall x \, P(x)) \land (\forall x \, Q(x))$
+        \end{itemize}
+
+        \item Is the following statement true or false? Why?
+        \[
+        \forall x \in \{0,1\}^* \; \exists y \in \{0,1\}^* \;
+        \bigl( (y \text{ has fewer 0s than } x) \Rightarrow (x \text{ has at least two 0s}) \bigr)
+        \]
+        (Here $\{0,1\}^*$ is the set of all binary strings of finite length.)
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{3}
+    \textbf{Rachmaninoff had big hands.}
+
+    Sergei Vasilyevich Rachmaninoff, the famous pianist, is known to have big hands. As a practice for himself, he chose 56 keys from a 108-key grand piano arbitrarily. Can he always find a pair of chosen keys among the 56 so that he can play an 11th (that is, having 10 keys in between)?
+
+    Let $S$ be a set of 56 arbitrarily chosen numbers from $1$ to $108$. Prove the following statement: There are two numbers in $S$ that differ by exactly $11$.
+
+    One student attempted the following proof:
+
+    \emph{We will apply the pigeonhole principle. As we are choosing 56 numbers arbitrarily from 1 to 108, we treat the 56 chosen numbers as pigeons. We then divide the 108 numbers into eleven disjoint sets, each containing all numbers between 1 and 108 that share the same remainder when divided by 11}:
+    \begin{align*}
+            S_1 &= \{1,12,\ldots,100\}, \\
+            S_2 &= \{2,13,\ldots,101\}, \\ 
+            \ldots \\
+            S_{11} &= \{11,22,\ldots,99\}
+    \end{align*}
+
+
+    The sets $S_i$ are all either of size 9 or size 10 and therefore we can choose 5 elements from each without picking 2 numbers that differ by 11. Therefore we have 55 available numbers to choose from because $5 \times 11 = 55$. These 55 numbers represent the pigeonholes. By the pigeonhole principle, there must be at least two pigeons in one hole, and in this case that is not possible as we cannot choose the same number twice, so we must choose a different number, and doing so would create a pair that differs by exactly 11.
+
+    \begin{enumerate}
+        \item Point out the most significant issue in the proof, and justify your criticism.
+
+        \item Prove the statement in a way that is clear, correct, convincing, and concise.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{*4}
+    \textbf{Moving robots.}
+
+    You are leading a team to write a program that lets the mini-robots perform synchronized walking: There are $k^2$ mini-robots arranged in a $k$-by-$k$ array, surrounded by a wall. At each step, every mini-robot moves to an adjacent spot all at once, while keeping the $k$-by-$k$ formation; that is, each robot moves either up, down, left, or right by one step, and no robots adjacent to the wall are allowed to move towards the wall. Also, no two robots switch places between themselves as they will bump into each other.
+
+    The team tested the program on 16 robots in a $4$-by-$4$ array first, and the robots walked smoothly into a new $4$-by-$4$ formation, exactly as expected. But when they ran the program on a larger scale, with 49 robots and $k = 7$, some robots kept bumping into each other. Your teammates come to you for diagnosis. What should you tell them?
+\end{problem}
+
+\end{document}
