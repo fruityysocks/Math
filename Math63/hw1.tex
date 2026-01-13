@@ -98,7 +98,7 @@
     \begin{enumerate}
     \item $f(A\cap B) \subset f(A) \cap f(B)$
     
-    \item $f^{-1}(C \cap D ) \subset f^{-1}(C) \cap f^{-1}(D)$
+    \item $f^{-1}(C \cap D ) =  f^{-1}(C) \cap f^{-1}(D)$
 
     \end{enumerate}
 \end{problem}
@@ -106,9 +106,38 @@
 \begin{solution}
     \bbni 
     \begin{enumerate}
-        \item  If $x \in f (A \cap B)$
+        \item  Let $x \in f(A \cap B), x = f(y)$ 
+        \begin{align*}
+            &\implies y \in A, B \\ 
+            &\implies x \in f(A),  x \in f(B) \\ 
+            &\implies x \in f(A) \cap f(B) \\ 
+            &\implies f(A \cap B) \subset f(A) \cap f(B) 
+        \end{align*}
+        For an arbitrary $f$ the reverse containment isn't true. To show this, consider distinct elements $a \in A, a \notin B, b \in B, b \notin A$ such that for some $c$, $f(a) = c, f(b) = c$. Then $c \in f(A) \cap f(B)$ but $c \notin f (A \cap B)$. I.e. equality won't hold unless $f$ is injective. 
+
+        \item Let $x \in f^{-1}(C \cap D), y  = f(x)$ 
+        
+        $(\implies)$
+        \begin{align*}
+            &\implies y \in C,  y \in D \\
+            &\implies x \in f^{-1}(C), f^{-1}(D) \\ 
+            &\implies x \in f^{-1}(C) \cap f^{-1}(D) \\ 
+            &\implies f^{-1}( C \cap D) \subset f^{-1}(C) \cap f^{-1}(D) 
+        \end{align*}
+
+        $(\impliedby)$ 
+
+        Let $x \in f^{-1}(C) \cap f^{-1}(D), y = f(x)$
+        \begin{align*}
+            &\implies x \in f^{-1}(C),  x \in f^{-1}(D)  \\
+            &\implies y \in C, D \\ 
+            &\implies y \in C \cap D \\ 
+            &\implies x \in f^{-1} (C \cap D)
+        \end{align*}
     \end{enumerate}
 \end{solution}
+
+\newpage
 
 \begin{problem}{4}
     \begin{enumerate}
@@ -123,24 +152,64 @@
     \bbni 
 
     \begin{enumerate}
-        \item There are no functions from a nonempty set to the empty set because a function needs a pre-image and an image and the co-domain is empty. 
-        \item 
+        \item There are no functions from a nonempty set to the empty set. A function needs to assign a definite output to every input. Since there are no elements in $\emptyset$, that is impossible. 
+        \item The notation $\{X_i\}_{i \in I}$ describes a rule from elements of $I$ to corresponding objects $X_i$. This by definition is a function from $I$ to the set consisting objects $X_i$. 
     \end{enumerate}
 \end{solution}
+
+\vspace{3em}
 
 \begin{problem}{5} 
     Prove in detail that for any $a, b \in  \R$: 
     \[ - (a - b) = b - a \]
 \end{problem}
 
+\begin{solution}
+    \bbni  
+
+    Because $R$ is a field, we can say that, 
+    \begin{align*}
+        - (a - b) &= - (a) - (-b) \text{ (Field Property 8)} \\ 
+        &= -a + b \text{ (Field Property 6)} \\
+        &= b - a \text{ (Commutativity)}
+    \end{align*}
+
+\end{solution}
+
+\newpage
 
 \begin{problem}{6}
     Show that if $a , b , x, y  \in \R$ and $a <x <b, a <y <b$, then $\mid y- x \mid<b- a $.
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    There are two cases, 
+    \begin{enumerate}
+        \item $x = y$
+        
+        Here $\mid y - x \mid < b - a$ trivially true as $0 < b - a, \forall \, b > a$.
+
+        \item $x \neq y$ 
+        
+        WLOG, assume $y > x$. Since, $y < b$ and $x > a$ then $max(y-x) < b - a$. 
+    \end{enumerate} 
+
+\end{solution}
+
 \begin{problem}{7}
     Find the g.l.b. and l.u.b. of  $\left \{1, \frac{1}{2}, \frac{1}{4}, \cdots \right \}$, giving reasons if you can.
 \end{problem}
+
+
+\begin{solution}
+    \bbni 
+
+    g.l.b $ = 0$, l.u.b $ = 1$. 
+
+    Assume 
+\end{solution}
 
 \begin{problem}{8}
     Prove that if $a \in  \R, a > 1$, then the set $\{a, a^2, a^3, ...\}$ is not bounded from above. (Hint: First find a positive integer $n$ such that $a > 1 + \frac{1}{n}$ and prove that $a^n > \left (  1+ \frac{1}{n} \right)^n \geq 2 $). 

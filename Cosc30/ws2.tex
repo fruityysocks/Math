@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    \textit{Negation.} First write down a proposition using a predicate with variables and quantifiers for the following statement. Then write down its negation. Make sure to push the “not” all the way inside; in particular, there should be no “not” before any quantifier. (Assume \texttt{isBlack(x)} is the predicate that “cow x is black”, and \texttt{isWhite(x)} is the predicate that “cow x is white”.)
+
+    \begin{enumerate}
+        \item[(a)]  Every cow is either white or black. [To think about later: Why is it ambiguous if we say “all cows are either white or black?”]
+        \item [(b)] If one of the cows in the group is black, and every (strict) subset of cows has the same color, then all cows are black. [Hint: Try to express “cows in a chosen subset all have the same color” using a statement with two quantifiers. Assume all cows are either black or white.]
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni 
+
+    \begin{enumerate}
+        \item [(a)] Proposition: $\forall \, cow \,c \,(\texttt{isWhite(c)} \, \textsc{or} \, \texttt{isBlack(c)})$ \\ 
+        Negation: $\exists \, cow \, c ((\textsc{not} \, \texttt{isWhite(c)}) \textsc{ and } (\textsc{not} \texttt{isBlack(c)}))$
+        \item [(b)] Let $C$ be the set of cows, and let $P_1, P_2, \text{ and } Q$ be defined as follows: 
+
+        $P_1 : \exists \, b \in C \, (\texttt{isBlack(b)})$ 
+
+        $P_2 : \forall S \subsetneq C \textsc{ and } \forall c, x \in S (\texttt{isBlack(c)} \implies \texttt{isBlack(x)} \textsc{ or } \\(\texttt{isWhite(c)} \implies \texttt{isWhite(x)}))$
+
+        $Q : \forall a \in C (\texttt{isBlack(a)})$
+        
+        Proposition: 
+        $P_1 \textsc{ and } P_2 \implies Q $
+
+        Negation: $(\textsc{not } (P_1 \textsc{and} P_2)) \implies $
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+
+\begin{problem}{2}
+    \textit{Contrapositives.} Write down the contrapositive of the following propositions.
+    \begin{enumerate}
+        \item [(a)]If there is a cow that is not black, then no cows can be black.
+        \item [(b)]If one of the cows in the group is black, and every (strict) subset of cows has the same color, then all cows are black.
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \begin{enumerate}
+        \bbni 
+
+        \item [(a)] Proposition: $\exists \, cow \, c \,(\textsc{ not } \texttt{(isBlack(c))}) \implies \forall \, cow \, a  \, (\textsc{ not } (isBlack(a)))$
+        
+        Contrapositive: $\exists \, cow \, a (\texttt{isBlack(a)}) \implies \forall \, cow \, c (\texttt{isBlack(c)})$
+
+        \item [(b)] Proposition: (Same as Problem 1(b)) 
+        
+        Contrapositive: 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

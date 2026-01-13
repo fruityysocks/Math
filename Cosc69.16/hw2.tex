@@ -16,9 +16,12 @@ the GHIDRA reverse engineering framework.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  breakatwhitespace=true
   columns=fullflexible,
   keepspaces=true,
-  frame=single
+  frame=single,
+  escapeinside={(*@}{@*)}
 }
 
 \begin{problem}{1} The following is a short C program. Place it in a file named
@@ -26,7 +29,7 @@ the GHIDRA reverse engineering framework.
 \texttt{cc -o first first.c} to produce an executable.
 You can run this with \texttt{./first}.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=]
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -42,27 +45,141 @@ int main(int argc, char **argv) {
 \begin{enumerate}
   \item What file format and architecture is your file? You can find this by
         running the \texttt{file} command on your executable.
-  \item Disassemble your executable with the \texttt{objdump -d} command,
-        and write down the \texttt{main} function’s disassembly.
-  \item Add some comments to the disassembly, marking the return value
-        (\texttt{0}) of \texttt{main}, the address of two strings
-        (\texttt{"Hello world argv[1]"} and \texttt{"Aloha!"}), and the
-        registers that store \texttt{int argc} and \texttt{char **argv}.
-        Note we typically will call adding such comments \emph{annotation}.
-  \item \texttt{objdump -d} often doesn’t include strings in its listing, but
-        \texttt{objdump -D} will. Include the lines of the string in your
-        document.
+  \item Disassemble your executable with the \texttt{objdump -d} command and
+        write down the disassembly of the \texttt{main} function.
+  \item Add comments to the disassembly marking:
+        \begin{itemize}
+          \item the return value (\texttt{0}) of \texttt{main},
+          \item the address of the strings \texttt{"Hello world argv[1]"} and
+                \texttt{"Aloha!"},
+          \item the registers that store \texttt{int argc} and
+                \texttt{char **argv}.
+        \end{itemize}
+        This process is typically called \emph{annotation}.
+  \item \texttt{objdump -d} often does not include strings in its listing, but
+        \texttt{objdump -D} and other tools will. Include the output lines
+        representing the strings, along with the options or actions used to obtain them.
   \item Why are the bytes of the string interpreted as machine language?
   \item Use an ASCII table to decode the bytes of the strings. C strings end
-        with a null byte (\texttt{0}), so you should include each and every
-        byte from the beginning to the null.
+        with a null byte (\texttt{0}), so include every byte from the
+        beginning of the string to the null terminator.
 \end{enumerate}
-
 \end{problem}
+
+\begin{solution}
+    \bbni 
+
+    \begin{enumerate}
+        \item The file format is \texttt{Mach -O 64-bit} and the architecture is \texttt{x86\_64}. 
+        \item  \begin{lstlisting}
+0000000100000470 <_main>:
+100000470: 55                          	pushq	%rbp
+100000471: 48 89 e5                    	movq	%rsp, %rbp
+100000474: 48 83 ec 10                 	subq	$0x10, %rsp
+100000478: c7 45 fc 00 00 00 00        	movl	$0x0, -0x4(%rbp)
+10000047f: 89 7d f8                    	movl	%edi, -0x8(%rbp)
+100000482: 48 89 75 f0                 	movq	%rsi, -0x10(%rbp)
+100000486: 83 7d f8 01                 	cmpl	$0x1, -0x8(%rbp)
+10000048a: 7e 18                       	jle	0x1000004a4 <_main+0x34>
+10000048c: 48 8b 45 f0                 	movq	-0x10(%rbp), %rax
+100000490: 48 8b 70 08                 	movq	0x8(%rax), %rsi
+100000494: 48 8d 3d 25 00 00 00        	leaq	0x25(%rip), %rdi        ## 0x1000004c0 <_printf+0x1000004c0>
+10000049b: b0 00                       	movb	$0x0, %al
+10000049d: e8 18 00 00 00              	callq	0x1000004ba <_printf+0x1000004ba>
+1000004a2: eb 0e                       	jmp	0x1000004b2 <_main+0x42>
+1000004a4: 48 8d 3d 26 00 00 00        	leaq	0x26(%rip), %rdi        ## 0x1000004d1 <_printf+0x1000004d1>
+1000004ab: b0 00                       	movb	$0x0, %al
+1000004ad: e8 08 00 00 00              	callq	0x1000004ba <_printf+0x1000004ba>
+1000004b2: 31 c0                       	xorl	%eax, %eax
+1000004b4: 48 83 c4 10                 	addq	$0x10, %rsp
+1000004b8: 5d                          	popq	%rbp
+1000004b9: c3                          	retq
+\end{lstlisting}
+
+\newpage
+
+    \item \begin{lstlisting}
+0000000100000470 <_main>:
+100000470: 55                          	pushq	%rbp
+100000471: 48 89 e5                    	movq	%rsp, %rbp
+100000474: 48 83 ec 10                 	subq	$0x10, %rsp
+100000478: c7 45 fc 00 00 00 00        	movl	$0x0, -0x4(%rbp)
+10000047f: 89 7d f8                    	movl	%edi, -0x8(%rbp) (*@ \\ \textcolor{red}{\#\#copies \texttt{argc} from \texttt{edi} to  \texttt{[rbp - 8]}}@*)
+100000482: 48 89 75 f0                 	movq	%rsi, -0x10(%rbp) (*@ \textcolor{red}{\#\#copies \texttt{argv} from \texttt{rsi} to \texttt{[rbp - 10]}}@*)
+100000486: 83 7d f8 01                 	cmpl	$0x1, -0x8(%rbp)
+10000048a: 7e 18                       	jle	0x1000004a4 <_main+0x34>
+10000048c: 48 8b 45 f0                 	movq	-0x10(%rbp), %rax
+100000490: 48 8b 70 08                 	movq	0x8(%rax), %rsi
+100000494: 48 8d 3d 25 00 00 00        	leaq	0x25(%rip), %rdi        ## 0x1000004c0 <_printf+0x1000004c0>
+(*@ \textcolor{red}{\#\#\texttt{`Hello world.'} is stored at \texttt{0x25(\%rip)}}@*)
+10000049b: b0 00                       	movb	$0x0, %al
+10000049d: e8 18 00 00 00              	callq	0x1000004ba <_printf+0x1000004ba>
+1000004a2: eb 0e                       	jmp	0x1000004b2 <_main+0x42>
+1000004a4: 48 8d 3d 26 00 00 00        	leaq	0x26(%rip), %rdi        ## 0x1000004d1 <_printf+0x1000004d1>
+(*@ \textcolor{red}{\#\#\texttt{`Aloha!'} is stored at \texttt{0x26(\%rip)}}@*)
+1000004ab: b0 00                       	movb	$0x0, %al
+1000004ad: e8 08 00 00 00              	callq	0x1000004ba <_printf+0x1000004ba>
+1000004b2: 31 c0                       	xorl	%eax, %eax
+(*@ \textcolor{red}{\#\#return value of main}@*)
+1000004b4: 48 83 c4 10                 	addq	$0x10, %rsp
+1000004b8: 5d                          	popq	%rbp
+1000004b9: c3                          	retq
+\end{lstlisting}
+
+        \item  Used \texttt{objdump -D} to get the entire disassembly including the snippet below. 
+\begin{lstlisting}
+Disassembly of section __TEXT,__cstring:
+
+00000001000004c0 <__cstring>:
+1000004c0: 48 65                       	gs
+1000004c2: 6c                          	insb	%dx, %es:(%rdi)
+1000004c3: 6c                          	insb	%dx, %es:(%rdi)
+1000004c4: 6f                          	outsl	(%rsi), %dx
+1000004c5: 20 77 6f                    	andb	%dh, 0x6f(%rdi)
+1000004c8: 72 6c                       	jb	0x100000536 <_printf+0x100000536>
+1000004ca: 64 2e 20 25 73 0a 00 41     	andb	%ah, %cs:0x41000a73(%rip)
+1000004d2: 6c                          	insb	%dx, %es:(%rdi)
+1000004d3: 6f                          	outsl	(%rsi), %dx
+1000004d4: 68 61 21 0a 00              	pushq	$0xa2161                ## imm = 0xA2161
+
+\end{lstlisting}
+
+        \item Using \texttt{-D} with \texttt{objdump} assumes that any symbols found in a code section are code, and disassembles them. 
+        \item 
+\begin{lstlisting}
+48 -> 'H'
+65 -> 'e'
+6c -> 'l' 
+6c -> 'l' 
+6f -> 'o' 
+20 -> ' ' (white space)
+77 -> 'w' 
+6f -> 'o' 
+72 -> 'r' 
+6c -> 'l' 
+64 -> 'd' 
+2e -> '.'
+20 -> ' ' (white space)
+25 -> '%' 
+73 -> 's'
+0a ->  LF (line feed)
+00 -> NUL
+41 -> 'A' 
+6c -> 'l' 
+6f -> 'o' 
+68 -> 'h'
+61 -> 'a' 
+21 -> '!' 
+0a -> LF (line feed)
+00 -> NUL
+\end{lstlisting}
+    \end{enumerate}
+\end{solution}
+
+\newpage
 
 \begin{problem}{2} Let’s try a program that’s a little more complicated, which we’ll call
 \texttt{second.c}.
-
 
 \begin{lstlisting}
 #include <stdio.h>
@@ -78,36 +195,31 @@ int main(int argc, char **argv) {
 }
 \end{lstlisting}
 
-\vspace{1em}
+Compile the program with both \texttt{cc -O3 -o second-fast second.c} and \texttt{cc -Os -o second-small second.c}. The \texttt{-O} flags tell the compiler to optimize the build, with \texttt{-O3} producing the fastest code and \texttt{-Os} producing the smallest code.
+\bbni
 
-\begin{enumerate}
-  \item Compile the program with both
-        \texttt{cc -O3 second-fast second.c} and
-        \texttt{cc -Os second-small second.c}.
-        The \texttt{-O} flags tell the compiler to optimize the build, with
-        \texttt{-O3} making the fastest code and \texttt{-Os} making the
-        smallest code.
-  \item Disassemble both of these files with \texttt{objdump -d}. What’s
-        different about their \texttt{main} functions? Which one is easier
-        to understand, and why?
-\end{enumerate}
+Disassemble both executables with \texttt{objdump -d}. What is different about their \texttt{main} functions? Which version is easier to understand, and why?
 
 \end{problem}
 
-\begin{problem}{3}
-Our first two programs included symbols, so we could easily tell where
-\texttt{main} was and what the variable names were. For this third program,
-we will strip the symbols to leave an executable more like those that are
-distributed commercially. Compile it with
-\texttt{cc -o third third.c} and do \texttt{objdump -d} before and after
-stripping the binary with \texttt{strip third}.
 
-\vspace{1em}
+\begin{solution}
+    \bbni 
+
+    Except for the obvious difference in the number of instructions, the \texttt{second-fast objdump} has no loops or calls to \texttt{square()} and is incredibily unreadable. Whereas \texttt{second-small objdump} is easier to understand because its structure matches the source code and one can identify the loop structure from the disassembly. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+Our first two programs included symbols, so it was easy to locate
+\texttt{main} and identify variable names. For this program, strip the
+symbols to create a more realistic executable.
+
+Compile with \texttt{cc -o third third.c}, then run \texttt{objdump -d}
+before and after stripping the binary with \texttt{strip third}.
 
 What are the differences between these two \texttt{objdump} outputs, and why?
-
-
-\newpage 
 
 \begin{lstlisting}
 #include <stdio.h>
@@ -130,36 +242,34 @@ int main(int argc, char **argv) {
 }
 \end{lstlisting}
 
-\vspace{1.5em}
+Instead of \texttt{objdump}, use GHIDRA for this assignment.
 
-Instead of \texttt{objdump}, we’ll use GHIDRA for this assignment, a free
-reverse engineering tool developed by the National Security Agency.
-
-\vspace{1em}
-
-After opening GHIDRA, create a New Project. After the file is imported,
-open it and click Yes to have GHIDRA auto-analyze the executable.
-
-\vspace{1em}
+After importing the binary and allowing GHIDRA to auto-analyze it, complete
+the following:
 
 \begin{enumerate}
   \item In the Symbols pane, practice navigating between functions.
-  \item Because the binary is stripped, GHIDRA does not know local function
-        or variable names, though it may identify standard library calls
-        such as \texttt{atoi()}.
-  \item Navigate to the function that calls \texttt{atoi()}. Rename it
+  \item Observe that after stripping, GHIDRA does not know local function or
+        variable names, though it may identify standard library functions such
+        as \texttt{atoi()}.
+  \item Navigate to the function that calls \texttt{atoi()}, rename it
         \texttt{main}.
-  \item Find and name the \texttt{guess()} function.
-  \item Rename the local variables in \texttt{guess()} to match the
-        original source code.
-  \item Comment each line of the assembly for \texttt{guess()} and paste
-        the commented disassembly into your report.
+  \item Locate and rename the \texttt{guess()} function.
+  \item Rename local variables in \texttt{guess()} to match the original
+        source code.
+  \item Using the decompiler view as a guide, comment each line of the
+        assembly code for \texttt{guess()} and paste the commented
+        disassembly into your report.
 \end{enumerate}
-
 \end{problem}
+
+\begin{solution}
+    \bbni 
+
+    
+\end{solution}
 
 \begin{problem}{4} For extra credit, repeat the third section using tools such as Binary Ninja,
 IDA Pro, Radare2, or Cutter.
-
 \end{problem}
 \end{document}
