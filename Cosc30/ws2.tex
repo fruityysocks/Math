@@ -20,20 +20,31 @@
     \bbni 
 
     \begin{enumerate}
-        \item [(a)] Proposition: $\forall \, cow \,c \,(\texttt{isWhite(c)} \, \textsc{or} \, \texttt{isBlack(c)})$ \\ 
-        Negation: $\exists \, cow \, c ((\textsc{not} \, \texttt{isWhite(c)}) \textsc{ and } (\textsc{not} \texttt{isBlack(c)}))$
+        \item [(a)] \textbf{Proposition:} $\forall \, cow \,c \,(\texttt{isWhite(c)} \, \textsc{or} \, \texttt{isBlack(c)})$ \\ 
+        \textbf{Negation:} $\exists \, cow \, c ((\textsc{not} \, \texttt{isWhite(c)}) \textsc{ and } (\textsc{not} \texttt{isBlack(c)}))$
         \item [(b)] Let $C$ be the set of cows, and let $P_1, P_2, \text{ and } Q$ be defined as follows: 
 
         $P_1 : \exists \, b \in C \, (\texttt{isBlack(b)})$ 
 
         $P_2 : \forall S \subsetneq C \textsc{ and } \forall c, x \in S (\texttt{isBlack(c)} \implies \texttt{isBlack(x)} \textsc{ or } \\(\texttt{isWhite(c)} \implies \texttt{isWhite(x)}))$
 
-        $Q : \forall a \in C (\texttt{isBlack(a)})$
+        $Q : \forall a \in C \, (\texttt{isBlack(a)})$
         
-        Proposition: 
+        \textbf{Proposition:} 
         $P_1 \textsc{ and } P_2 \implies Q $
 
-        Negation: $(\textsc{not } (P_1 \textsc{and} P_2)) \implies $
+        \textbf{Negation:} $\textsc{not } ((P_1 \textsc{and} P_2) \implies Q)$
+        \begin{align*}
+            &\textsc{not } ((P_1 \textsc{and} P_2) \implies Q) \\
+            \implies &\textsc{not } (\textsc{ not }(P_1 \textsc{and} P_2) \textsc{ or } Q) \\
+            \implies &(P_1 \textsc{and} P_2) \textsc{ and } (\textsc{not }Q) \\
+        \end{align*}
+
+        $\textsc{not } Q: \exists a \in C \, (\textsc{not }\texttt{isBlack(a)})$
+
+        So, negation of the statement would be:
+
+        If one of the cows in the group is black and every (strict) subset of cows has the same color, then there exists at least one cow that is not black.
     \end{enumerate}
 \end{solution}
 
@@ -53,13 +64,31 @@
     \begin{enumerate}
         \bbni 
 
-        \item [(a)] Proposition: $\exists \, cow \, c \,(\textsc{ not } \texttt{(isBlack(c))}) \implies \forall \, cow \, a  \, (\textsc{ not } (isBlack(a)))$
+        \item [(a)] \textbf{Proposition:} $\exists \, cow \, c \,(\textsc{ not } \texttt{(isBlack(c))}) \implies \forall \, cow \, a  \, (\textsc{ not } (isBlack(a)))$
         
-        Contrapositive: $\exists \, cow \, a (\texttt{isBlack(a)}) \implies \forall \, cow \, c (\texttt{isBlack(c)})$
+        \textbf{Contrapositive:} $\exists \, cow \, a (\texttt{isBlack(a)}) \implies \forall \, cow \, c (\texttt{isBlack(c)})$
 
-        \item [(b)] Proposition: (Same as Problem 1(b)) 
+        \item [(b)] \textbf{Proposition:} (Same as Problem 1(b)) 
         
-        Contrapositive: 
+        \textbf{Contrapositive:} 
+        \begin{align*}
+            &\textsc{not } Q \implies \textsc{not }(P_1 \textsc{ and } P_2) \\ 
+            \implies & \textsc{not } Q \implies \textsc{not } P_1 \textsc{ or }  \textsc{not } P_2 
+        \end{align*}
+        
+        $\textsc{not } P_1: \forall b \in C \, (\textsc{not }(\texttt{isBlack(b)}))$
+
+        $P_2 : \exists S \subsetneq C \textsc{ and } \exists c, x \in S (\texttt{isBlack(c)} \implies \textsc{not }(\texttt{isBlack(x)}) \textsc{ and } \\(\texttt{isWhite(c)} \implies \textsc{not }(\texttt{isWhite(x)})))$
+
+        Assuming all cows are either black or white, $P_2$ simplifies to
+        
+        $P_2 : \exists S \subsetneq C \textsc{ and } \exists c, x \in S (\texttt{isBlack(c)} \textsc{ and } 
+        \texttt{isWhite(x)})$
+
+        
+        So the contrapositive of the statement would be: 
+
+        If not all cows are black, then either no cow is black or there exists a (strict) subset of cows that don't have the same color. 
     \end{enumerate}
 \end{solution}
 
