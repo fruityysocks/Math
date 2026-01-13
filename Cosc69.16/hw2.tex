@@ -9,10 +9,11 @@
 \begin{document}
 
 \input{title}
-For this lab assignment, you will be compiling short C programs and then
-reverse engineering them to see what they look like inside. This assignment
-will be performed individually, first on the Unix command line and then in
-the GHIDRA reverse engineering framework.
+\textbf{Credit Statement:} Used perplexity.ai and stackoverflow to look up instructions I wasn't familiar with. 
+
+\bbni 
+
+For this lab assignment, you will be compiling short C programs and thenreverse engineering them to see what they look like inside. This assignmentwill be performed individually, first on the Unix command line and then inthe GHIDRA reverse engineering framework.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -255,18 +256,93 @@ the following:
   \item Navigate to the function that calls \texttt{atoi()}, rename it
         \texttt{main}.
   \item Locate and rename the \texttt{guess()} function.
-  \item Rename local variables in \texttt{guess()} to match the original
-        source code.
-  \item Using the decompiler view as a guide, comment each line of the
-        assembly code for \texttt{guess()} and paste the commented
-        disassembly into your report.
+  \item Rename local variables in \texttt{guess()} to match the original source code.
+  \item Using the decompiler view as a guide, comment each line of the assembly code for \texttt{guess()} and paste the commented disassembly into your report.
 \end{enumerate}
 \end{problem}
+
+\newpage
 
 \begin{solution}
     \bbni 
 
-    
+Function names change from, 
+
+\begin{lstlisting}
+(*@ \centering \vdots @*)
+10000047f: 75 10                       	jne	0x100000491 <_guess+0x21>
+(*@ \centering \vdots @*)
+1000004ca: 75 16                       	jne	0x1000004e2 <_main+0x32>
+(*@ \centering \vdots @*)
+\end{lstlisting}
+
+to 
+
+\begin{lstlisting}
+(*@ \centering \vdots @*)
+10000047f: 75 10                       	jne	0x100000491 <__text+0x21>
+(*@ \centering \vdots @*)
+1000004ca: 75 16                       	jne	0x1000004e2 <__text+0x72>
+(*@ \centering \vdots @*)
+\end{lstlisting}
+
+Instrestingly however, \texttt{printf} stays regardless. This happens because \texttt{strip} removes the symbol table, so all names and references are lost. \texttt{printf} however stays because it is stored in the procedural linkage table.   
+
+\textbf{GHIDRA}
+
+\begin{lstlisting}
+                              //
+                      // __text 
+                      // __TEXT
+                      // ram:100000470-ram:1000004f9
+                      //
+                      **************************************************************
+                      *                          FUNCTION                          *
+                      **************************************************************
+                      undefined guess()
+      undefined         <UNASSIGNED>   <RETURN>
+      undefined4        Stack[-0xc]:4  g                                       XREF[2]:     100000478(W), 
+                                                                                            10000047b(R)  
+                      guess                                           XREF[2]:     entry:1000004db(c), 1000020a8(*)  
+100000470 55              PUSH       RBP
+                      (*@ \textcolor{red}{pushes rbp to the top of the stack}@*)
+100000471 48 89 e5        MOV        RBP,RSP
+                      (*@ \textcolor{red}{copies the address of rsp into rbp}@*)
+100000474 48 83 ec 10     SUB        RSP,0x10
+                      (*@ \textcolor{red}{allocating 16 bytes for variable}@*)
+100000478 89 7d fc        MOV        dword ptr [RBP + g],EDI
+                      (*@ \textcolor{red}{g is stored in edi}@*)
+10000047b 83 7d fc 2a     CMP        dword ptr [RBP + g],0x2a
+                      (*@ \textcolor{red}{comparing g with 42}@*)
+10000047f 75 10           JNZ        LAB_100000491
+                      (*@ \textcolor{red}{begining else block}@*)
+100000481 48 8d 3d        LEA        RDI,[s_That's_right!_100000506]                  = "That's right!\n"
+          7e 00 00 00
+                      (*@ \textcolor{red}{storing 'That's right!' in rdi}@*)
+100000488 b0 00           MOV        AL,0x0
+                      (*@ \textcolor{red}{AL=0 (printf variadic arg count)}@*)
+10000048a e8 71 00        CALL       _printf                                          int _printf(char * param_1, ...)
+          00 00
+                      (*@ \textcolor{red}{calls printf with 'That's right!'}@*)
+10000048f eb 0e           JMP        LAB_10000049f
+                      (*@ \textcolor{red}{jumps to end}@*) 
+                      LAB_100000491                                   XREF[1]:     10000047f(j)  
+100000491 48 8d 3d        LEA        RDI,[s_Nope,_that's_the_wrong_number._100000515] = "Nope, that's the wrong number
+          7d 00 00 00
+                      (*@ \textcolor{red}{else block; stores 'Nope, that's the wrong number.' in rdi}@*)
+100000498 b0 00           MOV        AL,0x0
+                      AL=0 (printf variadic arg count)
+10000049a e8 61 00        CALL       _printf                                          int _printf(char * param_1, ...)
+          00 00
+                      (*@ \textcolor{red}{calls printf with 'Nope, that's the wrong number.'}@*)
+                      LAB_10000049f                                   XREF[1]:     10000048f(j)  
+10000049f 48 83 c4 10     ADD        RSP,0x10
+                      (*@ \textcolor{red}{deallocates the stack space}@*)
+1000004a3 5d              POP        RBP
+                      (*@ \textcolor{red}{pops the return address}@*)
+1000004a4 c3              RET
+                      (*@ \textcolor{red}{returns void}@*)
+    \end{lstlisting}
 \end{solution}
 
 \begin{problem}{4} For extra credit, repeat the third section using tools such as Binary Ninja,
