@@ -1,0 +1,118 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+For any integer $n$, prove that $n^3$ is even if and only if $n$ is even.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    ($\implies$) 
+
+    If $n^3$ is even, then by definition $n*n*n$ is even. Since,
+    \begin{align*}
+        even &* even = even \\ 
+        even &* odd = even \\ 
+        odd &* even = even \\ 
+        odd &* odd = odd
+    \end{align*} 
+    for a product to be even at least one of the terms must be even. Hence, $n$ must be even. 
+
+    ($\impliedby$)
+
+    We know that for any even integer $a$, $a * a$ is even. I.e. if $n$ is even, then $n*n$ is even. Again, since $n*n$ is even, and $n$ is even, $(n*n)*n$ must be even. Hence, if $n$ is even $n^3$ is even. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    $\sqrt[3]{4}$ is not a fraction; in other words, $\sqrt[3]{4}$ cannot be written as a ratio of two integers. 
+
+    \textbf{Hint: Does your proof remain unchanged if we replace $\sqrt[3]{4}$ with $\sqrt[3]{8}$? We are in trouble}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    We will prove that $\sqrt[3]{4}$ isn't rational by contradiction. 
+    
+    Let $\sqrt[3]{4} = \frac{a}{b}$, such that $a, b \in \Z, \, b\neq 0, \,gcd (a,b) = 1$. Then, 
+    \begin{align*}
+        \sqrt[3]{4} &= \frac{a}{b} \\ 
+        4 &= \left (\frac{a}{b} \right)^3 \\
+        2^2b^3 &= a^3 \\
+    \end{align*}
+    Hence, $a^3$ is divisible by $2$. From (Problem 1) we know that if $a^3$ is even, then $a$ must be even. I.e. $a$ must be divisible by 2. Substitute $a = 2k$. 
+    \begin{align*}
+        2^2b^3 &= (2k)^3 \\
+        2^2 b^3 &= 2^3 k^3 \\
+        b^3 &= 2 k^3 \\
+    \end{align*}
+    Similarly, $b^3$ is divisible by $2$. From (Problem 1) we know that if $b^3$ is even, then $b$ must be even. I.e. $b$ must be divisible by 2. But we defined $gcd(a,b) = 1$. Hence this is a contradiction! $\sqrt[3]{4}$ cannot be written as a ratio of two integers. 
+
+    \bbni 
+
+    Checking the proof with $\sqrt[3]{8}$. Let $\sqrt[3]{8} = \frac{a}{b}$, such that $a, b \in \Z, \, b\neq 0, \,gcd (a,b) = 1$. Then, 
+    \begin{align*}
+        \sqrt[3]{8} &= \frac{a}{b} \\ 
+        8 &= \left (\frac{a}{b} \right)^3 \\
+        2^3b^3 &= a^3 \\
+    \end{align*}
+    Hence, $a^3$ is divisible by $2 \implies a$ must be divisible by 2. Substitute $a = 2k$. 
+    \begin{align*}
+            2^3b^3 &= (2k)^3 \\
+            2^3 b^3 &= k^3 \\
+            b^3 &= k^3 \\
+    \end{align*}
+    We can't move ahead from here, and the proof breaks. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+    Given an array $A[1 \ldots n]$, a value $x$ is called \emph{abundant} if there are more than one-hundredth of the elements in array $A$ with value equal to $x$.
+
+    Prove that every array has at most $100$ distinct abundant values.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $a \in \Z$ be the number of distinct abundant values in the array. By definition, an abundant value occurs in the array more than $n/100$ times. 
+
+    Define an array $B[c_1, c_2, \cdots, c_k]$ to denote the number of times each abundant value appears in the array. Then we can say that, 
+    \[\sum_{i=1}^{k}c_i > k \cdot \frac{n}{100} \]
+    
+    But also since there are $n$ elements in the array, 
+    \[\sum_{i=1}^{k}c_i \leq n \]
+    \begin{align*}
+        &\implies k \cdot \frac{n}{100} \leq n \\
+        &\implies k  \leq 100
+    \end{align*}
+   
+    Therefore, there are at most $100$ distinct abundant values.
+\end{solution}
+
+\bbni 
+
+\begin{problem}{4*}
+    We call numbers like $\sqrt{2}$ which cannot be written as a fraction \emph{irrational}. Are there two irrational numbers $x$ and $y$ such that $x^y$ is rational? Why?
+\end{problem}
+
+\begin{solution}
+    \bbni   
+
+    Yes. 
+
+    We know that square roots of prime numbers are irrational. Let $x = \sqrt{5}$ and $y = \sqrt{2}$. Then, $x^y$ is either rational, in which case we are done, or $x^y$ is irrational. If $x^y$ is irrational, redefine $x = \sqrt{5}^{\sqrt{2}}, y = \sqrt{2}$. Then \[x^y =  (\sqrt{5}^{\sqrt{2}})^{\sqrt{2}} = \sqrt{5}^{\sqrt{2} * \sqrt{2}} = \sqrt{5}^2 = 5 = \frac{5}{1}\] which is rational.
+    However, I couldn't come up with a general proof for all irrational numbers.
+\end{solution}
+
+
+\end{document}
