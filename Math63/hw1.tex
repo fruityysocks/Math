@@ -225,25 +225,80 @@
     \bbni 
 
     Let $S = \left \{1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \cdots \right \} = \left \{\frac{1}{n}, n \in \N \right \}$. 
-    
-    The set $S \subset \R$ is nonempty, and bounded from above since $\forall \frac{1}{n}, \, \frac{1}{n+1} \, \in S, \frac{1}{n} > \frac{1}{n+1}$. Hence $y = l.u.b. \, S$ exists. From the inequality above, we can see that the larger $n$ is, the smaller the resulting fraction is. I.e. the largest value occurs at $n = 1$. Because the maximum element of the set is $1$, \textbf{the least upper bound is $1$}. 
+    We know that, $\forall \frac{1}{n}, \, \frac{1}{n+1} \, \in S$ 
+    \[\frac{1}{n} > \frac{1}{n+1}\] 
+    From the inequality above, we can see that the larger $n$ is, the smaller the resulting fraction is. I.e. the largest value occurs at $n = 1$. Hence, the set is bounded from above. Because the set $S \subset \R$ is nonempty, and bounded from above $y = l.u.b. \, S$ exists. As the maximum element of the set is $1$, \textbf{the least upper bound is $1$}.  
 
     \bbni 
     $\frac{1}{n} > 0, \forall n > 0$ (7th consequence of the order property). Hence, the set $S \subset \R$ is nonempty, and bounded from below by $0$. I.e. $y = g.l.b. \, S$ exists. To show that $0$ is the greatest lower bound, let $\epsilon > 0$, choose $n > \frac{1}{\epsilon}$. Then $\epsilon > \frac{1}{n}$ (L.U.B. 2). 
     \[\implies 0 < \frac{1}{n}< \epsilon \]
     Hence, no $\epsilon > 0$ can be a lower bound for the set $S$. Therefore, \textbf{the greatest lower bound is} $0$. 
-    \todo{}
 \end{solution}
 
 \newpage
 
 \begin{problem}{8}
-    Prove that if $a \in  \R, a > 1$, then the set $\{a, a^2, a^3, ...\}$ is not bounded from above. (Hint: First find a positive integer $n$ such that $a > 1 + \frac{1}{n}$ and prove that $a^n > \left (  1+ \frac{1}{n} \right)^n \geq 2 $). 
+    Prove that if $a \in  \R, a > 1$, then the set $\{a, a^2, a^3, ...\}$ is not bounded from above. (\textbf{Hint:} First find a positive integer $n$ such that $a > 1 + \frac{1}{n}$ and prove that $a^n > \left (  1+ \frac{1}{n} \right)^n \geq 2 $). 
 \end{problem}
 
 \begin{solution}
     \bbni 
 
+    We will prove this in two parts, 
+    \begin{enumerate}
+        \item $a^n > \left (  1 + \frac{1}{n}\right )^n$
+        
+        From (L.U.B. 1) we know that $\exists n \in \N$ such that $n > x$ for any given $x \in \R$. Also, 
+        \[a > 1 \implies a - 1 > 0\]
+        Then, we can say that, for some $n \in \N$, 
+        \[n(a - 1) > 1\]
+        Rearranging the inequality gives us, 
+        \begin{align*}
+            &n(a - 1) > 1 \\ 
+            &a - 1 > \frac{1}{n} \\ 
+            &a > 1 + \frac{1}{n}
+        \end{align*}
+
+        Since both $a$ and $1 + \frac{1}{n}$ are positive numbers, $a > 1 + \frac{1}{n}$, and $n \in \N$, we know, 
+        \[a^n > \left (1 + \frac{1}{n} \right )^n\] 
+
+        \item $\left (  1 + \frac{1}{n}\right )^n \geq 2$
+        
+        $\left (  1 + \frac{1}{n}\right )^n = \underbrace{\left (  1 + \frac{1}{n}\right )\left (  1 + \frac{1}{n}\right ) \cdots \left (  1 + \frac{1}{n}\right )}_{n-times}$
+
+        We only need to partially expand this to prove the inequality. First we multiply the first term ($1$) in all of the factors. 
+
+        \[\underbrace{1 \cdot 1 \cdot \cdots \cdot 1}_{n-times} = 1^n = 1\]
+        
+        Then, we multiply $\frac{1}{n}$ from the first factor and multiply it with $1$ from all of the other factors. 
+        \[\frac{1}{n}\underbrace{\, 1 \cdot 1 \cdot \cdots \cdot 1 \, }_{(n-1)-times} = \frac{1}{n}\] 
+        
+        Then, we multiply $\frac{1}{n}$ from the second factor and multiply it with $1$ from all of the other factors. 
+
+        \[1 \cdot \frac{1}{n} \cdot \underbrace{1 \cdot 1 \cdot \cdots \cdot 1}_{(n-2)-times} = \frac{1}{n}\]
+
+        \[\vdots\]
+
+        We do this for a total of $n$ times. As a result of the partial expansion we have: 
+        \begin{align*}
+            \left (  1 + \frac{1}{n}\right )^n &= 1 + \left(\frac{1}{n} + \cdots + \frac{1}{n}\right) + x \\ 
+            &= 1 + \frac{n}{n} + x \\ 
+            &= 1 + 1 + x \\ 
+            &= 2 + x
+        \end{align*}
+        where $x$ is the difference between $\left (  1 + \frac{1}{n}\right )^n$ and $2$. Also, $x \geq 0$ because $1, \frac{1}{n} > 0$ and summation and product of positive numbers is a positive number. Hence, $\left (  1 + \frac{1}{n}\right )^n \geq 2$.
+    \end{enumerate}
+    
+    Now, we have the inequality, \[a^n > \left (  1+ \frac{1}{n} \right)^n \geq 2 \]
+
+    Let $k \in \N$, then 
+    \[a^{nk} = (a^n)^k \geq 2^k \]
+    
+    Now, to prove that $\{2^k\}$ is unbounded by contradiction. 
+
+    Assume there exists an least upper bound $y$ of $2^k$. 
+    
+    By definition, $\forall k, y > 2^k$. By $(L.U.B. 1)$ $\exists m > y$, and $2^m > m \implies 2^m > m > y$. Hence contradicting our assumption! Hence, no upper limits exist. Therefore, by our inequality, the set $\{a^n, n \in \N \}$ is also not bounded from above. 
 
 \end{solution}
 
@@ -270,7 +325,7 @@
 
      Adding the two inequalities gives, 
      \[ l_1 + l_2 -  \epsilon < x_0 + y_0 \leq l_1 + l_2\]
-     Hence,$ l_1 + l_2$ is the least upper bound for the set $S$. 
+     Hence, $ l_1 + l_2$ is the least upper bound for the set $S$. 
 \end{solution}
 
 \end{document}
