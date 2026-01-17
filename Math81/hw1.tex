@@ -114,6 +114,8 @@
 \end{solution}
 
 
+
+
 \begin{problem}{4}
     \textit{Irreducible polynomials over finite fields.}
     Let $\F_3$ be the field with three elements.
@@ -131,9 +133,70 @@
     \bbni 
 
     \begin{enumerate}
-        \item 
+        \item \begin{enumerate}
+            \item Linear Irreducible Polynomials
+            
+            By definition all monic linear polynomials are irreducible. 
+            \begin{align*}
+                x  &= 0 \\ 
+                x + 1 &= 0 \\ 
+                x + 2 &= 0 \\ 
+            \end{align*}
+            \item Quadratic Irreducible Polynomials
+            
+            All quadratic polynomials are of the form $x^2 + ax + b = 0 $, where $a,b \in \F_3$. There are 9 such polynomials. By Propopsition 10, we know that polynomials of degree two over a field is reducible if and only if it has a root in the field.         
+
+            Upon checking, we are left with: 
+            \begin{align*}
+                x^2 + 1 &= 0 \\
+                x^2 + 1x + 2 &= 0 \\
+                x^2 + 2x + 2 &= 0 \\
+            \end{align*}
+
+            \item Cubic Irreducible Polynomials
+            All cubic polynomials are of the form $x^3+ ax^2 + bx + c = 0 $, where $a,b,c \in \F_3$. There are 27 such polynomials. By Propopsition 10, we know that polynomials of degree three over a field is reducible if and only if it has a root in the field.            
+
+            Upon checking, we are left with: 
+            \begin{align*}
+                x^3 + 2x + 1 &= 0 \\
+                x^3 + 2x + 2 &= 0 \\
+                x^3 + 1x^2  + 2 &= 0 \\
+                x^3 + 1x^2 + 2x + 1 &= 0 \\
+                x^3 + 1x^2 + 1x + 2 &= 0 \\
+                x^3 + 2x^2  + 1 &= 0 \\
+                x^3 + 2x^2 + 1x + 1 &= 0 \\
+                x^3 + 2x^2 + 2x + 2 &= 0 \\
+            \end{align*}
+        \end{enumerate}
+
+        \item Quartic Irreducible Polynomials
+        
+        All cubic polynomials are of the form $x^4+ ax^3 + bx^2 + cx + d = 0 $, where $a,b,c, d \in \F_3$. There are 81 such polynomials. To the irreducibles we first count the reducibles. The reducibles can be classified by the degrees of their factors that is partitions of $4$. 
+        \begin{itemize}
+            \item 3 + 1 
+            
+            There are 8 irreducible cubics and 3 irreducible linear polynomials, the number of quartics factored as such are: 
+            $8 \cdot 3 = 24$. 
+            \item 2 + 2 
+            
+            There are 3 irreducible quadratics, the number of quartics factored as such are: $3! = 6$ 
+
+            \item 2 + 1 + 1 
+            
+            There are 3 irreducible quadratics, and 3 irreducible linear polynomials, the number of quartics factored as such are: $3 \cdot (3!) = 18$.  
+
+            \item 1 + 1 + 1 + 1
+            
+            There are $3$ irreducible linear polynomials and $4$ places to fill, so by stars and bars the number of quartics that can be factored as such are: $\begin{pmatrix}
+                6 \\ 2
+            \end{pmatrix} = 15$. 
+        \end{itemize}
+
+        Then the number of irreducible quartics is \[81 - 24 - 6 - 18- 15 = 18.\]
     \end{enumerate}
 \end{solution}
+
+\newpage
 
 \begin{problem}{5(a)}\textit{ Symmetric polynomials.} Let $R$ be a commutative ring with 1 and $R[x_1,\dotsc,x_n]$ the ring
 of polynomials in the variables $x_1,\dotsc,x_n$ with coefficients in
@@ -154,6 +217,26 @@ the \textbf{ring of symmetric polynomials}.
 
 \end{problem}
 
+\begin{solution}
+    \bbni 
+
+    To prove that $S$ is a subring with $1$: 
+    \begin{enumerate}
+        \item Contains 1
+
+        Since $1$ is a constant polynomial and $S_n$ is acting on the set of variables $\{x_1,\dotsc,x_n\}$, 
+        \[\sigma(1) = 1\]
+        Hence, $1 \in S$. 
+
+        \item Closed under multiplication
+        
+        $\forall f, g \in S$ by definition, $\sigma(f) = f, \sigma(g)=g$ and again by definition, 
+        \[\sigma(fg) = \sigma(f) \cdot \sigma(g) = f\cdot g\]
+        Hence, $f\cdot g \in S$. Since $f, g$ were arbitrary polynomials this holds for any elements in $S$ and $S$ is closed under multiplication.
+    \end{enumerate}
+\end{solution}
+
+\newpage
 
 \begin{problem}{5(b)} For each $n \geq 0$, define polynomials $e_i \in
 R[x_1,\dotsc,x_n]$ by  $e_0=1$ and
@@ -171,20 +254,109 @@ is a symmetric polynomial.  These are called the \textbf{elementary
 symmetric polynomials}.
 \end{problem}
 
-\begin{problem}{5(c)} The \textbf{generic polynomial} of degree $n$ is the polynomial
-$$
-f(x) = (x-x_1)(x-x_2)\dotsm (x-x_n)
-$$
-in the ring $R[x_1,\dotsc,x_n][x]$ of polynomials in $x$ with
-coefficients in $R[x_1,\dotsc,x_n]$.  Prove (by induction) that
+\begin{solution}
+    \bbni 
 
-\begin{align*}
-    f(x) &= (x-x_1)(x-x_2)\dotsm (x-x_n)=x^n - e_1 x^{n-1} + e_2 x^{n-2} + \dotsm
-+ (-1)^ne_n  \\
-&= \sum_{j=0}^n (-1)^{n-j} e_{n-j} x^j.
-\end{align*}
+    For a given $k$, $1 \leq k \leq n$, 
+    \[e_k = \sum_{1 \leq i_1 <  i_2 < \cdots < i_k \leq n}x_{i_1} x_{i_2}\cdots x_{i_k}\]
+    
+    Let $A$ be the set of all terms in $e_k$.
+    \[A = \{x_{i_1} x_{i_2}\cdots x_{i_k} \mid 1 \leq i_1 <  i_2 < \cdots < i_k \leq n \} \]
+
+    Since $\sigma$ as a n-cycle is a bijection on $\{i_1, i_2, \cdots, i_n\}$,  $\forall a \in A, \, \sigma(a)$ is also a product of $k$ distinct variables. And by definition of $A$ all distinct multiples of subsets of $k$ distinct variables, $\sigma(a) \in A$. Hence, $\sigma: A \to A$. 
+    
+    Also, for any $a \in A$ we can find $b \in A$ such that $\sigma^{-1}(b) = a$. Hence $\sigma$ is surjective. A surjective mapping from $A$ to $A$ is bijective. 
+
+    Hence, $\sigma(e_k)$ only permutes the terms of $e_k$. 
+    \[\sigma(e_k) = \sum_{a\in A} \sigma(a) = \sum_{a\in A} a = e_k \]
+    $e_k$ is invariant under the action of $\sigma$, and hence is a symmetric polynomial. 
+
+\end{solution}
+
+\newpage
+
+
+\begin{problem}{5(c)} 
+    The \textbf{generic polynomial} of degree $n$ is the polynomial
+    $$
+    f(x) = (x-x_1)(x-x_2)\dotsm (x-x_n)
+    $$
+    in the ring $R[x_1,\dotsc,x_n][x]$ of polynomials in $x$ with
+    coefficients in $R[x_1,\dotsc,x_n]$.  Prove (by induction) that
+
+    \begin{align*}
+        f(x) &= (x-x_1)(x-x_2)\dotsm (x-x_n)=x^n - e_1 x^{n-1} + e_2 x^{n-2} + \dotsm
+    + (-1)^ne_n  \\
+    &= \sum_{j=0}^n (-1)^{n-j} e_{n-j} x^j.
+    \end{align*}
 
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    \textbf{Base case:} $n = 1, R[x_1][x]$ 
+
+    Then, by definition, 
+    \[f(x) = x - x_1\]
+    
+    In $R[x_1][x], \, e_1$ is the sum of all distinct products of subsets of 1 distinct variables. I.e. $e_1 = x_1$. Upon substitution. 
+    \begin{align*}
+        f(x) &= x- x_1 \\ 
+        &= x - e_1 \\ 
+        &= x + (-1)^1 e_1 \\ 
+        &= (-1)^0e_{0}x + (-1)^1 e_1x^0 \\ 
+        &= (-1)^1 e_1x^0 + (-1)^0e_{0}x\\ 
+        &= \sum_{j=0}^{1}(-1)^{1-j}e_{1-j}x^j \\ 
+    \end{align*}
+
+    Hence, base case holds. 
+
+    \textbf{Notation:} $e_{a,k}$, where $a$ refers to the elementary symmetric polynomials in $R[x_1, \cdots, x_{a}][x]$, or in a ring with $a$ adjoined variables, and $k$ refers to the number of variables in the subset. For example, in $R[x_1 \cdots x_n][x]$, the elementary symmetric polynomial with $j$ elements in the subset as $e_{n,j}$. 
+
+
+    \textbf{Inductive Hypothesis:} Assume the $n-1$ the case holds. I.e. in $R[x_1, \cdots x_{n-1}][x]$, 
+    \begin{align*}
+        f(x) &= (x-x_1)(x-x_2)\dotsm (x-x_{n-1})=x^{n-1} - e_1 x^{n-2} + e_2 x^{n-3} + \dotsm + (-1)^{n-1}e_{n-1}  \\
+        &= \sum_{j=0}^{n-1} (-1)^{n-1-j} e_{(n-1), (n-1-j)} x^j
+    \end{align*}
+
+    \textbf{Inductive Step:} $n=n, R[x_1, \cdots, x_n][x]$ 
+
+    Then, by definition, 
+    \[f'(x) = (x-x_1)(x-x_2) \cdots (x-x_n)\]
+
+    Upon substitution, 
+    \begin{align*}
+        f'(x) &= (x-x_1)(x-x_2)\cdots (x-x_n) \\
+        f'(x) &= f(x)(x-x_n) \qquad \text{ where $f(x)$ is from IH}\\ 
+        &= \left (\sum_{j=0}^{n-1} (-1)^{n-1-j} e_{(n-1), (n-1-j)} x^j \right )(x-x_n) \\ 
+        &= x \left (\sum_{j=0}^{n-1} (-1)^{n-1-j} e_{(n-1), (n-1-j)} x^j \right )- x_n \left (\sum_{j=0}^{n-1} (-1)^{n-1-j} e_{(n-1), (n-1-j)} x^j \right ) \\ 
+        \text{(Reindexing j)}\\
+        &= \left (x^n + \sum_{j=0}^{n-1} (-1)^{n-j} e_{(n-1), (n-j)} x^{j} \right )-  \left (\sum_{j=0}^{n-1} (-1)^{n-1-j} x_n e_{(n-1), (n-1-j)} x^j \right ) \\ 
+        &=  x^n + \sum_{j=0}^{n-1}  x^j \left ((-1)^{n-j} e_{(n-1), (n-j)} + (-1)^{n-j} x_n e_{(n-1), (n-1-j)}\right ) \\
+        &= \left ( x^n +  \sum_{j=0}^{n-1}x^j (-1)^{n-j} 
+        \left (
+        e_{(n-1), (n-j)} +  x_n e_{(n-1), (n-1-j)}
+        \right )
+        \right )
+    \end{align*}
+
+    $x_n e_{(n-1), (n-1-j)}$ represents all the elements in $e_{n, (n-1-j)}$ that contain $x_n$ as $e_{(n-1), (n-1-j)}$ contains all combinations of terms from $x_1, \cdots, x_{n-1}$. And $e_{(n-1), (n-1-j)}$ all elements in $e_{n, (n-1-j)}$ that don't. So, their sum equals $e_{(n), (n-j)}$. Overall this gives, 
+    \begin{align*}
+        f'(x) 
+        &= \left ( x^n +  \sum_{j=0}^{n-1}x^j (-1)^{n-j} 
+        e_{(n), (n-j)} 
+        \right )  \\
+        &= \left ( \sum_{j=0}^{n}x^j (-1)^{n-j} 
+        e_{(n), (n-j)} 
+        \right ) 
+    \end{align*}
+    where the last equation follows as $(-1)^{n-n} e_{(n),{n-n}} = 1$. 
+\end{solution}
+
+
+\newpage
 
 \begin{problem}{5(d)} For each $k \geq 1$, define the \textbf{power sums} $p_k =
 x_1^k + \dotsm + x_n^k$ in $R[x_1,\dotsc,x_n]$.  Clearly, the power
@@ -206,6 +378,69 @@ $k=n$.  Set extra variables to zero to get the identities for $k > n$
 from this.  (Fun. Can you come up with a proof when $1 \leq k \leq n$?)
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $p_1 = e_1$
+        
+       \[p_1 = x^1_1 + \cdots x^1_n = e_1 \]
+
+        \item $p_2 = e_1p_1 -2e_2$ 
+        
+        \begin{align*}
+            e_1p_1 -2e_2 &= e_1^2 - 2e_2 \\ 
+            &=  (x_1 + \cdots + x_n)^2 - 2 \left (\sum_{1\leq i < j \leq n}x_ix_j \right ) \\ 
+            &= \left (x_1^2 + \cdots + x_n^2 + 2 \left (\sum_{1\leq i < j \leq n}x_ix_j \right ) \right ) - \left (\sum_{1\leq i < j \leq n}x_ix_j \right ) \\ 
+            &= x_1^2 + \cdots + x_n^2 \\ 
+            &= p_2
+        \end{align*}
+
+        \item $p_3 = e_1p_2 - e_2p_1 + 3e_3$ 
+        
+        \begin{align*}
+            e_1p_2 &= \sum_{1 \leq i, j \leq n} x_ix_j^2  \\
+            &=  \sum_{1 \leq i, j \leq n, i = j} x_i^3  + \sum_{1 \leq i < j \leq n} x_ix_j^2 + \sum_{1 \leq j < i \leq n} x_ix_j^2 \\ 
+            &=  \sum_{1 \leq i, j \leq n, i = j} x_i^3  + \sum_{1 \leq i < j \leq n} x_ix_j^2 + \sum_{1 \leq i < j \leq n} x_i^2x_j \\ 
+            e_2p_1 &= \sum_{\substack{1 \leq i < j\leq n \\ 1 \leq k \leq n}} x_ix_jx_k \\
+            &\text{(Using cases: $j<i<k, \, i < k < j, \, i < k < j, \, k = i, \, k = j$) } \\
+            &= \sum_{1 \leq k < i < j \leq n} x_ix_jx_k + \sum_{1 \leq i < k < j \leq n} x_ix_jx_k + \sum_{1 \leq  i < j < k \leq n} x_ix_jx_k + \sum_{1 \leq i < j \leq n} x_i^2x_j + \sum_{1 \leq  i < j \leq n} x_ix_j^2\\
+            &\text{(After re-indexing, we get:) } \\
+            &= 3\sum_{1 \leq  i < j < k \leq n} x_ix_jx_k + \sum_{1 \leq i < j \leq n} x_i^2x_j + \sum_{1 \leq  i < j \leq n} x_ix_j^2\\
+            e_3 &= \sum_{1 \leq i < j < k \leq n}x_ix_jx_k \\ 
+        \end{align*}
+
+        Substituting values in, 
+        \begin{align*}
+            e_1p_2 - e_2p_1 + 3e_2 &=  \sum_{1 \leq i, j \leq n, i = j} x_i^3  + \sum_{1 \leq i < j \leq n} x_ix_j^2 + \sum_{1 \leq i < j \leq n} x_i^2x_j \\ 
+            &- \left ( 3\sum_{1 \leq  i < j < k \leq n} x_ix_jx_k + \sum_{1 \leq i < j \leq n} x_i^2x_j + \sum_{1 \leq  i < j \leq n} x_ix_j^2 \right ) + 3 \sum_{1 \leq i < j < k \leq n}x_ix_jx_k  \\ 
+            &= \sum_{1 \leq i, j \leq n, i = j} x_i^3  \\ 
+            & = p_3
+        \end{align*}
+
+        \item Newton's identities for $k \geq n$. 
+        
+        Let $f = (x-x_1)\cdots(x-x_n)$. For each $x_i$, $(x - x_i)$ is a factor of $f$. Thus, $f(x_i) =0$ for all $i$. Summing these from $1$ to $n$ and using part (c) we get, 
+        \begin{align*}
+            0 &= \sum_{i =1}^n f(x_i) \\  
+            &=\sum_{i = 1}^{n}\left (\sum_{j=0}^n (-1)^{n-j} e_{n-j} x^j \right ) \\
+            &= \sum_{i = 1}^{n} \left( x_i^n - e_1x^{n-1}_i + e_2x^{n-1} + \cdots + e_{n-1}x (-1)^ne_n \right) \\ 
+            &= \sum_{i = 1}^{n} x_i^n -  \sum_{i = 1}^{n} e_1x^{n-1}_i + \sum_{i = 1}^{n} e_2 x^{n-2}_i + \cdots + (-1)^{n-1}\sum_{i=1}^n e_{n-1} x_i  + (-1)^ne_n \\ 
+            &= \sum_{i = 1}^{n} x_i^n -  e_1 \sum_{i = 1}^{n} x^{n-1}_i + e_2 \sum_{i = 1}^{n} x^{n-2}_i + \cdots + (-1)^{n-1} e_{n-1} \sum_{i=1}^n x_i + (-1)^ne_n \\ 
+            &= p_n -  e_1 p_{n-1} + e_2 p_{n-2} + \cdots + (-1)^{n-1} e_{n-1}p_{1} +  (-1)^ne_n \\ 
+        \end{align*}
+        
+
+        Consider the ring $R[x_1, \cdots, x_n, \cdots x_k]$. Here the equation, 
+            \[p_k -  e_1 p_{k-1} + e_2 p_{k-2} + \cdots + (-1)^{k-n}e_np_{k-n}+ \cdots + (-1)^{k-1} e_{k-1}p_{1} +  (-1)^ke_k = 0\]
+        holds. Since, $\forall i > n, e_{i} =0$, 
+        
+        \[p_k -  e_1 p_{k-1} + e_2 p_{k-2} + \cdots + (-1)^{k-n}e_np_{k-n}= 0\]
+
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
 
 \begin{problem}{6}\textit{Use the force, my Newton!}
 \begin{enumerate}\renewcommand{\itemsep}{3mm}
@@ -223,6 +458,59 @@ $n$.
 \end{problem}
 
 
-\vfill
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item  Base Case: for $n = 1, 2, 3$ we know that $x^n + y^n + z^n$ is rational. 
+        
+        Induction Hypothesis: Assume $x^k + y^k + z^k$ is rational, $\forall k <n$. 
+        
+        Inductive Step: For $n$, as $n > 3$, the following holds (from 5(d)), also $e_i = 0, \forall i >3$:  
+
+        \[p_n -  e_1 p_{n-1} + e_2 p_{n-2}  - e_3p_{n-3} = 0\]
+        
+        And, 
+        \[p_n =  e_1 p_{n-1} - e_2 p_{n-2}  + e_3p_{n-3}\]
+
+
+        In $R[x, y, z]$, $p_n := x^n + y^n + z^n$. 
+        
+        Note: $e_1 = p_1, e_2 = (e_1p_1 - p_2)/2, e_3 = (p_3 - e_1p_2 + e_2p_1)/3, e_4 = 0$ as $4 > 3$. 
+
+        So, $e_1 = 1, e_2 = -5/2, e_3 = -1/2, e_4 = 0$, which are all rational. And since, $p_{n-1}, p_{n-2}, p_{n-3}$ are also rational (by IH) we have a sum of products of rationals, which is rational as $\Q$ is a field.  
+
+        \item In $R[x, y, z]$, $p_n := x^n + y^n + z^n$
+        \begin{align*}
+            0  &= p_4 -  e_1 p_{3} + e_2 p_{2} + (-1)^{3} e_{3}p_{1} + (-1)^4e_4 \\ 
+            &= p_4 -  e_1(7) + e_2 (6) - e_{3}(1) + e_4 \\ 
+            p_4 &= e_17 - e_2 (6) + e_{3}(1) - e_4 
+        \end{align*}
+
+        Note: $e_1 = p_1, e_2 = (e_1p_1 - p_2)/2, e_3 = (p_3 - e_1p_2 + e_2p_1)/3, e_4 = 0$ as $4 > 3$. 
+
+        So, we get $e_1 = 1, e_2 = -5/2, e_3 = -1/2, e_4 = 0$. 
+
+        Substituting the values: 
+        \begin{align*}
+            p_4 &= 7 - (-5/2)(6) + (-1/2) - 0 \\ 
+            &= 7 + 15 - 1/2 \\ 
+            &= 21.5 = 43/2
+        \end{align*}
+
+        \item Let $f(a) = (a - x)(a-y)(a-z)$ in $\Q[n]$. 
+        \begin{align*}
+            f(a) &= a^3 - a^2 (x+y+z) + a (xy+yz +zx) - xyz \\
+            &= a^3 - a^2(e_1) + a (e_2) - e_3 \\
+            &= a^3 - a^2 -(5/2)a + 1/2
+        \end{align*}
+        If $2f(a)$ has a root, then $f(a)$ also has the same root. Rationalizing denominators, 
+        \[2f(a)  = 2a^3 - 5a +1\]
+        By rational root test, any root of $2f(a)$, say $\left(\frac{p}{q}\right)$ must be such that $p | 2$ and $q|1$. Since two is prime, there is only one root we need to check, namely $\left(\frac{p}{q}\right) = 2$. Checking, 
+        \[2f(2)  = 2(2)^3 - 5(2) +1 = 16 - 10 + 1 = 7 \neq 0\]
+        Hence, $2$ is not a root, $f(a)$ doesn't have any rational roots and $x, y, z$ must be irrational. 
+    \end{enumerate}
+\end{solution}
+
 
 \end{document}
