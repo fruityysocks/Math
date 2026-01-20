@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 \include{../style}
+\usepackage{euler}
 
 \begin{document}
 
@@ -11,20 +12,195 @@
     \begin{enumerate}
         \item all n-tuples of real numbers, with 
         \[d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) = \sum_{i=1}^{n}|x_i - y_i|\]
-        \item all bounded infinite sequences $x = (x_1, x_2, x_3, \cdots)$ of elements of $\R$ with $d(x,y) = l.u.b. \, \{|x_1 - y_1|, |x_2 - y_2|, |x_3 - y_3|, \cdots \}$
+        \item all bounded infinite sequences $x = (x_1, x_2, x_3, \cdots)$ of elements of $\R$ with \[d(x,y) = l.u.b. \, \{|x_1 - y_1|, |x_2 - y_2|, |x_3 - y_3|, \cdots \}\]
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $E = \{\text{all n-tuples of real numbers}\}$, with the distance between two points $x$ and $y$ $d(x, y) = d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) = \sum_{i=1}^{n}|x_i - y_i|$. To see if $(E,d)$ defines a metric space, we check the following: 
+        \begin{enumerate}
+            \item $d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) \geq 0$
+            
+            Since, $d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) = \sum_{i=1}^{n}|x_i - y_i|$, and each term $|x_i - y_i| \geq 0$, the sum of these terms is also non-negative. Hence, we can say that $\forall x, y \in E$,
+             $d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) \geq 0$. 
+
+            \item $d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) = 0 \iff  (x_1, \cdots, x_n) = (y_1, \cdots, y_n)$ 
+            
+            $(\implies)$
+
+            Assume $d((x_1, \cdots, x_n)(y_1, \cdots, y_n)) = 0$. Since every term $|x_i - y_i|$ is non-negative, the sum being zero implies that every term is also zero. I.e. $|x_i - y_i| = 0 \implies x_i = y_i$, for all  $x_i, y_i$. Hence, $(x_1, \cdots, x_n) = (y_1, \cdots, y_n)$. 
+
+            \bbni
+            
+            $(\impliedby)$ 
+
+            Assume $(x_1, \cdots, x_n) = (y_1, \cdots, y_n)$. Then,
+             
+            $d((x_1, \cdots, x_n), (y_1, \cdots, y_n)) = \sum_{i=1}^n |x_i - y_i| = \sum_{i=1}^n |x_i - x_i| = \sum_{i=1}^n 0 = 0$
+
+            \item  $d(x,y) = d(y,x), \, \forall x, y \in E$ 
+            
+            For every term $|x_i - y_i|$ in the summation, we know that by definition, $|x_i - y_i| = |y_i - x_i|$. Hence, $d((x_1, \cdots, x_n)(y_1, \cdots, y_n))  = d((y_1, \cdots, y_n), (x_1, \cdots, x_n))$ or $d(x,y) = d(y,x)$. 
+
+            \item Triangle Inequality: $d(x,z) \leq d(x,y) + d(y,z)$
+            
+            \begin{align*}
+                d(x,y) + d(y,z) &= d((x_1, \cdots, x_n), (y_1, \cdots, y_n)) + d((y_1, \cdots, y_n), (z_1, \cdots, z_n)) \\ 
+                &= \sum_{i=1}^n |x_i - y_i| + \sum_{i=1}^n |y_i - z_i| \\ 
+                &= \sum_{i=1}^{n} |x_i - y_i| + |y_i - z_i| \\ 
+        \text{ We know that, } \\ 
+                & |x_i - y_i| + |y_i - z_i| \geq  | x_i - y_i + y_i - z_i | \\ 
+                \implies &|x_i - y_i| + |y_i - z_i| \geq |x_i - z_i|\\ 
+            \end{align*}
+            I.e., 
+            \begin{align*}
+                    \sum_{i=1}^{n} |x_i - y_i| + |y_i - z_i| &\geq \sum_{i=1}^{n} |x_i - z_i| \\ 
+                    d((x_1, \cdots, x_n), (y_1, \cdots, y_n)) + d((y_1, \cdots, y_n), (z_1, \cdots, z_n)) &\geq d((x_1, \cdots, x_n), (z_1, \cdots, z_n)) \\ 
+                    d(x,y) + d(y,z) &\geq d(x,z)
+            \end{align*}
+        \end{enumerate}
+        Hence, $(E,d)$ defines a metric space. 
+
+        \item Let $E = \{\text{all bounded infinite sequences of real numbers}\}$ with the distance function $d$ defined as $d(x,y) = l.u.b. \, \{|x_1 - y_1|, |x_2 - y_2|, \cdots\} = \{|x_i - y_i\}_{i \in \N}$. To see if $(E,d)$ defines a metric space, we check the following: 
+        \begin{enumerate}
+            \item $d(x,y) \geq 0$ 
+            
+            \[d(x,y) = l.u.b. \, \{|x_i - y_i|\}_{i \in \N}\]
+            
+            with each element in the set $|x_i - y_i| \geq 0, \, \forall i \in \N$ and  $l.u.b. \{|x_i - y_i|\}_{i \in \N} \geq |x_j - y_j|$ for any $j \in \N$. On combining the inequalities we get, 
+            \begin{align*}
+                l.u.b. \{|x_i - y_i|\}_{i \in \N} &\geq |x_j - y_j| 
+                \geq 0 \\ 
+                l.u.b. \{|x_i - y_i|\}_{i \in \N} &\geq 0 
+            \end{align*}
+
+            \item $d(x,y) = 0 \iff x = y$
+            
+            $(\implies)$
+
+            Assume $d(x,y) = 0$. Then $l.u.b. \{|x_i - y_i|\}_{i \in \N} = 0 \implies |x_i - y_i| \leq 0, \, \forall {i \in \N}$. But by definition, the absolute value is positive, i.e. $|x_i - y_i| \geq 0, \, \forall {i \in \N}$. On combining the inequalities, we get: 
+            $|x_i - y_i| = 0, \, \forall {i \in \N}$.
+            \\ 
+            I.e. $\forall i \in \N, x_i = y_i \implies x = y$.
+            
+            \bbni 
+
+            $(\impliedby)$
+
+            Assume $x =y$. 
+            
+            Then $\forall i \in \N, x_i = y_i \implies x_i - y_i = 0 \implies l.u.b. \{|x_i - y_i|\}_{i \in \N} = 0 = d(x,y)$. 
+
+            \item $d(x,y) = d(y,x)$ 
+            
+            By definition,  $|x_i - y_i| = |y_i - x_i|$, so $l.u.b. \{|x_i - y_i|\}_{i \in \N} = l.u.b. \{|y_i - x_i|\}_{i \in \N} $.  Hence, $d(x,y) = d(y,x)$. 
+
+            \item $d(x, z) \leq d(x,y) + d(y,z)$ 
+            
+            \todo{}
+
+            WTS $l.u.b. \{|x_i - z_i|\}_{i \in \N}  \leq l.u.b. \{|x_i - y_i|\}_{i \in \N} + l.u.b. \{|y_i - z_i|\}_{i \in \N}  $
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
 \begin{problem}{2}
     What are the open and closed balls in the metric space of example (4), § 1? Show that two balls of different centers and radii may be equal. What are the open sets in this metric space?
+    \\ 
+
+    \textbf{Example (4),§ 1: Let $E$ be an arbitrary set and, for $p, q  \in E$, define $d(p, q ) = 0$ if $p= q, d(p, q) = 1$ if $p \neq q$.}
 \end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item  \begin{enumerate}
+        \item $0 < r < 1$
+        \begin{enumerate}
+            \item Open Balls:
+            \[B_r(p) = \{d(p, q) < r; q \in E\} = \{p\}\]
+            Since $d(p,q) < 1$ implies $p = q$. 
+
+            \item Closed Balls: 
+            \[B_r(p) = \{d(p, q) \leq r; q \in E\} = \{p\}\]
+            Since by definition $d(p,q) < 1$ implies $p = q$. 
+        \end{enumerate}
+        \item $r = 1$
+        \begin{enumerate}
+            \item Open Balls:
+            \[B_r(p) = \{d(p, q) < r; q \in E\} = \{p\}\]
+            Since $d(p,q) < 1$ implies $p = q$. 
+
+            \item Closed Balls: 
+            \[B_r(p) = \{d(p, q) \leq r; q \in E\} = E\]
+
+            Since $d(p,q)\le 1$ for all $q\in E$.
+        \end{enumerate}
+        \item $r > 1$
+        \begin{enumerate}
+            \item Open Balls:
+            \[B_r(p) = \{d(p, q) \leq r; q \in E\} = E\]
+
+            Since $d(p,q)\le 1$ for all $q\in E$.
+
+            \item Closed Balls: 
+            \[B_r(p) = \{d(p, q) \leq r; q \in E\} = E\]
+
+            Since $d(p,q)\le 1$ for all $q\in E$.
+        \end{enumerate}    
+        \end{enumerate}
+
+            \bbni 
+
+            \item To see that two balls with different centers and radii may be equal, consider two open balls $B_{r_{1}}(p), B_{r_2}(q)$ with $p \neq q$, $r_1 \neq r_2$, and $r_1, r_2 > 0$. Then, as we saw above, 
+            \[B_{r_1}(p) = E ,\qquad B_{r_2}(q) = E\]  
+            I.e. two balls with different centers and radii may be equal. 
+
+            \bbni 
+
+            \item Every singleton set $\{p\} \in E$ is open, as we can construct an open ball $B_r(p)$ with $0 < r < 1$ centered at $p$. Since unions of any collection of open sets are open, any subset of $E$ is open. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
 
 \begin{problem}{3}
-    Show that the subset of $E^2$? given by $\{(x_1, x_2) \in E^2 : x_1 > x_2\}$ is open.
+    Show that the subset of $E^2$ given by $\{(x_1, x_2) \in E^2 : x_1 > x_2\}$ is open.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $S = \{(x_1, x_2) \in E^2 : x_1 > x_2\}$, with distance function defined as  \\ $d((x_1,x_2), (y_1, y_2)) = \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2}$ for any two points $(x_1, x_2), (y_1, y_2) \in E^2$. Let $B_{r/4}((x_1, x_2))$ be an open ball centered around an arbitrary point $(x_1, x_2) \in S$, with $r = x_1 - x_2$ (obviously, $r>0$). 
+
+    Let $(y_1, y_2) \in B_{r/4}((x_1,x_2))$.  Then, 
+
+    \begin{align*}
+        d((x_1,x_2), (y_1, y_2)) &< r/4 \\ 
+        \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2} &< r/4 \\ 
+        (x_1-y_1)^2 + (x_2 - y_2)^2 &< r^2/16 \\
+        \implies (x_1 - y_1) ^2  \leq (x_1-y_1)^2 + (x_2 - y_2)^2 &< r^2/16 \\ 
+        |x_1 - y_1| &< r/4 \\ 
+    \intertext{ Similarly, we get} \\ 
+        |x_2 - y_2| &< r/4 \\ 
+    \end{align*}
+    We can then write: 
+        $y_1 - y_2 = x_1 - x_2 - (x_1 - y_1) + (x_2 - y_2)$. 
+
+    We know that, $x_1 - x_2  = r,  |x_1 - y_1| < r/4, |x_2 - y_2| < r /4$. Then, \[y_1 - y_2 > r/2 \implies y_1 - y_2 > 0 \implies y_1 > y_2 \implies (y_1, y_2) \in S\]
+    I.e. $B_{r/4}((x_1,x_2)) \in S$. Since, $(x_1, x_2)$ was an arbitrary point, this works for any element of $S$. $S$ is thus an open subset because of every point of $S$ we can construct such a ball. 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{4}
-    Prove that any bounded open subset of $R$ is the union of disjoint open intervals.
+    Prove that any bounded open subset of $\R$ is the union of disjoint open intervals.
 \end{problem}
 
+\begin{solution}
+    \bbni 
+
+\end{solution}
 \end{document}

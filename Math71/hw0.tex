@@ -1,0 +1,484 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+
+
+\begin{problem}{1}
+    Determine whether the following functions $f$ are well-defined: 
+    \begin{enumerate}
+        \item $f: \Q \rightarrow \Z $ defined by $f(a/b) = a$
+        \item $f: \Q \rightarrow \Q$ defined by $f(a/b) = a^2/b^2$
+    \end{enumerate}    
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $f$ is not well defined. \\
+            $ f(1/2) = 1,  f(2/4) = 2$   but, \\
+            $1/2 = 2/4$
+            therefore, $f$ is ambiguous and not well-defined. \bbni
+        
+        \item $f$ is well-defined. \\
+            $ f(1/2) = 1/4,  f(2/4) = 4/16 $ and,  \\
+            $4/16 = 1/4$ \\
+            thus, $f$ is unambiguous and well-defined. 
+    \end{enumerate}
+\end{solution}
+
+% \begin{problem}{2}
+%     Determine whether the function $f : \R^+ \rightarrow \Z $ defined by mapping a real number $r$ to the first digit to the right of the decimal point in a decimal expansion of $r$ is well defined.
+% \end{problem}
+
+\newpage
+\begin{problem}{2}
+    Let $f: A \to B$ be a surjective map of sets. Prove that the relation \\
+   \[a \sim b \text{ if and only if } f(a) = f(b) \]
+    is an equivalence relation whose equivalence classes are the fibers of $f$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \bbni
+    To see if $\sim$ is an equivalence relation for any $a, b \in A$: 
+    \begin{enumerate}
+        \item $a = a \implies f(a) = f(a)$, $\forall a \in A$. Thus, the relation is reflexive, $ a\sim a$. 
+        \item From definition for any $a, b \in A$, \\ $\text{if } a = b \implies f(a) = f(b) \implies f(b) = f(a)$. Thus, the relation is symmetric, $a \sim b \implies b \sim a$.
+        \item  And by transitivity of $=$, if $f(a) = f(b) \text{ and } f(b) = f(c)$ then 
+        $f(a) = f(c)$. Which also means if $a = b, b=c \implies a = c, \forall a, b, c \in A$. Thus, the relation is transitive, $a \sim b \text{ and } b \sim c \implies a \sim c$. 
+    \end{enumerate}
+    Thus the relation $ a \sim b$ on set $A$ is an equivalence relation. \\ If $f(a) = b$ for any $a \in A,  b\in B$, then the fiber over b is $f^{-1}(b) = F_b$, such that $F_b \subset A$. 
+    $\forall x, y \in F_b$ we know that $f(x) = f(y) = b$. Thus, $x \sim y$. \\
+    Thus, all elements in the fiber over $b$ exist in the same equivalence class say, $A_b$. \\  
+    Moreover, $\forall z \in A_b$, $z \sim x$, then $f(z) = f(x) = b$. Which implies that $z \in F_b$. Thus, there exists a 1-to-1 relationship between the fibers of $f$ and the equivalence classes in $A$.     
+\end{solution}
+
+\newpage
+
+
+% \begin{problem}{4}
+%    If $p$ is prime prove that there do not exist nonzero integers $a$ and $b$ such that $a^2 = pb^2$. 
+% \end{problem}
+
+\begin{problem}{3}
+    Prove that for any given positive integer $N$, there exist only finitely many integers $n$ with $\varphi(n) = N$, where $\varphi$ denotes Euler's $\varphi$-function. Conclude in particular that $\varphi(n)$ tends to infinity as $n$ tends to infinity.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \bbni 
+    For Euler's $\varphi-$function we know that, 
+    \begin{enumerate}
+        \item $\varphi(ab) = \varphi(a)\varphi(b)$, if $(a, b) = 1$. 
+        \item $\varphi(p^a) = p^{a-1}(p-1)$, for a prime $p$, and any $a \geq 1.$
+    \end{enumerate}
+    Let $n = q^ab$, where $q$ is the biggest prime factor $n$ has. Then: 
+    \begin{align*}
+        N = \varphi(n) &= \varphi(q^ab) \\
+        N = \varphi(q^ab) &= \varphi(q^a)\varphi(b) \\
+        N &= q^{a-1}(q-1)\varphi(b) \\         
+    \end{align*}
+    Since we know that $N, \varphi(b) \in \Z^+$, $a \geq 1$, we can say that $q < N$. Thus, there are only a finite possibilities for $1 < q < N$, for any fixed $N$.
+    
+    We also know that $q^{a-1} \leq N$, hence, $ q^{a-1} < N$. So, 
+    \begin{enumerate}
+        \item $n$ can only contain some subset of a finite number of primes, 
+        \item and for each prime in $n$, there can only be a finite number of different powers that it can be raised to. 
+    \end{enumerate}
+    So only a finite number of $n$ can be generated using $q, a$. Hence, there only exist finitely many integers $n$ with $\varphi(n) = N$. \\
+
+    To see that $\varphi(n)$ tends to infinity, as $n$ tends to infinity, let's consider that set $P = \{p_1, \ldots, p_n\}$ for a finite number of primes. Then we know that for a $n = p_1p_2\ldots p_n + 1$, n has a prime divisor p. 
+    \[p \mid n = p \mid (p_1p_2\ldots p_n + 1)\]
+    But $p \notin P$, because if $p \in P$ then: 
+    \[p \mid n = p \mid p_1p_2\ldots p_n + p \mid 1\]
+    and $p \mid 1$ cannot be true (Euler's proof for infinite primes).  
+    Thus, there are infinite primes, and as $n \rightarrow \infty$, $N$ accumulates more primes and thus also tends to infinity. 
+        
+\end{solution}
+
+
+% \begin{problem}{6}
+%     Prove that if $d$ divides $n$ then $\varphi(d)$ divides $\varphi(n)$ where $\varphi$ denotes Euler’s $\varphi$-function.
+% \end{problem}
+
+
+% \begin{problem}{7}
+%     Prove that if $a = a_n \cdot 10^n + a_{n-1} \cdot 10^{n-1} + \cdots + a_1 \cdot 10 + a_0$ is any positive integer, then 
+%     \[a \equiv a_n + a_{n-1} + \cdots + a_1 + a_0 \pmod{9}\]
+% \end{problem}
+
+% \begin{problem}{8}
+%     Compute the remainder when $37^{100}$ is divided by $29$.
+% \end{problem}
+
+% \begin{problem}{9}
+%     Compute the last two digits of $9^{1500}$.
+% \end{problem}
+
+% \begin{problem}{10}
+%     Prove that the squares of numbers in $\Z/4\Z$ are just $\Bar{0}$ and $\Bar{1}$
+% \end{problem}
+
+
+% \begin{problem} {11}
+%     Prove for any integers $a$ and $b$ that $a^2 + b^2$ never leaves a remainder of $3$ when divided by $4$ (use the previous exercise).
+% \end{problem}
+
+
+% \begin{problem}{12}
+%     Prove that the equation $a^2 + b^2 = 3c^22$ has no solutions in nonzero integers $a$, $b$ and $c$.
+% \end{problem}
+
+\newpage
+\begin{problem} {4}
+    Let $n \in \mathbb{Z}$, $n > 1$, and let $a \in \mathbb{Z}$ with $1 \leq a \leq n$. Prove that if $a$ and $n$ are not relatively prime, there exists an integer $b$ with $1 \leq b < n$ such that $ab \equiv 0 \pmod{n}$, and deduce that there cannot be an integer $c$ such that $ac \equiv 1 \pmod{n}$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    Given that $a, n$ are not relatively prime, there exists a gcd $d > 1$ such that: 
+    \begin{align*}
+            a (\text{mod d}) &\equiv n (\text{mod d}) \equiv 0 \\
+            n &= n'd, n' <n \\
+            a &= a'd, a' < a, n \\ 
+            a &= a'd  \text{ (multiplying both sides by n')} \\
+            an'&= a'dn' =ab \\
+            ab &\equiv 0 \text{ (mod n)}
+    \end{align*}
+    i.e. an integer $b$ exists such that $1\leq b < n$. 
+
+    Assuming $ac \equiv 1$ (mod n): 
+    \begin{align*}
+        ac &\equiv 1 \text{ (mod n)} \\
+        acb &\equiv 1b \text{ (mod n)} \\
+        (ab)c &\equiv b \text{ (mod n), integers are commutative} \\
+        0c &\equiv b \text{ (mod n)}, ab \equiv 0 \text{(mod n)} \\
+        0 &\equiv b \text{ (mod n)}
+    \end{align*}
+    This implies  $b \geq n$ but from the first proof, $b < n$. Thus, this is a contraction and $c$ cannot exist if $a, n$ are not co-prime.
+\end{solution}
+
+\newpage
+\begin{problem} {5}
+    Let $n \in \mathbb{Z}$, $n > 1$, and let $a \in \mathbb{Z}$ with $1 \leq a \leq n$. Prove that if $a$ and $n$ are relatively prime, there exists an integer $c$ such that $ac \equiv 1$ (mod $n$). [use the fact that the g.c.d. of two integers is a $\Z$-linear combination of the integers]
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    Given that $a, n$ are relatively prime, the gcd $d =  1$. 
+    \begin{align*}
+        d &= ax + ny \text{, where } x, y \in \Z \\
+        1 &= ax + ny\\
+        -ny &= ax -1 \\
+        0 &\equiv ax - 1 \text{ (mod n)} \\
+        1 &\equiv ax \text{ (mod n)}
+    \end{align*}
+    Thus, an integer $x$ or $c$ exists such that $ac \equiv 1$ (mod n) if $a$ and $n$ are co-prime.
+\end{solution}
+
+
+\bbni
+\bbni
+\begin{problem} {6}
+    Conclude from the previous two exercises that $(\Z/n\Z)^\times$ is the set of elements $\Bar{a}$ of $\Z/n\Z$ with $(a, n) = 1$ and hence prove Proposition 4. Verify this directly in the case $n = 12$. 
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni
+    From the above two solutions we know: 
+    \begin{enumerate}
+        \item $(a, n) = 1 \implies \exists c, ac \equiv 1,$ (mod n) 
+        \item $(a, n) > 1 \implies \nexists c, ac \equiv 1,$ (mod n) 
+    \end{enumerate}
+    Hence $\forall a,n : (a,n) >1$, there exists no multiplicative inverse for $a \in \Z/n\Z$ because there exists no $c < n : ac \equiv1$ (mod n). However, for co-prime $a, n$, a $c < n: ac \equiv 1$ (mod n) exists. Thus the latter set has multiplicative inverses.
+    It is also closed under multiplication because $\forall a, b \in \Z/n\Z: (a,n) = 1 \& (b, n) =1 \implies (ab, n) = 1$. \\
+    (The other 2 axioms - associativity and identity element = 1 are inherited from $\Z$). \\
+    Thus, $(\Z /n \Z)^\times = \{\Bar{a} \in \Z/n\Z: (a,n) = 1$\}, where $\Bar{a}$ is the equivalence class for all $a$ such that $ac \equiv 1$ (mod n). 
+\end{solution}
+
+\newpage
+\begin{problem} {7}
+    Determine which of the following sets are groups under addition:
+    \begin{enumerate}
+        \item The set of rational numbers (including 0 = 0/l) in lowest terms whose denominators are odd.
+        \item The set of rational s(including 0 = 0/l) in lowest terms whose denominators are even.
+        \item The set of rational numbers of absolute value $<$ 1.
+        \item The set of rational numbers of absolute value $\geq 1$ together with $0$.
+        \item The set of rational numbers with denominators equal to 1 or 2. 
+        \item The set of rational numbers with denominators equal to 1, 2 or 3. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item The set of rational numbers (including $ 0 = 0/1$) in lowest terms whose denominators are odd. \\
+        Let this set be called $A$. Let's see if the axioms hold for this set under addition: 
+        $\forall \frac{a}{b}, \frac{c}{d}\in A$
+        \begin{enumerate}
+            \item Associativity: inherited from $\Q$.
+            \item Closure: $\frac{a}{b} + \frac{c}{d} = \frac{a+c}{bd}$, if b, d are odd, then bd is odd. 
+            \item Identity: $\frac{a}{b} + 0 /1 = \frac{a}{b} = 0/1 + \frac{a}{b}$
+            \item Inverse element: $\frac{a}{b} + (-\frac{a}{b}) = 0/1$, if b is odd then -b is also odd.   
+        \end{enumerate}
+        Thus, this set is a group under addition.
+
+        \item The set of rational numbers (including $ 0 = 0/1$) in lowest terms whose denominators are even. \\
+        For $\frac{1}{2} \in $ the set. $\frac{1}{2} + \frac{1}{2} = \frac{2}{2} = 1$(lowest terms). And 1 is not in the set, hence this set does not have closure and is not a group under addition. 
+        
+        
+        \item The set of rational numbers of absolute value $<1$. \\
+        Let $x$ be any element in this set. For the value of $x = 0.9$, $x+x = 1.8$ which is not $<1$ and thus not a member of the set (the set is not closed under addition). Hence this set is not a group under addition. 
+        
+        \item The set of rational numbers of absolute value $\geq 1$ together with 0. \\
+        For $x, y \in $ this set, let $x=-1.4$, $y = 1 \implies x+y = -.4$ and $\mid -0.4 \mid = 0.4$ which is not $\geq 1$ and thus not a member of the set (the set is not closed under addition). Hence this set is not a group under addition. 
+        
+        \item The set of rational numbers with denominators equal to 1 or 2. \\
+        For any $\frac{a}{b}, \frac{c}{d} \in$ the set, 
+        \begin{enumerate}
+            \item Associativity: Inherited from $\Q$. 
+            \item Closure: $\frac{a}{b} + \frac{c}{d} = \frac{ad + cb}{bd}$ but both $b, d \in \{1,2\}$ so $bd \in \{0, 1\}$. Hence the set is closed under addition. 
+            \item Identity: $\frac{a}{b} + 0 /1 = \frac{a}{b} = 0/1 + \frac{a}{b}$.
+            \item Inverse element: $\frac{a}{b} + (-\frac{a}{b}) = 0/1$, if $b \in \{1, 2\}$ then $-b \in \{-1, -2\}$. 
+        \end{enumerate}
+        Thus, the set is a group under addition. 
+
+        \item The set of rational numbers with denominators equal to 1, 2, 3. \\
+        $\frac{a}{b} + \frac{c}{d} = \frac{ad + cb}{bd}$, both $b, d \in \{1,2,3\}$ which means that $bd \in \{1, 2, 3, 6\}$. Because the result of the sum can have 6 as a denominator the set is not closed under addition. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{problem}{8}
+    Prove that $(a_1 a_2 \cdots a_n)^{-1} = a_n^{-1} a_{n-1}^{-1} \cdots a_2^{-1} a_1^{-1}$ for all $a_1, a_2, \ldots, a_n \in G$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \bbni 
+    \begin{align*}
+        (a_1a_2...a_n)^{-1}(a_1a_2...a_n) &= e \\
+        (a_1a_2...a_n)^{-1}(a_1a_2...a_{n-1}a_n)a_n^{-1} &= a_n^{-1} \\
+        (a_1a_2...a_n)^{-1}(a_1a_2...a_{n-1})a_{n-1}^{-1} &= a_n^{-1}a_{n-1}^{-1}         
+    \end{align*}
+    
+    \text{after doing this n times, we get} \\
+    \begin{align*}
+        (a_1a_2...a_n)^{-1} = a_n^{-1}a_{n-1}^{-1}...a_2a_1
+    \end{align*}
+    Thus proved. 
+\end{solution}
+
+\begin{problem}{9}
+   Let $x$ be an element of $G$. Prove that $x^2 = 1$ if and only if $|x|$ is either $1$ or $2$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    We know that the order of an element in a group is the minimum postive number of times it needs to be operated on with itself to get the identity element. Given $x^2 = 1 = e$, we can see that $\mid x \mid \le 2$. So $\mid x \mid \in \{1,2\}$. Hence proved. 
+\end{solution}
+
+\begin{problem}{10}
+    Let $x$ be an element of $G$. Prove that if $|x| = n$ for some positive integer $n$ then $x^{-1} = x^{n-1}$.
+\end{problem}
+
+\begin{solution}
+\bbni 
+\bbni 
+Given $\mid x \mid = n$: 
+\begin{align*}
+    x^n &= e \\
+    x^nx^{-1} &= ex^{-1} \\
+    x^{n-1} &= x^{-1}
+\end{align*}
+Hence proved. 
+\end{solution}
+
+\newpage
+\begin{problem}{11}
+    If $x$ and $g$ are elements of the group $G$, prove that $|x| = |g^{-1}xg|$. Deduce that $|ab| = |ba|$ for all $a$, $b \in G$
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \bbni
+    Let the order of $g^{-1}xg$ be $n$. 
+    \begin{align*}
+        e &= (g^{-1}xg)^n \\
+        e &= \underbrace{(g^{-1}xg)(g^{-1}xg) ...(g^{-1}xg)}_{n \text{  times}} \\
+        e &= \underbrace{g^{-1}x(gg^{-1})x(g ...g^{-1})xg}_{n \text{  times}} \\
+        e &= g^{-1}x^ng \\
+        g^{-1}g &= g^{-1}x^ng \\
+        gg^{-1}g &= gg^{-1}x^ng \\
+        gg^{-1} &= x^ngg^{-1} \\
+        e &= x^n \implies  \mid x \mid = n = \mid g^{-1}xg \mid
+    \end{align*}
+    
+    Using, 
+    \begin{align*}
+         n &= \mid x \mid = \mid g^{-1}xg \mid \\
+         e &= x^n =(g^{-1}xg)^n \\
+         x^n &= g^{-1}x^ng \text{\> (shown above)} \\     
+         gx^n &= gg^{-1}x^ng \\
+         gx^n &= x^ng \implies \mid  gx^n \mid = \mid x^ng \mid
+    \end{align*}
+    Thus, $\mid ab \mid = \mid ba \mid \forall a,b \in G$. 
+\end{solution}
+
+
+\newpage
+\begin{problem}{12}
+    Suppose $x \in G$ and $|x| = n < \infty$. If $n = st$ for some positive integers $s$ and $t$, prove that $|x^s| = t$
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \bbni
+    Given $\mid x \mid = n$ and $n < \infty$: 
+    \begin{align*}
+        e &= x^n  \\
+        e &= x^{st}  \\
+        e &= \underbrace{\underbrace{xx...x}_{s \text{ times }}\text{ }\underbrace{xx...x}_{s \text{ times }} \text{ ... }\underbrace{xx...x}_{s \text{ times }}}_{t \text{ times}} \\
+        e &= (x^s )^t \\
+        \mid x^s \mid &= t
+    \end{align*}
+    Hence proved.
+\end{solution}
+
+\begin{problem}{13}
+    Prove that if $x^2 = 1$ for all $x \in G$ then  $G$ is abelian.
+\end{problem}
+
+\begin{solution}
+\bbni
+\bbni
+    If $ x^2 = 1, \forall x  \in G$ then, 
+    \begin{align*}
+        (ab)^2 &=1 \\
+        abab &= 1 \\
+        ababb^{-1} &= b^{-1} \\ 
+        aba &= b^{-1} \\ 
+        abaa^{-1} &= b^{-1}a^{-1} \\
+        ab &= b^{-1}a^{-1}  
+    \end{align*}
+    but, 
+     \begin{align*}
+        kk &=kk^{-1}  \\
+        k &=k^{-1}
+    \end{align*}
+    so, 
+    \begin{align*}
+         ab &= b^{-1}a^{-1} \\
+         ab &= ba
+    \end{align*}
+    Thus, $G$ is abelian. 
+\end{solution}
+
+\newpage
+\begin{problem}{14}
+    Prove that any finite group $G$ of even order contains an element of order 2. [Let $t(G)$ be the set $\{g \in G \mid g \neq g^{-1}\}$. Show that $t(G)$ has an even number of elements and every nonidentity element of $G — t(G)$ has order 2.] 
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \bbni
+    Let $t(G) = \{g \in G \mid g \neq g^{-1}\}$. i.e. the set $t(G)$ includes the elements of the group that aren't their own inverses. And because for each $a \in G$ there exists a $a^{-1} \in G$ that is it's inverse, we can pair up elements of $t(G)$ in $(a, a^{-1})$ pairs. Thus we can see that $\mid t(G)\mid  = 2n, n \in \N$.  \\
+    Moreover, we know that the set $G \mid t(G)$ is not empty because $e \notin t(G)$ but $e \in G$. And because $\mid G \mid = 2m$ and $\mid t(G)\mid  = 2n$ for any $m,n \in \N$ we know that there exist at least two elements in $\mid (G\mid t(G)) \mid$. \\
+    And for any $a \in G \mid t(G)$, $a = a^{-1} \implies aa^{-1} = e \implies \mid a \mid = 2$. \\
+    Thus, any finite group $G$ of even order contains an element of order 2. 
+    
+\end{solution}
+
+
+\newpage
+
+\begin{problem} {15}
+    Let $G$ be a group and $g \in G$.
+    \begin{enumerate}
+        \item Prove that if $ga = a$ for any single $a \in G$ (or that $ag = a$ for any single $a \in G$) then $g$ is the identity element.
+        \item Prove that if $gg = g$ then $g$ is the identity element.
+        \item Give an example of a group $G$ and an element $g \in G$ such that $g^3 = g$ but that $g$ is not an identity element.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Given $ga = a, \forall a \in G$: 
+        \begin{align*}
+            gaa^{-1} &= aa^{-1} \\
+            gaa^{-1} &= e \\
+            ge &= e \\
+            g &= e
+        \end{align*}
+        Thus, g is the identity element. 
+        
+        \item Given $gg = g$
+        \begin{align*}
+            gg &= g\\
+            ggg^{-1} &= gg{-1} \\
+            ge &= e \\
+            g &= e
+        \end{align*}
+        Thus, g is the identity element.
+        \item If $G$ is the group $(\Z \setminus \{0\}, *)$, then for $g = -1$, $g^3 = g$ but $g$ is not an identity element. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem} {15}
+  The set of invertible $n \times n$ real matrices is a group $\text{GL}_n(\mathbb{R})$ with the operation of matrix multiplication, called the real general linear group. Consider the following elements of $\text{GL}_2(\mathbb{R})$:
+    \[A = \begin{pmatrix} 0 & 1 \\ -1 & -1 \end{pmatrix}, \quad B = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\]
+    Show that $A$ and $B$ have finite order (compute their orders) but that $AB$ has infinite order. This shows that the order of a product is not necessarily the product of the orders! (Though see Problem Set 1 for an instance when this does hold.)
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni
+    For $A = \begin{pmatrix} 0 & 1 \\ -1 & -1 \end{pmatrix}$, \\
+    \begin{align*}
+        \begin{pmatrix} 0 & 1 \\ -1 & -1 \end{pmatrix} \begin{pmatrix} 0 & 1 \\ -1 & -1 \end{pmatrix} &= \begin{pmatrix} -1 & -1 \\ 1 & 0 \end{pmatrix} \\
+        \begin{pmatrix} -1 & -1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ -1 & -1 \end{pmatrix} &= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I_2 \\
+        \bigg|  \begin{pmatrix} 0 & 1 \\ -1 & -1 \end{pmatrix} \bigg| &= 3 
+    \end{align*}
+
+     For $B = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$, \\
+    \begin{align*}
+        \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} &= \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix} \\
+        \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}  \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} &= \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \\
+         \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}  \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} &= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I_2 \\
+        \bigg|  \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \bigg| &= 4 
+    \end{align*}
+
+    \begin{align*}
+        AB &= \begin{pmatrix} 0 & 1\\ -1 & -1 \end{pmatrix} \begin{pmatrix} 0 & -1 \\ 1 & 0\end{pmatrix} \\
+        &= \begin{pmatrix} 1 & 0 \\ -1 & 1\end{pmatrix} 
+    \end{align*}
+
+    For $AB = \begin{pmatrix} 1 & 0 \\ -1  & 1 \end{pmatrix}$ , 
+    \begin{align*}
+        \begin{pmatrix} 1 & 0 \\ -1  & 1  \end{pmatrix}\begin{pmatrix} 1 & 0 \\ -1  & 1 \end{pmatrix} &= \begin{pmatrix} 1 & 0 \\ -2  & 1 \end{pmatrix} \\
+        \begin{pmatrix} 1 & 0 \\ -2  & 1  \end{pmatrix}\begin{pmatrix} 1 & 0 \\ -1  & 1 \end{pmatrix} &= \begin{pmatrix} 1 & 0 \\ -3  & 1 \end{pmatrix} \\ \begin{pmatrix} 1 & 0 \\ -1  & 1  \end{pmatrix}\begin{pmatrix} 1 & 0 \\ -1  & 1 \end{pmatrix} &= \begin{pmatrix} 1 & 0 \\ -4  & 1 \end{pmatrix} \\
+    \end{align*}  
+    It seems like for calculating $AB^n$ the resulting matrix is $ = \begin{pmatrix} 1 & 0 \\ -n  & 1 \end{pmatrix}$, thus $AB^n$ can never produce the identity matrix, and $\mid AB \mid = \infty$. 
+    
+
+    
+\end{solution}
+
+
+
+
+
+\end{document}

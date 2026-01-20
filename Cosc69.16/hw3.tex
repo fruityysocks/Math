@@ -39,7 +39,7 @@
     \begin{enumerate}
         \item What does this function do?
         \item What does this function really do? What is its most likely intended effect? Assume the behavior that is the simplest to describe (though not on all values).
-        \item When does the simplest behavior break? Give concrete examples.
+        \item \textit{(Extra credit; note change)} Does the simplest behavior break? If so, give examples. 
         \item \textbf{[Poll]} What looks better to you in this example: AT\&T assembly style or Intel assembly style?
     \end{enumerate}
 \end{problem}
@@ -48,10 +48,25 @@
     \bbni 
     
     \begin{enumerate}
-        \item 
-        \item 
         \item  
-        \item   
+        \begin{lstlisting}
+(*@ \textcolor{red}{let rsi = x, rdi = y}@*)
+00000000000011a0 <f>:
+11a0: 48 8b 16              mov    (%rsi),%rdx (*@\textcolor{red}{ ; stores rsi value in rdx $\quad rdx = y$}@*)
+11a3: 48 03 17              add    (%rdi),%rdx (*@\textcolor{red}{ ; adds rdi and rdx and stores sum in rdx $\quad rdx =  x + y$}@*)
+11a6: 48 89 17              mov    %rdx,(%rdi) (*@\textcolor{red}{ ; moves rdx value to rdi $\quad rdi = x+y$}@*)
+11a9: 48 8b 06              mov    (%rsi),%rax (*@\textcolor{red}{ ; stores rsi value in rax $\quad rax = y$}@*)
+11ac: 48 29 d0              sub    %rdx,%rax (*@\textcolor{red}{ ; subtracts rdx from rax and stores in rax $\quad rax =  y - (x + y)$}@*)
+11af: 48 89 06              mov    %rax,(%rsi) (*@\textcolor{red}{ ; stores rax value in rsi $\quad rsi = -x$}@*)
+11b2: 48 01 07              add    %rax,(%rdi) (*@\textcolor{red}{ ; adds rax and rdi and stores in rdi $\quad rdi = (x+y) + (-x)$}@*)
+11b5: 48 f7 1e              negq   (%rsi) (*@\textcolor{red}{ ; negates rsi value $\quad rsi = -(-x)$}@*)
+11b8: c3                    ret
+\end{lstlisting}
+
+        The function swaps the \texttt{\%rsi} and \texttt{\%rdi} values using basic arithmatic. 
+        \item The function's most likely intended behavior is to swap the two arguements without using a third (temporary) variable.
+        \item  Since the function deals with qword arguments, it would break with a segmentation fault if someone passes a null value. The code also breaks for the arguments: \texttt{\%rsi = 3, \, \%rdi = 9223372036854775807}, outputting \texttt{ \%rsi = -1, \%rdi = 3}. 
+        \item I like AT\&T more.
     \end{enumerate}
 \end{solution}
 \end{document}

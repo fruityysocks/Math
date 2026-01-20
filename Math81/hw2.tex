@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+\usepackage{euler}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange.
+
+\begin{problem}{1} 
+    \textbf{Subgroups of fields.}
+
+    Let $F$ be a field.
+    \begin{enumerate}
+    \item Let $G$ be a finite abelian group. Prove that $G$ is cyclic if and only if $G$ has at most
+    $m$ elements of order dividing $m$ for each $m \mid \#G$.  
+    \emph{Hint.} One possible proof uses the structure theorem of finite abelian groups, but you can get away with slightly less.
+
+    \item Prove that every finite subgroup $G$ of the multiplicative group $F^\times = F \setminus \{0\}$ is cyclic.  
+    \emph{Hint.} Use the fact that a polynomial of degree $m$ has at most $m$ roots in $F$.
+
+    \item Deduce that if $F$ is a finite field then $F^\times$ is cyclic. For each field $F$ having at most $7$ elements, find an explicit generator of $F^\times$.
+
+    \item Let $p$ be an odd prime. Prove that $-1 \in \mathbb{F}_p^\times$ is a square if and only if $p \equiv 1 \pmod{4}$.
+
+    \item Prove that for any odd prime $p$, the set of nonzero squares is an index $2$ subgroup of $\mathbb{F}_p^\times$.  
+    \emph{Hint.} You can use the above results, but there's also a purely combinatorial proof.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item $(\implies)$ 
+        
+        Assume $G$ is cyclic. Then we know that for every positive integer $m$, $m | |G|$ there exists a subgroup $H$ of $G$ with order $m$. Since any $H$ would have at most $m$ elements of order dividing $m$, there are at most $m$ elements in $G$ with order dividing $m$.
+
+        $(\impliedby)$
+
+        Assume group $G$ has at most $m$ elements of order dividing $m$ for each $m| |G|$.
+        \todo{}
+
+        \item Let $G$ be a finite subgroup of the multiplicative group $F^\times$. Then, 
+        \item 
+        \item  ($\implies$) \\ 
+                If $-1$ is a square in $\F_p^\times$, $p \neq 2$ then there exists an element $n \in \F_p$ with order 4 ($|-1 | = 2$). That means if there exists  square root of $-1$ in $\F_p^\times$ then $4 \bigm | |\F_p^\times | \implies 4 \mid p - 1 \implies p \equiv 1$ (mod $4$).  \\ 
+        
+                ($\impliedby)$ \\ 
+                If $p \equiv 1 \text{ (mod $4$)} \implies p -1  \equiv 0 \text{ (mod $4$)} \implies 4 \mid p-1 \implies 4 \mid | \F_p^\times | \implies \exists x \in \F_p^\times$, such that $\mid x \mid = 4$ (converse of Lagrange's Theorem for Abelian Groups). \\
+                
+                $x^4 = 1 \implies (x^2)^2 = 1 \implies x^2 = \pm 1$.  But if $x^2 = 1$, the order of $x$ would be 2, hence a contradiction. I.e. $x^2$ must be $-1$, and $x = \sqrt{-1}$. 
+        
+                Hence, $-1 \in \mathbb{F}_p^\times$ is a square if and only if $p \equiv 1 \pmod{4}$. 
+        
+        \item 
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{2} \textbf{Reducibility of $x^4+1$ modulo primes.}
+        
+    The goal is to prove that $f(x) = x^4 + 1 \in \mathbb{Z}[x]$ is reducible modulo every prime number $p$. You already know (HW\#1) that $f(x)$ is irreducible in $\mathbb{Q}[x]$.
+    \begin{enumerate}
+        \item Factor $f(x)$ modulo $2$.
+
+        \item Assume that $-1 = u^2$ is a square in $\mathbb{F}_p$. Then use the equality
+        \[
+        x^4 + 1 = x^4 - u^2
+        \]
+        to factor $f(x)$ modulo $p$.
+
+        \item Assume that $p$ is odd and $2 = v^2$ is a square in $\mathbb{F}_p$. Then use the equality
+        \[
+        x^4 + 1 = (x^2 + 1)^2 - (vx)^2
+        \]
+        to factor $f(x)$ modulo $p$.
+
+        \item Prove that if $p$ is odd and neither $-1$ nor $2$ is a square in $\mathbb{F}_p$, then $-2$ is a square. In this case, factor $f(x)$ modulo any such $p$.  
+        \emph{Hint.} For the first part, use the previous problem.
+
+        \item Conclude that $x^4 + 1$ is reducible modulo every prime $p$.
+        \end{enumerate}
+        \end{problem}
+
+\begin{problem}{3. Field homomorphisms}
+
+    Let $K$ and $K'$ be field extensions of a field $F$.
+    \begin{enumerate}
+        \item Prove that any $F$-homomorphism $\varphi : K \to K'$ is injective.
+
+        \item Prove that if $K'/F$ is finite and $\varphi : K \to K'$ is an $F$-homomorphism, then $K/F$ is finite.
+
+        \item Assume that both $K$ and $K'$ are finite over $F$, and that $\varphi : K \to K'$ is an $F$-homomorphism. Then $\varphi$ is an $F$-isomorphism if and only if $[K:F] = [K':F]$.
+
+        \item Prove that $f(x) = x^2 - 4x + 2 \in \mathbb{Q}[x]$ is irreducible. Prove that the extensions
+        \[
+        K = \mathbb{Q}[x]/(f(x)) \quad \text{and} \quad \mathbb{Q}(\sqrt{2})
+        \]
+        of $\mathbb{Q}$ are $\mathbb{Q}$-isomorphic and exhibit an explicit $\mathbb{Q}$-isomorphism between them.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{4} \textbf{Inverses in a cubic extension.}
+
+    Let $\alpha \approx -1.7693$ be the real root of $x^3 - 2x + 2$. In the extension $\mathbb{Q}(\alpha)/\mathbb{Q}$, write the elements $\alpha^{-1}$ and $(\alpha+1)^{-1}$ explicitly as a polynomial in $\alpha$ with coefficients in $\mathbb{Q}$.  
+
+    \emph{Hint.} Remember the algorithm using the Bézout identity (e.g.\ FT pp.\ 16--17).
+\end{problem}
+
+\begin{problem}{5} \textbf{Quadratic extensions.}
+
+    Let $F$ be a field of characteristic $\neq 2$ and let $K/F$ be a field extension of degree $2$.
+    \begin{enumerate}
+        \item Prove that there exists $\alpha \in K$ with $\alpha^2 \in F$ such that $K = F(\alpha)$. We often write $\alpha = \sqrt{a}$ if $\alpha^2 = a \in F$.  
+        \emph{Hint.} Get inspiration from the quadratic formula.
+
+        \item For $a,b \in F^\times$ prove that $F(\sqrt{a}) \cong F(\sqrt{b})$ if and only if $a = u^2 b$ for some $u \in F^\times$.
+
+        \item Deduce that there is a bijection between the set of $F$-isomorphism classes of field extensions $K/F$ with $[K:F] \mid 2$ and the group $F^\times / F^{\times 2}$.
+
+        \item If $F$ is a finite field of characteristic $\neq 2$, prove that $F$ has a unique quadratic extension (up to $F$-isomorphism).
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{6} \textbf{Minimal polynomials.}
+
+    For each extension $K/F$ and each element $\alpha \in K$, find the minimal polynomial of $\alpha$ over $F$ (and prove that it is the minimal polynomial).
+    \begin{enumerate}
+        \item $i$ in $\mathbb{C}/\mathbb{R}$
+        \item $i$ in $\mathbb{C}/\mathbb{Q}$
+        \item $\dfrac{1+\sqrt{5}}{2}$ in $\mathbb{R}/\mathbb{Q}$
+        \item $\sqrt{2} + \sqrt{2}$ in $\mathbb{R}/\mathbb{Q}$
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{7} \textbf{Transcendental and algebraic extensions.}
+
+    Let $\pi \in \mathbb{R}$ be the area of a unit circle and let $\alpha = \sqrt{\pi^2 + 2}$. Consider the field $K = \mathbb{Q}(\pi,\alpha)$.
+
+    For the following field extensions, determine whether they are transcendental and/or algebraic and/or finite and/or simple, and if you determine the extension is simple and algebraic, find a simple generator and determine its minimal polynomial.
+    \begin{enumerate}
+        \item $K/\mathbb{Q}$
+        \item $K/\mathbb{Q}(\pi)$
+        \item $K/\mathbb{Q}(\alpha)$
+        \item $K/\mathbb{Q}(\pi+\alpha)$
+    \end{enumerate}
+\end{problem}
+\end{document}

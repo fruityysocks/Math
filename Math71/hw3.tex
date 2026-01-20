@@ -1,0 +1,628 @@
+\documentclass[12pt]{article}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, Jacob Lehmann Duke, Henry Dorr '28, Kason Sabazan-Chambers '28, Ali Azam '28, and Math Stack Exchange.
+\\
+
+\begin{problem}{1}
+    Let $H$ be a subgroup of the group $G$.
+    \begin{enumerate}
+        \item Show that $H \leq N_G(H)$. Give an example to show that this is not necessarily true if $H$ is not a subgroup.
+        \item Show that $H \leq C_G(H)$ if and only if $H$ is abelian. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item The normalizer of $H$, $N_G(H)$ is defined as: 
+        \[N_G(H) = \{g \in G \mid gHg^{-1} = H\}\]
+        And a subgroup is closed under the group operation and inverses, so $\forall x, y \in H, H \leq G, \, xyx^{-1} \in H \implies\{ x \in H \mid xHx^{-1} =H \} \implies H \leq N_G(H)$. This is not necessarily true for all subsets because they are not closed under the group operation and inverses. For instance, let $G = D_6,\, H= \{1, r, s\}$, then, \\ \[sHs^{-1} = \{1, r^5, s\} \neq H \implies H \not \leq N_G(H).\]
+
+        \item To prove 
+        \[H \leq C_G(H) \iff gh = hg, \forall gh \in H\]
+        Assuming $H \leq C_G(H)$ ($\implies)$ \\ 
+        Then for any $g, h \in H, \, ghg^{-1} = h \implies ghg^{-1}g = hg \implies gh = hg$. Thus $H$ is abelian. \\ 
+        Assuming subgroup $H$ is abelian ($\impliedby$). \\ 
+        \[\forall x,y \in H, xyx^{-1} = xx^{-1}y = y\]
+        By definition of centralizer of $H$, \[C_G(H) = \{g \in G \mid ghg^{-1} = h\}\]
+        But all $x,y \in H$ are $x,y \in G$ (because $H \leq G$). So by definition, $H \leq C_G(H).$ \\
+        Hence, $H \leq C_G(H)$ if and only if $H$ is abelian. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    Let $Z_{48} = \langle x \rangle$. For which integers $a$ does the map $\varphi_a$ defined by $\varphi_a : \Bar{1} \to x^a$ extend to
+    an isomorphism from $\Z/48\Z$ onto $Z_{48}$.    
+\end{problem}
+
+\begin{solution}
+\bbni
+\bbni
+\[\varphi_a : \Z/48\Z \to Z_{48}\]
+\[\varphi_a: \Bar{1} \to x^a\]
+For $\varphi_a$ to be an isomorphism, it has to be injective, surjective, and a homomorphism: 
+\begin{enumerate}
+    \item Injectivity: \\
+    $\Bar{1}$ is a generator of $\Z/48\Z$, i.e. $\Bar{1}$ generates 48 elements in $\Z/48\Z$. So the mapping $\varphi_a$ can only be injective if it maps to an element that generates 48 elements in $Z_{48}$, i.e, to all $x^a, Z_{48} = \langle x^a \rangle$ ($\mid Z_{48} \mid = 48$). \\ 
+    To find generators of $Z_n$ we need to find elements $x^a \in Z_n$ such that if $(x^a )^m\equiv 0$ (mod $x^n$), $m = n$, where $m$ is the order of the element and $n$ is the order of the group. Let $d = gcd (a, n), a = da', n = dn'.$ Lets find the order of $x^a$, by definition the order of an $x^a$, $m$ is the smallest positive integer such that $(x^a)^m = 1$. We also know that the order of an element divides the order of the group. 
+    \[(x^a)^m = x^{am} = 1 \implies n \mid am \implies n' \mid a'm \]
+    But since $gcd (a', n') = 1$,
+    \[n' \mid m \implies m \geq n' \]
+    But also, 
+    \[(x^a)^{n'} = x^{a'dn'} = x^{a'n} \implies n' \geq m\]
+    \[m = n' \implies m = \frac{n}{gcd (n, a)}\]
+    We can see that $m = n$ will only be true if $gcd(n,a) = 1$. Hence all $x^a$, where $a$ is relatively prime to $n$ are generators of $Z_n$. \\ 
+    Thus, $\varphi_a$ is an injective for all $x^a, gcd(a,48) =1$. 
+
+    \item Homomorphism: \\
+    For $\varphi_a$ to be a homomorphism the following needs to be true: 
+    \[\varphi_a(xy) = \varphi(x)\varphi(y)\]
+    $Z_{48}$ is a cyclic group, and all cyclic groups are abelian: \\ 
+    \begin{align*}
+        \varphi_a(xy) &= (xy)^a \\
+        &= \underbrace{(xy)(xy)...(xy)}_{a-times} \\
+        &=(x)^a(y)^a \\
+        &= x^ay^a \\
+        &= \varphi_a(x)\varphi_a(y)
+    \end{align*}
+    Hence, $\varphi_a$ is a homomorphism. 
+
+    \item The order of $Z_{48}$ is 48, i.e. $Z_{48}$ is finite. From (1) and (2) we know that $\varphi_a$ is an injective homomorphism. And it is obvious that all injective homomorphism on finite groups are surjective.     
+\end{enumerate}
+Thus, the homomorphism $\varphi_a: \Z/n\Z \to Z_{48}$ is injective and surjective for all $x^a \in Z_{48}$ such that $gcd(a, 48) = 1$. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+    Let $p$ be an odd prime and let $n$ be a positive integer. Use the Binomial Theorem to show
+    that $(1+p)^{p^{n-1}} \equiv 1 \text{(mod $p^n$)}$ but $(1+p)^{p^{n-2}} \not \equiv 1 \text{(mod $p^n$)}$. Deduce that $1 + p$ is an
+    element of order $ p^{n-1}$ in the multiplicative group $(\Z/p^n\Z)^\times$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    \begin{enumerate}
+        \item  Showing $(1+p)^{p^{n-1}} \equiv 1$ (mod $p^n)$: \\ 
+        
+        $p$ prime, $p \neq 2$, $n \in \Z^+$. The binomial theorem says, 
+        \[(a+b)^n = \sum_{k=0}^{n} \begin{pmatrix} n \\k   \end{pmatrix} a^ {n-k} b^k
+        \]
+        For $(1+p)^{p^{n-1}}$ this means, 
+        \[(1+p)^{p^{n-1}} = \sum_{k=0}^{p^{n-1}} \begin{pmatrix} p^{n-1} \\k   \end{pmatrix} 1^{p^{n-1} -k}  p^k
+        \]
+        We can see that $(1+p)^{p^{n-1}} \equiv 1$ (mod $p^n$) using induction.  \\
+        Base case, $n = 1$.
+        \[(1+p)^{p^{1-1}} = (1+p)^{p^0} = 1+ p\]
+        And, 
+        \[1 + p \equiv 1 \text{ (mod $p^1$)}\]
+        Inductive hypothesis, assume that the claim holds for $n =k$, 
+        \[(1+p)^{p^{k-1}} \equiv 1 \text{ (mod $p^k$)} \iff (1+p)^{p^{k-1}} = 1+ ap^k\]
+        where $a$ is an integer. 
+        Then for the inductive case, $n = k+1$, 
+        \[(1+p)^{p^{k+1-1}} = (1+p)^{p^{k}} = ((1+p)^{p^{k-1}})^p\]  
+        Substituting the inductive hypothesis, 
+        \begin{align*}
+            (1+p)^{p^{k+1-1}} &= (1+ap^k)^p \\
+            &= 1 + \sum_{j=1}^p\begin{pmatrix}p \\ j\end{pmatrix}(ap^k)^j \\ 
+        \end{align*}
+        But for $j =1$, $\frac{p!}{(p-1)!1!} ap^k = ap^{k+1}$, then we can say that, 
+        \begin{align*}
+            (1+p)^{p^{k+1-1}} &= 1 + ap^{k+1} + \sum_{j=2}^p\begin{pmatrix}p \\ j\end{pmatrix}(ap^k)^j  \\
+            &= 1 + ap^{k+1} + \sum_{j=2}^p\begin{pmatrix}p \\ j\end{pmatrix}a^jp^{kj}  \\
+        \end{align*}
+        Because $j \geq 2$, we can factor out $p^{k+1}$ from all terms in the summation, 
+        \begin{align*}
+            (1+p)^{p^{k+1-1}} &= 1 + ap^{k+1} (1 + \sum_{j=2}^p\begin{pmatrix}p \\ j\end{pmatrix}a^jp^{kj-k-1})  \\
+            1 + ap^{k+1} (1 + \sum_{j=2}^p\begin{pmatrix}p \\ j\end{pmatrix}a^jp^{kj-k-1}) &\equiv 1 \text{ (mod $p^{k+1}$)}
+        \end{align*}
+    
+        Hence, $(1+p)^{p^{n-1}} \equiv 1$ (mod $p^n$) holds for all $n \geq 1$. 
+
+        \item Showing $(1+p)^{p^{n-2}} \not \equiv 1$ (mod $p^n)$: \\ 
+        To show this, we can induct with a stronger condition, $p \nmid a$. Checking this condition for the base case: \\ 
+        Base case, n =1. \\
+        From part 1 we know that $(1+p)^{p^{n-1}} = 1 + ap^n$, 
+        \[(1+p)^{p^0} =(1+p)^{1} = 1 + ap^n = 1+ 1\cdot p^1 \implies  p \nmid 1 \implies p\nmid a\]
+        Assuming that this condition holds for the inductive hypothesis, 
+        \[(1+p)^{p^{k-1}} \equiv 1 \text{ (mod $p^k$)} \iff (1+p)^{p^{k-1}} = 1+ ap^k \iff p \nmid a\]
+        Then for the inductive case, $n =k+1$, 
+        \[(1+p)^{p^{k}} \equiv 1 \text{ (mod $p^{k+1}$)} \iff (1+p)^{p^{k}} = 1+ ap^{k+1} \]
+        \begin{align*}
+            (1+p)^{p^{k-1}} &= 1+ ap^{k+1} = (1+ap^{k})^p\\ 
+            &= 1 + ap^{k+1}\left ( 1 + \sum_{j=2}^p \begin{pmatrix} p \\ j \end{pmatrix} a^jp^{kj-k-1}\right ) \\
+        \end{align*}
+
+        We want to show that $p\nmid a\left( 1 + \sum_{j=2}^p \begin{pmatrix} p \\ j \end{pmatrix} a^jp^{kj-k-1}\right )$ \\(i dont know why the summation notation is rendering weirdly, sorry!) \\
+        We already know that $p \nmid a$ from the inductive hypothesis. \\ 
+        Let $x = \left( 1 + \sum_{j=2}^p \begin{pmatrix} p \\ j \end{pmatrix} a^jp^{kj-k-1}\right )$
+        For $2 \leq j \leq p$, the terms look like $\begin{pmatrix} p \\ j \end{pmatrix} a^jp^{kj-k-1}$, where $p^{kj-k-1} \geq p$, so $p$ divides the term, i.e. $x = 1+gp$, for some $g \in \Z$. 
+        \[\implies p \nmid x \implies p\nmid a\left( 1 + \sum_{j=2}^p \begin{pmatrix} p \\ j \end{pmatrix} a^jp^{kj-k-1}\right )\]
+        So the induction hypothesis holds. \\ 
+        We know that $(1+p)^{n-2} = 1 + ap^{n-1} \equiv 1$ (mod $p^{n-1}$). \\ 
+        If $(1+p)^{n-2} \equiv 1$ (mod $p^n$) then, \\
+        $(1+p)^{n-2} \equiv 1$ (mod $p^n$) $\iff $ $1 + ap^{n-1} \equiv 1$ (mod $p^n$) $\iff ap^{n-1} \equiv 0$ (mod $p^n$)  \\
+        But $p \nmid a$, and $p^n \nmid p^{n-1}$, so  \\ 
+        $(1+p)^{n-2} \not \equiv 1$ (mod $p^n$) $\iff $ $1 + ap^{n-1} \not \equiv 1$ (mod $p^n$) $\iff ap^{n-1} \not \equiv 0$ (mod $p^n$) 
+
+        \item For the order of $(1+p) \in (\Z/p^n\Z)^\times$,\\
+        % , let $\mid (1+p) \mid  = x$. We know that $(1+p)^{p^{n-1}} \equiv 1$ (mod $p^n$), so $x \mid p^{n-1}$        
+        From the last subpart, we can see that because $p \nmid a$, and for any integer k p is raised to, $(1+p)^{p^k}$  we can only factor out $ap^k+1$ from the summation. So if $k < n-1$, $ap^{k+1} < p^n \implies p^n \nmid ap^{k+1} \implies (1+p)^{p^{k-1}} \not \equiv 1$ (mod $p^n$). So the smallest integer $x$ for which $(1+p)^x \equiv 1$ (mod $p^n$) is $p^{n-1}$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{problem}{4}
+    Let $Z_n$ be a cyclic group of order $n$ and for each integer $a$ let
+    \[\sigma_a: Z_n \to Z_n \text{ by } \sigma_a(x) = x^a \text{ for all } x \in Z_n\]
+
+    \begin{enumerate}
+        \item Prove that $\sigma_a$ is an automorphism of $Z_n$ if and only if $a$ and $n$ are relatively prime  (automorphisms were introduced in Exercise 20, Section 1.6).
+        \item Prove that $\sigma_a = \sigma_b$ if and only if $a \equiv b$ (mod $n$).
+        \item Prove that every automorphism of $Z_n$ is equal to $\sigma_a$ for some integer $a$. 
+        \item Prove that $\sigma_a \circ \sigma_b = \sigma_{ab}$. Deduce that the map $\Bar{a} \to \sigma_a$ is an isomorphism of $(\Z/n\Z)^\times$ onto the automorphism group of $Z_n$ (so $Aut(Z_n)$ is an abelian group of order $\varphi(n))$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item To show that $\sigma_a$ is an automorphism on $Z_n$, we need to show that $\sigma_a$ is an injective or surjective homomorphism from $Z_n \to Z_n$: 
+        \begin{enumerate}
+            \item Homomorphism: \\
+                $\forall x,y \in Z_n$,
+                \begin{align*}
+                    \sigma_a(xy) &= (xy)^a \\
+                    &= x^ay^a \qquad \text {(cyclic groups are abelian)}\\
+                    &= \sigma_a(x) \sigma_a(y)
+                \end{align*} 
+                Hence, $\sigma_a$ is a homomorphism from $Z_n \to Z_n$. 
+            \item Surjectivity: \\
+            Let $x^a \in Z_n$, we know that the $\mid x \mid = n \implies \mid x^a\mid = \frac{n}{gcd(n,a)} =k, k \leq n$. 
+            We also know that $Z_n = \langle x \rangle$, where elements of $Z_n$ are generated by the first $n$ powers of $x$. Under the homomorphism, this would look like the first $n$ powers of $x^a$. If $gcd(a,n) \neq 1$, then $\exists k < n : \,\mid x^a \mid = k$, i.e., 
+            \[\sigma_a(x^0) \to (x^0)^a = e\]
+            \[\sigma_a(x^k) \to (x^k)^a = e\]
+            Thus, the kernel of $\sigma_a$ is not trivial if $gcd(a,n) \neq 1$, and hence $\sigma_a$ is not surjective. \\ 
+            But if $gcd(a,n) =1$, then it is easy to see that $\nexists k <n,(x^a)^k = e$. Or, the kernel of $\sigma_a$ is trivial and $\sigma_a$ is surjective.  
+        \end{enumerate}
+        All surjective homomorphisms are injective. Thus,$\sigma_a$ is an automorphism of $Z_n$ if and only if $gcd(a,n) = 1$. 
+
+        \item Assuming $a \not\equiv b$ (mod $n$) ($\implies$): \\
+        \begin{align*}
+            &a \equiv b \text{ (mod $n$)} \\
+            \implies &a = nk + p \\
+            \implies &b = nm + q\\ 
+            \text{where $p \neq q$} \\
+            \implies &\sigma_a (x) = x^a = x^{nk+p} = x^{nk}x^p = x^p \\ 
+            \implies &\sigma_b (x) = x^b = x^{nm+q} = x^{nm}x^q = x^q\\ 
+            \implies &\sigma_a(x) \neq \sigma_b(x)
+        \end{align*}
+        
+        
+        Assuming $a \equiv b$ (mod $n$) ($\impliedby$): \\
+        \begin{align*}
+            &a \equiv b \text{ (mod $n$)} \\
+            \implies &a = nk + p \\
+            \implies &b = nm + p\\ 
+            \implies &\sigma_a (x) = x^a = x^{nk+p} = x^{nk}x^p = x^p \\ 
+            \implies &\sigma_b (x) = x^b = x^{nm+p} = x^{nm}x^p = x^p\\ 
+            \implies &\sigma_a(x) = \sigma_b(x)
+        \end{align*}
+        Thus, $\sigma_a = \sigma_b$ if and only if $a \equiv b$ (mod $n$).
+
+        \item All automorphisms of $Z_n$ are isomorphisms from $Z_n$ to itself. Because isomorphisms are surjective, we need to map $x$ to an $x^a \in Z_n$ such that $Z_n = \langle x\ \rangle = \langle x^a \rangle$. But we know that, for all $x^a$ in $Z_n$, $x^a$ is a positive integer power of $x$. Thus, $\exists a, 0<a \leq n$, for all automorphic maps $\sigma_a$. 
+        \item Proving $\sigma_a \circ \sigma _b (x) = \sigma_{ab}(x)$: 
+        \begin{align*}
+            \sigma_a \circ \sigma _b (x) &= \sigma_a(\sigma_b (x)) \\ 
+            &= \sigma_a(x^b) \\
+            &= (x^b)^a = x^{ba} = x^{ab} \text{ (cyclic groups are abelian)} \\ 
+            &= \sigma_{ab}(x)
+        \end{align*}
+        Hence $\sigma_a \circ \sigma _b (x) = \sigma_{ab}(x)$. \\ 
+        Define the map $\varphi: (\Z/n\Z)^\times \to Aut(Z_n)$ such that $\varphi(\Bar{a}) = \sigma_a$. To show that $\varphi$ is an isomorphism from $(\Z/n\Z)^\times$ to  $Aut(Z_n)$ we need to show that it is an injective or surjective homomorphism (since all injective homomorphisms on cyclic groups are surjective and vice versa.): 
+        \begin{enumerate}
+            \item Homomorphism: \\ 
+            Using what we just proved, 
+            \[\varphi(\Bar{a}\Bar{b}) = \sigma_{ab} = \sigma_a \circ \sigma_b = \varphi(\Bar{a}) \circ \varphi(\Bar{b}) \]
+            Thus, $\varphi$ is a homomorphism. 
+            \item Surjectivity: \\ 
+            From (1) we know that $\sigma_a$ is an automorphism of $Z_n$ only if $gcd(a,n) = 1$, and from (3) we know that there exists an $a$ for all $\sigma_a$ in $Aut(Z_n)$. From (2) we know that $\sigma_a = \sigma_b$ if $a\equiv b$ (mod $n$). Hence there are a finite number of $a \leq n, gcd(a,n) = 1$ that represent all automorphisms of $Z_n$. The group $(\Z/n\Z)^\times$ by definition is the group of all $a \leq n$ such that $gcd(a,n) = 1$, i.e $\varphi$ is surjective. 
+            
+            \item Injectivity: \\ 
+            Again from (2) we know that $\sigma_a = \sigma_b$ if and only if $a\equiv b$ (mod $n$). Then for $a,b \leq n$, $\sigma_a \neq \sigma_b$. Thus $\varphi$ is injective. 
+        \end{enumerate}
+        Thus, the map $\Bar{a} \to \sigma_a$ is an isomorphism of $(\Z/n\Z)^\times$ onto the automorphism group of $Z_n$. Because $Aut(Z_n)$ is isomorphic to $(\Z/n\Z)^\times$ it has the same properties as $(\Z/n\Z)^\times$. So we can say that $Aut(Z_n)$ is abelian and has order $\varphi(n)$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{5}
+    Show that $(\Z/2^n\Z)^\times$ is not cyclic for any $n \geq 3$. [Find two distinct subgroups of order $2$].
+\end{problem}
+
+\begin{solution}
+\bbni\bbni 
+    Consider the element  $2^n-1 \in (\Z/n\Z)^\times $: 
+    \[(2^n -1)^2 = (2^n)^2 - 2.2^n + 1 = 2^{n}2^n - 2^n2 + 1\]
+    Taking mod $2^n$, 
+    \[(2^n -1)^2 \equiv 0 - 0 + 1 \equiv 1 \text{ (mod $2^n$)}\]
+    The elements $\{1, 2^n -1\}$ form a subgroup (closed under inverses $(2^n-1)^{-1} = 2^n -1$ and multiplication $(2^n -1) ^m$ results in either  $1$ or  $2^n -1$) of order 2. \\ \\
+    Now consider the element  $2^{n-1} -1 \in (\Z/n\Z)^\times $: 
+    \[(2^{n -1} -1)^2 = (2^{n-1})^2 - 2.2^{n-1} + 1 = 2^{n}2^n2^{-2} - 2^n + 1\]
+    Taking mod $2^n$, 
+    \[(2^{n -1} -1)^2 \equiv 0 - 0 + 1 \equiv 1 \text{ (mod $2^n$)}\]
+    The elements $\{1, 2^{n -1} -1\}$ also form a subgroup (closed under inverses $(2^{n-1} -1)^{-1} = 2^{n -1} -1$ and multiplication $(2^{n -1} -1) ^m$ results in either  $1$ or  $2^{n -1}-1$) of order 2.\\ 
+
+    By theorem 7, we know that for every $a$ dividing the order of the group, there exists a unique subgroup of order $a$, but we have at least 2 subgroups in $(\Z/2^n\Z)^\times$ of order 2 (order of $(\Z/2^n\Z)^\times$ is $2^n/2 = 2^{n-1}$, which is divisible by 2) which means that $(\Z/2^n\Z)^\times$ for $n\geq 3$ is not cyclic.
+\end{solution}
+
+\newpage
+\begin{problem}{6}
+    Prove that the subgroup of $S_4$ generated by $(1 2)$ and $(1 2)(3 4)$ is a noncyclic group of order $4$. (Show that it is isomorphic to Klein Four). 
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    Let $A$ be the subgroup generated by $(12)$ and $(12)(34)$ Define a map $\varphi : V_4 \to A$ such that: 
+    \begin{enumerate}
+        \item $\varphi (e) = e$
+        \item $\varphi(a) = (12)$
+        \item $\varphi(b) = (12)(34)$
+    \end{enumerate}
+    To see if this is an homomorphism we check the relations in the presentation of Klein Four ($V_4$) and see if they hold: 
+    \[V_4 = \langle a,b \mid a^2 = b^2 = e, ab =ba \rangle\] 
+    \begin{enumerate}
+        \item $a^2 = b^2 = e$\\ 
+        $a^2 \implies (12)(12) = (1)(2) = e \implies \mid (12) \mid = 2 $ \\
+        $b^2 \implies (12)(34)(12)(34) = (1)(2)(3)(4) = e \implies \mid (12)(34) \mid = 2 $ \\
+        $\implies((12))^2 = ((12)(34))^2 = e$ \\ 
+        \item $ab = ba$ \\
+        $(12)(12)(34) = (34)$ \\
+        $(12)(34)(12) = (34)$ \\
+        $\implies (12)(34)(12) = (12)(12)(34)$
+    \end{enumerate}
+    The relations of $V_4$ hold in $A$, so $\varphi$ is a homomorphism.
+    The distinct elements in $A$ are generated by the generators raised to powers 1 and 0 (both the generators have order 2). Let $x = (12), y =(12)(34)$: 
+    \begin{enumerate}
+        \item $x^0y^0 = x^2y^2 = x^0y^2 = x^2y^0 = e$
+        \item $x^1y^0 = (12)$
+        \item $x^0y^1 = (12)(34)$
+        \item $x^1y^1 = (12)(34)(12) = (34)$
+    \end{enumerate}
+    Hence, $\mid A \mid = 4.$ Also, $\varphi$ is a surjective homomorphism from a group of order 4 to a subgroup of order 4, and hence is an isomorphism. And because there exist 3 elements of $A$ with order two, it is not cyclic. 
+\end{solution}
+
+\newpage
+\begin{problem}{7}
+    Prove that the subgroup of $S_4$ generated by $(1 2)$ and $(1 3)(2 4)$ is isomorphic to the dihedral group of order $8$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    Let $A$ be the subgroup generated by $(12), (13)(24)$, and let $a = (12),\, b = (13)(24),$ and $ c = ab = (1324)$. The order of these elements is $2, 2, 4$ respectively (order of disjoint m-cycles is equal to the lcm of their lengths). \\
+    Then we can write a partial presentation of $A$ as follows: 
+    \[A = \langle a, c \mid a^2 = c^4 = e \rangle\]
+    This looks awfully similar to the presentation of $D_8$. 
+    \[D_8 = \langle s, r \mid s^2 = r^4 = e, rs = sr^{-1}\rangle\]
+    If we can show that the relation $rs = sr^{-1}$ holds in $A$ for $a,c$, we can define a homomorphism between the two. Checking, \\
+    $ac^{-1} = (12)(4231) = (14)(23)$, and $ ca = (1324)(12) = (14)(23)$ $\implies ca = ac^{-1}$. \\
+    The relation holds. 
+    \[A = \langle a, c \mid a^2 = c^4 = e , ca = ac^{-1}\rangle\]
+
+    Now we can define $\varphi: D_8 \to A$, such that $\varphi(s) = a, \varphi(r) = b \implies$ we can map the generators of $D_8$ to the generators of $A$, this gives us a surjective homomorphism (any product of $s, r$ is the image
+    of the corresponding product of $a, c$).  \\
+
+    Elements in $A$ look like $a^xc^y, x = 0, 1$ and $y = 0, 1,2, 3$. There are $8$ such combinations, $A = \{e, a, ac, ac^2, ac^3, c, c^2, c^3\} \implies \mid A \mid  =8$. We also know that the order of $D_8$ is 8. A surjective homomorphism between groups of the same order is also injective. Hence, the subgroup $A$ is isomorphic to $D_8$. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{8}
+    A group $H$ is called finitely generated if there is a finite set $A$ such that $H = \langle A \rangle$.
+    \begin{enumerate}
+        \item Prove that every finite group is finitely generated.
+        \item Prove that $\Z$ is finitely generated.
+        \item Prove that every finitely generated subgroup of the additive group $\Q$ is cyclic. [If $H$ is a finitely generated subgroup of $\Q$, show that $H \leq \langle\frac{1}{k}\rangle$, where $k$ is the product of all the denominators which appear in a set of generators for $H$.]
+        \item Prove that $\Q$ is not finitely generated
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\bbni
+    \begin{enumerate}
+        \item If $G$ is a finite group that acts over the finite set $H$, then by definition we can generate the finite group from the set $H$. 
+        \[G = \langle H \rangle\]
+        
+        \item $\Z$ is a cyclic group of infinite order generated by $\Z = \langle 1\rangle$, \\ i.e. $\forall n \in \Z, n = \underbrace{1+1+\ldots +1}_{n-times} = n*1$
+        
+        \item Let $A$ be any finitely generated subgroup of the additive group $\Q$, then we can represent $A$ as:
+        \[A = \left \langle \frac{a_1}{d_1}, \frac{a_2}{d_2}, \ldots , \frac{a_m}{d_m} \right\rangle\]
+        Where $\frac{a_1}{d_1}, \frac{a_2}{d_2}, \ldots , \frac{a_m}{d_m}$ are generators of $A$ in their lowest forms. 
+        Then we can find a fraction $\frac{1}{q}$ such that $q = lcm (d_1, d_2, \ldots, d_m)$. Let this be a generator for a subgroup $B$ of $\Q$: $B = \left \langle \frac{1}{q} \right \rangle$ Because $q$ is a multiple of any product of the denominators of $A$ we can multiply an integer $n$ such that $\frac{n}{q} = \frac{a}{d}$ for any element in $A$. So we can say that $A \subseteq B$. We also know (from the question) that $A$ is a finitely generated subgroup, we know that $A$ is closed under multiplication and inverses. Then, $A \leq B$, and all subgroups of cyclic groups are cyclic. Hence, every finitely generated subgroup of the additive group $\Q$ is cyclic. 
+
+        \item Assume $\Q$ is finitely generated, then it must be finitely cyclically generated according to part 3. Let $\Q = \left \langle \frac{p}{q} \right \rangle$ for some relatively prime $p,q$. Since $\frac{p}{q}$ is a generator, there must exist an $x$, such that  $x\frac{p}{q} = \frac{1}{r}$ for some $r$ that is relatively prime to q. Then, $q = xpr \implies r \mid q$. This contradicts our original assumption that $r, q$ are co-prime, and hence shows that $\Q$ cannot be finitely generated.  
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{9}
+    The group $A = Z_2\times Z_4 = \langle a,b \mid  a^2 = b^4 = 1, ab = ba \rangle$ has order $8$ and has three subgroups of order $4: \langle a, b^2\rangle \cong V_4, \langle b \rangle \cong Z_4$ and $\langle ab \rangle \cong Z_4$ and every proper subgroup is contained in one of these three. Draw the lattice of all subgroups of $A$, giving each subgroup in terms of at most two generators.
+\end{problem}
+
+\begin{solution}
+\bbni
+\bbni
+    \begin{center}
+         \begin{tikzpicture}[every node/.style={font=\small},node distance=1.5cm and 2cm]
+    
+            \node (top) {A};
+            \node (a) [below left=of top] {$\langle a, b^2 \rangle$};
+            \node (b) [below=of top] {$\langle b \rangle$};
+            \node (c) [below right=of top] {$\langle a, b \rangle$};
+            \node (d) [below=of b] {$\langle  b^2 \rangle$};
+            \node (e) [below left=of a] {$\langle a\rangle$};
+            \node (f) [below=of a] {$\langle ab^2 \rangle$};
+            \node (bottom) [below=of f,yshift=-1cm] {$\langle e \rangle$};
+        
+            \draw (top) -- (a);
+            \draw (top) -- (b);
+            \draw (top) -- (c);
+            \draw (a) -- (d);
+            \draw (a) -- (e);
+            \draw (a) -- (f);
+            \draw (b) -- (d);
+            \draw (c) -- (d);
+            \draw (e) -- (bottom);
+            \draw (d) -- (bottom);
+            \draw (f) -- (bottom);    
+    
+        \end{tikzpicture}
+    \end{center}
+\end{solution}
+
+\newpage
+
+\begin{problem}{10}
+    Let $M$ be the group of order $16$ with the following presentation:
+    \[\langle u,v \mid u^2 = v^ 8=1, vu = uv^5 \rangle\]
+    (sometimes called the modular group of order $16$). It has three subgroups of order $8$: $\langle u ,v^2\rangle, \langle v \rangle$, and $\langle uv \rangle$ and every proper subgroup is contained in one of these three.
+    Prove that $\langle u, v^2 \rangle \cong Z_2 \times Z_4, \langle v \rangle \cong Z_8$ and $\langle uv \rangle \cong Z_8$.  Show that the lattice of subgroups of $M$ is the same as the lattice of subgroups of $Z_2 \times Z_8$ (cf. Exercise 13) but that these two groups are not isomorphic.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    \begin{enumerate}
+        \item $\langle v \rangle \cong Z_8$ \\
+        $Z_8$ and $\langle v \rangle$ are both cyclic group of order 8 (from question). And we know that all cyclic groups of the same order are isomorphic (Theorem 7). So we can say, $\langle v \rangle \cong Z_8$.
+        
+        \item $\langle uv \rangle \cong Z_8$ \\
+        Similar to the case above, we know that $ \mid \langle uv \rangle \mid = 8 = \mid Z_8 \mid$. And from Theorem 7, we can say that $\langle uv \rangle \cong Z_8$.
+        
+        \item $\langle u,v^2 \rangle \cong Z_2 \times Z_4$\\ 
+        Let $x$ be the generator of the cyclic group $Z_2$, and $y$ be the generator of $Z_4$, then elements in $Z_2 \times Z_4$ look like $(x^a,y^b)$, where $a \in \{0,1\}, b \in \{0,1,2,3\}$. Then we can define a map $\varphi: Z_2\times Z_4 \to \langle u,v^2 \rangle$ such that $\varphi((x^a,y^b) = u^a(v^2)^b$. Then to check if $\varphi$ is a homomorphism, we take any $(x^a,y^b), (x^c,y^d) \in Z_2\times Z_4$ and map them. 
+        \[\varphi((x^a,y^b) \cdot (x^c,y^d)) = \varphi((x^{a+c}, y^{b+d})) = u^{a+c} ({v^2})^{b+d}\]
+        Checking if $u, v^2$ commute,
+        \[vu = uv^5 \implies vvu =vuv^5 \implies v^2u = uv^5v^5 = uv^{10} = uv^2 \implies v^2u = uv^2\]
+        They do! The subgroup $\langle u, v^2 \rangle$ is abelian. Going back to proving the homomorphism. 
+        \begin{align*}
+            \varphi((x^a,y^b) \cdot (x^c,y^d)) &= u^{a+c} ({v^2})^{b+d} \\
+            &= u^a u^c (v^2)^b(v^2)^d \\
+            &= u^a (v^2)^b u^c (v^2)^d \\ 
+            &= (u^a (v^2)^b) (u^c (v^2)^d) \\
+            &= \varphi((x^a, y^b))\varphi((x^c, y^d))    
+        \end{align*}
+        Thus, the map $\varphi$ is homomorphic. The kernel of $\varphi$ is, 
+        \[ker(\varphi) = \{(x^a, y^b) \mid u^a(v^2)^b = 1\}\]
+        Checking cases: 
+        \begin{enumerate}
+            \item $a = 0 \implies v^{2b} = 1 \implies {2b} = 8 \implies b = 4 \implies b \equiv 0$ (mod 4). 
+            \item $a = 1 \implies u(v^{2})^b = 1 \implies u = (v^{2})^{-b} \implies 1 = u^2 = (v^2)^{-2b}$ 
+            But order of $v^2$ cannot be negative, and neither can $b$ (by definition), so this case is not feasible. 
+        \end{enumerate}
+        Hence, the kernel is trivial $\iff$ the map is injective. But we also know that $\mid \langle u, v^2 \rangle\mid  = \mid Z_2 \times Z_4 \mid  = 8$. Injective homomorphism between groups of equal order is surjective. Hence, $\varphi$ is an isomorphism.  
+        \item   $M = \langle u ,v \mid u^2 = v^8 = 1, vu = uv^5\rangle$
+        \begin{center}
+         \begin{tikzpicture}[every node/.style={font=\small},node distance=1.5cm and 2cm]
+    
+            \node (top) {M};
+            \node (a) [below left=of top] {$\langle u, v^2 \rangle$};
+            \node (b) [below=of top] {$\langle v \rangle$};
+            \node (c) [below right=of top] {$\langle uv \rangle$};
+            \node (d) [below=of b] {$\langle  v^2 \rangle$};
+            \node (e) [below left=of a] {$\langle u, v^4\rangle$};
+            \node (f) [below=of a] {$\langle uv^2 \rangle$};
+            \node (g) [below =of f] {$\langle v^4 \rangle$};
+            \node (h) [below left=of e] {$\langle uv^4 \rangle$};
+            \node (i) [below =of e] {$\langle u \rangle$};
+            \node (bottom) [below=of i] {$\{ e \}$};
+        
+            \draw (top) -- (a);
+            \draw (top) -- (b);
+            \draw (top) -- (c);
+            \draw (a) -- (d);
+            \draw (a) -- (e);
+            \draw (a) -- (f);
+            \draw (b) -- (d);
+            \draw (c) -- (d);
+            \draw (d) -- (g);
+            \draw (f) -- (g);
+            \draw (e) -- (g);
+            \draw (e) -- (h);
+            \draw (e) -- (i);
+            \draw (g) -- (bottom);
+            \draw (h) -- (bottom);
+            \draw (i) -- (bottom);    
+    
+        \end{tikzpicture} \\
+        \text{Lattice of M}
+    \end{center}
+    \newpage
+    For $Z_2 \times Z_8$, let $a = (1,0)$ and $b =(0,1)$ be the generators ($Z_2, Z_8$ are cyclic groups, so elements co-prime with the order of the group can act as generators) of the group. Then, 
+    \[Z_2 \times Z_8 = \langle a, b \mid a^2 = b^8 = 0, ab = ba\rangle\]
+    \begin{center}
+         \begin{tikzpicture}[every node/.style={font=\small},node distance=1.5cm and 2cm]
+    
+            \node (top) {$Z_2 \times Z_8$};
+            \node (a) [below left=of top] {$\langle a, b^2 \rangle$};
+            \node (b) [below=of top] {$\langle b \rangle$};
+            \node (c) [below right=of top] {$\langle ab \rangle$};
+            \node (d) [below=of b] {$\langle  b^2 \rangle$};
+            \node (e) [below left=of a] {$\langle a, b^4\rangle$};
+            \node (f) [below=of a] {$\langle ab^2 \rangle$};
+            \node (g) [below =of f] {$\langle b^4 \rangle$};
+            \node (h) [below left=of e] {$\langle ab^4 \rangle$};
+            \node (i) [below =of e] {$\langle a \rangle$};
+            \node (bottom) [below=of i] {$\{ e \}$};
+        
+            \draw (top) -- (a);
+            \draw (top) -- (b);
+            \draw (top) -- (c);
+            \draw (a) -- (d);
+            \draw (a) -- (e);
+            \draw (a) -- (f);
+            \draw (b) -- (d);
+            \draw (c) -- (d);
+            \draw (d) -- (g);
+            \draw (f) -- (g);
+            \draw (e) -- (g);
+            \draw (e) -- (h);
+            \draw (e) -- (i);
+            \draw (g) -- (bottom);
+            \draw (h) -- (bottom);
+            \draw (i) -- (bottom);    
+    
+        \end{tikzpicture} \\
+        \text{Lattice of $Z_2 \times Z_8$}
+    \end{center}
+
+    From presentation of the groups, we know that $M$ is not abelian, where as $Z_2 \times Z_8$ is, so the two groups cannot be isomorphic. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{problem}{11}
+    Prove Euler’s Theorem: If $a$ and $n$ are relatively prime integers, then $a^{\varphi(n)} \equiv 1$ (mod $n$). Hint. Use Lagrange’s theorem on the group $(\Z/n\Z)^\times$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    We know that the order of $\mid (\Z/n\Z)^\times \mid = \varphi(n)$, we also know that $gcd(a,n) = 1 \implies a \in (\Z/n\Z)^\times$. Then by Lagrange's Theorem, $| \langle a\rangle |  \bigg | | (\Z/n\Z)^\times |$. \\ We also know that $|a| \bigg | |\langle a \rangle | \implies |a| \bigg | |(\Z/n\Z)^\times| \implies |a| \bigg | |\varphi(n)|$. $a$ raised to any multiple of its order will also give the identity $\implies a^{\varphi(n)} \equiv 1$ (mod $n$).  
+\end{solution}
+
+\newpage
+
+
+\begin{problem}{12}
+    Show that for all $n, m \geq 1$, the group $S_{n+m}$ contains a subgroup isomorphic to $S_n \times S_m$. Conclude that $n!m!$ divides $(n + m)!$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \bbni 
+    Let $A$ be the set that $S_{n+m}$ acts on, $A = \{1, \ldots, n, n+1, \ldots, m\}$. Then we can partition $A$ into two disjoint sets, $B= \{1, \ldots, n\}, C=\{n+1, \ldots, m\}$, with $n$ and $m$ elements respectively. Also, $S_n$ acts on a set with $n$ elements and $S_m$ acts on a set with $m$ elements. We can then define a map $\varphi : S_n \times S_m \to S_{n+m}$ such that \begin{align*}
+        \varphi((\sigma, e)) &= \alpha(1\ldots n)\\
+        \varphi((e, \tau)) &= \alpha(n+1\ldots m)
+    \end{align*}, where $\sigma$ is any permutation in $S_n$, $\tau$ is any permutation in $S_m$, and $\alpha$ is any permutation in $S_{n+m}$. To show that $\varphi$ is a homomorphism we need to show that \[\varphi((\sigma_1, \tau_1)(\sigma_2, \tau_2)) = \varphi((\sigma_1, \tau_1))\varphi((\sigma_2, \tau_2))\] 
+    \begin{align*}
+        \varphi((\sigma_1, \tau_1)(\sigma_2, \tau_2)) &= \varphi((\sigma_1\sigma_2)(\tau_1\tau_2)) \\ 
+        &=\alpha_1(1\ldots n)\alpha_2(1\ldots n)\alpha_1(n+1\ldots m)\alpha_2(n+1\ldots m) \\
+        &=\alpha_1(1\ldots n)\alpha_1(n+1\ldots m)\alpha_2(1\ldots n)\alpha_2(n+1\ldots m) \text{ (disjoint cycles commute)}\\
+        &=\varphi((\sigma_1, \tau_1))\varphi((\sigma_2, \tau_2))\\
+    \end{align*}
+    $\varphi$ is a homomorphism, and there exists a subgroup in $S_{n+m}$ that $\varphi$ maps onto. 
+    $ker(\varphi)=\{(\sigma,\tau)| \varphi(\sigma, \tau) = e\}$ When $\varphi(\sigma, \tau) = e$ the elements in the cycle stay constant, but since $\sigma$ and $\tau$ are disjoint cycles $\varphi(\sigma, \tau) = \varphi(\sigma,e)\varphi(e,\tau)$ i.e when the  $\{1\ldots n\}$ elements are constant and  $\{n+1 \ldots m\}$ elements are constant. So, $\varphi(\sigma,\tau) = e \iff \sigma =e, \tau= e$. Hence, the kernel is trivial, and the homomorphism $\varphi$ is injective. \\ 
+    All maps are surjective onto their images (by definition). Hence, $\varphi$ is an isomorphism and we can say that $S_{n+m}$ contains a subgroup isomorphic to $S_n \times S_m$. \\ 
+    $\mid S_{n+m}\mid = (n+m)!, \mid S_n\times S_m \mid = n!m!$, and let $Z$ be the subgroup in $S_{n+m}$ it is isomorphic to. Then by Lagrange's Theorem, $\mid Z\mid \bigg | \mid S_{n+m} \mid \implies n!m! \mid (n+m)!$.
+\end{solution}
+
+\newpage
+
+\begin{problem}{13}
+    Tricks with Euler’s theorem. You can only use pencil and paper!
+    \begin{enumerate}
+        \item Prove that every element of $(\Z/72\Z)^\times$ has order dividing 12. (Hint: This is better than what a straight application of Euler’s theorem will give you! Try applying Euler’s theorem to a pair of relatively prime divisors of 72.)
+        \item Prove that if $n$ is a positive integer, then $n$ and $n^5$  have the same last digit. Now Google “Fifth root trick” and watch the Numberphile video.
+         \item  Find the last two digits of the huge number $3^{3^{3^{\cdot ^{\cdot ^{\cdot^3}}}}}$ where there are 2025 threes appearing! (Hint: Do nested applications of Euler’s theorem.)
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know the following 2 properties of Euler's totient function: 
+        \[\varphi(ab) = \varphi(a)\varphi(b), (a,b) =1\]
+        \[\varphi(p^x) = (p^{x-1})(p-1)\]
+        Then we can write $\varphi(72) = \varphi(9)\varphi(8)$. $\varphi(9) = \varphi(3^2) = 3(2) = 6$, and $\varphi(8) = \varphi(2^3) = 4(1) = 4$.  \[\varphi(72) = \varphi(8)\varphi(9) = 6 \cdot 4 = 24\]
+        From Problem 11 and the statements above, we know that $\forall a \in (\Z/72\Z)^\times$, $a^{\varphi(9)} \equiv1$ (mod 9) $\implies a^6 \equiv 1$ (mod 9), and $a^{\varphi(8)} \equiv1$ (mod 8) $\implies a^4 \equiv 1$ (mod 8). Then the following is also trivially true, 
+        \[(a^4)^3 = a^{12} \equiv 1 \text{ (mod 8)}\qquad (a^6)^2 = a^{12} \equiv 1 \text{ (mod 8)}\]
+        But if something is equivalent to 1 (mod 8), and (mod 9), then it is equivalent to 1 (mod 72) because $8,9$ are coprime and $8\cdot 9 = 72$. 
+        \[a^{12} \equiv1 \text{ (mod 72)}\]
+
+        \item The last digit of $n^5$ is $n^5$ (mod 10). We need to show that $n^5 \equiv n$ (mod 10). Using part 1, we can equivalently show $n^5 \equiv n $ (mod 5) and  $n^5 \equiv n $ (mod 2).\\
+        \begin{enumerate}
+            \item  $n^5 \equiv n $ (mod 2) \\ 
+            If $n \equiv 1$ (mod 2), then $n^5 \equiv 1$ (mod 2) ( all powers of an odd number are odd.  
+            \[\implies n^5 \equiv n  \text{ (mod 2)}\]
+            If $n \equiv 0$ (mod 2), then $n^5 \equiv 0$ (mod 2) ( all powers of an even number are even.  
+            \[\implies n^5 \equiv n  \text{ (mod 2)}\]
+            \item  $n^5 \equiv n $ (mod 5) \\ 
+            $\varphi(5) = 4 \implies a^4 \equiv 1$ (mod 5) 
+            \begin{align*}
+                n^5 &\equiv n  \text{ (mod 5)} \\
+                n^4n &\equiv n \text{ (mod 5)} \\ 
+                n &\equiv n \text{(mod 5)}
+            \end{align*} 
+        \end{enumerate}
+        So, $n^5 \equiv n$ (mod 2) and $n^5 \equiv n$ (mod 5) $\implies n^5 \equiv n$ (mod 10). Hence, $n$ and $n^5$ have the same last digit. 
+
+        \item The last two digits of $3^{3^{3^{\cdot ^{\cdot ^{\cdot^3}}}}}$ is $3^{3^{3^{\cdot ^{\cdot ^{\cdot^3}}}}}$ (mod 100). Let $3^{3^{3^{\cdot ^{\cdot ^{\cdot^3}}}}}$, where there are 2025 3s, be P. \\ 
+        \[\varphi(100) = 40\text{ so }3^{P \text{ (mod 40)}} \equiv 1\]
+        Let $P$ (mod 40) $ = Q$.
+        Using the $\varphi(100) = 40, \varphi(40) = 16, \varphi(16) = 8, \varphi(8) = 4, \varphi(4) = 2, \varphi(2) = 1$, 
+        \begin{align*}
+            Q &\equiv Q_1 \text{ (mod 16)} \\
+            Q_1 \text{ (mod 16) } &\equiv Q_2 \text{ (mod 8)} \\
+            Q_2 \text{ (mod 8) } &\equiv Q_3 \text{ (mod 4)} \\
+            Q_3 \text{ (mod 4) } &\equiv Q_4\text{ (mod 2)} \\
+        \end{align*}
+
+        \begin{align*}
+            3 \text{ (mod 2)} &\equiv 1 = Q_4 \\
+            3^{Q_4} \text{ (mod 4)}= 3^1 \text{ (mod 4)} &\equiv 3 = Q_3 \\
+            3^{Q_3} \text{ (mod 8)}= 3^3 \text{ (mod 8)} &\equiv 3 = Q_2 \\
+            3^{Q_2} \text{ (mod 16)}= 3^3 \text{ (mod 16)} &\equiv 11 = Q_1 \\
+        \end{align*}
+        We know $3^4 = 81 \equiv 1$ (mod 40)
+        \begin{align*}
+                3^{Q_1} \text{ (mod 40)}&= 3^{11} \text{ (mod 40)}  = 3^3 \equiv 27 = Q \\
+                3^{Q} \text{ (mod 100)}&= 3^{27} \text{ (mod 100)}
+             \end{align*}
+
+        \begin{align*}
+            3^5 &= 243 \equiv 43 \text{ (mod 100)} \\ 
+            3^{10} &\equiv (43)^2 \text{ (mod 100)}  \equiv 1849 \text{ (mod 100)} \equiv 49 \text{ (mod 100)}\\ 
+            3^{20} &\equiv (49)^2 \text{ (mod 100)}  \equiv 2401 \text{ (mod 100)} \equiv 01 \text{ (mod 100)}\\
+            \implies 3^{27} &= 3^{20}  3^5 3^2 = 1\cdot 43 \cdot 9 = 387 \equiv 87 \text { (mod 100)}
+        \end{align*}
+        Last two digits of $3^{3^{3^{\cdot ^{\cdot ^{\cdot^3}}}}}$ are 87.
+    \end{enumerate}
+\end{solution}
+\end{document}
