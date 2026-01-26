@@ -99,12 +99,29 @@
 
             \item $d(x, z) \leq d(x,y) + d(y,z)$ 
             
-            \todo{}
+            Since 
+            \[|x_i - z_i| \le |x_i - y_i |+ |y_i - z_i| \, \forall i \in \N,\]
+             
+            we can see that because 
+            \[l.u.b. \{ |x_i - y_i| + | y_i - z_i|\}_{i\in \N}\] 
+            is an upper bound on $\{ |x_i - y_i| + | y_i - z_i|\}_{i\in \N}$ it is also an upper bound on $\{ |x_i - z_i|\}_{i\in \N}$.  I.e. 
+            \[\{ |x_i - z_i|\}_{i\in \N} \leq \{ |x_i - y_i| + | y_i - z_i|\}_{i\in \N} \leq l.u.b. \{ |x_i - y_i| + | y_i - z_i|\}_{i\in \N}\] 
+  
+            And (from pset $1$, problem $9$) we know for non-empty, bounded subsets of $\R$ that,  $l.u.b. \, \{x+y: x\in S_1, y \in S_2 \} = l.u.b. \, S_1 + l.u.b. \, S_2$. I.e., 
 
-            WTS $l.u.b. \{|x_i - z_i|\}_{i \in \N}  \leq l.u.b. \{|x_i - y_i|\}_{i \in \N} + l.u.b. \{|y_i - z_i|\}_{i \in \N}  $
+            \[\implies l.u.b. \{|x_i - y_i| + |y_i - z_i|\}_{i \in \N}  = l.u.b. \{|x_i - y_i| \} + l.u.b. \{ |y_i - z_i|\}_{i \in \N}\]
+            
+            Combining and substituting gives us, 
+
+            \[\implies l.u.b. \{|x_i - z_i|\}_{i \in \N}  \leq l.u.b. \{|x_i - y_i| \} + l.u.b. \{ |y_i - z_i|\}_{i \in \N}\]
+
         \end{enumerate}
+        
+        Hence the triangle inequality holds, and $(E,d)$ defines a metric space.
     \end{enumerate}
 \end{solution}
+
+\newpage 
 
 \begin{problem}{2}
     What are the open and closed balls in the metric space of example (4), § 1? Show that two balls of different centers and radii may be equal. What are the open sets in this metric space?
@@ -173,9 +190,9 @@
 \begin{solution}
     \bbni
 
-    Let $S = \{(x_1, x_2) \in E^2 : x_1 > x_2\}$, with distance function defined as  \\ $d((x_1,x_2), (y_1, y_2)) = \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2}$ for any two points $(x_1, x_2), (y_1, y_2) \in E^2$. Let $B_{r/4}((x_1, x_2))$ be an open ball centered around an arbitrary point $(x_1, x_2) \in S$, with $r = x_1 - x_2$ (obviously, $r>0$). 
-
-    Let $(y_1, y_2) \in B_{r/4}((x_1,x_2))$.  Then, 
+    Let $S = \{(x_1, x_2) \in E^2 : x_1 > x_2\}$, with distance function defined as  \\ $d((x_1,x_2), (y_1, y_2)) = \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2}$ for any two points $(x_1, x_2), (y_1, y_2) \in E^2$. To show that $S$ is an open subset we pick an arbitrary point in $S$ and show that there exists an open ball centered at that point contained entirely inside $S$.
+    
+    Let $B_{r/4}((x_1, x_2))$ be an open ball centered around an arbitrary point $(x_1, x_2) \in S$, with $r = x_1 - x_2$ (obviously, $r>0$), and let $(y_1, y_2) \in B_{r/4}((x_1,x_2))$.  Then, 
 
     \begin{align*}
         d((x_1,x_2), (y_1, y_2)) &< r/4 \\ 
@@ -202,5 +219,28 @@
 \begin{solution}
     \bbni 
 
+    Let $S$ be a bounded open subset of $\R$. $\forall p \in S$ let $S_p$ be the set of all open intervals in $S$ containing $p$. We know that $S_p$ is not empty because by definition of open sets there exists at least one ball centred at $p$ in $S$. (All open balls $B_\epsilon(a)$ are open intervals in $\R$ because they contain all elements between $a - \epsilon$ and $a + \epsilon$). 
+
+    Consider the set $R_p$ of the right end point of each of the intervals in $S_p$. Again, we know that this set is not empty because there exists at least one interval in $S_p$. We also know that this set is bounded from above because $S$ has an upper bound. Since, $R_p$ is nonempty and bounded from above, there must exist a $l.u.b.$ for $R_p$. 
+    Similarly, construct the set $L_p$ of the left end points of each of the intervals in $S_p$. By the same logic, there exist a $g.l.b.$ for $L_p$. 
+    
+    Now, consider the open interval $X_p = (g.l.b. \, L_p, l.u.b. \, R_p)$. To show that $X_p \subset S$, consider $x \in X_p$. Assume $x \notin S$ then since $S$ is open one can find intervals in $S_p$ arbitrarily close to $x$, contradicting the definitions of $g.l.b. \, L_p \, , \, l.u.b. \, R_p$. Hence, $x$ must be in $S$. Additionally, note that $X_p$ is the maximal open interval contained in $S$ that contains $p$, because any open interval in $S$ containing $p$ has  endpoints in $L_p, R_p$, and hence is contained in $X_p$.
+
+    \bbni 
+
+    \textbf{Claim: }If $X_q \cap X_p  \neq \emptyset $ then $ X_q = X_p$. 
+
+    Suppose there exists $r \in X_p \cap X_q$. Then $r \in S$. Because $X_p$ is an open interval containing both $p$ and $r$ and $X_q$ is an open interval containing both $q$ and $r$, the union $X_p \cup X_q$ itself an open interval in $S$ containing $p$. But by construction, $X_p$ is the maximal open interval contained in $S$ that contains $p$.
+    Hence, 
+    \[X_p \cup X_q \subset X_p \implies X_q \subset X_p \]
+
+    Similarly, we also get, 
+        \[X_p \cup X_q \subset X_q \implies X_p \subset X_q \]
+
+    Therefore, $X_p = X_q$. 
+
+    So, either $X_q \cap X_p  = \emptyset $ or $X_q = X_p$.     
+        
+    Then we can write $S = \underset{p}{\bigcup} \, X_{p}$. By the claim, these intervals are either equal or disjoint, so selecting all unique intervals gives us a union of disjoint open intervals.
 \end{solution}
 \end{document}

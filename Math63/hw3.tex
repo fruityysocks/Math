@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+
+\usepackage{euler}
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    Prove that if the points of a convergent sequence of points in a metric space are reordered, then the new sequence converges to the same limit.
+\end{problem}
+
+\begin{problem}{2}
+    Show that if $a_1, a_2, a_3, \cdots$ is a sequence of real numbers that converges to $a$, then, 
+    \[\underset{n \to \infty}{lim} \fr{\sum_{n}^{i=1}a_i}{n} = a.\]
+\end{problem}
+
+\begin{problem}{3}
+    Prove that any sequence in $\R$ has a monotonic subsequence. 
+    
+    \emph{(Hint: This is easy if there exists a subsequence with no least term, hence we may suppose that each subsequence has a least term.) (Note that this result and the theorem on the convergence of bounded monotonic sequences gives another proof that $\R$ is complete.)}
+\end{problem}
+
+\begin{problem}{4}
+    Let $S$ be a subset of the metric space $E$ . Define the closure of $S$, denoted $\bar{S}$, to be the intersection of all closed subsets of $E$ that contain $S$. Show that
+    \begin{enumerate}
+        \item $\bar{S} \supset S$, and $S$ is closed if and only if $S=S$. 
+        \item $\bar{S}$ is the set of all limits of sequences of points of $S$ that converge in $E.$
+        \item a point $p \in E$ is in $S$ if and only if any ball in $E$ of center $p$ contains points of $S$, which is true if and only if $p$ is not an interior point of $S'$ (cf. Prob. 15).
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{5}
+    Show that a complete subspace of a metric space is a closed subset.
+\end{problem}
+\end{document}

@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+Prove that any positive integer $n$ greater than $1$ can be written as a product of primes.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $P(n) = \forall n \in \Z_{>1}: \text{n is a product of primes}$. 
+
+    Assume that $P(k)$ holds where $ 1 < k < n$. I.e. the inductive hypothesis is that any integer greater than $1$ and less than $n$ can be written as a product of primes. 
+
+    Then we have two cases: 
+    \begin{enumerate}
+        \item $n$ is prime: 
+
+        Then $n$ is a product of itself, and we are done. 
+
+        \item $n$ is not prime: 
+        
+        Then we can write $n$ as a product of two integers $a, b$. Then, 
+        \begin{enumerate}
+            \item $a,b$ are prime. 
+            
+            By definition, $n = a * b$. Hence, $n$ can be written as a product of primes. 
+
+            \item Either one or both of $a,b$ is not prime. 
+            
+            Since $ b = \frac{n}{a}, a = \frac{n}{b}$ we can see that  $a, b < n$. Then by the induction hypothesis, both $a$ and $b$ can be written as products of primes. Therefore, their product $n = ab$ can also be written as a product of primes.
+
+        \end{enumerate}   
+        
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+Prove that for every real number $r \neq 1$ and every nonnegative integer $n$,
+\[
+\sum_{i=0}^{n} r^i = \frac{r^{n+1}-1}{r-1}.
+\]
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $P(x)$ be the statement:
+\[
+\sum_{i=0}^{x} r^i = \frac{r^{x+1}-1}{r-1},
+\]
+for a fixed real number $r \neq 1$.
+
+    Assume $P(x)$ holds upto $x = n -1$. Then we have two cases: $x =0$ or $x > 0$ 
+    
+    \begin{enumerate}
+        \item Base Case: $x = 0$
+    
+        $\sum_{i=0}^{0} r^i = r^0 = 1$ 
+        and  $\frac{r^{1} - 1}{r-1} = \frac{r-1}{r-1} = 1$. Hence, $P(0)$ holds. 
+
+        \item $x = n$, then $P(n)$: 
+        \begin{align*}
+        \sum_{i=0}^{n} r^i &= \sum_{i=0}^{n-1} r^i + r^n \\ 
+        &= \frac{r^{n}-1}{r-1} + r^n \\ 
+        &= \frac{r^{n}-1}{r-1} + \frac{r^n(r -1)}{r -1} \\
+        &= \frac{r^{n}-1 +r^{n+1} - r^n}{r -1} \\
+        &= \frac{r^{n+1} -1 }{r -1} \\
+    \end{align*} 
+
+    \end{enumerate}
+    Hence the proposition holds. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+    Prove that, given an unlimited supply of $6$-cent coins, $10$-cent coins, and $15$-cent coins, one can make change for any amount that is at least $30$ cents. 
+ 
+    \emph{[Hint: You need many cases.]}
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $P(n)= \forall n \geq 30: n$ cents can be made using $6$, $10$, and $15$-cent coins. 
+
+    Assume that for any integer $x$ such that $30 \leq x < n$, we can make $x$ cents using $6, 10, 15$-cent coins. 
+    Then there are seven cases to consider: $x = 30, x = 31, x = 32, x = 33, x = 34, x = 35, x > 35$
+    \begin{enumerate}
+        \item $30$ = $10  + 10 + 10$   
+        \item $31$ = $10  + 15 + 6$  
+        \item $32$ = $10  + 10 + 6 + 6$  
+        \item $33$ = $15  + 6 + 6 + 6$  
+        \item $34$ = $10  + 6 + 6 + 6 + 6$  
+        \item $35$ = $10  + 10 + 15$  
+        \item $x > 35$
+        
+        If $n > 35$, then $n-6 \geq 30$. By the induction hypothesis, $n-6$ cents can be made. Adding one $6$-cent coin gives us a representation for $n$ cents.
+    \end{enumerate} 
+    Therefore for any $n \geq 30$, we can make $n$ cents using $6, 10, 15$-cent coins. 
+\end{solution}
+\end{document}
