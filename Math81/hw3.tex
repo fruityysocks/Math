@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+\usepackage{tikz}
+\usetikzlibrary{calc} 
+
+\begin{document}
+
+\input{title}
+\begin{problem}{1}
+Archimedes discovered a construction that trisects any given angle using a compass and a “marked” straightedge. This straightedge has two special markings a distance $1$ apart.
+The straightedge can be placed so that it passes through any already drawn point and such that both markings intersect other already drawn lines or circles.
+\begin{center}
+\begin{tikzpicture}[scale=2.75,thick]
+\draw (-1.4cm,0) -- (2.3cm,0);
+\draw (1cm,0) arc (0:180:1cm);
+\draw (0,0) -- (120:1.4);
+\draw (${2*cos(20)}*(1,0)$) -- +(160:3cm);
+\draw (0,0) node[anchor=south east,xshift=-2mm,yshift=0mm] {$\theta$};
+\draw (${2*cos(20)}*(1,0)$) node[anchor=south east,xshift=-10mm,yshift=-.8mm] {$\phi$};
+\draw (120:1) node[anchor=north,xshift=-1mm,yshift=0mm] {$A$};
+\draw[fill=black] (${2*cos(20)}*(1,0)$) circle (0.8pt);
+\draw[fill=black] (20:1cm) circle (0.8pt);
+\end{tikzpicture}
+\end{center}
+
+In the picture, start with a horizontal line and another line meeting it with angle $\theta$. Draw a circle of radius $1$ around the intersection point of these two lines. The other line meets the circle at point $A$. Then place the marked straightedge so that it passes through the point $A$ and such that the markings intersect the circle and the horizontal line. Prove that the angle $\varphi$ that the straightedge makes with the horizontal line is equal to $\theta/3$.
+\end{problem}
+
+\begin{problem}{2}
+Prove that any angle $\theta$ such that $\tan(\theta)$ is rational can be constructed with compass and straightedge. Prove that such angles are dense in the interval $(-\pi/2,\pi/2)$.
+\end{problem}
+
+\begin{problem}{3}
+Prove that an angle $\theta$ can be trisected using compass and straightedge if and only if the polynomial
+\[
+4x^3 - 3x - \cos(\theta)
+\]
+is reducible over $\mathbb{Q}(\cos(\theta))$.
+
+\textbf{Bonus.} Choose your favorite trisectable angle $\theta$, and describe a step-by-step construction that performs the trisection; saying “I start with $\theta/3$ then triple it to make $\theta$ then I already have $\theta/3$ so I'm done” is cheating.
+\end{problem}
+
+\begin{problem}{4}
+To $5$-sect an angle means to divide it by $5$.
+\begin{enumerate}
+\item Prove that the angles $2\pi$, $\pi$, $2\pi/3$, and $\pi/2$ can be $5$-sected by compass and straightedge.
+\item Prove that a general angle cannot be $5$-sected by compass and straightedge.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{5}
+Let $p$ be an odd prime.
+\begin{enumerate}
+\item Prove that both $\mathbb{Q}(\zeta_p)$ and $\mathbb{Q}(\zeta_{2p})$ have degree $p-1$ over $\mathbb{Q}$.
+\item Prove that both $\mathbb{Q}(\cos(2\pi/p))$ and $\mathbb{Q}(\cos(\pi/p))$ have degree $(p-1)/2$ over $\mathbb{Q}$.
+\item Find the minimal polynomial of $\cos(2\pi/9)$ over $\mathbb{Q}$ and prove that it splits completely over $\mathbb{Q}(\cos(2\pi/9))$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{6}
+For $3 \le n < 17$, determine whether a regular $n$-gon can be constructed by compass and straightedge. 
+\end{problem}
+
+\end{document}

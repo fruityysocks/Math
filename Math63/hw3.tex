@@ -11,10 +11,47 @@
     Prove that if the points of a convergent sequence of points in a metric space are reordered, then the new sequence converges to the same limit.
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    Let $(p_n)$ be a convergent sequence, $f: \N \to \N$ be a bijective function that reorders points of $(p_n)$. Define the reordered sequence $(p'_n)$ by 
+    \[p_n' = p_{f(n)}\]
+
+    Since $(p_n)$ is convergent, we know that there exists a $p$ such that for any $\epsilon > 0$, there exists $N(\epsilon) \in \N$, such that $d(p, p_i) < \epsilon$ whenever $i > N(\epsilon)$.
+
+    Fix $\epsilon >0$. Since $N(\epsilon)$ is a positive intger, the set $\{f(1), f(2), \cdots, f(N-1)\}$ is finite.  
+    Hence, there exists $N'(\epsilon)\in\N$ such that
+
+    \[max\{f(1), f(2), \cdots, f(N-1)\} < N'(\epsilon) \] 
+
+    Therefore, for every $n > N'(\epsilon)$, 
+    \[d(p, p_n') < \epsilon\]
+
+    This shows that $(p'_n)$ converges to $p$. Hence, any reordering of a convergent sequence converges to the same limit.
+\end{solution}
+
+\newpage
+
 \begin{problem}{2}
-    Show that if $a_1, a_2, a_3, \cdots$ is a sequence of real numbers that converges to $a$, then, 
-    \[\underset{n \to \infty}{lim} \fr{\sum_{n}^{i=1}a_i}{n} = a.\]
+    Show that if $a_1, a_2, a_3, \ldots$ is a sequence of real numbers that converges to $a$, then, 
+    \[\underset{n \to \infty}{lim} \fr{\sum^{n}_{i=1}a_i}{n} = a.\]
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $(a_n)$ be the sequence $(a_n) = a_1, a_2, a_3, \ldots$, and let $(a'_n)$ be the sequence $(a_n') = \underset{n \to \infty}{lim} \left(\frac{\sum_{i=1}^{n}a_i}{n}\right)$. Fix $\epsilon/2$. Because $(a_n)$ converges, we know there exists $N_1$ such that for all $n > N_1$, $d(a, a_n) < \epsilon/2$.  Define $K = \sum_{i=1}^{N_1}(a_i -a)$, and define $N_2 \geq 2K/\epsilon \implies K/N_2 < \epsilon/2$. Pick $N = \max\{N_1, N_2\}$. Then for any $n > N$, by distributing $a$, we can write, 
+    \begin{align*}
+        \sum_{i=1}^{n} \frac{a_i}{n} - a &= \sum_{i=1}^{N_1} \frac{a_i -a}{n} + \sum_{i=N_1 + 1}^{n} \frac{a_i -a}{n}  \\ 
+    \end{align*}
+    But for all $n > N \geq  N_2$, we note that the first term is $\leq \epsilon/2$, because $K/n < K / N_2 < \epsilon/2$. Moreover, each of the $a_i -a$ in the second term is less than $\epsilon/2$, so we get 
+    \[\sum_{i=N_1 + 1}^{n} \frac{a_i -a}{n} < \frac{ n \cdot \epsilon/2  }{n} = \epsilon/2\]
+    Overall, we get, 
+    \[\sum_{i=1}^{N_1} \frac{a_i -a}{n} + \sum_{i=N_1 + 1}^{n} \frac{a_i -a}{n} < \epsilon/2 + \epsilon/2 = \epsilon\]
+    Thus the series converges to $a$. 
+\end{solution}
+
+\newpage
 
 \begin{problem}{3}
     Prove that any sequence in $\R$ has a monotonic subsequence. 
@@ -22,16 +59,149 @@
     \emph{(Hint: This is easy if there exists a subsequence with no least term, hence we may suppose that each subsequence has a least term.) (Note that this result and the theorem on the convergence of bounded monotonic sequences gives another proof that $\R$ is complete.)}
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    Let $(x_n)$ be a sequence in $\mathbb{R}$. We consider two cases.
+     \begin{enumerate}
+        \item There exists a subsequence with no least term. 
+        
+        If there exists a subsequence with no least term, pick that subsequence. Let this subsequence be $(p_n)$. Fix an index $i$. 
+
+        \textbf{Claim:} There exist some $j > i$ such that $p_j < p_i$. 
+        
+        We prove this by contradiction. Assume there exist no such $j$. Since $(p_n)$ has no least term, then all $p_k < p_i$ must have indices $k$ less than $i$. But there are only a finite number of indices less than $i$. 
+            \[\{p_1, p_2, \cdots, p_i\}\]
+        But a finite set has a least element which would be the least element of the subsequence $(p_n)$. This contradicts our original assumption that $(p_n)$ has no least term. Hence there must exist some $j > i$ such that $p_j < p_i$ for all $i$.
+        
+        Using the claim, we can build a monotonic strictly descreasing sequence by induction. Choose $i_1=1$, and having chosen $i_k$, choose $i_{k+1}>i_k$ such that
+        \[p_{i_{k+1}} < p_{i_k}.\]
+
+
+
+        \item All subsequences have least terms. 
+        
+        If all subsequences have a least term than we can build an increasing monotonic sequence by picking the least terms of every consequent subsequence. 
+
+
+         Let $x_{n_1}$ be the least term of the original sequence. Consider the subsequence,
+         \[(x_n)_{n>n_1}.\]
+        By assumption, it has a least term; call it $x_{n_2}$. Continue inductively: having chosen $x_{n_k}$, let $x_{n_{k+1}}$ be the least term of the subsequence with indices greater than $n_k$.
+
+        By construction,
+        \[x_{n_1} \le x_{n_2} \le x_{n_3} \le \cdots,\]
+        so this is a monotone increasing subsequence.
+        \end{enumerate}
+
+    Hence, we can always build a monotonic subsequence for any sequence in $\R$. 
+
+\end{solution}
+
+\newpage 
+
 \begin{problem}{4}
     Let $S$ be a subset of the metric space $E$ . Define the closure of $S$, denoted $\bar{S}$, to be the intersection of all closed subsets of $E$ that contain $S$. Show that
     \begin{enumerate}
-        \item $\bar{S} \supset S$, and $S$ is closed if and only if $S=S$. 
+        \item $\bar{S} \supset S$, and $S$ is closed if and only if $\bar{S}=S$. 
         \item $\bar{S}$ is the set of all limits of sequences of points of $S$ that converge in $E.$
-        \item a point $p \in E$ is in $S$ if and only if any ball in $E$ of center $p$ contains points of $S$, which is true if and only if $p$ is not an interior point of $S'$ (cf. Prob. 15).
+        \item a point $p \in E$ is in $\bar{S}$ if and only if any ball in $E$ of center $p$ contains points of $S$, which is true if and only if $p$ is not an interior point of $S'$ (cf. Prob. 15).
     \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}
+        \item Let $\{X_i\}_{i \in I}$, where $I$ is the indexing set, be the set of all closed subsets of $E$ containing $S$.  By definition, 
+        \[\bar{S} = \underset{i \in I}{\bigcap }X_i\]
+        
+        Again, by definition, $S \subset X_i$, for all $i \in I$, then $S \subset \underset{i \in I}{\bigcap }X_i = \bar{S}$. 
+        
+        \textbf{To show:} $S$ is closed if and only if $\bar{S} = S$. 
+        
+        $(\implies)$
+
+        Assume $S$ is closed. Then, $S$ is the minimal closed subset of $E$ containing $S$.  Since $\bar{S}$ is the intersection of all closed sets containing $S$, and $S$ itself is closed and contains $S$, it must be one of the sets in the intersection. That is, $\bar{S} \subset S$. Combining this with the containment above, we get $\bar{S} = S$. 
+
+        $(\impliedby)$
+
+        Assume $\bar{S} = S$. Since $\bar{S}$ is an intersection of closed sets, it is closed. Therefore $S$ is closed.
+
+        \item We know that an intersection of any collection of closed subsets of $E$ is a closed subset (Proposition on page 41). Hence, $\bar{S}$ is a closed subset. We claim that a subset $S \in E$ is closed if and only if every convergent sequence $(p_n)$ of points, converges to a point $p \in S$. 
+
+        
+        \textbf{Claim:} A subset $S \in E$ is closed if and only if every convergent sequence $(p_n)$ of points, 
+        \[\underset{n \to \infty}{lim} p_n = p\] 
+        
+        converges to a point $p \in S$. 
+
+        $(\implies)$
+
+        Assume $S$ is closed. Let $(p_n)$ be a sequence with $\forall n, \, p_n \in S$ and $\underset{n \to \infty}{lim}{p_n} = p$ exists. Assume $p \notin S$. Then, $\exists r > 0: B_r (p) \cap S = \emptyset$ 
+        But by convergence, $\exists N$ such that for all $n > N, p_n \in B_r(p)$. This contradicts the assumption that $\forall n, \, p_n \in S$. Hence, $p$ must be in $S$. 
+
+
+        $(\impliedby)$
+
+        We will prove this by contrapositive. Assume $S$ is not closed. Then, we need to construct a sequence $(p_n)$ with $\forall n, \, p_n \in S$ such that $\underset{n \to \infty}{lim} p_n = p$ exists, and $p \notin S$. Since, $S$ is not closed, there exists a $p \notin S$ such that $B_r(p) \cap S \neq \emptyset$ for every $r >0$. For each $n$, choose a point
+        \[ p_n \in B_{1/n}(p)\cap S\]
+        This is possible by the assumption above. Then $\forall n,\; p_n\in S$, and,
+        \[d(p_n,p) < \frac{1}{n}\]
+        Hence,
+        \[\lim_{n\to\infty} p_n = p.\]
+
+        Since $p \notin S$, we have constructed a convergent sequence
+        $(p_n)$ in $S$ whose limit does not lie in $S$.
+
+        Thus proving the claim that a subset $S$ is closed if and only if eveyr convergent sequence $(p_n)$ of points converges to a point $p \in S$. 
+        
+        Moreover, from part (1), we know that $S \subset \bar{S}$. So $\bar{S}$ is the set of all limits of sequences of points of $S$.
+
+
+
+        \item  \textbf{To show:} Point $p \in \bar{S} \implies$ any ball in $E$ of center $p$ contains points of $S$.
+        
+        Assume $p \in \bar{S}$. We will prove this by contradiction. Assume that there exists an open ball $B_r(p)$, for some $r > 0$, such that $B_r(p) \cap S = \emptyset$. Then the complement of $B_r(p)$, is a closed set $(B_r(p))' \subset \bar{S}$. That is, $p \notin \bar{S}$. A contradiction! Hence, for all $r > 0$, $B_r(p) \cap S \neq \emptyset$. 
+
+        \textit{Note:} It suffices to consider open balls, since if a closed ball were disjoint from $S$ the open ball contained inside it would also be disjoint from $S$. 
+
+        \textbf{To show:} Any ball in $E$ of center $p$ contains points of $S \implies  p \in \bar{S}$.
+
+        We prove this by contradiction. 
+        
+        Assume all balls of center $p$ contains points of $S$. That is, $B_r(p) \cap S \neq \emptyset$, for all $r > 0$. For the sake of contradiction, assume there exists a closed set $X$ that contains $S$, but does not contain $p$. Then, the complement $X'$ of $X$ is an open set, and contains $p$. Since by definition, every open set has an open ball around any given point, we can define an open ball $B'_{r'}(p) \in X'$ centered at $p$ with $r' > 0$. But then, $B'_{r'}(p) \cap S = \emptyset$. A contradiction! Hence, there exist no closed sets $X$ that contain $S$ but not $p$. And since, $\bar{S}$ is the intersection of all closed subsets containing $S$, $p$ must be in $\bar{S}$. 
+
+
+        Hence, any point $p \in E$ is in $\bar{S}$ if and only if any ball in $E$ of center $p$ contains points of $S$.  
+        
+
+        \textbf{To show:} If any ball in $E$ of center $p$ contains points of $S$ then $p$ is not an interior point of $S'$. 
+        
+        We prove this by contradiction. 
+        
+        Assume for any ball $B_r(p) \in E$, $r >0$, $B_r(p) \cap S \neq \emptyset$. For the sake of contradiction assume $p$ is an interior point of $S'$. Then there exists an open ball in $E$ of center $p$ which is entirely contained in $S'$. But there there exists an ball in $E$ of center $p$ that contains no points of $S$. A contradiction! Therefore, $p$ cannot be an interior point of $S'$. 
+
+        \textbf{To show:} If $p$ is not an interior point of $S'$ then any ball in $E$ of center $p$ contains points of $S$. 
+        
+        If $p$ is not an interior point of $S'$ then there exist no open balls $B_r(p)$, for some $r>0$ in $E$ centered at $p$ contained entirely in $S'$. Therefore, $B_r(p) \cap S \neq \emptyset$, i.e. any open ball in $E$ of center $p$ contains points of $S$. 
+
+        Hence, any ball in $E$ of center $p$ contains points of $S$ if and only if $p$ is not an interior point of $S'$.
+
+
+        \textit{Note:} It suffices to consider open balls, since if a closed ball were disjoint from $S$ the open ball contained inside it would also be disjoint from $S$. 
+
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{5}
     Show that a complete subspace of a metric space is a closed subset.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $S$ be a complete subspace of a metric space $(E,d)$. By the proposition on page 51, we know that every convergent sequence of points in a metric space is a Cauchy sequence, and moreover by defition of a complete space we know that every cauchy sequence of points $p \in S$ converges to a point of $S$. From the claim in Problem (4.2) we know that if every convergenet sequence of points in $S$ converges to a point in $S$, $S$ is a closed set. Hence, a complete subspace of a metric space is a closed subset. 
+\end{solution}
 \end{document}

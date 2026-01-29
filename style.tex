@@ -132,7 +132,15 @@
 \DeclareMathOperator{\limsup}{limsup}
 %Paired Delims
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{ \rfloor}
+\let\oldceil\ceil
+\renewcommand{\ceil}[1]{\oldceil*{#1}}
+
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\let\oldfloor\floor
+\renewcommand{\floor}[1]{\oldfloor*{#1}}
+
+
+
 
 
 \newcommand{\dagstar}{*}
