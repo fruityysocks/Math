@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+Give good estimates to the following functions of $n$, asymptotically tight under $\Theta$ notation.
+
+\begin{problem}{1}
+\[
+\left(\sum_{i=0}^{30} n^i \right)^{30}
+\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+    $\Theta(n^{900})$
+\end{solution}
+
+\begin{problem}{2}
+The running time of the following program:
+\begin{lstlisting}
+STOOGESORT(A[0 .. n-1]):
+    if n == 2 and A[0] > A[1]:
+        swap A[0] <-> A[1]
+    else if n > 2:
+        m <- ceil(2n/3)
+        STOOGESORT(A[0 .. m-1])
+        STOOGESORT(A[n-m .. n-1])
+        STOOGESORT(A[0 .. m-1])
+\end{lstlisting}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    $\Theta\left (n^{log_{3/2}3} \right )$
+\end{solution}
+
+\begin{problem}{3}
+The number of array entries printed by the following program:
+\begin{lstlisting}
+HPRINT(A[0 .. n-1]):
+    for k from 1 to n:
+        ptr <- 0
+        while ptr < n:
+            print A[ptr]
+            ptr <- ptr + k
+\end{lstlisting}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    $\Theta(n(ln(n)))$
+\end{solution}
+
+\begin{problem}{4}
+Give a tight asymptotic estimate for
+\[
+\prod_{k=1}^{n} e^{1/k}.
+\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+    $\Theta(n)$
+\end{solution}
+
+
+\begin{problem}{$\star 5$}
+ Give a tight asymptotic estimate for
+\[
+\sum_{k=1}^{n} k^{30} \cdot \left(\frac{1}{30}\right)^k.
+\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+    $\Theta(1) $
+\end{solution}
+
+\begin{problem}{$\star 6$}
+Give a tight asymptotic estimate for
+\[
+\sum_{k=1}^{n} \frac{1}{k \log k \log \log k}.
+\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+    $\Theta(\log \log \log n)$
+\end{solution}
+
+\end{document}

@@ -4,7 +4,9 @@
 
 \begin{document}
 
-\input{title}
+\title{Cosc 30: Discrete Mathematics}
+
+\author{Prishita Dharampal, Arses Prasai}
 
 \begin{problem}{1(a)}
     \textbf{Faulty induction.}  
@@ -36,6 +38,19 @@
     \end{tcolorbox}
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+     The statement that the proof proves is not necessarily true. The blocks in $B$ can be arranged in $2$ (or more, each with at least 2 blocks) stacks such that each block touches at least one other block, yet the blocks are not all in a single stack. 
+
+     The proof specifically breaks when the author removes a block $b$ from $B$. After removing $b$, we are no longer guaranteed if every block in $B'$ touches at least one other block in $B'$.  
+     
+     Since the statement $P(B')$ requires that every block in $B'$ touches at least one other block in $B'$, the induction hypothesis cannot be applied. Thus, the inductive step applies the induction hypothesis to a set that does not necessarily satisfy the assumptions of the original statement, and the proof is invalid.
+
+\end{solution}
+
+\newpage 
+
 \begin{problem}{1(b)}
 
     Recall the definition of big-O notation: the proposition $f(n) = O(g(n))$ means
@@ -47,10 +62,10 @@
     \begin{lstlisting}
     MS(n):
         if n = 1: return 1
-        else: return 2 * MS(floor(n/2)) + n
+        else: return 2 * MS(*@$\left (\floor{(n/2)}\right )$@*) + n
     \end{lstlisting}
 
-    Consider the following ``proof'' claiming that $\texttt{MS}(n) = O(n)$.
+  Consider the following ``proof” a student submitted to show that $\texttt{MS}(n) = O(n)$.
 
     We prove the statement by induction on $n$. Let $n$ be an arbitrary positive integer, and
     assume that for every positive integer $m < n$, $\texttt{MS}(m) = O(m)$.
@@ -76,6 +91,27 @@
     Therefore, $\texttt{MS}(n) = O(n)$.    
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    While invoking the induction hypothesis, the author misinterprets the existence of some constants $C', N'$ for each $n > N'$, as the fact that for all $n > N$, there exist some constants $C', N'$. Which is false according to the definition of big-$O$ notation. Hence, the induction hypothesis does not hold and the proof breaks. 
+
+
+    The induction hypothesis is not true to the definition of big-$O$ notation. The author states that for each integer $m < n$, the statement
+    $\texttt{MS}(m) = O(m)$ holds. By definition of big-$O$, this means that for each
+    such $m$ there exist constants $C_m > 0$ and $N_m$ such that
+    \[
+    \texttt{MS}(k) \le C_m k \quad \text{for all } k \ge N_m.
+    \]
+
+    However, the proof assumes the existence of a single pair of constants $C'$ and $N'$ that works uniformly for $\texttt{MS}(\lfloor n/2 \rfloor)$, independent of $n$. Big-$O$ notation does not guarantee that the same constants can be chosen for all smaller inputs. The proof uses big-$O$ notation incorrectly, assuming there is a fixed inequality $\texttt{MS}(m) \le C m$ holding uniformly for all $m$, which is stronger than what the definition of allows.
+
+    Thus the induction hypothesis is not correct, and the proof breaks.
+
+\end{solution}
+
+\newpage 
+
 \begin{problem}{2}
     \textbf{Balanced parentheses.}  
 
@@ -93,14 +129,101 @@
         \item Prove by induction that removing any pair of consecutive symbols \texttt{[]} (if one
         exists) from a balanced parentheses string results in another balanced parentheses string.
 
-        \item[$\star$ (b)]
+        \item[$\star$ 2.]
         Prove by induction that removing any pair of consecutive symbols \texttt{][} (if one exists)
         from a balanced parentheses string results in another balanced parentheses string.
         \end{enumerate}
 \end{problem}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item 
+        Let $a$ be any balanced string of length $n$. Because $a$ is recursively defined, we can write, 
+        \[a = xy\]
+        for some balanced strings $x, y$. Note that if $a$ is of the form 
+        \[a =[w]\]
+        then without loss of generalization we let $x = \epsilon$, $y = [w]$. That is, 
+        \[a = \epsilon \, [w] = xy.\]
+
+        Then, we can prove the claim by induction. Also note, that every balanced parentheses string that is not an empty string  $\epsilon$ must start with \texttt{[}. This is because the second recursive definition is the only definition which represents a balanced string with the use of \texttt{[]}, in which case the \texttt{[} appears before \texttt{]}.
+        
+        Assume that for any balanced string $a'$ of length less than $n$, removing any pair of consecutive symbols \texttt{[]} (if one exists) from $a'$ results in a balanced parantheses string. Then for the string $a = xy$ of length $n$, we have the following cases: 
+        \begin{enumerate}
+            \item $x = \epsilon$ or $y = \epsilon$
+            
+            Without loss of generalization assume $y = \epsilon$. Then $a = x$. By the recursive definition, $a = x = [w]$ for some balanced parantheses string $w$.(Note that if $y$ is of the form $ y = x'y'$ for some balanced parantheses strings $x'$ and $y'$ then we can just assign $x = x', \, y = y'$ which is then handled by the second case) 
+            
+            Since, $w$ is a balanced parantheses string, we know that the first character is \texttt{[} and the last character is \texttt{]}. So, the sequence \texttt{[]} doesn't appear at the edges of $a$. 
+
+            Hence, we know that if the pair of consecutive symbols \texttt{[]} exists, it exists inside $w$. But since length of $w$ is $n-2$, by the induction hypothesis we know that removing any pair of consecutive symbols \texttt{[]} (if one exists) from $w$ results in a balanced parantheses string. Let the resultant balanced parantheses string be $w'$. Putting back the symbols \texttt{[]} spanning $w$, we get $[w']$, another balanced parantheses string. Hence, the induction holds. 
+
+            \item Neither $x$ nor $y$ is empty. 
+            
+            Then, 
+            \[a = xy\]
+            where both $x$ and $y$ are balanced parantheses strings of length less than $n$. Since, $x, y$ are balanced parantheses strings, we know that for each of them the first character is \texttt{[} and the last character is \texttt{]}. So, the sequence \texttt{[]} doesn't appear at the junction between $x$ and $y$. Hence, we know that if the pair of consecutive symbols \texttt{[]} exists, it exists inside $x$ or $y$. 
+
+            Since both $x,y$ are balanced parantheses strings of length less than $n$, by the induction hypothesis we know that that removing any pair of consecutive symbols \texttt{[]} (if one exists) from $x, y$ results in balanced parantheses strings. And, since composition of balanced proposition strings is a balanced proposition string, the induction holds. 
+
+            \item $x = y = \epsilon, \, w = \epsilon$
+            
+            This case is vacuously true because there exist no consecutive symbols \texttt{[]}. 
+        \end{enumerate}
+
+        \item Similarly, let $a$ be any balanced string of length $n$. Because $a$ is recursively defined, we can write, 
+        \[a = xy\]
+        for some balanced strings $x, y$. Note that if $a$ is of the form 
+        \[a =[w]\]
+        then without loss of generalization we let $x = \epsilon$, $y = [w]$. That is, 
+        \[a = \epsilon \, [w] = xy.\]
+
+        Then, we can prove the claim by induction. Assume that for any balanced string $a'$ of length less than $n$, removing any pair of consecutive symbols \texttt{][} (if one exists) from $a'$ results in a balanced parantheses string. Then for the string $a = xy$ of length $n$, we have the following cases: 
+
+        \begin{enumerate}
+            \item $x = \epsilon$ or $y = \epsilon$
+            
+            Without loss of generalization assume $y = \epsilon$. Then $a = x$. By the recursive definition, $a = x = [w]$ for some balanced parantheses string $w$. (Note that if $y$ is of the form $ y = x'y'$ for some balanced parantheses strings $x'$ and $y'$ then we can just assign $x = x', \, y = y'$ which is then handled by the second case) 
+            
+            Since, $w$ is a balanced parantheses string, we know that the first character is \texttt{[} and the last character is \texttt{]}. So, the sequence \texttt{][} doesn't appear at the edges of $a$. 
+
+            Hence, we know that if the pair of consecutive symbols \texttt{][} exists, it exists inside $w$. But since length of $w$ is $n-2$, by the induction hypothesis we know that removing any pair of consecutive symbols \texttt{][} (if one exists) from $w$ results in a balanced parantheses string. Let the resultant balanced parantheses string be $w'$. Putting back the symbols \texttt{[]} spanning $w$, we get $[w']$, another balanced parantheses string. Hence, the induction holds. 
+
+            \item Neither $x$ nor $y$ is empty. 
+            
+            Then, 
+            \[a = xy\]
+            where both $x$ and $y$ are balanced parantheses strings of length less than $n$. Since, $x, y$ are balanced parantheses strings, we know that for each of them the first character is \texttt{[} and the last character is \texttt{]}. So, the sequence \texttt{][} does appear at the edge of $x$ and $y$.  By the recursive definition of balanced parentheses strings, each of $x$ and $y$ can be written as a concatenation of balanced strings of the form $[w]$. That is,
+            \[x = [w_1][w_2]\cdots[w_k]\quad \text{and} \quad y = [w_{k+1}][w_{k+2}]\cdots[w_m],\]
+            where each $w_i$ is a balanced parentheses string.
+
+            At the junction between $x$ and $y$, the string contains the consecutive symbols \texttt{][} arising from the substring
+            \[
+            [w_k][w_{k+1}].
+            \]
+            Removing this consecutive pair \texttt{][} gives us the string
+            \[
+            [w_k w_{k+1}],
+            \]
+            which is balanced, since the concatenation $w_k w_{k+1}$ of two balanced parentheses strings is itself
+            a balanced parentheses string by the recursive definition.
+
+            Any other occurrence of \texttt{][} lies entirely within $x$ or within $y$, and since both $x$ and $y$ have length less than $n$, by the induction hypothesis we know that that removing any pair of consecutive symbols \texttt{][} (if one exists) from $x, y$ results in balanced parantheses strings. And, since composition of balanced proposition strings is a balanced proposition string, the induction holds. 
+            
+            Hence, removing any pair of consecutive symbols
+            \texttt{][} from $a$ results in a balanced parentheses string in this case.
+
+            \item $x = y = \epsilon, \, w = \epsilon$
+            
+            This case is vacuously true because there exist no consecutive symbols \texttt{][}. 
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{3}
 \textbf{Fibonacci representations.}  
+
     The Fibonacci numbers are defined by
     \[
     F_n =
@@ -116,22 +239,60 @@
 
     \begin{lstlisting}
 TOFIBO(n):
-    if n = 0: return <>
+    if (*@$n = 0$@*): return <>
     else:
-        F_l <- largest Fibonacci number <= n
-        <i_k, ..., i_1> <- TOFIBO(n - F_l)
-        return <l, i_k, ..., i_1>
+        (*@$F_l \gets$ largest Fibonacci number less than $n$ @*)
+        (*@$\langle i_k, ..., i_1 \rangle \gets $ @*) TOFIBO(*@ $n - F_l$ @*)
+        return (*@$\langle l, i_k, ..., i_1 \rangle$ @*) 
     \end{lstlisting}
 
     In other words, no two consecutive Fibonacci numbers $F_i$ and $F_{i+1}$ appear in the sum.
     (Assume $F_0 = 0$ never appears.)
 
     For example,
-    \[
-    30 = F_8 + F_6 + F_2.
-    \]
+    \[30 = F_8 + F_6 + F_2.\]
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    We prove the correctness of the algorithm \texttt{TOFIBO} by induction. Let $n$ be an arbitrary non-negative integer. Assume that \texttt{TOFIBO} works for all integers $m < n$. That is, every $m < n$ we can write $m$ as a sum of distinct, non-consecutive Fibonacci numbers, such that 
+    \[m = \sum_{i=1}^{k}F_i, \quad i \in \langle  i_1, ..., i_k \rangle\]
+    where $\langle  i_1, ..., i_k \rangle$ are non-consecutive indices of Fibonacci numbers arranged in increasing order, and $i_k$ is the largest Fibonacci number less than $m$. 
+
+    Then we have three cases: 
+    \begin{enumerate}
+        \item $n$ =0 
+        
+        If n =0, the algorithm returns empty set$\langle \rangle$
+        
+        \item $n > 0$ and is a Fibonacci number. 
+        
+        In that case, we can write $n$ as the singleton sum of $n$. That is, the largest Fibonacci number $F_l$ such that $F_l \leq n$ is $n$, \texttt{TOFIBO} returns $\langle l \rangle$, and we're done.  
+
+        \item $n> 0$ and not a Fibonacci number. 
+        
+        In that case, there exists Fibonacci numbers less than $n$. Pick the largest such Fibonacci number, call it $F_{l}$. Then, 
+        \[n - F_l = n'\]
+        for some $n'$. Since both $n$ and $F_l$ are nonnegative integers, $n'$ must be a nonnegative integer less than $n$. By our induction hypothesis $n'$ can be written as a sum of distinct, non-consecutive Fibonacci numbers, 
+        \[n' = \sum_{i=1}^{k}F_i, \quad i \in \langle  i_1, ..., i_k \rangle\]
+
+        We know that $F_l$ and $F_{i_k}$ are not consecutive Fibonacci numbers because if they were, then $F_{i_k} = F_{l-1}$. In that case,
+         \[n \geq F_l + F_{l-1}\]
+        But $F_l + F_{l-1}$ is also a Fibonacci number, specifically $F_{l+1}$. That is, 
+         \[n \geq F_{l+1}\]
+
+
+        which means $F_l$ isn't the largest Fibonacci number less than $n$, which contradicts our choice of $F_l$ as the largest Fibonacci number less than $n$. 
+        Hence, we can write $n$ as a sum of distinct, non-consecutive Fibonacci numbers,  
+        \[n = F_l + n' = F_l + \sum_{i=1}^{k} F_i \quad i \in  \langle  i_1, ..., i_k \rangle\]
+
+        Therefore, \texttt{TOFIBO} returns $\langle i_1, \ldots, i_k, \, l\rangle$. 
+    \end{enumerate}
+\end{solution}
+
+
+\newpage 
 
 \begin{problem}{4$^\star$}
 \textbf{Ludicrous tiling.}  

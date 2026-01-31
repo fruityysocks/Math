@@ -5,12 +5,41 @@
 \begin{document}
 
 \input{title}
-
-Homework (due Wed Feb 4 11:59 PM): Ch III: 24, 33, 35, 36, 37
-
+\textbf{Credit Statement:} Talked to Sair Shaikh'26
 
 
+\begin{problem}{1}
+    Show that a complete subspace of a metric space is a closed subset.
+\end{problem}
 
+\begin{solution}
+    \bbni
 
+    Let $S$ be a complete subspace of a metric space $(E,d)$. By the proposition on page 51, we know that every convergent sequence of points in a metric space is a Cauchy sequence, and moreover by defition of a complete space we know that every cauchy sequence of points $p \in S$ converges to a point of $S$. From the claim in Problem (4.2) we know that if every convergenet sequence of points in $S$ converges to a point in $S$, $S$ is a closed set. Hence, a complete subspace of a metric space is a closed subset. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    Let $a, b \in \R, a < b$. The following outlines a proof that $[a,b]$ is compact. Rewrite this proof, filling i n all details: Let $\{U_i\}_{i \in I}$ be a collection of open subsets of $\R$ whose union contains $[a, b]$. Let $S = \{x \in ][a, b]: x> a$  and $[a, x)$ is contained in the union of a finite number of the sets $\{U_i\}_{i\in I}\}$. Then $l.u.b. S \in U_i$ for some $i \in I$. Since $U_i$ is open we must have $l.u.b. S = b \in S$. 
+\end{problem}
+
+\begin{problem}{3}
+    Call a metric space sequentially compact if every sequence has a convergent subsequence. Prove that a metric space is sequentially compact if and only if every infinite subset has a cluster point.
+\end{problem}
+
+\begin{problem}{4}
+    Call a metric space totally bounded if, for every $\epsilon > 0$, the metric space is the union of a finite number of closed balls of radius $\epsilon$. Prove that a metric space is totally bounded if and only if every sequence has a Cauchy subsequence.
+\end{problem}
+
+\begin{problem}{5}
+     Prove that the following three conditions on a metric space $E$ (cf. Probs. 35, 36) are equivalent:
+     \begin{enumerate}
+        \item $E$ is compact.
+        \item $E$ is sequentially convergenet.
+        \item $E$ is totally bounded and complete.
+     \end{enumerate}
+     (Hint: That (1) implies (2) occurs in the text. That (2) implies (3) is easy. That (3) implies (1) follows from the argument of  the last proof of § 5.)
+\end{problem}
 
 \end{document}
