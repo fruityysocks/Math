@@ -1,0 +1,174 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\title{Cosc 30: Discrete Mathematics}
+
+\author{Prishita Dharampal, Arses Prasai}
+\date{}
+\maketitle
+
+
+\begin{problem}{1. Guessing game}
+        
+    Imagine Alice and Bob are playing a guessing game. Alice chooses two distinct integers between \(0\) and \(100\), and the goal is for Bob to correctly guess which of the two numbers is bigger. Alice and Bob use the following protocol.
+    \begin{itemize}
+        \item Alice chooses two distinct integers between \(0\) and \(100\), writes the two numbers on separate pieces of paper, and puts the papers on the table facing down.
+        \item Bob chooses one paper to flip over, and then makes a guess on which number is bigger.
+
+    \end{itemize}
+
+    \begin{enumerate}
+        \item Assume that Alice chose the two integers uniformly at random. Come up with a strategy for Bob so that he can guess correctly with strictly more than \(50\%\) chance.
+        \item[$\star$ 2.] Now assume Alice gets to pick the two integers at will (in other words, her choice might not be uniformly at random). Come up with a strategy for Alice so that Bob, no matter which strategy he uses, will guess correctly with at most \(51\%\) chance.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let the number Bob sees be $a$, and the one he has to guess be $b$. Now, a strategy that results in $>50\%$ chance of him guessing correctly is:
+        
+        If $a < 50$, guess that the second number ($b$) is bigger. If $a > 50$ guess that the first number ($a$) is bigger. If $a = 50$, make a uniformly random guess about which of $a$ and $b$ is bigger. 
+
+        Once Bob sees the first number ($a$), there are $100$ possibilities for $b$. We have 3 cases: 
+
+        \begin{enumerate}
+            \item $a < 50$. 
+            
+            There are at least $51$ numbers greater than $a$. Thus, \[P[b>a] \geq \frac{51}{100}\]
+            That is he has at least a $51\%$ chance of being correct. 
+            \item $a>50$. 
+            
+            There are at least $51$ numbers smaller than a, so 
+             \[P[b < a] \geq \frac{51}{100}\]
+            That is he has at least a $51\%$ chance of being correct. 
+             
+            \item $a = 50$ 
+
+            There are $50$ numbers both greater and less than $a$. And Bob chooses greater or less with a $50\%$ probability, hence, he has a $50\%$ chance of being right.    
+        \end{enumerate}
+        
+        However, because the numbers have a uniform probability of being chosen, we need to take a weighted average of the probabilities we have calculated. 
+        
+        \begin{align*}
+            P[\text{bob is right}] &\geq \frac{1}{101} P[a=50] +  \frac{50}{101} P[a>50] +  \frac{50}{101} P[a>50] \\ 
+            &\geq \frac{1}{101} \cdot \frac{1}{2} +  \frac{50}{101} \cdot \frac{51}{100} +  \frac{50}{101} \cdot  \frac{51}{100} \\ 
+            &\geq \frac{103}{202} \approx .5099\\ 
+        \end{align*}
+        Hence, Bob can guess correctly with strictly more than $50\%$ chance. 
+        
+        \item Alice should pick an integer $a$, and then with uniform probability pick $b$ to be either $a+1$ or $a-1$. Then, regardless of the strategy Bob uses, if the first number Bob sees is in the range $1-99$ there is only a $50\%$ chance he guesses correctly, in the off-chance that he sees $0$ or $100$ he has a $100\%$ chance of getting it right. But since Alice can choose any two integers of her liking, she should avoid the edge cases. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{problem}{2. String compression reprise}
+        
+    At the start of the term we showed that there is no lossless compression algorithm that guarantees to shorten every binary string. What if we are in the setting when the input files are sparse, that is, with a small number of \(1\)s?
+
+    Let \(\alpha\) be a constant strictly between \(0\) and \(1/2\). Let \(S_\alpha\) denote the number of \(n\)-bit strings with at most an \(\alpha\) fraction of the bits equal to \(1\). Using the binomial coefficient, we know that
+    \[
+    S_\alpha = \sum_{0 \le k \le \alpha n} \binom{n}{k}.
+    \]
+
+    Prove that asymptotically,
+    \[
+    \binom{n}{\alpha n}
+    \]
+    is roughly \(2^{nH(\alpha) + \Theta(\ln n)}\), where
+    \[
+    H(\alpha) := \alpha \ln_2 \frac{1}{\alpha} + (1-\alpha)\ln_2 \frac{1}{1-\alpha}
+    \]
+    is the discrete entropy function. In other words, prove the following upper and lower bounds:
+    \[
+    2^{nH(\alpha) + O(\ln n)} \ge \binom{n}{\alpha n} \ge 2^{nH(\alpha) - O(\ln n)}.
+    \]
+
+    Because \(S_\alpha \ge \binom{n}{\alpha n}\), this shows that no lossless compression algorithm can compress \(n\)-bit strings with at most an \(\alpha\) fraction of \(1\)s into fewer than \(nH(\alpha) - O(\ln n)\) bits.
+\end{problem}
+
+\begin{solution}
+\bbni
+
+We know from the formula for binomial coefficients: 
+
+\[
+\binom{n}{\alpha n}  = \frac{n!}{(\alpha n)! \cdot(n-\alpha n)!}
+\]
+
+Taking the natural logaarithms for the expression, we get \[  ln(n!) - ln((\alpha n)!)  - ln((n- \alpha n )!)\]
+
+which can be also written as: 
+
+\[ \sum_{i=1}^{n} ln(i)  - \sum_{i=1}^{\alpha n}ln(i) - \sum_{i=1}^{n - \alpha n } ln(i)
+\]
+
+The upper and lower bounds for each individual term is given by the integral approximation. 
+
+$\sum_{i=1}^{n}ln(i)$ is an increasing function by definition as $\ln(y) > \ln(x)$ for $y>x$. Similarly, $\sum_{i =1}^{\alpha n} -\ln(i)$ and $\sum_{i=1}^{n - \alpha n} - \ln(i)$ are decreasing functions. 
+
+The approximations  of the upper and lower for each summation is given by: 
+
+\begin{align*}
+    \int_{1}^{n}\ln(x) + \ln(1) &\leq  \sum_{i=1}^{n}\ln(i) \leq \int_{1}^{n} \ln(x) + \ln(n) \\
+    -\int_{1}^{\alpha n}\ln(x) + (-\ln(\alpha n)) &\leq  -\sum_{i=1}^{\alpha n}\ln(i) \leq -\int_{1}^{\alpha n} \ln(x) \\
+    -\int_{1}^{n -\alpha n}\ln(x) + (-\ln(n - \alpha n)) &\leq  -\sum_{i=1}^{n - \alpha n }\ln(i) \leq -\int_{1}^{n - \alpha n} \ln(x)
+log\end{align*}
+
+Calculating the integrals for each term: 
+\begin{align*}
+\int_{1}^{n} ln(x) &= \left[x\ln(x)- x \right]_1^n\\
+& = n\ln(n) - n +1
+\end{align*}
+
+\begin{align*}
+\int_{1}^{\alpha n} ln(x) &= \left[x\ln(x)- x \right]_{1}^{\alpha n}\\
+& = \alpha n\ln(\alpha n) - \alpha n +1
+\end{align*}
+
+\begin{align*}
+\int_{1}^{n - \alpha n} ln(x) &= \left[x\ln(x)- x \right]_{1}^{n - \alpha n}\\
+& = n(1-\alpha)\ln(n(1-\alpha)) - (n -\alpha n) +1 \\
+& =n(1- \alpha )\ln(n) + n(1-\alpha )\ln(1- \alpha)  - n + \alpha n + 1
+\end{align*}
+
+Lower bound for the expression \[ \sum_{i=1}^{n} \ln(i) - \sum_{i=1}^{\alpha n} \ln(i) - \sum_{i=1}^{n - \alpha n }\ln(i)\] is : 
+
+\begin{align*}
+LB
+=& \, n\ln(n) - n 
+- \alpha n\ln(\alpha n) + \alpha n
+- n(1-\alpha )\ln(1-\alpha) \\
+ &\, -n(1- \alpha)\ln(n)
++ n - \alpha n 
+- \ln(\alpha n)
+- \ln\!\bigl(n(1-\alpha)\bigr)    
+\end{align*}
+
+
+
+Simplifying this expression, we get: 
+\begin{align*}
+&= -n(1-\alpha)\ln(1-\alpha)  -\alpha n\ln(\alpha) - 2\ln(n)- \ln(\alpha)-\ln(1-\alpha) \\
+&= \alpha n\ln\fr{1}{\alpha} + n(1- \alpha)\ln\fr{1}{1-\alpha} - O(\ln n)\\
+&= nH(\alpha)- O(\ln n)
+\end{align*}
+
+
+Similarly, after simplifying the expression for the upper-bound, we get: 
+\begin{align*}
+UB &= -\alpha n\ln(\alpha) -n(1-\alpha)ln(1-\alpha) + ln(n) \\
+&= \alpha n\ln\fr{1}{\alpha} + n(1- \alpha)\ln\fr{1}{1-\alpha}  + O(\ln n)\\
+&= nH(\alpha)+ O(\ln n)
+\end{align*}
+
+Taking the logarithmic expressions back into original form,  we get: 
+
+\[2^{nH(\alpha)+ O(\ln n)}\geq \binom{n}{\alpha n} \geq 2^{nH(\alpha)- O(\ln n)}\]
+
+\end{solution}
+
+\end{document}

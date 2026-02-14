@@ -2,64 +2,398 @@
 
 \include{../style}
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usetikzlibrary{calc} 
 
 \begin{document}
 
-\input{title}
-\begin{problem}{1}
-Archimedes discovered a construction that trisects any given angle using a compass and a “marked” straightedge. This straightedge has two special markings a distance $1$ apart.
-The straightedge can be placed so that it passes through any already drawn point and such that both markings intersect other already drawn lines or circles.
-\begin{center}
-\begin{tikzpicture}[scale=2.75,thick]
-\draw (-1.4cm,0) -- (2.3cm,0);
-\draw (1cm,0) arc (0:180:1cm);
-\draw (0,0) -- (120:1.4);
-\draw (${2*cos(20)}*(1,0)$) -- +(160:3cm);
-\draw (0,0) node[anchor=south east,xshift=-2mm,yshift=0mm] {$\theta$};
-\draw (${2*cos(20)}*(1,0)$) node[anchor=south east,xshift=-10mm,yshift=-.8mm] {$\phi$};
-\draw (120:1) node[anchor=north,xshift=-1mm,yshift=0mm] {$A$};
-\draw[fill=black] (${2*cos(20)}*(1,0)$) circle (0.8pt);
-\draw[fill=black] (20:1cm) circle (0.8pt);
-\end{tikzpicture}
-\end{center}
 
-In the picture, start with a horizontal line and another line meeting it with angle $\theta$. Draw a circle of radius $1$ around the intersection point of these two lines. The other line meets the circle at point $A$. Then place the marked straightedge so that it passes through the point $A$ and such that the markings intersect the circle and the horizontal line. Prove that the angle $\varphi$ that the straightedge makes with the horizontal line is equal to $\theta/3$.
+\input{title}
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, Henry Scheible'26 and Math Stack Exchange.
+
+\begin{problem}{1}
+    Archimedes discovered a construction that trisects any given angle using a compass and a “marked” straightedge. This straightedge has two special markings a distance $1$ apart.
+    The straightedge can be placed so that it passes through any already drawn point and such that both markings intersect other already drawn lines or circles.
+    \begin{center}
+    \begin{tikzpicture}[scale=2.75,thick]
+    \draw (-1.4cm,0) -- (2.3cm,0);
+    \draw (1cm,0) arc (0:180:1cm);
+    \draw (0,0) -- (120:1.4);
+    \draw (${2*cos(20)}*(1,0)$) -- +(160:3cm);
+    \draw (0,0) node[anchor=south east,xshift=-2mm,yshift=0mm] {$\theta$};
+    \draw (${2*cos(20)}*(1,0)$) node[anchor=south east,xshift=-10mm,yshift=-.8mm] {$\phi$};
+    \draw (120:1) node[anchor=north,xshift=-1mm,yshift=0mm] {$A$};
+    \draw[fill=black] (${2*cos(20)}*(1,0)$) circle (0.8pt);
+    \draw[fill=black] (20:1cm) circle (0.8pt);
+    \end{tikzpicture}
+    \end{center}
+
+    In the picture, start with a horizontal line and another line meeting it with angle $\theta$. Draw a circle of radius $1$ around the intersection point of these two lines. The other line meets the circle at point $A$. Then place the marked straightedge so that it passes through the point $A$ and such that the markings intersect the circle and the horizontal line. Prove that the angle $\phi$ that the straightedge makes with the horizontal line is equal to $\theta/3$.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{center}
+    \begin{tikzpicture}[scale=2.75,thick]
+    \draw (-1.4cm,0) -- (2.3cm,0);
+    \draw (1cm,0) arc (0:180:1cm);
+    \draw (0,0) -- (120:1.4);
+    \draw (0,0) -- (20:1);
+    \draw (${2*cos(20)}*(1,0)$) -- +(160:3cm);
+    \draw (0,0) node[anchor=south east,xshift=-2mm,yshift=0mm] {$\theta$};
+    \draw (${2*cos(20)}*(1,0)$) node[anchor=south east,xshift=-10mm,yshift=-.8mm] {$\phi$};
+    \draw (20:1) node[anchor=south east,xshift=-5mm,yshift=-1.7mm] {$\varphi$};
+    \draw (120:1) node[anchor=north,xshift=-1mm,yshift=0mm] {$A$};
+    \draw (20:1) node[anchor=north,xshift=-1mm,yshift=0mm] {$B$};
+    \draw (${2*cos(20)}*(1,0)$) node[anchor=north,xshift=-1mm,yshift=0mm] {$C$};
+    \draw (0,0) node[anchor=north,xshift=-1mm,yshift=0mm] {$D$};
+    \draw[fill=black] (${2*cos(20)}*(1,0)$) circle (0.8pt);
+    \draw[fill=black] (20:1cm) circle (0.8pt);  
+    \end{tikzpicture}
+    \end{center}
+
+    Note that $BC = 1$ (by construction), $BD = AD = 1$ (radius of the circle), hence the triangles $ABD$ and $BCD$ are isoceles. (We can construct the segment $BD$ because we already have the two points.)
+
+    Consider the triangle $BCD$. We have the equality, 
+    \[180 = 2\phi + (180 - \varphi) \implies 2 \phi = \varphi\]
+
+    Now consider the triangle $ABD$. We have the equality, 
+    \[180 = 2\varphi + ((180 - \theta) - \phi) \implies \theta + \phi = 2 \varphi\]
+    Substituting and solving gives us, 
+    \begin{align*}
+        \theta + \phi &= 2 \varphi \\
+        \theta + \phi &= 4 \phi \\ 
+        \theta  &= 3 \phi
+    \end{align*}
+    Hence, the angle $\phi$ that the straightedge makes with the horizontal line is equal to $\theta/3$. 
+\end{solution}
+
+\newpage
 
 \begin{problem}{2}
-Prove that any angle $\theta$ such that $\tan(\theta)$ is rational can be constructed with compass and straightedge. Prove that such angles are dense in the interval $(-\pi/2,\pi/2)$.
+    Prove that any angle $\theta$ such that $\tan(\theta)$ is rational can be constructed with compass and straightedge. Prove that such angles are dense in the interval $(-\pi/2,\pi/2)$.
 \end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Let $tan(\theta) = \frac{p}{q} \in \Q$, where $p, q \in \Z$. Then we can construct the angle $\theta$ by the following steps: 
+
+    \textit{Note:} We can construct line segments of length $|p|$ and $|q|$ because $p, q$ are integers and hence in $\calP_n$. 
+    \begin{enumerate}
+        
+        \item Draw a horizontal line segment of length $|q|$. 
+        \item Construct a perpendicular to this segment at an endpoint of length $|p|$. 
+        \begin{center}
+        \begin{tikzpicture}[scale=2.75,thick]
+        \draw (-1.4cm,0) -- (2.3cm,0);
+        \draw (0,-0.5cm) -- (0,1.3cm);
+
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (1.5,0);
+        \coordinate (C) at (1.6, .8);
+
+
+        \node[anchor=north east] at (A) {$A$};
+        \node[anchor=north east] at (B) {$B$};
+        \node[anchor=north east] at (C) {$C$};
+
+        \draw (A) ++(0.03, -0.1) -- ++(.55,0);
+        \node at ($(A)!0.45!(B)+(0,-0.12)$) {$q$};
+        \draw (A) ++(0.73, -0.1) -- ++(.55,0);
+        
+        \draw (1.4, 0cm) -- (1.4,.7cm);
+
+        \draw (B) ++(0.1,0.03) -- ++(0,.2);
+        \node at ($(B)+(0.12,0.3)$) {$p$};
+        \draw (B) ++(0.1,0.4) -- ++(0,.3);
+        \draw ($(B)+(0,0)$) -- ++(0,0.08) -- ++(-0.08,0);
+        \end{tikzpicture}                   
+        \end{center}
+        \item Connect points $A$ and $C$. This gives us a right angled triangle with the angle $\theta$ between line segments $AC$ and $AB$. 
+        (If $tan (\theta)$ is negative, construct the perpendicular in the opposite direction.)
+
+        \begin{center}
+        \begin{tikzpicture}[scale=2.75,thick]
+        \draw (-1.4cm,0) -- (2.3cm,0);
+        \draw (0,-0.5cm) -- (0,1.3cm);
+
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (1.5,0);
+        \coordinate (C) at (1.6, .8);
+        \coordinate (T) at (0.3,-.01);
+
+        \draw (0,0) -- (1.41, .7);
+
+        \node[anchor=north east] at (A) {$A$};
+        \node[anchor=south west] at (T) {$\theta$};
+
+        \node[anchor=north east] at (B) {$B$};
+        \node[anchor=north east] at (C) {$C$};
+
+        \draw (A) ++(0.03, -0.1) -- ++(.55,0);
+        \node at ($(A)!0.45!(B)+(0,-0.12)$) {$q$};
+        \draw (A) ++(0.73, -0.1) -- ++(.55,0);
+        
+        \draw (1.4, 0cm) -- (1.4,.7cm);
+
+        \draw (B) ++(0.1,0.03) -- ++(0,.2);
+        \node at ($(B)+(0.12,0.3)$) {$p$};
+        \draw (B) ++(0.1,0.4) -- ++(0,.3);
+        \draw ($(B)+(0,0)$) -- ++(0,0.08) -- ++(-0.08,0);
+        \end{tikzpicture}                   
+        \end{center}
+    \end{enumerate}
+
+    We know that the rationals are dense in $\R$, and $\tan^{-1}: \R \to [-\pi/2, \pi/2]$ is a bijective continous function. By defition, we know that for all points \(p\) in its domain for every \(\epsilon >0\), there exists a \(\delta >0\) such that \(|x-p|<\delta \) implies \(|f(x)-f(p)|<\epsilon \), i.e. dense sets are mapped to dense sets. That is, rational slopes (dense in $\R$) is mapped to constructibe angles (dense in $[-\pi/2, \pi/2]$). 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{3}
-Prove that an angle $\theta$ can be trisected using compass and straightedge if and only if the polynomial
-\[
-4x^3 - 3x - \cos(\theta)
-\]
-is reducible over $\mathbb{Q}(\cos(\theta))$.
-
-\textbf{Bonus.} Choose your favorite trisectable angle $\theta$, and describe a step-by-step construction that performs the trisection; saying “I start with $\theta/3$ then triple it to make $\theta$ then I already have $\theta/3$ so I'm done” is cheating.
+    Prove that an angle $\theta$ can be trisected using compass and straightedge if and only if the polynomial
+    \[4x^3 - 3x - \cos(\theta)\]
+    is reducible over $\mathbb{Q}(\cos(\theta))$.
 \end{problem}
+
+\begin{solution}
+    \bbni
+    
+    ($\implies$)
+
+    Assume an angle $\theta$ can be trisected using compass and straightedge. Let $\phi = \theta/3$. Then, from trignometry we know that the following equation holds, 
+    \[\cos(\theta) = \cos(3\phi) = 4 \cos^3(\phi) - 3 \cos(\phi)\]
+    That is, 
+    \[4 \cos^3(\phi) - 3 \cos(\phi) - \cos(\theta) = 0.\]
+    Since $\theta$ is constructible, so is $\cos(\theta)$, i.e. $\Q(\cos(\theta)) \subset \calP_ n$. From proposition 23 (D.F.), we know that if $\phi$ can be obtained from $\Q(\cos(\theta))$ using straightedge and compass constructions, then $[\Q(\cos(\theta))(\phi): \Q(\cos(\theta)) = 2^k]$, for some $k$. 
+
+    Since our polynomial is degree three, it must have at least one root in $\Q(\cos(\theta))$ and hence is reducible over that field. 
+
+    ($\impliedby$)
+
+    Assume the polynomial $f(x) = 4x^3 - 3x - \cos(\theta)$ is reducible over $\Q(\cos(\theta))$, where $\theta$ is some constructable angle. Then there exists a root of $f(x), \, \alpha \in \Q(\cos(\theta))$, i.e., 
+    \[f(x) = g(x)(x - \alpha)\]
+    
+    Where $g(x)$ is some quadratic polynomial in $\Q(\cos(\theta))$. That is adjoining the roots of $g(x)$ to $\Q(\cos(\theta))$ is at most a degree two extension. Moreover, note that since $\theta$ is a constructable angle, so is $\cos(\theta)$. That is, $\Q(\cos(\theta)) \subset \calP_n$. Because we know how to take square roots using compass and straightedge, any degree two extension of a field of constructable elements is constructable. Hence, the angle $\theta/3$ must be constructible (or $\theta$ can be trisected). 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{4}
-To $5$-sect an angle means to divide it by $5$.
-\begin{enumerate}
-\item Prove that the angles $2\pi$, $\pi$, $2\pi/3$, and $\pi/2$ can be $5$-sected by compass and straightedge.
-\item Prove that a general angle cannot be $5$-sected by compass and straightedge.
-\end{enumerate}
+    To $5$-sect an angle means to divide it by $5$.
+    \begin{enumerate}
+    \item Prove that the angles $2\pi$, $\pi$, $2\pi/3$, and $\pi/2$ can be $5$-sected by compass and straightedge.
+    \item Prove that a general angle cannot be $5$-sected by compass and straightedge.
+    \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item 
+        \begin{enumerate}
+            \item Note that, from Lemma 1.42 (F.T.), we know that the regular $p$-gon ($p$ prime) is constructible if and only if $p=2^n +1$, $n \in \Z^+$. This holds for 5.
+            \[5 = 2^2 + 1\]
+            So, we can construct a 5-gon, with the central angle $2\pi/5$
+            That is, $2\pi/5$ is constructibe, and since we can bisect any angle, $\pi/5$ and $\pi/10$ are also constructable. 
+            Hence, we can 5-sect $2\pi, \pi, \pi/2$. 
+            \item \[\frac{2\pi}{15} = \frac{5\pi}{15} - \frac{3\pi}{15} = \frac{\pi}{3} - \frac{\pi}{5}\]
+            Since we can construct both $\frac{\pi}{3}$, and $\frac{\pi}{5}$, we can subtract them and construct $\frac{2\pi}{15}$. 
+        \end{enumerate}
+
+        \item Let $\theta = \cos^{-1}(\frac{5}{7})$ We know that $\theta$ is constructable because $\cos(\theta) = \fr{5}{7}$ is constructable. 
+        Using the quintuple angle formula for cosine, we get
+        \[f(x) = 16y^5 - 20y^3 + 5y - \frac{5}{7}= 0 \]
+        By Eisenstein, $f(x)$ is irreducible over $\Q(\cos(\theta)) = \Q$. Thus, the minimal polynomial for $\cos(\theta/5)$ has degree $5$, and hence the extension $[\Q(\cos(\theta/5)): \Q(\cos(\theta))] =5$. As $\Q(\cos(\theta))$ is a constructible field and $5$ is not a power of $2$, $\Q(\cos(\theta/5))$ is not constructibe. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
 \begin{problem}{5}
 Let $p$ be an odd prime.
-\begin{enumerate}
-\item Prove that both $\mathbb{Q}(\zeta_p)$ and $\mathbb{Q}(\zeta_{2p})$ have degree $p-1$ over $\mathbb{Q}$.
-\item Prove that both $\mathbb{Q}(\cos(2\pi/p))$ and $\mathbb{Q}(\cos(\pi/p))$ have degree $(p-1)/2$ over $\mathbb{Q}$.
-\item Find the minimal polynomial of $\cos(2\pi/9)$ over $\mathbb{Q}$ and prove that it splits completely over $\mathbb{Q}(\cos(2\pi/9))$.
-\end{enumerate}
+    \begin{enumerate}
+    \item Prove that both $\mathbb{Q}(\zeta_p)$ and $\mathbb{Q}(\zeta_{2p})$ have degree $p-1$ over $\mathbb{Q}$.
+    \item Prove that both $\mathbb{Q}(\cos(2\pi/p))$ and $\mathbb{Q}(\cos(\pi/p))$ have degree $(p-1)/2$ over $\mathbb{Q}$.
+    \item Find the minimal polynomial of $\cos(2\pi/9)$ over $\mathbb{Q}$ and prove that it splits completely over $\mathbb{Q}(\cos(2\pi/9))$.
+    \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $\Q(\zeta_p)$ 
+        
+        $\zeta_p$ is a solution to $x^p - 1 = 0 \implies x^p - 1 = (x-1)(x^p-1 + \cdots +x +1) = 0$. Since, $\zeta_p \neq 1$, $\zeta_p$ is a solution to $(x^p-1 + \cdots +x +1)$. By Eisenstein, we know that $(x^{p-1} + \cdots +x +1)$ is irreducible. That is, the minimal polynomial of $\zeta_p$ is $(x^p-1 + \cdots +x +1)$. Hence, the degree of the extension $[\Q(\zeta_p) : \Q] = p-1$. 
+        
+        \bbni
+
+        $\Q(\zeta_{2p})$
+
+        $\zeta_{2p}$ is a solution to $x^{2p} - 1 = 0$, that is, 
+        \[x^{2p} - 1 = (x^p -1)(x+1)(x^{p-1}-x^{p-2} + \cdots -x +1)\]
+
+        $\zeta_{2p}$ is not a solution to $x^p-1$ because $(\zeta_{2p})^p$ is not $1$. And $\zeta_{2p} \neq-1$, then $\zeta_{2p}$ must be a solution to $(x^{p-1}-x^{p-2} + \cdots -x +1)$.  By Eisenstein, we know that $(x^{p-1}-x^{p-2} + \cdots -x +1)$ is irreducible. That is, the minimal polynomial of $\zeta_{2p}$ is $(x^{p-1}-x^{p-2} + \cdots -x +1)$. Hence, the degree of the extension $[\Q(\zeta_{2p}) : \Q] = p-1$. 
+
+        \bbni
+
+        Therefore, both $\Q(\zeta_p)$ and $\Q(\zeta_{2p})$ have degree $p-1$ over $\Q$. 
+
+        \item $\Q(\cos(\pi/p))$
+        
+        We know, 
+        \[\zeta_{2p} = e^{{\pi i}/p} = \cos(\pi/p) + i \sin(\pi/p)\]
+        Consider the extension, $\Q(\cos(\pi/p))$. We know that $\cos$ is a real-valued function and hence, $\zeta_{2p} \notin \Q(\cos(\pi/p))$. Hence, $[\Q(\zeta_{2p}): \Q(\cos(\pi/2))] \geq 2$. 
+
+        Now consider the extension, $\Q(\cos(\pi/2))(i\sin(\pi/2))$. From the equation above we know that $\zeta_{2p} \in \Q(\cos(\pi/2))(i\sin(\pi/2))$. The following polynomial has $i\sin(\pi/2)$ as a root:
+        \[f(x) = x^2 - cos^2(\pi/2) + 1 = 0\]
+
+        $i\sin(\pi/2)$ is a root to a degree $2$ polynomial, hence the extension 
+        
+        $[\Q(\zeta_{2p}): \Q(\cos(\pi/2))] = [\Q(\cos(\pi/2))(i\sin(\pi/2)): \Q(\cos(\pi/2))] \leq 2$. 
+
+        Since $[\Q(\zeta_{2p}): \Q(\cos(\pi/2))] \geq 2$ and $[\Q(\zeta_{2p}): \Q(\cos(\pi/2))] \leq 2$, then
+        
+        $[\Q(\zeta_{2p}): \Q(\cos(\pi/2))] = 2$. 
+
+        Also from part(1), we know that $[\Q(\zeta_{2p}): \Q] = p-1$. 
+        
+      \[
+\begin{tikzcd}
+\mathbb{Q}(\zeta_{2p}) & {} \\
+\mathbb{Q}(\cos(\pi/p)) \arrow{u}{2} & {} \\
+\mathbb{Q} \arrow{u}{n} 
+\arrow[bend left=-70, shorten >=-4pt, swap]{uu}{p-1} & {}
+\end{tikzcd}
+\]
+
+    Then, $ n = (p-1)/2$ (by tower law).
+
+    \bbni
+
+    $\Q(\cos(2\pi/p))$
+    
+    Similarly, 
+        \[\zeta_{p} = e^{{2\pi i}/p} = \cos(2\pi/p) + i \sin(2\pi/p)\]
+    That is, 
+    $\Q(\cos(2\pi/p)) \subset \Q(\zeta_{p})$, with $\zeta_p \notin \Q(\cos(2\pi/p))$. And by the same logic the following two equations hold: 
+    \[[\Q(\zeta_{p}): \Q(\cos(2\pi/2))] \geq 2\]
+    and 
+    \[[\Q(\zeta_{p}): \Q(\cos(2\pi/2))] = [\Q(\cos(2\pi/2))(i\sin(2\pi/2)): \Q(\cos(2\pi/2))]\leq 2\]
+    
+    $\implies [\Q(\zeta_{p}): \Q(\cos(2\pi/2))] = 2$ 
+
+        \[
+        \begin{tikzcd}
+        \mathbb{Q}(\zeta_{p}) & {} \\
+        \mathbb{Q}(\cos(2\pi/p)) \arrow{u}{2} & {} \\
+        \mathbb{Q} \arrow{u}{n} 
+        \arrow[bend left=-75, shorten >=-4pt, swap]{uu}{p-1} & {}
+        \end{tikzcd}
+        \]
+    $\implies n = (p-1)/2$ (by tower law). 
+
+    \item The minimal polynomial of $\cos(2\pi/9)$ over $\Q$ is 
+    \[f(x) = 4x^3 - 3x + \cos(2\pi/3) = 8x^3 - 6x + 1 = 0.\]
+
+    (Note $\cos(2\pi/9)$ is a root of $f(x)$, and $f(x)$ is irreducible by RRT, hence it must be minimal.)
+
+    Now consider the polynomial $f(x) \in \Q(\cos(2\pi/9))$. Since $\cos(2\pi/9)$ is a root of $f(x)$, the splitting field $K$ of $f(x)$ is either a degree 1 or a degree two extension of $\Q(\cos(2\pi/9))$.
+
+    Note, that $\zeta_9 = \cos(2\pi/9) + i\sin(2\pi/9)$, and 
+    \[\zeta_9^4 = \cos(8\pi/9) + i\sin(8\pi/9), \qquad \zeta^{-4}_9 =  \cos(8\pi/9) - i\sin(8\pi/9)\]
+
+    Then, $({\zeta^4_9 + \zeta^{-4}_9})/2 = \cos(8\pi/9) \in \Q(\cos(2\pi/9))$. 
+
+    We will show that $cos(8\pi/9)$ is a root: 
+    \begin{align*}
+        f(\cos(8\pi/9)) &= 8(({\zeta^4_9 + \zeta^{-4}_9})/2)^3 - 6(({\zeta^4_9 + \zeta^{-4}_9})/2) + 1 \\
+        &= (\zeta^4_9 + \zeta^{-4}_9)^3 - 3(\zeta^4_9 + \zeta^{-4}_9) +1\\ 
+        &= \zeta^{12}_9 + \zeta^{-12}_9 + 3(\zeta^4_9 - \zeta^4_9) - 3(\zeta^4_9 + \zeta^{-4}_9) +1 \\ 
+        &= \zeta^{3}_9 + \zeta^{-3}_9 +1 \\ 
+        &= (\cos(2\pi/3) + i\sin(2\pi/3)) + (\cos(2\pi/3) - i\sin(2\pi/3)) +1 \\ 
+        &= -\frac{1}{2} - \frac{1}{2} + 1 \\ 
+        &= 0 
+    \end{align*}
+    Hence, there exist at least two roots of $f(x) \in \Q(\cos(2\pi/9))$, and since $f(x)$ is a cubic, we are left with some linear polynomial and linear polynomials split over the field they are in. Hence, $f(x)$ completely splits over $\Q(\cos(2\pi/9))$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{6}
-For $3 \le n < 17$, determine whether a regular $n$-gon can be constructed by compass and straightedge. 
+    For $3 \le n < 17$, determine whether a regular $n$-gon can be constructed by compass and straightedge. 
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    Again, from Lemma 1.42 (F.T), we know that a $p-$gon is constructable if and only if $p$ is a Fermat prime. 
+    \begin{enumerate}
+        \item $n = 3$
+        
+        $3$ is a Fermat prime, hence an equivalateral triangle is constructable. 
+
+        \item $n = 4$
+        
+        Constructing a square is equivalent to constructing $\pi/2$, and we can do that by drawing a perpendicular segment at a point. 
+
+        \item $n = 5$
+        
+        $5$ is a Fermat prime, hence a regular pentagon is constructable. 
+
+        \item $n = 6$
+        
+        Inscribe an equilateral triangle in a circle. The point of intersection of the three perpendicular bisectors from a side to the opposite angle is the center of the circle, and the radius is half the length of any perpendicular bisector. Each side subtends a central angle of $2\pi/3$. Bisecting these angles produces six equal central angles ($\pi/3$), whose endpoints form a regular hexagon.
+
+        \item $n = 7$
+         
+        $7$ is not a Fermat prime, hence a regular $7$-gon is not constructable. 
+
+        \item $n = 8$
+        
+        Inscribe a square in a circle. The point of intersection of the diagonals is the center of the circle, and the radius is half the length a diagonal. Each side subtends a central angle of $\pi/2$. Bisecting these angles produces eight equal central angles ($\pi/4$), whose endpoints form a regular octagon.
+
+        \item $n = 9$
+        
+        To construct a regular $9-$gon, we want to trisect the central angle ($2\pi/3$)of an equivalateral triangle. To check if this is possible use Problem $3$.
+        \begin{align*}
+            0 &= 4x^3 - 3x - \cos(2\pi/3) \\
+            0 &= 4x^3 - 3x + \frac{1}{2} \\ 
+            0 &= 8x^3 - 6x + 1 \\ 
+            0 &= (4x^2 - 1)(2x  -1) \\ 
+        \end{align*}
+        The equation is reducible over $\Q(\cos(\theta))$, hence, $2\pi/3$ is trisectable, and a regular $9-$gon is constructible.
+
+        \item $n = 10$
+        
+        Inscribe a regular pentagon in a circle. The point of intersection of the angle bisectors is the center of the circle, and the radius is the line segment between a vertice and the center of the circle. Each side subtends a central angle of $2\pi/5$. Bisecting these angles produces ten equal central angles ($\pi/5$), whose endpoints form a regular $10-$gon.
+
+        \item $n = 11$
+        
+        $11$ is not a Fermat prime, hence a regular $11$-gon is not constructable. 
+
+        \item $n = 12$
+        
+        Inscribe a regular hexagon in a circle. The point of intersection of the angle bisectors is the center of the circle, and the radius is the line segment between a vertice and the center of the circle. Each side subtends a central angle of $\pi/3$. Bisecting these angles produces ten equal central angles ($\pi/6$), whose endpoints form a regular $12-$gon.
+
+        \item $n = 13$
+        
+        $13$ is not a Fermat prime, hence a regular $13$-gon is not constructable. 
+
+        \item $n = 14$
+        
+        If a regular $14$-gon were constructible, then the central angle $\pi/7$ would be constructible, and hence so would $2\pi/7$. This would imply the constructibility of a regular $7$-gon, contradicting the lemma.
+
+        \item $n = 15$
+        
+        Inscribe an equilateral triangle in a circle. The point of intersection of the three perpendicular bisectors from a side to the opposite angle is the center of the circle, and the radius is half the length of any perpendicular bisector. Each side subtends a central angle of $2\pi/3$. From Problem $4$ we know that $2\pi/3$ is $5$-sectable. $5$-secting these angles produces fifteen equal central angles ($2\pi/15$), whose endpoints form a regular $15$-gon.
+
+        
+        \item $n = 16$
+        
+        Inscribe a regular octagon in a circle. The point of intersection of the angle bisectors is the center of the circle, and the radius is the line segment between a vertice and the center of the circle. Each side subtends a central angle of $\pi/4$. Bisecting these angles produces ten equal central angles ($\pi/8$), whose endpoints form a regular $16-$gon.
+
+    \end{enumerate}
+\end{solution}
 \end{document}

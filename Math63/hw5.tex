@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    Discuss the continuity of the function $f : \mathbb{R} \to \mathbb{R}$ defined by
+    \[
+    f(x) =
+    \begin{cases}
+    0 & \text{if $x$ is irrational}, \\[6pt]
+    \dfrac{1}{q} & \text{if $x = \dfrac{p}{q}$ with $p,q \in \mathbb{Z}$ and $\gcd(p,q)=1$}.
+    \end{cases}
+    \]
+\end{problem}
+
+\begin{problem}{2}
+     Let $E , E'$ be metric spaces, $f : E \to E'$ a continuous function. Prove that if $E$ is compact and $f$ is one-one onto then $f': E'\to E$ is continuous. (Hint: $f$ sends closed sets onto closed sets, therefore open sets onto open sets.)
+\end{problem}
+
+\begin{problem}{3}
+    A metric space $E$ is said to be arcwise connected if, given any $p, q \in E$ , there is a continuous function $f: [0, 1] \to E$ such that $f(0) = p, f(1) = q$. Show that any connected open subset of $E^n$ is arcwise connected.
+\end{problem}
+
+\begin{problem}{4}
+    Let $f, f_1, f_2, f_3, \ldots$ be continuous real-valued functions on the compact metric space $E$, with $\underset{x\to\infty}{\lim} f_n$. Prove that if $f_1(p) \leq f_2(p) \leq f_3(p) leq \ldots$ for all $p\in E$ then the sequence $f_1, f_2, f_3, \ldots$ converges uniformly.
+\end{problem}
+
+\begin{problem}{5}
+    If $E$ is a compact metric space and $p_0 \in E$ we get a real-valued function $F$ on $C(E)$ by setting $F(f) = f (p_0)$ for all $f \in C(E)$. Prove that $F$ is uniformly continuous.
+\end{problem}
+
+\end{document}

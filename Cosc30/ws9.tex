@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    Generate a random 5-digit number using digits \texttt{1} to \texttt{5}, possibly with repetitions.
+    What is the probability that the last digit is greater than the second-to-last digit?
+\end{problem}
+
+\begin{solution}
+    \bbni $\frac{2}{5}$
+
+    Number of ways to generate a 5-digit number (repetitions allowed) $ = 5^5$. 
+    
+    Number of ways to generate a 5-digit number such that that the last digit is greater than the second-to-last digit $=5^3 \cdot (4 + 3 + 2 + 1)$.
+    
+    The probability that the last digit is greater than the second-to-last digit is $\frac{5^3 \cdot (4 + 3 + 2 + 1)}{5^5} = \frac{2}{5}$. 
+\end{solution}
+
+\bbni 
+
+\begin{problem}{2}
+    Generate a random 5-digit number using digits \texttt{1} to \texttt{5} without repetitions.
+    What is the probability that the last digit is greater than the second-to-last digit?
+\end{problem}
+
+\begin{solution}
+    \bbni $\frac{1}{2}$
+
+    Number of ways to generate a 5-digit number (without repetitions) $ = 5!$.
+    
+    Number of ways to generate a 5-digit number such that the last digit is greater than the second to last $ = 3!(4 + 3 + 2 + 1)$
+
+    The probability that the last digit is greater than the second-to-last digit is $\frac{3!(4+3+2+1)}{5!} = \frac{1}{2}$. 
+\end{solution}
+
+\bbni 
+
+\begin{problem}{3}
+    Randomly permute the letters in the word \texttt{QUIET}.
+    What is the probability that the letters \texttt{Q} and \texttt{U} are next to each other in the order \texttt{QU}?
+\end{problem}
+
+\begin{solution}
+    \bbni $\frac{1}{5}$
+
+    There are $5!$ ways to permute the letters in the word \texttt{QUIET} and in $4!$ of them the letters {Q} and \texttt{U} are next to each other. Therefore, the probability that the letters \texttt{Q} and \texttt{U} are next to each other in the order \texttt{QU} is $\frac{4!}{5!} = \frac{1}{5}$.
+\end{solution}
+
+\begin{problem}{4}
+    Randomly permute the letters in the word \texttt{QUEUE}.
+    What is the probability that the letters \texttt{Q} and \texttt{U} are next to each other in the order \texttt{QU}?
+\end{problem}
+
+\begin{solution}
+    \bbni $\frac{2}{5}$
+    
+    There are $5!/(2 \cdot 2)$ ways to permute the letters in the word \texttt{QUEUE} and in $4!/2$ of them the letters {Q} and \texttt{U} are next to each other. Then the probability that the letters \texttt{Q} and \texttt{U} are next to each other in the order \texttt{QU} is $\frac{4!/2}{5!/(4)} = \frac{2}{5}$. 
+
+\end{solution}
+
+\bbni 
+
+\begin{problem}{$\star$ 5}
+How many different arrangements are there to put $m$ distinct flags on a row of $r$ flagpoles?
+Poles may be empty or contain multiple flags, and changing the order of flags on a pole changes the arrangement.
+(For example, for two flags and two poles there are $6$ different arrangements.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $x$ be the number of different arrangements there are to put $m$ distinct flags on a row of $r$ flagpoles. 
+    There are $\binom{r}{i}$ ways of choosing the number of flagpoles. 
+    
+    By stars and bars, there are $\binom{m+i-1}{i-1}$  ways we can distribute $m$ flags into $i$ parts. 
+
+    Let $a^k_1, \ldots, a^k_i$ be the number of flags in each bucket for a specific distribution $k$. Then there are $a^k_1! a^k_2! \cdots a^k_i!$ arrangements for each distribution. 
+
+    That is, for a chosen number of flags $i$, there are, 
+    $\sum_{k=1}^{\binom{m+i-1}{i-1}} (a^k_1! a^k_2! \cdots a^k_i!)$ possible arrangements. 
+
+    Then,
+    \begin{align*}
+       x &= \sum_{i=1}^{r} \left( \binom{r}{i} \sum_{k=1}^{\binom{m+i-1}{i-1}} (a^k_1! a^k_2! \cdots a^k_i!) \right)
+    \end{align*}
+\end{solution}
+
+\end{document}

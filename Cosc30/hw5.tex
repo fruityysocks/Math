@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1} \textbf{Consecutive numbers}
+
+Let $S$ be an arbitrary subset of $\{1, \dots, n\}$. An interval in $S$ is a maximal set of consecutive integers in $S$. For example, $\{1,2,4,5,6,7,9\}$ is a subset of $\{1, \dots, 10\}$ with exactly three intervals: $[1,2]$, $[4,7]$, $[9,9]$.
+
+\begin{enumerate}
+    \item How many subsets of $\{1, \dots, n\}$ have exactly $k$ intervals?
+    \item How many subsets of $\{1, \dots, n\}$ have exactly $m$ elements and $k$ intervals?
+\end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We have $n+1$ gaps in $\{1, 2, \ldots, n\}$, namely the space between each number. We can create $k$ intervals by putting $2k$ dividers in these gaps, and there are $\binom{n+1}{2k}$ days of doing this. 
+        
+        \item Let each interval have $x_i$ elements, we need to find how many integer solutions to $\sum_{i=1}^kx_i = m$ exist, where no $x_i = 0$. 
+        Then, by stars and bars there are $\binom{m-1}{k-1}$ such solutions.
+        Also, there are $k-1$ spaces between intervals, the number of elements in this add up to $n-m$, let each space between intervals have $y_i$ elements, we need to find how many integer solutions to $\sum_{i=1}^ky_i = n-m$ exist. 
+        And again, by stars and bars there are $\binom{n-m+1}{k}$ such solutions.
+        Since these were independent choices, there are $\binom{n-m+1}{k}\binom{m-1}{k-1}$ such subsets with exactly $m$ elements and $k$ intervals.  
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2. Problem that MIT professors answered wrong}
+
+Let’s play the following solitary game. Throw a fair six-sided dice repeatedly until a six appears. Now, test your intuition with the following question:
+
+What is the probability of getting a six on your first throw, conditioning on all the dice throws during the game are even numbers?
+
+Keep your answer in mind, and read on.
+
+We can record the sequence of numbers obtained in the game using a finite string over the alphabet $\{1, \dots, 6\}$. The sample space $S$ contains all strings over $\{1, \dots, 5\}$, appending with a first appearance of $6$; in notation,
+\[
+S := \{\, w6 \mid w \in \{1, \dots, 5\}^n \text{ for some integer } n \ge 0 \,\}.
+\]
+
+\begin{enumerate}
+    \item How to define the outcome probability of each element in the sample space $S$?
+\end{enumerate}
+
+For every $x \in \{1, \dots, 6\}$, denote $x_F$ the event that contains all the outcomes in $S$ where the first roll is $x$; in other words, $x_F$ contains all strings that start with $x$. Denote $E$ the event that all dice throws in the game produce even numbers (2, 4, and 6).
+
+\begin{enumerate}
+    \item[2.] Let $x$ be either $2$ or $4$. Argue that the events $x_F$ and $E$ are independent by showing
+    \[
+    \Pr[E \mid x_F] = \Pr[E].
+    \]
+    (Explain why this also implies $\Pr[2_F \mid E] = \Pr[2_F]$ and $\Pr[4_F \mid E] = \Pr[4_F]$.)
+    
+    \item [3.]Prove that the probability of first dice throw immediately gives you a six, conditioning on the event $E$ that all dice throws in the game produce even numbers, is
+    \[
+    \Pr[6 \mid E] = \frac{2}{3},
+    \]
+    using the independence in (b).
+    
+    \item[4.] But given the condition $E$, we can only get even numbers $2$, $4$, and $6$ during the first throw, each shows up with equal probability; so shouldn’t $\Pr[6 \mid E] = \frac{1}{3}$? Explain.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Let $|w|$ denote the length of $w$. 
+    \begin{enumerate}
+        \item  Probability of each element is $\frac{1}{6^{|w|+1}}$ for a given $w$. 
+        
+        \item Note that for a given $w6$ the probability of all dice throws in the game producing even numbers is,
+        \[P[E] = \frac{1}{3^{|w|}} \cdot \frac{1}{6}\]
+        We know,
+        \[P[E|2_F] = \frac{P[E\cap 2F|}{P[2_F]}\]
+        Moreover note that, 
+        \[P[2F] = \frac{1}{6}\] 
+        And the probability of a $2w6$ occurring is given that $w$ only has even numbers is, 
+        \[P[E\cap2_F] = \frac{1}{6} \cdot \frac{1}{3^{|w|}} \cdot \frac{1}{6} = \frac{1}{3^{|w|} \cdot 6^2}\] 
+
+        Then we get, 
+        \begin{align*}
+            P[E|2_F] &= \frac{P[E\cap 2_F|}{P[2_F]} \\ 
+            &= 6 \cdot \frac{1}{3^{|w|} \cdot 6^2} \\ 
+            &= \frac{1}{3^{|w|} \cdot 6} =P[E]  
+        \end{align*}
+        
+        The same argument holds true for $P[E|4_F]$. Hence the events $x_F$ and $E$ are independent.
+
+        Since $P[2_F]$ and $P[E]$ are independent, note that:
+        \[P[x_F|E] = P[x_F]  \] 
+        
+        
+        
+        \item Note that $P[6|E] = P[6_F|E]$ but $F$ is empty since the game ends when we get a six. 
+        Given the condition $E$ that all the outcomes are even, the first outcome can be $2, 4$, or $6$. From part (2), we know that \[P[2_F|E] = P[2_F] = 1/6\] and  \[P[4_F|E] = P[4_F] = 1/6\] 
+
+        
+        From the axiom of total probability we know that probability of all outcomes must sum up to know. 
+        \begin{align*}
+            P[4F|E] + P[2F|E] + P[6F|E] &= 1  \\
+             P[6F|E] &= 1- P[4F|E] - P[2F|E] \\
+            P[6|E] &= 1-\frac{1}{3} \\ 
+            P[6|E] &= \frac{2}{3}
+        \end{align*}
+        
+        \item Given all the numbers are even, there is a higher likelihood of getting 6 because of the nature of the game. If we get $6$ in the first throw, the game ends. Whereas, if we get $2$ or $4$, the game keeps repeating. Each time we repeat, there is possibility of getting an even number gets lower. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{$\star$3. Evidence and hypotheses}
+
+Consider some arbitrary sample space $S$. Let $H$ be an event called the hypothesis. We say another event $E$ is evidence for $H$ if $\Pr[H \mid E] > \Pr[H]$; we say event $E$ is evidence against $H$ if $\Pr[H \mid E] < \Pr[H]$.
+
+For concreteness, consider a company who has a job opening. 100 applicants applied for the role. Let $H$ be the subset of top performers among the applicants. Now, if we just pick a uniformly random applicant from the pool, we have $\Pr[H]$ chance to get a top performer.
+
+Two screening mechanisms are used:
+\begin{itemize}
+    \item $E_1$: passes the resume/portfolio screen,
+    \item $E_2$: has recommendations from internal workers.
+\end{itemize}
+
+Assume the company calibrated the two screenings so that exactly 50 pass the resume screen, exactly 50 got internal recommendations, and exactly 25 have both. One can check that in this case the two events $E_1$ and $E_2$ are independent.
+
+Construct a sample space $S$ of 100 applicants and a subset of top performers $H$, together with those applicants in $E_1$ and $E_2$ who pass the screenings, such that
+\begin{itemize}
+    \item both $E_1$ and $E_2$ are evidence for $H$, but
+    \item $E_1 \cup E_2$ is evidence against $H$.
+\end{itemize}
+
+Explain intuitively how having two independent supporting evidence together can somehow decrease the chance of an applicant being a top performer.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+
+\end{solution}
+
+\begin{problem}{$\star$4. Bloom filters}
+
+A Bloom filter is a probabilistic data structure designed to store a set of elements from a universe $U$, allowing very quick query operations. It supports the operations $\text{INSERT}(x)$ and $\text{LOOKUP}(x)$, but may produce false positives.
+
+We choose $k$ independent hash functions $h_1, \dots, h_k : U \to [1..m]$ and maintain an array of $m$ bits, initially all set to $0$.
+
+\begin{itemize}
+    \item To insert $x$, set the bits at positions $h_1(x), \dots, h_k(x)$ to $1$.
+    \item To look up $x$, report ``yes'' if all these bits are $1$, otherwise report ``no''.
+\end{itemize}
+
+Assume the hash functions assign each element of $U$ uniformly at random.
+
+\begin{enumerate}
+    \item Let $k \ge 1$ and suppose we have inserted $n \ge 1$ elements. What is the probability a particular slot is still set to $0$ after these insertions?
+    
+    \item When we query for an uninserted element $y$, define the false-positive rate to be the probability we incorrectly report that $y$ is in the table.
+
+    For many years, people believed the false-positive rate was precisely $p^k$, where $p = 1 -$ [your answer to (a)], based on the assumption that the events
+    \[
+    B_i = \{\text{slot } h_i(y) \text{ is occupied}\}
+    \]
+    are independent.
+
+    Later work showed this assumption is false. Identify the issue by considering the toy example $n=1$, $k=2$, $m=2$ by enumerating all possible cases and computing the false-positive rate. Provide an intuitive explanation of why the original independence assumption fails.
+\end{enumerate}a
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item  $\frac{m-n}{m}$
+        \item 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

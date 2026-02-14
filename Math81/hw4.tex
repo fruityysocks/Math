@@ -1,0 +1,451 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+
+\begin{document}
+
+\input{title}
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange.
+
+
+\begin{problem}{1}
+    Let $F$ be a field and $f(x) \in F[x]$ a monic polynomial of degree $n$.  Let $E$ be a splitting field of $f$ over $F$, so that $f(x) = (x-\alpha_1)\cdots (x-\alpha_n)$ over $E$.
+    \begin{enumerate}\renewcommand{\itemsep}{2mm}
+    \item Prove that $\prod_{1 \leq i < j \leq n} (\alpha_i-\alpha_j)^2$
+    is in $F$.  This is called the discriminant $\Delta(f)$ of
+    $f$. \\ \textbf{Hint.} You might need the Fundamental Theorem of Symmetric Polynomials. 
+
+    \item Prove that $\Delta(f)=0$ if and only if $f(x)$ has a repeated
+    root in $E$.
+
+    \item Prove that if $\Delta$ is not a square in $F$ then $[E:F]$ is
+    even.  \textbf{Hint.} The tower law.
+    \end{enumerate} 
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}
+        \item  In $F[\alpha_1, \alpha_2, \cdots, \alpha_n]$, 
+        \[f(x) = (x-\alpha_1)(x-\alpha_2)\cdots(x-\alpha_n)\]
+        From Pset 1, we know, 
+        \[f(x) = (x-\alpha_1)(x-\alpha_2)\cdots(x-\alpha_n) = \sum_{j=0}^{n}(-1)^{n-j}e_{n-j}x^j\]
+        Since $f(x) \in F[x]$, we know that $e_i \in F$ for all $0 \leq i \leq n$.
+
+        Also note that $\prod_{1 \leq i < j \leq n} (\alpha_i-\alpha_j)^2$ is symmetric because changing the ordering of roots changes neither the magnitude nor the sign of the determinant (since we square the differences and loop over all the roots). Then, by the Fundamental Theorem of Symmetric Polynomials, any symmetric function can be written in terms of elementry symmetric polynomials $e_i$s, $0 \leq e_i \leq n$. Since $e_i \in F$, $\Delta(f) \in F$. 
+
+        \item  ($\implies$)
+        
+        Assume $\Delta(f) = 0$. 
+        \[ \Delta(f) = \prod_{1 \leq i < j \leq n} (\alpha_i-\alpha_j)^2 = 0\]
+        Since we are in a field, that implies that at least one of these terms $(\alpha_i - \alpha_j)$ is zero, which is only possible if $\alpha_i = \alpha_j$. Hence, $f(x)$ must have a repeated root in $E$. 
+
+        \bbni
+        ($\impliedby$) 
+
+        Assume $f(x)$ has a repeated root in $E$, say $\alpha_i =\alpha_j$ for some $i < j$. Then one of the terms $(\alpha_i - \alpha_j)^2 = 0 \implies \Delta(f) = \prod_{1 \leq i < j \leq n} (\alpha_i-\alpha_j)^2 = 0$. 
+
+        \item Assume $\sqrt{\Delta(f)} \notin F$. 
+        
+        By part (1), we know that $\Delta(f) \in F$. And since, $E$ is the splitting field of $f(x)$, it contains all roots $\alpha_1, \ldots, \alpha_n$, and their linear combinations, i.e. $\sqrt{\Delta(f)} \in E$. Since, $\sqrt{\Delta(f)} \notin F$, but in $E$, there is a subextension $F \subset F(\sqrt{\Delta(f)}) \subseteq E$. 
+
+        Moreover, since $\sqrt{\Delta(f)} \notin F$, $x^2 - {\Delta(f)}$ is its minimal polynomial. That is the extension, $F(\sqrt{\Delta(f)})$ has degree $2$. Then by the tower law, 
+        \[[E:F] = [E:F(\sqrt{\Delta(f)})][F(\sqrt{\Delta(f)}): F] = [E:F(\sqrt{\Delta(f)})] \cdot 2\]
+        Hence, $[E:F]$ is even. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{2}
+    Let $F$ be a field and let $g(x) = x^2+ax+b \in F[x]$.
+    Let $K=F(\alpha)$, where $\alpha$ is a root of $g(x)$, so that $g(x) =
+    (x-\alpha)(x-\beta)$ over $K$.  This problem is mostly review of what
+    you already know about quadratic polynomials, so you don't need to
+    write much!
+    \begin{enumerate}\renewcommand{\itemsep}{3mm}
+    \item Prove that $\Delta(g) = (\alpha-\beta)^2 = a^2-4b \in F$.   \textbf{Hint.}  Use elementary symmetric polynomials.
+
+    \item Assume that the characteristic of $F$ is not 2.  Prove that $K =
+    F(\sqrt{\Delta(g)})$. Deduce that $g(x)$ is irreducible over $F$ if
+    and only if $\Delta(g)$ is not a square in $F$.  Also, prove that
+    $g(x)$ is a square in $F[x]$ if and only if
+    $\Delta(g)=0$. \textbf{Hint.} Use the quadratic formula.
+
+    \item Now let $F = \F_2(t)$ be the rational function field over
+    $\F_2$.  Let $g(x) = x^2-t \in F[x]$.  Prove that $g(x)$ is
+    irreducible over $F$, though it satisfies $\Delta(g)=0$.  Recall, from
+    lecture, that $K \isom F(\sqrt{t})$ is an example of an inseparable
+    extension (though in lecture we only indicated how to prove the
+    irreducibility of $g(x)$). \textbf{Hint.}  Proving irreducibility can
+    either go like proving $\sqrt{2}$ is irrational, or using Eisenstein
+    for the ring $\F_2[t]$.
+    \end{enumerate}
+    Weird stuff can happen with quadratic polynomials in characteristic 2! 
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}
+        \item We know that, 
+        \[g(x) = (x - \alpha) (x -\beta) \in K\]
+        Using elementary symmetric polynomials, we can write $g(x)$ as, 
+        \begin{align*}
+            g(x) &= \sum_{j=0}^{2}(-1)^{2-j}e_{2-j}x^j \\ 
+            &= (-1)^2e_2 + (-1)e_1x + (-1)^0e_0x^2 \\ 
+            &= e_2 - e_1x + x^2 \\ 
+            &= (\alpha\beta) - (\alpha + \beta)x + x^2 
+        \end{align*}
+        And,
+        \[\Delta(g) = (\alpha - \beta)^2 = (\alpha + \beta)^2 - 4(\alpha\beta)\]
+
+        Note that we also know, 
+        $g(x) = x^2 + ax + b \in F$. On comparing coefficients, we get, 
+        \[(\alpha + \beta) = -a, \qquad \alpha\beta = b\]
+
+        Substituting into $\Delta(g)$, 
+        \[\Delta(g) = (\alpha - \beta)^2 = a^2 - 4b\]
+        Since $a,b \in F$, $\Delta(g) \in F$. 
+
+        \item \begin{enumerate}
+
+        \item To show that $K = F(\sqrt{\Delta(g)})$. 
+
+        
+        \[\sqrt{\Delta(g)} = \alpha - \beta, \alpha, \beta \in K,\] so the containment  $F(\sqrt{\Delta(g)}) \subset F(\alpha)$ is obvious. To prove the opposite containment, we only need to show that $\alpha$ can be obtained from $\sqrt{\Delta(g)}$. 
+        \begin{align*}
+            \sqrt{\Delta(g)} &= \sqrt{(\alpha - \beta)^2} \\ 
+            &= \alpha - \beta \\ 
+            \intertext{But from part (1),} 
+            \alpha &=  ((\alpha - \beta) + (-a))/2 \\
+            &= (\sqrt{\Delta(g)} - a) / 2
+        \end{align*} 
+
+        Hence, $F(\alpha) \subset F(\sqrt{\Delta(g)})$. And, $F(\alpha) = F(\sqrt{\Delta(g)})$. 
+
+        
+        \item To show that $g(x)$ is irreducible over $F$ if and only if $\Delta(g)$ is not a square in $F$. 
+
+        ($\implies$) 
+
+        Assume $g(x)$ is irreducible over $F$. 
+        We know that $g(x)$ splits over $K = F(\sqrt{(\Delta(g))})$. If $g(x)$ is irreducible over $F$, then $\sqrt{(\Delta(g))} \notin F$, i.e. $\Delta(g)$ is not a square in $F$. 
+
+        ($\impliedby$) 
+
+        Assume $\Delta(g)$ is not a square in $F$, i.e. $\sqrt{(\Delta(g))}  \notin F$, and thus 
+        \[[K:F] = [F(\alpha): F] = [F(\sqrt{\Delta(g)}):F] = 2\]
+        Therefore the minimal polynomial of $\alpha$ over $F$ has degree $2$, so $g(x)$ is irreducible over $F$.
+
+        \item To show that $g(x)$ is a square in $F[x]$ if and only if $\Delta(g) = 0$. 
+
+        ($\implies$) 
+
+        Assume $g(x)$ is a square in $F[x]$. Then, for some $f(x) \in F[x]$ and some $\alpha$, 
+        \[g(x) = (f(x))^2 = (x - \alpha)^2\]
+        Then, $\Delta(g) = (\alpha - \alpha)^2 = 0^2 = 0$. 
+
+        ($\impliedby$) 
+
+        Assume $\Delta(g) = 0$. Since $g(x)$ is a quadratic, this means it has a single root with multiplicity 2. That is, $g(x) = (x- \alpha)(x-\alpha)$ for some $\alpha \in F[x]$. That is, $g(x)$ is a square in $F[x]$. 
+    
+        \end{enumerate}
+
+        \item $F = \F_2(t), \, g(x) = x^2 - t \in F[x]$. 
+        
+        Assume $g(x)$ is reducible in $F[x]$. Since $g(x)$ is degree $2$, it would split into two linear polynomials in $F[x]$, and hence has (at least) a root $\alpha$ in $F[x]$. Since $F$ is the field of rational functions in $t$, let $\alpha = a(t)/b(t)$ in lowest form, i.e. with $\gcd(a(t), b(t)) =1$. Then, 
+        \begin{align*}
+            \fr{a(t)}{b(t)}^2 &= t \\ 
+            a(t)^2 = b(t)^2 \cdot t \\ 
+        \end{align*}
+        Since $\gcd(a(t), b(t))$, 
+            \[t \mid a(t)^2 \implies t \mid a(t)\]
+
+        Write $a(t) = ta'(t)$, note $\gcd(a'(t), b(t)) =1$
+         \begin{align*}
+            \fr{ta'(t)}{b(t)}^2 &= t \\ 
+            t^2 \cdot a'(t)^2 = b(t)^2 \cdot t \\ 
+            t \cdot a'(t)^2 = b(t)^2 \\ 
+        \end{align*}
+        Since $\gcd(a'(t), b(t))$, 
+            \[t \mid b(t)^2 \implies t \mid b(t)\]
+
+        But this contradicts our assumptions that $\gcd((a)t, b(t)) =1$. Hence $g(x)$ is irreducible in $F[x]$. 
+
+        However, $\sqrt{t} \notin F[x]$ is a double root of this polynomial. Since we are in characteristic 2, $\sqrt{t} = -\sqrt{t}$, and $g(x) = x^2 - t = (x-\sqrt{t})(x+\sqrt{t}) = (x + \sqrt{t})^2$, and hence $\Delta(g) = 0$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+Let $F$ be a field and let $f(x) = x^3+px+q \in F[x]$.  Let $L$ be the
+splitting field of $f$, so that $f(x) =
+(x-\alpha_1)(x-\alpha_2)(x-\alpha_3)$ over $L$, for elements
+$\alpha_1,\alpha_2,\alpha_3 \in L$.
+\begin{enumerate}\renewcommand{\itemsep}{3mm}
+\item Prove that $\Delta(f) = \prod_{1 \leq i < j \leq 3} (\alpha_i-\alpha_j)^2 =
+-4p^3 - 27q^2 \in F$. 
+
+\item Let $\alpha \in L$ be one of the roots of $f(x)$.  Factor $f(x) = (x-\alpha)g(x)$ over $F(\alpha)$, where $g(x) \in F(\alpha)[x]$ is quadratic.  Prove that $\Delta(f) =
+g(\alpha)^2\Delta(g)$.
+
+\item Assume that the characteristic of $F$ is not 2.  If $f(x)$ is
+irreducible and $\alpha$ is a root of $f(x)$, prove that $L =
+F(\alpha,\sqrt{\Delta(f)})$.  Deduce that, in this case, $\Delta(f)$
+is a square in $F$ if and only if $L$ has degree 3 over $F$.  If
+$f(x)$ is reducible over $F$, prove that $L =
+F(\sqrt{\Delta(f)})$; for this, you cannot necessarily just assume
+that the root $\alpha$ is in $F$ in the previous case..
+
+\item Assume that the characteristic of $F$ is not 2 or 3.  Prove that
+if $\Delta(f)=0$ then $L=F$, i.e., all the roots of $f(x)$ are in $F$.
+
+\item Write down a monic irreducible cubic polynomial over $\F_3(t)$
+whose discriminant is 0, and factor it over its splitting field.
+Write down a monic cubic polynomial over $\F_2(t)$ whose discriminant
+is 0, and whose splitting field is nontrivial. 
+\textbf{Hint.} Think inseparably.
+
+\item Now let $F=\F_2(t)$ and let $f(x) = x^3+tx+t$.  Prove that
+$f(x)$ is irreducible over $F$, has nonzero square discriminant, yet
+its splitting field $L$ has degree 6 over $F$. \textbf{Hint.} You
+may find it useful to use Gauss's Lemma for the ring $F[t]$, see
+Dummit and Foote, \S9.3.
+
+\end{enumerate}
+Weird stuff can happen with cubic polynomials in characteristics 2 and 3!
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know that, 
+        \[f(x) = (x - \alpha_1)(x - \alpha_2)(x - \alpha_3)\]
+       Using elementary symmetric polynomials we can re-write $f(x)$ as, 
+       \begin{align*}
+            f(x) &= \sum_{j=0}^{3}(-1)^{3-j}e_{3-j}x^j \\ 
+            &= (-1)^3e_3 + (-1)^2e_2x + (-1)e_1x^2 + (-1)^0e_0x^3 \\ 
+            &= -e_3 + e_2x - e_1x^2 + x^3 \\ 
+            &= -(\alpha_1\alpha_2\alpha_3) + (\alpha_1\alpha_2 + \alpha_2\alpha_3 + \alpha_3\alpha_1)x - (\alpha_1 + \alpha_2 + \alpha_3)x^2 + x^3 
+       \end{align*}
+       We also know that $f(x) = x^3 +px + q$. Comparing coefficients we get, 
+
+       \[(\alpha_1\alpha_2\alpha_3)  = e_3 = -q, \qquad  (\alpha_1\alpha_2 + \alpha_2\alpha_3 + \alpha_3\alpha_1) = e_2 = p, \qquad  (\alpha_1 + \alpha_2 + \alpha_3) = e_1= 0 \]
+
+       Since $\prod_{0 \leq i < j \leq 3}(\alpha_i - \alpha_j)^2$ is symmetric, by the Fundamental Theorem of Symmetric Polynomials we can write in terms of the elementary symmetric polynomials $e_1, e_2, e_3$. 
+       \[\prod_{0 \leq i < j \leq 3}(\alpha_i - \alpha_j)^2 = Ae_2^3 + Be_3^3 = Ap^3 - Bq^2\]
+       for some coefficients $A, B \in F$.
+       
+       Since the determinant works for all cubics of the form $x^3 + px + q$, we check specific polynomials to determine $A, B$: 
+       \begin{enumerate}
+            \item let $p = -1, q=0$, then define $g(x) = x^3 - x$. The roots of this polynomial are $1, -1, 0$.
+            \[\Delta(g) = (1 - (-1))^2(1-0)^2(-1-0)^2 = 4\]
+            Since, $\Delta(g) = Ap^3 - Bq^2 = A(-1)^3 = 4$. That is, $A = -4$. 
+            \item let $p = 0, q = -1$, then define $g'(x) = x^3 - 1$. The roots of this polynomial are $1, \omega, \omega^2$. 
+            \begin{align*}
+                \Delta(g') &= ((1 - \omega)(1-\omega^2)(\omega-\omega^2))^2 \\ 
+                &= (3(\omega-\omega^2))^2 \\ 
+                &= 9(\omega^2 + \omega - 2\omega^3) \\
+                &= 9(-1 - 2) \\ 
+                &= -27
+            \end{align*}
+            But since $\Delta(g') = Ap^3 - Bq^2 = -B(-1)^3 = -27$ implies $B = -27$. 
+       \end{enumerate}
+       Hence, 
+       \[\Delta(f) = -4p^3  -27q^2\]
+       
+       
+       \item Let $g(x) = x^2 + ax + b = (x-\beta_1)(x-\beta_2)$. 
+        \[\Delta(f) = \prod_{1 \leq i < j \leq 3}(\gamma_i - \gamma_j)^2 = (\alpha - \beta_1)^2(\alpha-\beta_2)^2(\beta_1-\beta_2)^2\]
+       Where $\gamma_i$ are the roots of the polynomial $f(x)$. 
+       We know, $\Delta(g) = (\beta_1-\beta_2)^2$, and that $g(\alpha) = (\alpha - \beta_1)(\alpha - \beta_2)$. Substituting, 
+       \begin{align*}
+        \Delta(f) &= (\alpha - \beta_1)^2(\alpha-\beta_2)^2(\beta_1-\beta_2)^2 \\ 
+        &= ((\alpha - \beta_1)(\alpha-\beta_2))^2\Delta(g) \\ 
+        &= (g(\alpha))^2\Delta(g)
+       \end{align*}
+        
+       \item \begin{enumerate}
+        \item $ L = F(\alpha, \sqrt{\Delta(f)})$ 
+        
+        $(\implies)$
+
+        Note that $L = F(\alpha, \beta_1, \beta_2)$, where $\beta_1, \beta_2$ are the other two roots of the polynomial. In $F(\alpha, \sqrt{\Delta(f)})$, we have $\alpha$ and $\sqrt{\Delta(f)} = g(\alpha)(\beta_1 - \beta_2)$ (from part(2)). Note, $g(\alpha) \in F(\alpha)$, and from Problem 2, part (2) recall that $F(\sqrt{\Delta(g)})$ is the splitting field of $g(x)$. Then, $g(x)$ splits completely over $F(\alpha, \sqrt{\Delta(f)})$, i.e. $\beta_1, \beta_2 \in F(\alpha, \sqrt{\Delta(f)}$. Hence, $L \subset F(\alpha, \sqrt{\Delta(f)})$. 
+
+
+        $(\impliedby)$
+
+        $L = F(\alpha, \beta_1, \beta_2)$, so we can construct $\sqrt{\Delta(f)} = (\alpha - \beta_1)(\alpha-\beta_2)(\beta_1 - \beta_2)$. That is, $L \supset F(\alpha, \sqrt{\Delta(f)})$. 
+
+        Hence, $L = F(\alpha, \sqrt{\Delta(f)})$. 
+
+        \bbni
+
+        \item $\Delta(f)$ is a square in $F \iff$ $[L:F] = 3$
+        
+        $(\implies)$ Assume $\Delta(f)$ is a square in $F$. 
+
+        Since $\Delta(f)$ is a square in $F$, $\sqrt{\Delta(f)} \in F$. Then $L = F(\alpha)$. Since $\alpha$ is the root of an irreducible cubic, $[L:F] = 3$.  
+
+        \bbni
+
+        $(\impliedby)$ Assume $[L:F] = 3$. 
+
+        If $[L:F] = 3$, then $L = F(\alpha)$ since $\alpha$ is the root to an irreducible cubic and hence generates a degree three extension. From part (a) we know that $L = F(\alpha, \sqrt{\Delta(f)})$. Since $F(\alpha, \sqrt{\Delta(f)}) = F(\alpha)$, $\sqrt{\Delta(f)}$ must be in $F$. Hence, $\Delta(f)$ is a square in $F$. 
+
+        \bbni
+
+        \item $f(x)$ is reducible over $F$.  
+        
+        If $f(x)$ is reducible over $F$ it either splits into $3$ linear polynomials, or $1$ linear and $1$ quadratic polynomial. That is, there exists some root $\alpha$ of $f(x) \in F$. Then, $L = F(\alpha, \sqrt{\Delta(f)}) = F(\sqrt{\Delta(f)})$. 
+       \end{enumerate}
+
+       \item Assume $\Delta(f) = 0$. 
+       
+       Since $F$ is not characteristic $2$ or $3$, $\Delta(f) = 0$ implies a double root. That is, $f(x)$ splits into two linear polynomials. 
+       \[f(x) = (g(x))^2h(x)\] 
+       for some linear polynomials $g(x), h(x)$. Since, they're linear they both have roots in $F$. Hence $f(x)$ splits over $F$, or $L = F$. 
+
+       \item Monic irreducible cubic polynomial over $\F_3(t)$: $f(x) = x^3 - t$. The polynomial is irreducible by Eisenstein, and has root $\sqrt[3]{t}$ with multiplicity 3. 
+       \[\Delta(f)=3(\sqrt[3]{t} - \sqrt[3]{t} )^2 = 0\]
+       Over it's splitting field $L = \F_3(t)(\sqrt[3]{t}) =F(\sqrt[3]{t})$, $f(x)$ factors into $(x-\sqrt[3]{t})^3$.
+
+       Monic irreducible cubic polynomial over $\F_2(t)$: $f(x) = x(x^2 - t)$. The polynomial is irreducible by Eisenstein, and has roots $0, \sqrt{t}, -\sqrt{t}$, however in characteristic $2$, $\sqrt{t} = -\sqrt{t}$. 
+       \[\Delta(f)=2(\sqrt{t} - 0)^2 (\sqrt{t} - \sqrt{t})^2 = 0\]
+       Over it's splitting field $L = \F_2(t)(\sqrt{t}) =F(\sqrt{t})$, $f(x)$ factors into $(x-0)(x-\sqrt{t})^2$.
+
+       \item  $f(x)$ is irreducible in $F[t]$, (same proof as Problem 2, part (c))
+        \[\Delta(f) = -4t^3 - 27t^2 = -27 t^2 = t^2 \neq 0\]
+        Let $L$ be the splitting field for $f(x)$. We know that $[L:F] \leq 3! = 6$. Also, since $f(x)$ is irreducible in the field, $[L:F] \geq 3$. Since $\deg(f) \big | [L:F]$, $[L:F] =3$ or $[L:F] = 6$. 
+        
+        Assume $[L:F] = 3$. 
+        
+        Consider $f(x)$ in the extension $F(\sqrt[3]{t})$. By Gauss' Lemma, $f(x)$ is irreducible over if and only if $F(\sqrt[3]{t})$ it is irreducible over $F[\sqrt[3]{t}]$. But, $F[\sqrt[3]{t}]/(\sqrt[2]{t}) = \F$, an integral domain. That is, $(\sqrt[2]{t})$ is a prime ideal. Then by Eisenstein, $f(x)$ is irreducible over $F[\sqrt[3]{t}]$ and hence irreducible in $F(\sqrt[3]{t})$. This is a contradiction since the splitting field $L$ was a degree $3$ extension over $F$. Hence, $[L:F] \neq 3$, then $[L:F]$ must be $6$.
+
+
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{4}
+    Let $p$ and $q$ be distinct prime numbers.  Prove that $\Q(\sqrt{p}+\!\sqrt{q}) = \Q(\sqrt{p},\sqrt{q})$ and find the minimal polynomial of $\sqrt{p}+\!\sqrt{q}$ over $\Q$.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    $\Q(\sqrt{p} + \sqrt{q}) \subset \Q(\sqrt{p}, \sqrt{q})$
+
+    This containment is immediate. If $\sqrt{p}, \sqrt{q} \in$ a field $F$ then by additive closure $\sqrt{p} + \sqrt{q} \in F$. That is, $\Q(\sqrt{p} + \sqrt{q}) \subset \Q(\sqrt{p}, \sqrt{q})$. 
+
+    \bbni
+
+    $\Q(\sqrt{p} + \sqrt{q}) \supset \Q(\sqrt{p}, \sqrt{q})$
+
+    To show this containment, it suffices to show that $\sqrt{p}, \sqrt{q} \in \Q(\sqrt{p} + \sqrt{q})$. 
+
+    We know $\sqrt{p} + \sqrt{q} \in \Q(\sqrt{p} + \sqrt{q})$ then, 
+    \[\frac{(p+q)}{(\sqrt{p} +\sqrt{q})} = \sqrt{p} - \sqrt{q} \in \Q(\sqrt{p} + \sqrt{q})\]
+    That is, $2\sqrt{p} \in \Q(\sqrt{p} + \sqrt{q})$ or $\sqrt{p} \in \Q(\sqrt{p} + \sqrt{q})$. And if we have $\sqrt{p}$ we have $\sqrt{q}$. 
+    
+    Hence, $\Q(\sqrt{p} + \sqrt{q}) = \Q(\sqrt{p}, \sqrt{q})$. 
+
+    \bbni
+
+    Consider the polynomial $f(x) = x^4 - 2(p+q)x^2 + (p-q)^2 = 0$, 
+    \begin{align*}
+        f(\sqrt{p} + \sqrt{q}) &= (\sqrt{p} + \sqrt{q})^4 - 2(p+q)(\sqrt{p} + \sqrt{q})^2 + (p-q)^2 = 0 \\ 
+        f(\sqrt{p} + \sqrt{q})&= p^2 + q^2 + 6pq + 4(p+q)(\sqrt{pq}) -2(p+q)(p + q + 2\sqrt{pq}) + p + q - 2pq
+    \intertext{All the terms cancel out and we get,} 
+    f(\sqrt{p} + \sqrt{q})&= 0
+    \end{align*}
+    Since $f(x)$ is a degree $4$ polynomial satisfied by $(\sqrt{p} + \sqrt{q})$, it must be the minimal polynomial. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{5}
+    Let $F$ be a field of characteristic $\neq 2$.  
+    \begin{enumerate}\renewcommand{\itemsep}{3mm}
+    \item Let $a_1,\dotsc,a_n \in F$ be distinct elements such that no product $a_{i_1}\dotsm a_{i_r}$, with distinct indices $i_j$, is a square in $F$.  Prove that $K = F(\sqrt{a_1},\dotsc,\sqrt{a_n})$ has degree $2^n$ over $F$.
+
+    \item Prove that the field $\Q(\sqrt{2}, \sqrt{3}, \sqrt{5}, \sqrt{7}, \sqrt{11}, \dotsc)$ gotten by adjoining the square roots of all prime numbers to $\Q$, is an infinite degree algebraic extension of $\Q$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item  We show that $K = F(\sqrt{a_1},\dotsc,\sqrt{a_n})$ has degree $2^n$ over $F$, for $a_1,\dotsc,a_n \in F$ distinct elements such that no product $a_{i_1}\dotsm a_{i_r}$ with distinct indices $i_j$, is a square in $F$ by induction. 
+        
+        \textbf{Base case:} Adjoining $1$ square root to $F$. 
+
+        Consider distinct elements $a_1,\dotsc,a_n \in F$ distinct elements such that no product $a_{i_1}\dotsm a_{i_r}$ with distinct indices $i_j$, is a square in $F$. We only adjoin the squareroot of $a_1$ to $F$. 
+        
+        We get the following minimal polynomial for $\sqrt{a_1}$, 
+        \[x^2 - a_1 = 0\]
+        This gives us a degree two extension $K_1  = F(\sqrt{a_1}) =F/(x^2-a_1)$. 
+
+        \[[F(\sqrt{a_1}):F] = 2\]
+
+        \textbf{Claim:} If $b \in F$ is a product of distinct elements from $a_2, \ldots, a_n \in F$ then $b$ is not a square in $K_1$.
+        
+        \textbf{Proof of Claim:} For the sake of contradiction, assume $b$ is a square in $K_1$. Then $b = (x + y\sqrt{a_1})^2$ for some $x,y \in K_1$. Expanding, 
+        \begin{align*}
+            b &= (x + y\sqrt{a_1})^2 \\ 
+            &= x^2 + y^2a_1 + 2xy\sqrt{a_1}
+        \end{align*}
+        Since $b \in F,$ and $\sqrt{a_1} \notin F$ either $x$ or $y$ is zero. 
+
+        Let $x = 0$. Then, $b = y^2a_1$, and $\sqrt{b} = y\sqrt{a_1}$. Thus, $y^2$ is a square in $F$. But then, some product $a_{i_1}\cdots a_{i_r}$ is a square in $F$, contradicting the assumption. 
+        
+        Let $y = 0$. Then $b = x^2$, then $b$ is a square in $F$, again contradicting the assumption!
+
+        Hence, if $b$ is a product of istinct elements from $a_2, \ldots, a_n \in F$ then $b$ is not a square in $K_1$.
+
+        \textbf{Inductive Hypothesis:} Assume that for distinct elements $a_1,\dotsc,a_{n-1} \in F$ that no product $a_{i_1}\dotsm a_{i_r}$ with distinct indices $i_j$, is a square in $F$, then $K = F(\sqrt{a_1},\dotsc,\sqrt{a_{n-1}})$ has degree $2^{n-1}$ over $F$. 
+        
+        \textbf{Inductive Step:} Adjoining $n$ square roots to $F$.
+
+        By our claim, we know that $a_n$ is not a square in $ F(\sqrt{a_1},\dotsc,\sqrt{a_{n-1}})$. That is the following polynomial, 
+        \[x^2 - a_n = 0\]
+        is irreducible, and hence, minimal. 
+
+        Since the minimal polynomial for $\sqrt{a_n}$ is a quadratic, the following is a degree $2$ extension, 
+        
+        \[[F(\sqrt{a_1},\dotsc,\sqrt{a_{n}}): F(\sqrt{a_1},\dotsc,\sqrt{a_{n-1}})] = 2\]
+
+        Now, by the tower law we know that if 
+        \[[F(\sqrt{a_1},\dotsc,\sqrt{a_{n}}): F(\sqrt{a_1},\dotsc,\sqrt{a_{n-1}})] = 2,\]
+        and 
+        \[[F(\sqrt{a_1},\dotsc,\sqrt{a_{n-1}}):F] = 2^{n-1}\] then, 
+        \[[F(\sqrt{a_1},\dotsc,\sqrt{a_{n}}): F] = 2^n\]
+
+    Hence proved. 
+
+        \item We will prove this in two parts, 
+        Let $K = \Q(\sqrt{2}, \sqrt{3}, \sqrt{5}, \sqrt{7}, \sqrt{11}, \dotsc)$
+        \begin{enumerate}
+            \item $K$ is an infinite degree extension. 
+            
+            Note that, no products of distinct primes is a square in $\Q$. Then by part one we know that for primes $p_1, \ldots, p_n$ the subextension $\Q(\sqrt{p_1}, \ldots, \sqrt{p_n})$ of $K$ has degree $2^n$ over $\Q$. Then, as $n$ tends to infinity, so does $2^n$.  
+
+            \item $K$ is algebraic. 
+            
+            For every prime $p$ the extension $\Q(\sqrt{p})/\Q$ is algebraic because $\sqrt{p}$ is algebraic over $\Q$ as it satisfies the minimal polynomial $x^2 - p =0$. 
+
+            More generally, for any finite set of primes $p_1,\dots,p_n$, the field
+            \[\Q(\sqrt{p_1},\dots,\sqrt{p_n})\]
+            is a finite (hence algebraic) extension of $\Q$. Since
+            \[K = \bigcup_{n=1}^{\infty} \Q(\sqrt{p_1},\dots,\sqrt{p_n}),\]
+            every element of $K$ lies in some finite algebraic extension of $\Q$, and is therefore algebraic over $\Q$.
+        \end{enumerate}
+        Hence, $K$ is an infinite degree algebraic extension of $\Q$. 
+    \end{enumerate}
+\end{solution}
+\end{document}

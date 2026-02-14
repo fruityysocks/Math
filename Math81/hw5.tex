@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+Let $F$ be a field and $K/F$ and $L/F$ be subextensions of a field extension $M/F$.
+
+\begin{enumerate}
+\item[(a)] Prove that if $K = F(\alpha_1, \dots, \alpha_n)$ and $L = F(\beta_1, \dots, \beta_m)$ are finitely generated, then
+\[
+KL = F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m).
+\]
+
+\item[(b)] Prove that if $K/F$ and $L/F$ are finite then $KL/F$ is finite and
+\[
+[KL : F] \le [K : F][L : F],
+\]
+with equality if and only if $K/F$ and $L/F$ are linearly disjoint.
+
+\textit{Hint.} Prove that if $x_1, \dots, x_n$ is an $F$-basis for $K$ and $y_1, \dots, y_m$ is an $F$-basis for $L$, then the products $x_i y_j$ for $1 \le i \le n$ and $1 \le j \le m$ span $KL/F$ and are an $F$-basis if and only if $K/F$ and $L/F$ are linearly disjoint.
+
+\item[(c)] Prove that finite extensions $K/F$ and $L/F$ of relatively prime degree are linearly disjoint.
+
+\item[(d)] Prove that if $K/F$ and $L/F$ are linearly disjoint then $K \cap L = F$. Find an example showing that the converse is false.
+
+\item[(e)] Prove that if $K/F$ and $L/F$ are linearly disjoint finite Galois extensions then $KL/F$ is Galois and the map
+\[
+Gal(KL/F) \to Gal(K/F) \times Gal(L/F),
+\quad
+\sigma \mapsto (\sigma|_K, \sigma|_L)
+\]
+is a group isomorphism.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{2}
+Let $K/F$ be a finite extension of fields and $f(x) \in F[x]$ an irreducible polynomial of degree $n$.
+
+\begin{enumerate}
+\item[(a)] Prove that if $n$ does not divide $[K : F]$ then $f(x)$ has no roots in $K$.
+
+\item[(b)] Prove that if $n$ is relatively prime to $[K : F]$ then $f(x)$ is irreducible over $K$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{3}
+Let $F$ be a field, $f(x)$ a polynomial of degree $n$ over $F$ with splitting field $E/F$.
+
+\begin{enumerate}
+\item[(a)] Let $K/F$ be a subextension of $E/F$. Prove that $E/K$ is a splitting field of $f(x)$ considered as a polynomial over $K$.
+
+\item[(b)] Prove that $[E : F]$ divides $n!$.
+
+\textit{Hint.} Use induction on $n$, and deal with the cases of $f$ reducible or irreducible separately. At some point you will need the fact that $a! b!$ divides $(a+b)!$, which you should also prove (or have already proved in Math 71).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{4}
+Let $K/F$ be a Galois extension with Galois group isomorphic to $C_2 \times C_{12}$. How many subextensions $K/M/F$ are there satisfying:
+
+\begin{enumerate}
+\item[(a)] $[K : M] = 6$
+
+\item[(b)] $[M : F] = 6$
+
+\item[(c)] $Gal(K/M) \cong C_6$
+
+\item[(d)] $Gal(M/F) \cong C_6$
+\end{enumerate}
+\end{problem}
+
+
+
+
+
+\end{document}

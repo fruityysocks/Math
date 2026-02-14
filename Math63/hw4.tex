@@ -5,41 +5,163 @@
 \begin{document}
 
 \input{title}
-\textbf{Credit Statement:} Talked to Sair Shaikh'26
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange. 
 
 
 \begin{problem}{1}
-    Show that a complete subspace of a metric space is a closed subset.
+    Let $S$ be a subset of a metric space $E$ and let $p \in E$. Show that $p$ is a cluster point of $S$ if and only if $p$ is the limit of a Cauchy sequence of points in $S \cap \{p\}^c$.
 \end{problem}
 
 \begin{solution}
     \bbni
 
-    Let $S$ be a complete subspace of a metric space $(E,d)$. By the proposition on page 51, we know that every convergent sequence of points in a metric space is a Cauchy sequence, and moreover by defition of a complete space we know that every cauchy sequence of points $p \in S$ converges to a point of $S$. From the claim in Problem (4.2) we know that if every convergenet sequence of points in $S$ converges to a point in $S$, $S$ is a closed set. Hence, a complete subspace of a metric space is a closed subset. 
+    ($\implies$)
+
+    Assume $p$ is a cluster point of $S \subset E$. Then, by definition all open ball $B_{r_i}{(p)}$ for some $r_i>0$ contain an infinite number of points in $S$.
+    
+    For each $n\in\N$, choose \[ p_n \in S\cap\{p\}^c \cap B_{1/n}(p)\]
+    Then for all $n$, 
+    \[d(p_n,p)<\frac{1}{n}\]
+
+    We claim that $(p_n)$ is a Cauchy sequence. 
+    
+    
+    That is, for a given $\epsilon > 0$, we can find an $N$ such that $2/N<\epsilon$.  
+    Then for all $n,m\ge N$,
+    \[d(p_n,p_m)\le d(p_n,p)+d(p,p_m)<\frac{1}{n}+\frac{1}{m} \le \frac{2}{N} <\varepsilon.\]
+    Thus $(p_n)$ is Cauchy. Moreover, since $d(p_n,p)\to 0$, we have $\lim p_n=p$.Hence $p$ is the limit of a Cauchy sequence of points in $S\cap\{p\}^c$.
+
+    ($\impliedby$)
+
+    Assume $p$ is the limit of a cauchy sequence of points in $S \cap \{p\}^c$. Consider an open ball $B_r{(p)}$, for some $r>0$. Since, $\forall r > \epsilon >0, \exists p_n$, such that $d(p,p_n) < \epsilon$, and there are an infinite number of $\epsilon \in (r, 0)$ there are an infinite number of points in the open ball $B_{\epsilon_N}{(p)}$ where $\epsilon_N = \max\{\epsilon_i, \epsilon_i \in (0, r)\}$. That is, $p$ is a cluster point of $S$. 
 \end{solution}
 
 \newpage 
 
 \begin{problem}{2}
-    Let $a, b \in \R, a < b$. The following outlines a proof that $[a,b]$ is compact. Rewrite this proof, filling i n all details: Let $\{U_i\}_{i \in I}$ be a collection of open subsets of $\R$ whose union contains $[a, b]$. Let $S = \{x \in ][a, b]: x> a$  and $[a, x)$ is contained in the union of a finite number of the sets $\{U_i\}_{i\in I}\}$. Then $l.u.b. S \in U_i$ for some $i \in I$. Since $U_i$ is open we must have $l.u.b. S = b \in S$. 
+    Let $a, b \in \R, a < b$. The following outlines a proof that $[a,b]$ is compact. Rewrite this proof, filling in all details: 
+    
+    Let $\{U_i\}_{i \in I}$ be a collection of open subsets of $\R$ whose union contains $[a, b]$. Let $S = \{x \in [a, b]: x> a$  and $[a, x)$ is contained in the union of a finite number of the sets $\{U_i\}_{i\in I}\}$. Then $l.u.b. \, S \in U_i$ for some $i \in I$. Since $U_i$ is open we must have $l.u.b. \, S = b \in S$. 
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $\{U_i\}_{i \in I}$ be a collection of open subsets of $\R$ whose union contains $[a, b]$. Let \\ $S = \{x \in [a, b]: x> a$  and $[a, x)$ is contained in the union of a finite number of the sets $\{U_i\}_{i\in I}\}$. Since $[a,b] \subset \underset{i \in I}{\bigcup}U_i$, $a \in U_{j}$ for some $j \in I$. Since $U_{j}$ is open there exists some open ball $B_r(a)$, centered at $a$ such that $\forall x \in B_r(a), \, d(a, x) < r$, since we are on the real line, this is just the open interval $(a-r, a+r) \in U_{j}$. Then, we can see that $a+r \in S$, i.e. $S$ is not empty, and upper bounded by $b$, since $S \subset [a, b] \subset \underset{i \in I}{\bigcup}U_i$. Then, by the least upper bound property $l.u.b. \, S  = y \leq b$ exists and $l.u.b. \, S \in U_k$ for some $k \in I$. 
+
+    Because $U_k$ is open, there exists $\epsilon>0$ such that
+    \[(y-\epsilon,y+\epsilon)\subset U_k\]
+
+    Since $y= l.u.b.\, S$, there exists $x\in S$ with $y-\epsilon<x<y$.
+    The interval $[a,x)$ is covered by finitely many $U_i$, and
+    \[[x,y)\subset (y-\epsilon,y)\subset U_k\]
+    Hence $[a,y)$ is covered by finitely many $U_i$, so $y\in S$. If $y<b$, then there exists $\delta>0$ such that $y+\delta\le b$ and
+    \[[y,y+\delta)\subset U_k\]
+    This would imply $y+\delta\in S$, contradicting that $y=l.u.b. \, S$. Therefore $y=b$.
+\end{solution}
+
+\newpage 
+
 
 \begin{problem}{3}
     Call a metric space sequentially compact if every sequence has a convergent subsequence. Prove that a metric space is sequentially compact if and only if every infinite subset has a cluster point.
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    ($\implies$)
+
+    Assume a metric space is sequentially compact. Let $S$ be an infinite subset in this metric space. We claim that every infinite subset contains a sequence. 
+
+    \textbf{Proof for claim:} 
+
+    $S = \{s_1, s_2, s_3, \cdots \}$, we can then construct a sequence $(s_n)$ by picking some point, say $s_1$ from $S$, then picking another point from $S \setminus \{s_1\}$, say $s_2$, then picking the next point from $S \setminus \{s_1, s_2\}$ and so on. Since $S$ is infinite, this algorithm does not terminate. Hence, an infinite set contains a sequence. 
+
+    Let $(S_n)$ be a sequence in $S$. Then by definition of a sequentially compact metric space, $(S_n)$ has a convergent subsequence. Let $p$ be the point it converges to. Then $p$ is a cluster point for the infinite set $S$ because for any $\epsilon > 0$, we know that $\exists N, \forall n > N, d(p, p_n) < \epsilon$, or any open ball centered at $p$ with radius some $\epsilon > 0$ contains an infinite number of points of $S$.  
+
+    \bbni
+
+    ($\impliedby$)
+
+    Assume every infinite subset of a metric space has a cluster point. Let $(S_n)$ be a sequence in $E$. Consider the set $S = \{s \in S_n\}$, here we have two cases: 
+    \begin{enumerate}
+        \item $(S_n)$ has an infinite number of distinct points and $S$ is infinite. 
+        Since every infinite set has a cluster point, $p \in S$. Pick $n_1$ such that $p_{n_1}$ is in the open ball $B_1(p)$ of center $p$ and radius $1$, then pick an integer $n_2 > n_1$ such that $p_{n_2}$ is in the open ball $B_{1/2}(p)$, then pick an integer $n_3 > n_2$ such that $p_{n_3}$ is in the open ball $B_{1/3}(p)$; this process can be continued indefinitely since each open ball of center $p$ contains an infinite number of points of $S$ We end up with a subsequence of $p_1, p_2, p_3, \ldots$ whose $n^{th}$ term has distance less than $1/n $ from $p$ , for all $n \geq 1$. This subsequence converges to $p$.
+
+        \item $(S_n)$ has a finite number of distinct points. Then at least one point $p \in S$ occurs an infinite number of times in $(S_n)$. Then the subsequence $p, p, p, \ldots$ is a subsequence that converges to $p$.   
+    \end{enumerate}
+
+    Either ways, every sequence has a convergent subsequence. 
+
+    Therefore, a metric space is sequentially compact if and only if every infinite subset has a cluster point. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{4}
     Call a metric space totally bounded if, for every $\epsilon > 0$, the metric space is the union of a finite number of closed balls of radius $\epsilon$. Prove that a metric space is totally bounded if and only if every sequence has a Cauchy subsequence.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    ($\implies$)
+
+    Assume a metric space $E$ is totally bounded. That is $E$ is the union of a finite number of closed $\epsilon-$balls. If a sequence $(p_n) \in E$ exists then one of these balls, say $B_1$, has an infinite number of points. Again, because $E$ is totally bounded, $B_1$ is the union of a finite number of closed $\epsilon/2-$balls, and one of these balls $B_2$ has an infinite number of points. We can keep repeat this process, and we get, 
+    \[E \supset B_1 \supset B_2 \supset B_3 \cdots\]
+
+    Pick a point $p_i$ from $(p_n) \cap B_i$, for all $i \geq 1$. This forms a Cauchy subsequence, since for all $j, k > i$ we have $d(p_j, p_k) < \epsilon/i$. 
+    Since we started with an arbitrary sequence, this works for any sequence in the metric space, hence if a metric space is totally bounded then every sequence has a Cauchy subsequence. 
+      
+    ($\impliedby$)
+
+    We will prove the statement by proving it's contrapositive. Assume $E$ is not totally bounded. Then there exists some $\epsilon$ such that $E$ is the union of an infinite number of closed $\epsilon-$balls.  
+    \[E = \overset{\infty}{\bigcup}B_i\]
+    Now we construct a sequence by picking the centers of all the closed infinite $\epsilon-$balls. Since each $\epsilon-$ball only contributes one point to the sequence this sequence doesn't have a Cauchy subsequence. Hence proving the contrapositive. 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{5}
      Prove that the following three conditions on a metric space $E$ (cf. Probs. 35, 36) are equivalent:
      \begin{enumerate}
         \item $E$ is compact.
-        \item $E$ is sequentially convergenet.
+        \item $E$ is sequentially compact.
         \item $E$ is totally bounded and complete.
      \end{enumerate}
      (Hint: That (1) implies (2) occurs in the text. That (2) implies (3) is easy. That (3) implies (1) follows from the argument of  the last proof of § 5.)
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}
+        \item (1) implies (2). 
+        
+        Assume $E$ is a compact metric space. And any sequence of points in a compact metric space has a convergent subsequence (by Corollory 1 of the Theorem on page 56), that is $E$ is sequentially compact. 
+
+        \item (2) implies (3). 
+        
+        Assume $E$ is a sequentially compact metric space. Then, by definition, every sequence in $E$ has a convergent subsequence. Convergent sequences in a metric space are Cauchy (Proposition, p. 51). Then, by Problem 4, we know that $E$ is totally bounded. We also know that the Cauchy sequences converge to points in $E$, hence $E$ is complete. Thus, if a metric space is sequentially compact it is totally bounded and complete. 
+
+        \item (3) implies (1).
+
+        Assume $E$ is totally bounded and complete. 
+
+        We prove that $E$ is compact by contradiction. Assume $E$ is not compact, then there is a collection of open subsets $\{U\} = \{U_i\}_{i \in I}$ of $E$ whose union contains $E$, but such that the union of no finite subcollection of $\{U\}$ contains $E$. Since $E$ is totally bounded, it is in the union of a finite number of closed balls $B_1, B_2, \ldots, B_r$ of fixed radius, say $1/2$. Then, 
+        \[E = (E \cap B_1) \cup (E \cap B_2) \cup \cdots (E \cap B_r)\]
+        At least one of the sets $E \cup B_1, \ldots, E \cup B_r$, say $E \cup B_j$ is not contained in the union of any finite subcollection of $\{U\}$. $E_1 = E \cup B_j$ is closed and bounded and $\forall p, q \in E_1$, $d(p, q) \leq 1$. Again since $E$ is totally bounded, we know that $E_1$ is the union of a finite number of closed balls of radius $1/4$, repeated the above argument to get a closed subset $E_2$ of $E_1$ that is not contained in the finite subcollection of $\{U\}$. Repeating the argument with $1/6, 1/8, 1/10, \ldots$ we get the following sequence of closed sets, 
+        \[E \supset E_1 \supset E_2 \supset E_3 \ldots\]
+        none of which are contained in a finite subcollection of $\{U\}$, and such that $\forall p, q \in S_N, d(p, q) \leq 1/N$, for each $N = 1, 2, 3, \ldots$. Let $p_N \in S_N$. 
+
+        The sequence \[p_1, p_2, p_3, \ldots\] is a Cauchy since if for $x, y > N$, such that $p_x, p_y \in S_N$, then $d(p_x, p_y) < 1/N$. Since $E$ is complete, the sequence converges to some point $p$ in $E$. Hence, $p \in U_i \in \{U\}$. Since $U_i$ is open there is some ball $B_\epsilon(p)$ of radius $\epsilon$ centered at $p$ in it. Pick some $N$ such that $1/N < \epsilon/2$ and $d(p, p_N) < \epsilon /2$. Then for any point $p_0 \in E_N$ we have 
+        \[d(p, p_0) \leq d(p, p_N) + d(p_N, p_0) < \epsilon/2 + 1/N < \epsilon\]
+
+        Thus, $E_N$ is contained in the open ball of center $p$ and radius $\epsilon$, i.e. $E_N \subset U_i$. This contradicts the statement that $E_N$ is not contained in the union of any finite subcollection of $\{U\}$. 
+
+        Thus, $E$ is compact.
+    \end{enumerate}
+\end{solution}
 
 \end{document}

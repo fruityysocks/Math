@@ -1,0 +1,113 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+
+    Consider the following table on the effect of a drug treatment on male and female patients.
+    If we associate $C$ (connoting cause) with taking a certain drug and $E$ (connoting effect)
+    with recovery, then the drug seems to be harmful to both males and females. A new patient
+    comes in; do we use the drug or do we not, if our decision is purely based on whether the
+    drug increases the chance of recovery among the whole sample population?
+
+    (To think about later: the data seems to suggest when we further know the gender of the
+    patient, we should not use the treatment. What gives?)
+
+    \begin{center}
+    \begin{tabular}{lcccc}
+    \multicolumn{5}{c}{} \\
+    \textbf{Males} & $E$ & $\neg E$ & Total & Recovery Rate \\
+    \hline
+    Drug ($C$) & 18 & 12 & 30 & 60\% \\
+    No drug ($\neg C$) & 7 & 3 & 10 & 70\% \\
+    \hline
+    Total & 25 & 15 & 40 & \\
+    \hline
+    \end{tabular}
+
+    \vspace{1em}
+
+    \begin{tabular}{lcccc}
+    \multicolumn{5}{c}{}\\
+    \textbf{Females} & $E$ & $\neg E$ & Total & Recovery Rate \\
+    \hline
+    Drug ($C$) & 2 & 8 & 10 & 20\% \\
+    No drug ($\neg C$) & 9 & 21 & 30 & 30\% \\
+    \hline
+    Total & 11 & 29 & 40 & \\
+    \hline
+    \end{tabular}
+    \end{center}
+    Figure 1. Recovery rates under treatment ($C$) and control ($\neg C$) for males and females.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Data: 
+    \begin{itemize}
+        \item With Drug: $18/30$ male and $2/10$ female patients recovered
+        
+        \[P(E|C) = \frac{18+2}{30+10} = 0.5\]
+        
+        \item Without Drug: $7/10$ male and $9/30$ female patients recovered
+        
+        \[P(E|\neg C) = \frac{7+9}{40} = 0.4\]
+    \end{itemize}
+    Based purely on the probability of recovery in the whole population sample, the patient should be given the drug. 
+
+    However if we look at the gender samples separately, the recovery rates look like: 
+
+    for men: 
+    \[P(E|C) = \frac{18}{30} = 0.6 \qquad P(E|\neg C) = \frac{7}{10} = 0.7\]
+
+    for women: 
+    \[P(E|C) = \frac{2}{10} = 0.2 \qquad P(E|\neg C) = \frac{9}{30} = 0.3\]
+
+    that is, patients have a higher chance of recovery if they don't take the drug. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+
+    There are two dice on the table. One of them is a fair dice, and the other is a loaded dice
+    that always lands on six. You cannot distinguish the two dice from their appearances.
+
+    Suppose you choose one of the dice at random, throw the dice $k$ times for some number
+    $k$, and each time the dice lands on six. How large does $k$ have to be before you are
+    99\% sure the dice you chose is the loaded dice?
+
+    (To think about later: You must have thrown that many sixes in a row before. What gives?)
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let the event of choosing fair dice be $F$ and the loaded dice be $L$, then the probability of picking either dice is: 
+    \[P( F) = P( L) = \frac{1}{2} = 0.5\]
+
+    The probability $P(R_k)$ of rolling $k$ sixes in a row given a certain dice is, 
+    \[P(R_k |L ) = 1, \qquad P(R_k|F) = \frac{1}{6^k}\]
+
+    Then, to be $99\%$ certain that the dice we chose is the loaded dice after $k$ tries we calculate $P(L|R_k)$
+    \begin{align*}
+        P(L|R_k) &= \frac{P(R_k|L) \cdot P(L)}{P(R_k|L) \cdot P(L) + P(R_k|F) \cdot P(F)} \\ 
+        &= \frac{1 \cdot \fr{1}{2}}{1 \cdot \fr{1}{2} + \fr{1}{6^k} \cdot \fr{1}{2}} \\ 
+        &= \frac{1}{1 + \fr{1}{6^k}} \\ 
+    \end{align*}
+    and we want, 
+    \begin{align*}
+        P(L|R_k) = \frac{1}{1 + \fr{1}{6^k}} &\geq 0.99  \\ 
+        \log(1/0.99 -1) &\geq k \log(1/6)\\ \\
+    \intertext{Approximating $\log(1/0.99 -1)  \approx -2, \, \log(1/6) \approx -0.77$} \\ 
+        -2/-0.77 =2.5 &\leq k  
+    \end{align*}
+    We get $k=3$. If we roll $3$ sixes in a row before we are $99\%$ sure that the chosen dice is loaded.
+\end{solution}
+
+\end{document}

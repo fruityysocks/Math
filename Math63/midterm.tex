@@ -1,0 +1,151 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+Let $S \subset E$ be a subset of a metric space $E$, and let $C \subset E$ be a closed subset of $E$
+that contains $S$. Prove that $C$ contains all cluster points of $S$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Note that, 
+    \[S \subset C \subset E\]
+
+    By the Theorem on Page 47, we know that a subset $C \subset E$ is closed if and only if $C$ contains the limits to all sequences of $C$ (and hence, all limits of sequences of $S$) that are convergent in $E$. Recall from HW$4$, Problem $1$ that $p$ is a cluster point of $S$ if and only if $p$ is the limit of a Cauchy sequence of points in $S \cap \{p\}^c$. That is, all cluster points of $S$ are limits to Cauchy sequences in $S$. Then, because $C$ is closed it must contain all cluster points of $S$. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{2}
+Two sequences $p_1, p_2, p_3, \dots$ and $q_1, q_2, q_3, \dots$ are called equivalent if for every
+$\varepsilon > 0$ there exists a positive integer $N$ such that
+\[
+d(p_n, q_n) < \varepsilon \quad \text{for all integers } n > N.
+\]
+Prove that if $(p_n)$ and $(q_n)$ are equivalent sequences, then $(p_n)$ converges if and only if $(q_n)$ converges.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    $(\implies)$ 
+
+    Assume $(p_n)$ and $(q_n)$ are equivalent sequences, and that $(p_n)$ converges. 
+
+    Let $p$ be the limit point of $(p_n)$. Then, note that for every $\varepsilon/2 >0$ there exists positive integers $N_1$, and $N_2$ such that for $N = \max\{N_1, N_2\}$, for all integers $n > N$, the following two inequalities hold, 
+    \[d(p_n, q_n) < \frac{\varepsilon}{2} , \qquad d(p_n, p) < \frac{\varepsilon}{2}\]
+    Then by the triangle inequality, 
+    \[d(q_n, p) < d(p_n, q_n) + d(p_n, p)< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\]
+
+    That is, for each $\varepsilon >0$ we have a positive integer $N$ such that for all integers $n > N$, 
+    \[d(q_n, p) < \varepsilon\]
+
+    That is, $(q_n)$ converges to $p$. 
+
+     $(\impliedby)$ 
+
+    Assume $(p_n)$ and $(q_n)$ are equivalent sequences, and that $(q_n)$ converges. $(p_n)$ converges by a symmetric argument to the one above, and we get the following result: 
+    For each $\varepsilon >0$ we have a positive integer $N$ such that for all integers $n > N$, 
+    \[d(p_n, q) < \varepsilon\]
+    That is, $(p_n)$ converges to $q$. 
+
+    Hence, if $(p_n)$ and $(q_n)$ are equivalent sequences, then $(p_n)$ converges if and only if $(q_n)$ converges.
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+Let $E$ be the metric space defined in Chapter III, Problem 1(b). Let $B$ be the closed unit ball
+in $E$ with center $(0,0,0,\dots)$ and radius $1$. Then $B$ is closed and bounded. Prove that $B$ is not compact.
+
+\textbf{Hint.} Construct a sequence in $E$ that does not have a convergent subsequence.
+
+\textbf{Hint 2.} You do not have to use the hints.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    
+    The metric space defined in Chapter III, Problem 1(b) is, 
+            \[E = \{\text{all bounded infinite sequences } x = (x_1, x_2, x_3, \cdots) \text{ of elements of } \R \}\]        
+    with 
+            \[d(x,y) = l.u.b. \, \{|x_1 - y_1|, |x_2 - y_2|, |x_3 - y_3|, \cdots \}\]
+
+    Let $B$ be a closed unit ball in $E$ centered at $(0,0,0,\cdots)$. 
+             \[B = B_1(0,0, 0, \cdots)\]
+
+    Consider the sequence $(p_n)$ formed by points $p_i = (0, \cdots, 0, 1, 0 \cdots)$ where the $i$-th entry of the tuple is $1$. Then the distance between any two such points $p_i, \, p_j$ is exactly $1$ since, 
+    \[d(p_i,p_j) = l.u.b. \, \{|p_{i_1} - p_{j_1}|, |p_{i_2} - p_{j_2}|, \cdots, |p_{i_i} - p_{j_i}|, \cdots |p_{i_j} - p_{j_j}|, \cdots\}\]
+    and the value of the element corresponding to a term in the set is $1$ for the terms $|p_{i_i} - p_{j_i}|$ and $|p_{i_j} - p_{j_j}|$ and zero otherwise, that is, $d(p_i, p_j) = 1$, for any points $p_i, p_j$ in the sequence $(p_n)$. That is, every pair of point in the sequence is exactly $1$ away from each other hence it is not a Cauchy sequence. Since all convergent sequences are Cauchy in metric spaces (Proposition on Page 51), this sequence is not convergent and hence $B$ is not compact (by Corollory 1 on Page 56). 
+\end{solution}
+
+\newpage
+
+
+\begin{problem}{4}
+    A curve $\gamma$ in a metric space $E$ is a continuous function
+    \[\gamma : [0,1] \to E.\]
+    Suppose that for any two points $p,q \in E$ there exists a curve $\gamma$ with $\gamma(0)=p$
+    and $\gamma(1)=q$. Prove that $E$ is connected.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Fix a point $p$ in $E$. Then for any point $q$ in $E$ define $\gamma_q: [0,1] \to E$ such that  $\gamma_q(0) = p$ and $\gamma_q(1) = q$. Note that $[0,1]$ is connected (Theorem on Page 60), and since $\gamma$ is a continous function $\gamma_q([0,1])$ is also connected (Theorem on Page 78). Then $E$ can be represented as a union of conencted sets 
+    \[E = \underset{q\in E}{\bigcup} \gamma_q([0,1])\]
+    with a non-empty intersection at $p$. Then by the Proposition on Page 60, $E$ is connected.
+\end{solution}
+
+\newpage
+
+\begin{problem}{5}
+If $\gamma_1$ and $\gamma_2$ are two curves in $E$ with $\gamma_1(1)=\gamma_2(0)$, then the
+concatenation of $\gamma_1$ and $\gamma_2$ is the curve
+\[
+\gamma_3 : [0,1] \to E
+\]
+defined by
+\[
+\gamma_3(t)=
+\begin{cases}
+\gamma_1(2t), & 0 \le t \le \tfrac{1}{2}, \\
+\gamma_2(2t-1), & \tfrac{1}{2} \le t \le 1.
+\end{cases}
+\]
+Note that $\gamma_3$ is well-defined because if $t=\tfrac{1}{2}$ then $2t=1$ and $2t-1=0$, so
+$\gamma_1(2t)=\gamma_2(2t-1)$.
+
+Prove that $\gamma_3$ is continuous at $t=\tfrac{1}{2}$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $d(p,q) = |p-q|$ be the distance metric on $[0,1]$ and $d'(p,q)$ be the distance metric on $E'$. 
+    Since $\gamma_1$ and $\gamma_2$ are continous functions (curves) in $E$, by the $\epsilon-\delta$ definition of continuity for a given $\epsilon$, there exist $\delta_1, \delta_2 > 0$ such that for any point $p \in [0,1]$,  
+    \[d(p,1) = |1- p| < \delta_1 \implies d'(\gamma_1(p), \gamma_1(1)) < \epsilon\]
+    and, 
+    \[d(p,0) = |0- p| < \delta_2 \implies d'(\gamma_2(p), \gamma_2(0)) < \epsilon\]
+
+    Now define $\delta = \frac{1}{2}\min\{\delta_1, \delta_2\}$. Then, for some point $t \in [0,1]$ if $|t - \frac{1}{2} | < \delta$, then either $ t \geq \frac{1}{2}$ or $t \leq \frac{1}{2}$. 
+    
+    If $t \leq \frac{1}{2}$, then $|2t - 1| < \delta_1$. Also note that, $\gamma_3(t) = \gamma_1(2t)$, 
+    
+    \[d' \left (\gamma_3(t), \gamma_3 \left (\tfrac{1}{2} \right ) \right ) = d'(\gamma_1(t), \gamma_1(1)) < \epsilon\]
+
+    and if $t \geq \frac{1}{2}$, then $|2t - 1 - 0| < \delta_2$. Also note that, $\gamma_3(t) = \gamma_2(2t-1)$, 
+    
+    \[d' \left (\gamma_3(t), \gamma_3 \left (\tfrac{1}{2} \right ) \right ) = d'(\gamma_2(t), \gamma_2(0)) < \epsilon\]
+    
+    That is, $\gamma_3$ is continous at $t = \frac{1}{2}$. 
+
+\end{solution}
+
+\end{document}

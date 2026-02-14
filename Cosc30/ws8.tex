@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    Two players $A$ and $B$ are playing games with a fair coin with two sides: head and tail. Compute the probability of each of the following item by first coming up with the sample space, the probability of each outcome, and the corresponding event.
+    \begin{enumerate}
+        \item $A$ and $B$ each throw the coin once, and they get the same side. 
+        \item $A$ throws two coins, hides the result but told $B$ (truthfully) that “there is at least one head”. $B$ makes a random guess out of the two and finds a head.
+        \item $A$ and $B$ take turns to throw the coin until a head appears, starting with $A$; $A$ ends up getting the first head.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item  $1/2$ 
+        \begin{itemize}
+            \item Sample Space $S:= \{(i, j): i, j \in \{H, T\}\}$. The size of $S$ is $4$.
+            \item Probability of each outcome is $(1/2)^2 = 1/4$ per outcome.
+            \item Event $E:=\{(H, H), (T,T)\}$. The size of $E$ is $2$.    
+        \end{itemize}
+        Thus the probability that event $E$ happens is  
+        $\Pr[E] = \frac{|E|}{|S|} = \frac{1}{2}$.
+
+        \item  $2/3$ 
+        \begin{itemize}
+            \item Sample Space $S:= \{(H, T, k), (H, H, k), (T, H, k): k \in \{C_1, C_2\}\}$, where $C_1, C_2$ denote the coins flipped. The size of $S$ is $6$.
+            \item Probability of each outcome is $\fr{1}{3} \cdot \fr{1}{2} = \frac{1}{6}$ per outcome.
+            \item Event $E:=\{(H, H, C_1), (H, H, C_2), (H, T, C_1), (T, H, C_2)\}$. The size of $E$ is $4$.    
+        \end{itemize}
+        Thus the probability that event $E$ happens is  
+        $\Pr[E] = \frac{|E|}{|S|} = \frac{4}{6} = \frac{2}{3}$.
+
+        \bbni 
+        
+        \item  $2/3$ 
+        \begin{itemize}
+            \item Sample Space $S:= \{\omega H: \omega \in \{T\}^*\}$. 
+            \item Probability of each outcome is $\fr{1}{2^{k+1}}$, where $k$ is the length of $\omega$. The sum of all possible outcomes is 
+            \[\sum_{k\geq 0} \fr{1}{2^{k+1}} = 1\]
+            \item Event $E:=\{\omega H: k \pmod{2} \equiv 0, \omega \text{ has even length}\}$.    
+        \end{itemize}
+        Thus the probability that event $E$ happens is 
+        \[\Pr[E]  = \sum_{k \geq 0} \fr{1}{2^{2k+1}} = \frac{1}{2} \sum_{k \geq 0} \fr{1}{2^{2k}} = \fr{1}{2}\fr{4}{3} = \frac{2}{3} \]
+    \end{enumerate}
+\end{solution}
+
+\end{document}

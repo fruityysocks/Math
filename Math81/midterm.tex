@@ -1,0 +1,557 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{calc} 
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+\textit{Construct it!}
+\begin{enumerate}
+    \item[(a)] Prove that if $n$ and $m$ are relatively prime positive integers such that a regular $n$-gon
+    and a regular $m$-gon are constructible, then a regular $nm$-gon is constructible.
+    (In case you know it, you cannot use Gauss’s classification of constructible $n$-gons.)
+
+    \item[(b)] Prove that for any $b,c \in \mathbb{Q}$, any root of $x^{256}+bx^{128}+c$ is constructible.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item \textbf{Claim:} If an $n$-gon is constructible if and only if the $n$-th root of unity $\zeta_p$ is constructible. 
+        
+        \textbf{Proof:} 
+        $(\implies)$
+
+        If an $n$-gon is constructible, then it's internal angle $\frac{2\pi}{n}$ is constructible. This angle is the angle required to construct $\zeta_n$, since the angle subtended at the origin by $\zeta_n$ and $\zeta_n^2$ is $\frac{2\pi}{n}$. 
+
+        $(\impliedby)$
+
+        If an $\zeta_n$ is constructible, then the angle subtended at the origin by $\zeta_n$ and $\zeta_n^2$ is constructible, i.e $\frac{2\pi}{n}$ is constructible. And from $HW3$ we know that if $\frac{2\pi}{2}$ is constructibe than a regular $n$-gon is constructible. 
+        
+        Hence proved. 
+
+        To show that a regular $nm$-gon is constructible we need to show that $\zeta_{nm}$ is constructible. Note that since $\gcd(n,m) = 1$ by Bezout's Identity we have 
+        \[an + bm = 1, \quad a, b \in \Z\]
+
+        Now, since a regular $n$-gon and a regular $m$-gon are constructible than $\zeta_n$ and $\zeta_m$ are constructible. 
+
+        \begin{align*}
+            \zeta_{nm}^1 &= \zeta_{nm}^{an + bm} \\
+                        &= \zeta_{nm}^{an} \cdot \zeta_{nm}^{bm}  \\ 
+                         &= (\zeta_{nm}^{n})^a \cdot (\zeta_{nm}^{m})^b \\
+            \intertext{But note that $\zeta_{nm}^n = \zeta_m$ and $\zeta_{nm}^m = \zeta_n$,}  \\ 
+                         &= (\zeta_m)^a \cdot (\zeta_{n})^b 
+        \end{align*}
+         Since the constructible numbers are a field, $(\zeta_m)^a \cdot (\zeta_{n})^b$ is constructible and hence so is $\zeta_{nm}$. That is, we can construct a regular $nm$-gon. 
+
+        \item Let $f(x) = x^{256} + bx^{128} + c$ over $\Q[x]$. And let $K$ be the splitting field for this polynomial. 
+        
+        Substituting $y = x^{128}$, we get $g(y) = y^2 + by + c$. Let $\alpha$ be a root to $g(y)$. Then we have the following two cases: 
+        \begin{enumerate}
+            \item $g(y)$ is reducible. 
+            
+            Then $g(y) = h(x)h'(x)$ in $\Q$, where $h(x), h'(x)$ are both linear polynomials, i.e. their roots are in $\Q$ and hence are constructible. 
+
+            \item $g(y)$ is irreducible. 
+            
+            Then $g(y)$ is the minimal polynomial for $\alpha$ and $[\Q(\alpha): \Q] = 2$. Since any degree two extensions of a constructible field are constructible, $\alpha$ is constructible. Moreover $g(y) = (y-\alpha)h(x)$ in $\Q(\alpha)$, where $h(x)$ is some linear polynomial, i.e. it's root is also in $\Q(\alpha)$ and hence is constructible. 
+        \end{enumerate} 
+        That is over it's splitting field $K_g$ $g(y) = (y - \alpha)(y-\beta)$, where $\alpha, \beta$ are it's roots. 
+        Substituting back, we get, \[f(x) = (x^{128} - \alpha)(x^{128} - \beta)\]
+        Consider the polynomial, $f_{\alpha}(x) = x^{128} - \alpha$. Solving $x^{128} = \alpha$ is the same as repeatedly taking squareroots. 
+        
+        \begin{align*}
+            x^{128} &= \alpha \\ 
+            x^{64}  &= \pm \sqrt{\alpha} \\ 
+            x^{32}  &= \pm \sqrt{\sqrt{\alpha}} \\ 
+            \vdots \\ 
+            x^{2}  &= \pm \sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\alpha}}}}} }\\ 
+            x  &= \pm \sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\alpha}}}}} }}\\ 
+        \end{align*}
+        Note, at each step we adjoin a square root and hence the degree of field extension (at each step) is at most $2$. Since we must take $7$ square roots, $[K_{\alpha}: \Q(\alpha)] \leq 2^7$. And since at each step adjoining a root is at most a degree two extension over a constructible field, hence all roots of $f_{\alpha}(x)$ are constructible. 
+        
+        Similarly, the roots of the polynomial $f_{\beta} = x^{128} - \beta$ give us a tower of degree two extensions such that it's splitting field $K_\beta$ is atmost a $2^7$ degree extension over $\Q(\beta)$. And since at each step adjoining a root is at most a degree two extension over a constructible field, hence all roots of $f_{\beta}(x)$ are constructible.  
+
+        Hence, all roots of $x^{256} +bx^{128}+c$ lie in fields obtained by repeatedly adjoining square roots to $\Q$, and hence are constructible.   
+    \end{enumerate} 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+\textit{Simple splitting.}
+
+Let $p$ be a prime number.
+\begin{enumerate}
+    \item[(a)] Prove that the splitting field of $x^p-3$ has degree $p(p-1)$ over $\mathbb{Q}$.
+
+    \item[(b)] Find a simple generator for the splitting field of $x^3-p$ over $\mathbb{Q}$.
+\end{enumerate}
+\end{problem}
+
+ \begin{solution}
+    \bbni
+
+    \textbf{Claim:} For $p$ prime, all $p$ roots of the polynomial $f(x) = x^p - \alpha$, are distinct and of the form $\zeta_p^k \cdot \sqrt[p]{\alpha}$, where $\zeta_p$ is the $p-$th root of unity, and $k \in \{ 1, \ldots, p \}$. 
+        
+    \textbf{Proof:} 
+    Note that $\sqrt[p]{\alpha}$ is a root, 
+    \[f(\sqrt[p]{\alpha}) = (\sqrt[p]{\alpha})^p - \alpha =  \alpha - \alpha = 0\]
+    We prove the claim by showing that $\forall k \in \{1, \ldots, p\}$, $\zeta_p^k \cdot \sqrt[p]{\alpha}$ gives us $p$ distinct roots of $f(x)$.
+
+    \begin{align*}
+        f \left (\zeta_p^k \cdot \sqrt[p]{\alpha} \right ) &= \left (\zeta_p^k \cdot \sqrt[p]{\alpha} \right )^p - \alpha \\ 
+        &= \left (\zeta_p^k \right )^p  \left (\sqrt[p]{\alpha} \right )^p  - \alpha \\ 
+        &= \zeta_p^{kp} (\alpha) - \alpha \\ 
+        &= (1)^k (\alpha) - \alpha  \qquad \qquad \text{($\zeta_p^p = 1$)} \\ 
+        &= \alpha - \alpha = 0 \\ 
+    \end{align*}
+    
+    That is, $\forall k \in \{1, \ldots, n\}$, $\zeta_p^k \cdot \sqrt[p]{\alpha}$ is a root. 
+
+     This gives us exactly $p$ roots because for $i \neq j$, $\zeta_p^i \cdot \sqrt[p]{\alpha} = \zeta_p^j \cdot \sqrt[p]{\alpha} \implies \zeta_p^i = \zeta_p^j$, since $\sqrt[p]{\alpha} \neq 0$, and primitive $p$-th roots of unity are distinct. 
+
+
+    \begin{enumerate}
+        \item By the claim, we know that the roots of this polynomial are of the form $\zeta_p^k \cdot \sqrt[p]{3}$, for $k \in \{1, \cdots, p\}$. Thus, the splitting field $K = \Q(\sqrt[p]{3}, \zeta_p)$. 
+        
+        Note that $x^p - 3$ is irreducible over $\Q$ by Eisenstein and it is the minimal polynomial for $\sqrt[p]{3}$. 
+        \[\left [\Q \left (\sqrt[p]{3} \right ): \Q \right ] = p\]
+        Now, we have two cases:
+
+        \begin{enumerate}
+            \item $p =2$  
+            Then, $\zeta_p = -1$, and $-1 \in \Q[\sqrt{3}]$. That is 
+            \[\left [\Q \left (\sqrt{3} \right ) : \Q \right ] = 2 = 2(2-1)\]
+
+            \item $p > 2$
+            Then, $\zeta_p \notin \Q(\sqrt[p]{3})$ since $\Q(\sqrt[p]{3}) \subset \R$, and $\zeta_p$ is not real for $p > 2$. From HW3, we know that 
+            \[[\Q(\zeta_p):\Q] = p -1\]
+
+            Since $\Q(\zeta_p)$ is a subfield of $K$, by tower law, 
+            \[[K: \Q] = [K:\Q(\zeta_p)] \cdot [\Q(\zeta_p) : \Q] \]
+            and, 
+            \[[K:\Q(\zeta_p)] \leq p\]
+            That is, $[K: \Q] \leq p(p-1) = n$. 
+
+            Since both $\Q(\zeta_p)$ and $\Q(\sqrt[p]{3})$ are subfields of $K$, their degrees, $p$, $(p-1)$ must divide $n$. Since these two numbers are relatively prime it follows that $n$ is divisible by $p(p - 1)$ so we must have
+            \[\left [\Q \left (\sqrt[p]{3}, \zeta_p \right ): \Q \right ]  = p \cdot (p-1)\]
+
+        \end{enumerate}
+        Hence proved. 
+        \item Consider $f(x) = x^3 - p \in \Q[x]$. 
+        
+        Again by claim, we know all the roots of $f(x)$ are of the form $\zeta_3^k \cdot \sqrt[3]{p}$, $k \in \{1, 2, 3\}$. That is the splitting field of $f(x)$ is $\Q(\zeta_3,\sqrt[3]{p}$). 
+
+        A simple extension for this field is $\Q(\zeta_3 + \sqrt[3]{p})$. The containment $\Q(\zeta_3 + \sqrt[3]{p}) \subset \Q(\zeta_3,\sqrt[3]{p}$) is obvious. To show the reverse containment $\Q( \zeta_3, \sqrt[3]{p}) \subset \Q( \zeta_3 +\sqrt[3]{p})$, we check
+
+        \begin{align*}
+            (\zeta_3+ \sqrt[3]{p})^3 &= 1 + p + 3(\zeta_3^2\sqrt[3]{p} + \zeta_3(\sqrt[3]{p})^2) \\ 
+            &= 1 + p + 3\zeta_3\sqrt[3]{p}(\zeta_3 + \sqrt[3]{p}) \\ 
+            &= 1 + p + 3\zeta_3\sqrt[3]{p}(\zeta_3 + \sqrt[3]{p}) \\
+            \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3(\zeta_3 + \sqrt[3]{p})} &= \zeta_3\sqrt[3]{p}
+        \end{align*}
+
+        That is, $\zeta_3\sqrt[3]{p} \in \Q(\zeta_3 + \sqrt[3]{p})$
+
+        Then we get, $\zeta_3\sqrt[3]{p}(\zeta_3 + \sqrt[3]{p}) = \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} = \zeta_3^2\sqrt[3]{p} + \zeta_3(\sqrt[3]{p})^2$. Note that $\zeta_3 + \zeta_3^2 + 1 = 0$
+
+        \begin{align*}
+            \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} &= \zeta_3^2\sqrt[3]{p} + \zeta_3(\sqrt[3]{p})^2\\ 
+            \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} &= (-1 -\zeta_3)\sqrt[3]{p} + \zeta_3(\sqrt[3]{p})^2  \\
+            \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} &= -\sqrt[3]{p} - \zeta_3\sqrt[3]{p} + \zeta_3(\sqrt[3]{p})^2  \\
+            \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} + \zeta_3\sqrt[3]{p} &= -\sqrt[3]{p} + \zeta_3(\sqrt[3]{p})^2  \\ 
+            \frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} + \zeta_3\sqrt[3]{p} &= \sqrt[3]{p} (\zeta_3\sqrt[3]{p} - 1) \\ 
+            \left (\frac{(\zeta_3+ \sqrt[3]{p})^3  - 1 - p}{3} + \zeta_3\sqrt[3]{p} \right ) \cdot \fr{1}{\zeta_3\sqrt[3]{p} - 1} &= \sqrt[3]{p} 
+        \end{align*}
+
+        If $\sqrt[3]{p}$ is in $\Q( \zeta_3 +\sqrt[3]{p})$ then so is $\zeta_3$. Hence, $\Q( \zeta_3 +\sqrt[3]{p}) = \Q( \zeta_3, \sqrt[3]{p})$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+\textit{Embeddings.} 
+
+For each triple of fields $F$, $K$, and $L$, calculate the size of $\mathrm{Hom}_F(K,L)$.
+\begin{enumerate}
+    \item[(a)] $F=\mathbb{Q}$, $K=\mathbb{Q}(\sqrt{2})$, $L=\mathbb{Q}(\alpha)$ where $\alpha$ is a root of
+    $x^4-2x^2-1$.
+
+    \item[(b)] $F=\mathbb{Q}$, $K=\mathbb{Q}(\sqrt{2},\sqrt{3})$, $L=\mathbb{Q}(\sqrt{\sqrt{2}+\sqrt{3}})$.
+
+    \item[(c)] $F=\mathbb{Q}$, $K=\mathbb{Q}[x]/(x^3+x-1)$, $L=\mathbb{R}$.
+
+    \item[(d)] $F=\mathbb{F}_2$, $K=\mathbb{F}_4$, $L=\mathbb{F}_8$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \bbni
+
+    Note that (by FT Proposition 2.4) we know that if $K$ is a simple extension of $F$ given by the minimal polynomial $f(x) \in F[x]$,  $L$ is another extension of $F$ and $\varphi: K \to L$ is a homomorphism then there is a bijection between roots of $f(x)$ in $L$ and homomorphisms from $K$ to $L$. 
+
+    \begin{enumerate}
+        \item The minimal polynomial of $\sqrt{2}$ is $f(x) = x^2 - 2$ over $F[x]$. 
+        
+        Let $\alpha$ is a root to $x^4 - 2x^2 -1$, substituting $y = x^2$ we get, 
+        \begin{align*}
+            &y^2 - 2y -1 = 0 \\
+            &y^2 - 2y +1 - 2 = 0 \\
+            \implies &(y-1)^2  - (\sqrt{2})^2= 0 \\
+            \implies &(x^2-1 - \sqrt{2})(x^2-1 + \sqrt{2}) = 0
+        \end{align*}
+         
+        The roots of this polynomial look like $\pm\sqrt{1 \pm \sqrt{2}}$. Since $\alpha$ is a root to this polynomial, $\alpha^2$ is either $1 + \sqrt{2}$ or $1 - \sqrt{2}$. That is, $\sqrt{2}$ is in the field $\Q(\alpha)$, and hence, so is $-\sqrt{2}$. 
+
+        Since both roots of $f(x)$ are in $L$, $|\Hom_F(K,L)| =2$
+
+        \item $f(x) = (x^2-2)(x^2 - 3)$ 
+        
+        Note that $K = \Q(\sqrt{2}, \sqrt{3}) = \Q(\sqrt{2}+ \sqrt{3})$ since the containment $\Q(\sqrt{2} + \sqrt{3}) \subset \Q(\sqrt{2}, \sqrt{3})$ is trivial and the reverse containment can be shown as follows: 
+        \begin{align*}
+            \sqrt{2} + \sqrt{3} -(\sqrt{2} + \sqrt{3})^{-1} &= \sqrt{2} + \sqrt{3} - \frac{\sqrt{2} - \sqrt{3}}{2-3} \\ 
+            &= \sqrt{2} + \sqrt{3} - {\sqrt{2} + \sqrt{3}} \\ 
+            &= 2\sqrt{3}
+        \end{align*}
+        That is $\sqrt{3} \in \Q(\sqrt{2} + \sqrt{3})$ and then $\sqrt{2} \in \Q(\sqrt{2} + \sqrt{3})$. 
+        
+        Hence, $ \Q(\sqrt{2} + \sqrt{3})= \Q(\sqrt{2}, \sqrt{3})$
+
+        Note that $(\sqrt{\sqrt{2} + \sqrt{3}})^2 = \sqrt{2} + \sqrt{3}$, so  $\Q(\sqrt{2} + \sqrt{3}) \subset K$, and all four roots of $f(x)$ are in $K$, so $|\Hom_F(K,L)| =4$
+
+        \item $f(x) = x^3 + x - 1$
+        
+        Note that $f(x)$ is irreducible over $F$ by the rational root test. Let $\alpha$ be a root of $f(x)$, then (from HW4) the splitting field of $f(x)$ is $\Q(\alpha, \sqrt{\Delta f})$ where $\Delta(f) = -31$
+
+        Since $\Q(\alpha) \subset \Q(\alpha, \sqrt{\Delta f})$, the other two roots must have a complex component. And $\alpha$ cannot have a complex component, because complex roots come in pairs and $f(x)$ only has $3$ roots. Hence, only $\alpha \in L$, and $|\Hom_F(K, L)| = 1$. 
+
+        \item $|\Hom_F(K, L)| = 0$
+        
+        From Problem 4, we know that $[\F_4: \F_2] = 2$ and $[\F_8: \F_2] = 3$, by the tower law there are no possible embeddings of $\F_4$ in $\F_8$. 
+    \end{enumerate}
+\end{solution}
+
+
+\newpage
+
+\begin{problem}{4}
+\textit{Finite fields.}
+\begin{enumerate}
+    \item[(a)] Let $p$ be a prime and $q=p^n$. Prove that $\mathbb{F}_q/\mathbb{F}_p$ is a Galois extension,
+    whose Galois group is cyclic of order $n$, generated by the Frobenius $\varphi:x\mapsto x^p$.
+
+    \item[(b)] Calculate the number of elements $\alpha\in\mathbb{F}_{16}$ such that
+    $\mathbb{F}_{16}=\mathbb{F}_2(\alpha)$.
+
+    \item[(c)] Consider the splitting field $K/\mathbb{F}_7$ of the polynomial
+    $f(x)=x^3-2\in\mathbb{F}_7[x]$. Compute the order $|K|$, find some $\alpha\in K$ such that
+    $K=\mathbb{F}_7(\alpha)$, and find all the roots of $f(x)$ in $K$ as polynomials in $\alpha$.
+    (To ponder: what is the analogue of $\omega$?)
+\end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item[(a)] We know a field extension $K/F$ is Galois if $K$ is the splitting field over $F$ of a separable polynomial $f(x)$ (Corollary 6). And we also know that a polynomial $f(x)$ is separable if and only if $\gcd(f(x), f'(x)) = 1$, that is they share no roots (where $f'(x)$ is the derivative of $f(x)$). 
+        
+        Consider the polynomial $f(x) = x^q - x$ over the field $\F_p[x]$. 
+        \[f'(x) = qx^{q-1} - 1 = -1\]
+        Since, $q = {p^n}$ and $p \equiv 0$ in $\F_p$, $f'(x)$ has no roots, hence $f(x)$ is seperable. 
+        
+        The splitting field $K$ of $f(x)$ has exactly $q$ distinct roots of $f(x)$. Let $S \subset K$ be the set of roots of the polynomial $f(x)$. 
+        \[|S| = q\]
+        Note that for any $\alpha, \beta \in S$, $\alpha^q = \alpha$, $(\alpha\beta)^q = \alpha\beta, (\alpha^{-1})^q = \alpha^{-1}$, and (by Freshman's Dream), $(\alpha+\beta)^q = \alpha + \beta$. That is $S$ is a subfield of $K$ containing all the roots and by minimality of splitting fields, $S = K$. That is $|K| = q = p^n$. Since there a unique finite field of order $q$ upto isomorphism, we write $K = \F_q$. Then, 
+        \[[\F_q: \F_p] =  n \]
+
+        Then, (by Corollary 6) $\F_q/\F_p$ is a Galois extension. 
+
+        The Galois group $G = \Aut_{\F_p}(\F_q)$ of this extension has order $n$. Consider the Frobenius map $\phi : \F_q \to \F_q$.
+        \[\phi(x) = x^p\]
+
+        Note that for any $\alpha, \beta \in \F_q$, the following hold: 
+        \begin{enumerate}
+            \item $\phi(\alpha + \beta) = \alpha^p + \beta^p$ (by Freshman's Dream) $ = \phi(\alpha) + \phi(\beta)$. 
+            \item $\phi(\alpha \beta) = \alpha^p \beta^p = \phi(\alpha) \phi(\beta)$ 
+        \end{enumerate} 
+        Hence, $\phi$ is a homomorphism. Moreover, we know that any field homomorphism is injective, and since the map is defined from $\F_q \to \F_q$, it is also surjective and hence an automorphism. Also, $\forall x \in \F_p \subset \F_q$, $\phi(x) = x^p = x$, i.e. $\phi$ fixes the field $\F_p$. 
+        \[\phi \in \Aut_{\F_p}(\F_q)\] 
+
+        Now consider $\phi^2 \in \Aut_{\F_p}(\F_q)$, for any $x \in \F_q$, $\phi^2(x) = \phi(\phi(x)) = x^{p^2}$. Similarly, for all $i = 1, 2, \ldots, n$
+        \[\phi^i(x) = x^{p^i}\]
+        and only $\phi^n(x) = x^{p^n} = x$. 
+        
+        Suppose the order of $\phi$ is not $n$, then $|\phi| = i$, where $i < n$. Then \[x^{p^i} = x, \forall x \in \F_q\]
+        that is, all elements of $\F_q$ are solutions to $x^{p^i} -x$. But that polynomial has degree $p^i$ and would have at most $p^i$ roots but since $p^i < q$ this is a contradictions. So, $|\phi| = n$. That is $\langle \phi \rangle$ generates a subgroup of $\Aut_{\F_p}(\F_q)$ of order $n$, but since $\F_q/\F_p$ is Galois, $\Aut_{\F_p}(\F_q) = n$, hence $\langle \phi \rangle$ is a subgroup of $\Aut_{\F_p}(\F_q)$ of equal order and must be the whole group. 
+
+        Hence, $\mathbb{F}_q/\mathbb{F}_p$ is a Galois extension,    whose Galois group is cyclic of order $n$, generated by the Frobenius $\varphi:x\mapsto x^p$.
+
+        \item[(b)] $\F_{16} = \F_2(\alpha)$
+        
+        Note that $16 = 2^4$, then by part (a) we know that 
+        \[|\Aut_{\F_2}(\F_{16})| = [\F_{16} : \F_{2}] = 4\]
+        So, $\F_{16}$ must be generated by the roots of a quartic polynomial over $\F_2$. Again from part (a) we know that all $16$ elements in $\F_{16}$ are roots to this polynomial. However, note that it is not necessarily true that the polynomial is minimal for all $16$ elements. 
+        
+        By proposition $15$, we know that the subfields of $\F_{16}$ are Galois over $\F_2$ and are in one-to-one correspondence with all divisors $d$ of $4$, i.e., $d = 1, 2, 4$. That is, they are the  fields $\F_{2^d}$ which are the fixed fields of $\phi^d$. 
+
+        The possible values for $\F_{2^d}$ are $\F_2$, $\F_4$, $\F_{16}$ with $2, 4, 16$ elements respectively. And, 
+        \[\F_2 \subset \F_4 \subset \F_{16}\]
+        That is, there are $12 (16-4)$ elements for which the quartic polynomial is minimal, and hence are generators for the field $\F_{16}$.
+
+        \item[(c)]  Let $K$ be the splitting field of the polynomial $x^3 -2$ over $\F_7[x]$. Note that $2$ is not a cube in $\F_7$, and hence $f(x)$ is irreducible (degree $3$). Let $\alpha$ be a root so $\alpha^3 = 2  \pmod 7 \in K$, then $[\F_7(\alpha):\F_7] = 3$. From part (a), $\F_7(\alpha) = \F_{7^3}$, so $|\F_7(\alpha)| = 7^3 = 343$. 
+        
+       Also, note that $K = F(\alpha)$ is the splitting field because $1$ is a cube in $\F_7$, for $1$, $2$, and $4$. These are the analogues of $\omega$ in $K$. That is the roots of $f(x)$ in $K$ are $\alpha, 2\alpha, 4\alpha$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{5}
+\textit{Dihedral.} 
+
+    Let $F$ be a field of characteristic $\neq 2$ and let $a,b\in F$.
+    Let $f(x)=x^4+ax^2+b\in F[x]$. Assume that $f(x)$ is separable.
+    Let $K$ be the splitting field of $f(x)$ over $F$.
+    Prove that the Galois group of $K/F$ is isomorphic to a subgroup of the dihedral group $D_8$ of order $8$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Let $y =x^2$, then, 
+    \[g(y) = y^2 + ay + b\]
+    Let the roots of this polynomial be $p, q$. Then $x^2 = p$, and $x^2 = q$, so the roots of $f(x)$ are $\pm\sqrt{p}, \pm \sqrt{q}$. 
+    
+    Also, note that for any root $\alpha$ of $f(x)$, $-\alpha$ is also a root. So, the polynomial would never factor into an irreducible cubic. Then, we have the following cases: 
+    \begin{enumerate}
+        \item $f(x)$ completely factors over $F$.
+        
+        Then $[K:F] = 1$. 
+
+        \item $f(x)$ reduces to one irreducible quadratic over $F$. 
+
+        Then $[K:F] = 2$. 
+
+        \item $f(x)$ reduces to two irreducible quadratics over $F$.
+        
+        Then $[K:F] = 4$. 
+
+
+        \item $f(x)$ is irreducible over $F$, and factors completely after we adjoin a root.
+        
+        Then $[K:F] = 4$. 
+
+        \item $f(x)$ is irreducible over $F$, and factors into two distinct irreducible  quadratics after we adjoin a root.
+        
+        Then $[K:F] = 8$. 
+    \end{enumerate}
+    
+    
+    Hence, the degree of the extension $K/F$ is at most $8$. Moreover, since $f(x)$ is separable, $|Gal(K/F)| = [K:F]$. 
+
+    Also note that, all groups of orders $1, 2, 4$ are isomorphic to a subgroup of $D_8$.
+    \[\{e\} \isom \{e\}, \quad \Z_2 \isom \langle s \rangle, \quad  \Z_4 \isom  \langle r \rangle, \quad  K_4 \isom  \langle s, r^2 \rangle\]
+    That only leaves us to prove that case $5$ has a Galois group that is isomorphic to $D_8$. Let the roots of $f(x)$ in $K$ be $\{\sqrt{p}, - \sqrt{p},\sqrt{q}, - \sqrt{q} \}$. Let $\sqrt{p} = \alpha, \sqrt{q} = \beta$. 
+    Let $\sigma \in {Gal}(K/F)$. Since $\sigma$ is a field automorphism, it must permute the roots and preserve algebraic relations. That is, 
+    \[
+    \sigma(-\alpha) = -\sigma(\alpha),
+    \qquad
+    \sigma(-\beta) = -\sigma(\beta).
+    \]
+
+    and, since $\alpha^2 = p$ and $\beta^2 = q$, applying $\sigma$ gives
+    \[
+    \sigma(\alpha)^2 = \sigma(p),
+    \qquad
+    \sigma(\beta)^2 = \sigma(q).
+    \]
+    but because $p$ and $q$ are roots to the same minimal polynomial over $F$, we must have
+    \[
+    \sigma(p) \in \{p,q\},
+    \qquad
+    \sigma(q) \in \{p,q\}.
+    \]
+
+    therefore,
+    \[
+    \sigma(\alpha) \in \{\pm \alpha, \pm \beta\},
+    \qquad
+    \sigma(\beta) \in \{\pm \alpha, \pm \beta\},
+    \]
+    such that the squaring them agrees with
+    $\sigma(p)$ and $\sigma(q)$.
+        
+    
+    Then we can define the following automorphisms, 
+   \begin{align*}
+        \sigma_{id} &: 
+        \begin{cases}
+        \alpha \mapsto \alpha \\
+        \beta  \mapsto \beta
+        \end{cases}
+        \qquad
+        &
+        \sigma_{4} &: 
+        \begin{cases}
+        \alpha \mapsto \beta \\
+        \beta  \mapsto \alpha
+        \end{cases}
+        \\[1em]
+        %
+        \sigma_{1} &: 
+        \begin{cases}
+        \alpha \mapsto -\alpha \\
+        \beta  \mapsto \beta
+        \end{cases}
+        \qquad
+        &
+        \sigma_{5} &: 
+        \begin{cases}
+        \alpha \mapsto -\beta \\
+        \beta  \mapsto -\alpha
+        \end{cases}
+        \\[1em]
+        %
+        \sigma_{2} &: 
+        \begin{cases}
+        \alpha \mapsto \alpha \\
+        \beta  \mapsto -\beta
+        \end{cases}
+        \qquad
+        &
+        \sigma_{6} &: 
+        \begin{cases}
+        \alpha \mapsto \beta \\
+        \beta  \mapsto -\alpha
+        \end{cases}
+        \\[1em]
+        %
+        \sigma_{3} &: 
+        \begin{cases}
+        \alpha \mapsto -\alpha \\
+        \beta  \mapsto -\beta
+        \end{cases}
+        \qquad
+        &
+        \sigma_{7} &: 
+        \begin{cases}
+        \alpha \mapsto -\beta \\
+        \beta  \mapsto \alpha
+        \end{cases}
+    \end{align*}
+
+
+
+
+    Note that this is all of them because they are $8$ distinct automorphisms and $|Gal(K/F)| = 8$. 
+    Computing orders we get, 
+    \[|\sigma_{id}| = 1, \quad |\sigma_{1}| = 2,\quad |\sigma_{6}| = 4\]
+    Also note that, 
+    \begin{align*}
+        \sigma_2(x) &= \sigma_6^2(\sigma_1(x))\\  
+        \sigma_3(x) &= \sigma^2_6 (x) \\ 
+        \sigma_4(x) &= \sigma_1(\sigma_6(x)) \\ 
+        \sigma_5(x) &= \sigma_6(\sigma_1(x)) \\ 
+        \sigma_7(x) &= \sigma^3_6 (x)
+    \end{align*}
+    So, $\sigma_1$ and $\sigma_6$ are generators of the group. 
+    Let $\sigma_1 = s$, and $\sigma_6 = r$, then for $Gal(K/F)$ to be isomorphic to $D_8$  the relations $s^2 = r^4 = e$ and $rs = sr^{-1}$ must hold. Since we know the orders of $\sigma_1$ and $\sigma_6$ the first relation holds. 
+
+    \begin{align*}
+        \sigma_{6}(\sigma_{1} (\alpha)) &= \sigma_6(-\alpha) = -\sigma_6(\alpha) = -\beta \\ 
+        \sigma_{1}(\sigma^{-1}_{6} (\alpha)) &= \sigma_1(-\beta) = - \beta \\ 
+    \end{align*}
+    and, 
+    \begin{align*}
+        \sigma_{6}(\sigma_{1} (\beta)) &= \sigma_6(\beta) = -\alpha \\ 
+        \sigma_{1}(\sigma^{-1}_{6} (\beta)) &= \sigma_1(\alpha) = - \alpha \\ 
+    \end{align*}
+    The relations hold, and hence the groups are isomorphic. 
+    \newpage 
+\end{solution}
+
+
+\begin{problem}{6}
+\textit{Galois dreams of eight.}
+
+    Let $K/\mathbb{Q}$ be the splitting field of the polynomial
+    $x^4+1\in\mathbb{Q}[x]$. Compute the degree $[K:\mathbb{Q}]$ and the Galois group
+    $G=\mathrm{Gal}(K/\mathbb{Q})$. Draw the lattice of subextensions of $K/\mathbb{Q}$,
+    providing a simple generator for each, and the corresponding lattice of subgroups of $G$
+    under the Galois correspondence.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    
+    Consider the polynomial $x^8 -1 = (x^4 - 1)(x^4 + 1)$. We know that the roots to this polynomial are the $8$-th roots of unity, $\zeta_8$. Note that $\zeta_8^k = e^{2\pi i k/8}$. The even powers correspond to roots of $x^4 -1$ since,  
+    \[\zeta_8^k = e^{2\pi i j/4}\] 
+    where $j = k/2$. Then the odd powers must be roots to $f(x) = x^4 + 1$. Since the roots are distinct, the polynomial is separable and the degree $[K:\Q] = 4$. Then, the group $G = \Aut_{\Q}(K)$ also has order $4$. The automorphisms are as follows, 
+     \begin{align*}
+            \sigma_{id}:& \zeta_8^i \mapsto \zeta_{8}^i \\ 
+            \sigma_{3}:& \zeta_8^i \mapsto \zeta_8^{3i} \\
+            \sigma_{5}: & \zeta_8^i \mapsto \zeta_8^{5i} \\
+            \sigma_{7}: & \zeta_8^i \mapsto \zeta_8^{7i} 
+         \end{align*}
+    Subgroup Lattice: 
+    \[
+    \begin{tikzcd}
+    & G = \Aut_\Q(K) \arrow[dl] \arrow[d] \arrow[dr] & \\
+    \langle \sigma_3 \rangle \arrow[dr] & 
+    \langle \sigma_5 \rangle \arrow[d] & 
+    \langle \sigma_7 \rangle \arrow[dl] \\
+    & \{\sigma_{id}\} &
+    \end{tikzcd}
+    \]
+
+    Subextensions of $K/Q$: 
+    \begin{enumerate}
+        \item  $\sigma_3$ fixes the subfield $\Q(\zeta_8^3 + \zeta_8)$. 
+        \[\sigma_3(\zeta_8^3 + \zeta_8) = \sigma_3(\zeta_8^3) + \sigma_3(\zeta_8) = \zeta_8 + \zeta_8^3\]
+
+        \begin{align*}
+            \zeta_8^3 + \zeta_8 &= \left(\cos\fr{6\pi}{8} + i \sin \fr{6\pi}{8}\right) + \left(\cos\fr{2\pi}{8} + i \sin \fr{2\pi}{8}\right) \\ 
+            &=\left(\cos\fr{3\pi}{4} + i \sin \fr{3\pi}{4}\right) + \left(\cos\fr{\pi}{4} + i \sin \fr{\pi}{4}\right) \\ 
+            &= -\fr{\sqrt{2}}{2}  + i \fr{\sqrt{2}}{2}  +\fr{\sqrt{2}}{2} + i \fr{\sqrt{2}}{2} \\
+            &= 2i \fr{\sqrt{2}}{2}  = i\sqrt{2} 
+        \end{align*}
+
+        \item  $\sigma_5$ fixes the subfield $\Q(\zeta_8^2)$. 
+        \[\sigma_5(\zeta_8^2) = \zeta_8^{10} = \zeta_8^2\]
+
+
+        \item  $\sigma_7$ fixes the subfield $\Q(\zeta_8 + \zeta_8^7)$. 
+        \[\sigma_7(\zeta_8 + \zeta_8^7) = \sigma_7(\zeta_8 )+ \sigma_7(\zeta_8^7) = \zeta_8^7 + \zeta_8 \]
+
+        \begin{align*}
+            \zeta_8 + \zeta_8^7 &= \left(\cos\fr{2\pi}{8} + i \sin \fr{2\pi}{8}\right)  + \left(\cos\fr{7\pi}{4} + i \sin \fr{7\pi}{4}\right) \\ 
+            &=\left(\cos\fr{\pi}{4} + i \sin \fr{\pi}{4}\right) + \left(\cos\fr{-\pi}{4} + i \sin \fr{-\pi}{4}\right)  \\ 
+            &= \left(\fr{\sqrt{2}}{2} + i \fr{\sqrt{2}}{2}\right) + \left(\fr{\sqrt{2}}{2} - i \fr{\sqrt{2}}{2}\right)\\
+            &= \sqrt{2} 
+        \end{align*}
+    \end{enumerate}
+   
+    Subextension Lattice:
+    \[
+    \begin{tikzcd}
+    & K = \Q(\zeta_8)  & \\
+    \Q(i\sqrt{2}) \arrow[ur] & 
+    \Q(\zeta_8^2) \arrow[u] & 
+    \Q(\sqrt{2}) \arrow[ul] \\
+    & \Q \arrow[ul] \arrow[u] \arrow[ur]&
+    \end{tikzcd}
+    \]
+\end{solution}
+
+\end{document}
