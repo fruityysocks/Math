@@ -21,7 +21,64 @@
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item  
+        \item  Let $E_{2H}$ be the number of expected flips for two heads to appear, $E_H$ be the number of expected flips for a heads appears starting with $0$ heads, and $E_{1H}$ be the number of expected flips for a heads appears given we have already seen a heads. Then, 
+        \[E_{2H} = \frac{1}{2}(1+E_H) + \frac{1}{2}(1+E_{2H}) \]
+        Since there is $0.5$ probability that we get a heads on the first flip, $E_H$ is,  
+        \begin{align*}
+            E_H &= \frac{1}{2} + \frac{1}{2}(1+E_H) \\ 
+            \frac{1}{2}E_H &= 1 \\ 
+            E_H &= 2
+        \end{align*}
+        And since the event of getting another heads given we have already seen a heads is the same as getting $1$ head given we have $0$ seen heads,  
+        \begin{align*}
+            E_{1H} &= \frac{1}{2} + \frac{1}{2}(1+E_{1H}) \\ 
+            E_{1H} &= 1 + \frac{1}{2}E_{1H} \\ 
+            \frac{1}{2}E_{1H} &= 1\\
+            E_{1H} &= 2 
+        \end{align*}
+        Then, 
+        \begin{align*}
+            E_{2H} &= \frac{1}{2}(1+E_H) + \frac{1}{2}(1+E_{2H}) \\ 
+            E_{2H} &= \frac{1}{2}(1+2) + \frac{1}{2}(1+E_{2H}) \\ 
+            E_{2H} &= \frac{4}{2} + \frac{1}{2}(E_{2H}) \\ 
+            \frac{1}{2}E_{2H} &= 2 \\
+            E_{2H} &= 4\\ 
+        \end{align*}
+        So the expected value $E_{2H}$ for getting two heads is $4$ flips. 
+
+        \item Let $E_{HT}$ be the number of expected flips for both heads and tails to appear, $E_H$ be the number of expected flips for a heads to appear, and $E_T$ be the number of expected flips for a tails to appear.  Then, 
+        \[E_{HT} = \frac{1}{2}(1+E_H) + \frac{1}{2}(1+E_{T}) \]
+        Since there is $0.5$ probability that we get a heads on the first flip, $E_H$ is,  
+        \begin{align*}
+            E_H &= \frac{1}{2} + \frac{1}{2}(1+E_H) \\ 
+            \frac{1}{2}E_H &= 1 \\ 
+            E_H &= 2
+        \end{align*}
+        Similarly since there is a $0.5$ probability we get tails on the first flip, $E_T = E_H = 2$.    
+        Then, 
+        \begin{align*}
+            E_{HT} &= \frac{1}{2}(1+E_H) + \frac{1}{2}(1+E_{T}) \\ 
+            E_{HT} &= \frac{1}{2}(1+2) + \frac{1}{2}(1+2) \\ 
+            E_{HT} &= \frac{6}{2} = 3
+        \end{align*}
+        So the expected value $E_{HT}$ for getting a heads and a tails is $3$ flips. 
+
+        \item Let $E_{HH}$ be the number of expected flips for two consecutive heads to appear, $E_H$ be the expectation that another heads appears given the last flip was heads. Then, 
+        \[E_{HH} = \frac{1}{2}(1+E_H) + \frac{1}{2}(1+E_{HH}) \]
+        And $E_H$ is,  
+        \begin{align*}
+            E_H &= \frac{1}{2} + \frac{1}{2}(1+E_{HH}) 
+        \end{align*}
+        Then, 
+        \begin{align*}
+            E_{HH} &= \frac{1}{2}(1+E_H) + \frac{1}{2}(1+E_{HH}) \\ 
+            E_{HH} &= \frac{1}{2}\left (1+ \left (\frac{1}{2} + \frac{1}{2}(1+E_{HH}) \right ) \right ) + \frac{1}{2}(1+E_{HH}) \\ 
+            E_{HH} &= \frac{1}{2} + \frac{1}{4} + \frac{1}{4} + \frac{1}{4}E_{HH} + \frac{1}{2} + \frac{1}{2}E_{HH} \\
+            E_{HH} &= \frac{3}{2} + \frac{3}{4}E_{HH} \\
+            \frac{1}{4}E_{HH} &= \frac{3}{2} \\ 
+            E_{HH} &= \frac{12}{2} = 6
+        \end{align*}
+        So the expected value $E_{HH}$ for getting two consecutive heads is $6$ flips. 
     \end{enumerate}
 \end{solution}
 \end{document}

@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+\usepackage{tikz-cd}
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    \begin{enumerate}
+        \item[(a)]  Prove that any graph $G$ with $n$ vertices and $n$ edges must have a vertex $v$ with degree at most $2$. 
+        \item[(b)] Draw a simple graph that has $10$ edges, $10$ vertices, with no vertex with degree exactly $2$. What is the largest number of degree ($\leq 1$) vertices you can have?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item[(a)] Let $V$ be the set of all vertices, note that $|V| = n$. Assume for the sake of contradiction that there exist no nodes with degree $\leq 2$. Then the minimum degree any node can have is $3$. That is 
+        \[\sum_{v \in V} \deg(v) \geq 3n\]
+        
+        But by the Handshake Lemma, we know, 
+        \[\sum_{v \in V}\deg(v) = 2n\]
+        That is, 
+        \[\sum_{v \in V}\deg(v) = 2n \geq 3n \]
+        A contradiction! 
+        That is, any graph $G$ with $n$ vertices and $n$ edges must have at least a vertex $v$ with degree at most $2$.     
+        \newpage
+        \item[(b)] $7$ is the largest number of degree ($\leq 1$) vertices we can have. 
+        
+        \begin{tikzcd}[row sep=3em, column sep=3em]
+            {} & {} & \bullet \arrow[drr, -] & \bullet \arrow[dr, -] & \bullet \arrow[d, -] & \bullet \arrow[dl, -]  & \bullet \arrow[dll, -] \\
+            {} & {} & {} & {} & \bullet \arrow[dl, -] \arrow[dr, -] & {} \\
+            {} & {} & {} & \bullet \arrow[rr, -] & {} & \bullet & {} \\ 
+            {} &  {} & \bullet \arrow[ur, -] & {} & {} & {} & \bullet \arrow[ul, -] & {}
+        \end{tikzcd}
+        
+        
+        Note there cannot exist $8$ or more such vertices because by the handshake lemma we know, that the sum of the degrees of the verticies must add up to $20$.
+        Suppose $k=8$ vertices have degree $\leq 1$. They contribute at most $8$ to the degree sum, so the remaining $2$ vertices must contribute at least $20  - 8=12$, i.e. their degrees sum to at least $12$.
+        Now, since these two nodes can only have $1$ edge between them (contributing $2$ to the degree sum), adding more edges would mean connecting the nodes to one of the other $8$ nodes and hence bumping up that nodes' degree by $1$. 
+        
+        That is, $7$ is the maximum number of degree ($\leq 1$) vertices we can have. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    \begin{enumerate}
+        \item [(a)] Prove that any graph containing odd-length closed walks must also contain odd cycles.
+        \item[(b)] Draw a graph that contains even-length closed walks but has no even cycles.
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item[(a)] Let $W$ be an odd-length closed walk in a graph $G$, and let $W'$ be the shortest odd-length walk in $G$. Then we claim that $W'$ is an odd-cycle. 
+        
+        We will show this by contradiction. Assume that $W'$ is not a cycle, then there is some vertex $v$ that $W'$ visits twice. Then we can break $W'$ up into two closed walks $W_1, W_2$ at $v$, such that, 
+        \[|W_1| + |W_2| = |W'|\]
+        Since $|W'|$ is odd, one of $|W_1|$ or $|W_2|$ is odd, and the other even. But then the odd-length closed walk is strictly shorter than $W'$, contradicting minimality!
+
+        That is, $W'$ must be a cycle. 
+        \item[(b)]   Note that the graph below has an even-length closed walk, namely, 
+        \[A \rightarrow B \rightarrow C \rightarrow A \rightarrow B \rightarrow C \rightarrow A\]
+        but only one cycle (which has odd-length), 
+        \[A \rightarrow B \rightarrow C \]
+        \begin{center}
+            \begin{tikzcd}[row sep=3em, column sep=3em]
+            {} & A \arrow[dl, -] \arrow[dr, -] & {} \\
+            B \arrow[rr, -] & {} & C \\ 
+        \end{tikzcd}
+        \end{center}
+    \end{enumerate}
+\end{solution}
+\end{document}

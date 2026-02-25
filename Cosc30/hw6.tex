@@ -1,0 +1,240 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+
+\begin{problem}{1}
+    \textbf{Better of the two.} 
+    
+    Toss a biased coin repeatedly until getting the first head, where the probability of landing on head is $p$ and on tail is $1-p$. Let $X$ be the number of tosses (including the one that lands on head). Now repeat the process independently a second time; denote by $Y$ the number of tosses to get the first head.
+
+    \begin{enumerate}
+        \item[(a)] What is the probability that $X = Y$? Justify your answer. (Your solution should contain $p$ as a parameter.)
+
+        \item[(b)] Let $Z$ be any random variable defined on a sample space $S$, taking values in the nonnegative integers (that is, $Z : S \to \mathbb{N}_{\ge 0}$). Prove that
+        \[
+        E[Z] = \sum_{k \ge 1} \Pr[Z \ge k].
+        \]
+
+        \item[(c)] What is the expected value of $\min(X,Y)$? Justify your answer.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] Note that $X, Y$ are independent events. Then the probability is, 
+
+        \[\Pr(X  = Y) = \sum_{n=1}^\infty \Pr(X =n) \cdot \Pr(Y = n)\]
+        
+        Note that $X=n$ occurs if the first $n-1$ tosses are tails and the $n$-th toss is a head. Thus,
+        \[ \Pr(X = n) =(1-p)^{\,n-1} p\]
+        Similarly, 
+        \[ \Pr(Y = n) =(1-p)^{\,n-1} p\]
+
+        Therefore, 
+        \begin{align*}
+            \Pr(X  = Y) &= \sum_{n=1}^\infty \Pr(X =n) \cdot \Pr(Y = n) \\
+            &= \sum_{n=1}^\infty \left( (1-p)^{\,n-1}  \right )^2 p^2 \\ 
+            &= \sum_{n=1}^\infty  (1-p)^{\,2n-2}   p^2 \\ 
+            &= p^2 \fr{1}{1 - (1-p)^2} \\ 
+            &= \frac{p}{(2 - p)}
+        \end{align*}
+
+        Hence, the probability that $X=Y$ is $\dfrac{p}{2-p}$.
+
+        \item [(b)] From the definition of expectation we know that:\\
+
+        \begin{align*}
+             E[Z] &= \sum_{k \geq 1} k \cdot Pr[Z=k] \\ 
+             &= \sum_{k =1}^{\infty} k \cdot Pr[Z=k] \\ 
+             &=  \sum_{k =1}^{\infty}\sum_{i=1}^{k}Pr[Z =k] \\ 
+             &= \sum_{i=1}^\infty \sum_{k=i}^{\infty} Pr[Z=k]  \\ 
+             &= \sum_{i=1}^\infty Pr[Z \geq i]
+        \end{align*}
+
+                    For each iteration of the inner sum we get, the sum of probabilities add up to  $P[Z \geq i]$. So we can write this following double sum as: 
+
+                        \[
+                        E[Z] = \sum_{i=1}^{\infty} Pr[Z \geq i] =  \sum_{i\geq1} Pr[Z \geq i] 
+                         \]
+                                
+
+
+        
+        \item [(c)] Let $Z = \min(X, Y)$. Then $E(Z)$
+        \[E(Z) = \sum_{n=1}^\infty Pr[Z\geq n] \] from part b.
+         We know:    
+        \[Pr[Z \geq k]\] for an arbitrary variable denotes the event that the minimum number of tosses of X and Y is at least n. This means that both X and Y have had all tails on at least the first n-1 tosses. In other words: 
+        \[Pr[Z \geq n] = Pr[X \geq n]\cdot Pr[Y \geq n]\]
+        \[Pr[Z \geq n ] = (1-p)^{n-1} . (1-p)^{n-1}\]
+        Plugging this in the above equation we get : 
+        \begin{align*}
+        E(Z) =& \sum_{n=1}^\infty Pr[Z\geq n] \\
+             =& \sum_{n=1}^\infty(1-p)^{n-1} . (1-p)^{n-1} \\
+             =& \sum_{n=1}^\infty(1-p)^{2n-2} 
+        \end{align*}
+
+        As this is a converging geometric series, the sum to infinity is give by:
+        \begin{align*}
+        E[Z] =& \frac{1}{1- (1-p)^{2}} \\
+                    =& \frac{1}{(p)\cdot (2-p)}\\
+        \end{align*}
+    \end{enumerate} 
+\end{solution}
+
+\newpage
+
+\begin{problem}{2}
+    \textbf{Making friends.} 
+    
+    At the start of a new semester, $50$ new students at Uni High are assigned randomly to $50$ desks arranged in a $10 \times 5$ grid. Exactly half of the students come from middle school $A$ in the same city, and the other half coming from another middle school $B$ in one of the satellite cities.
+
+    Every student has made up their mind: To talk to every student in the neighboring desks, but only if they came from a different middle school during the first day of class. In other words, a student from middle school $A$ who sits in the middle of the classroom will try to talk to each of the $4$ students at neighboring desks if they came from middle school $B$, and vice versa. Students who sit at the corner can only talk to at most two other students, and those who sit on the four sides may talk to three.
+    
+    Given that the student-to-desk assignment is completely random, how many pairs of students are expected to talk with each other?
+\end{problem}
+
+\begin{solution}
+        \bbni 
+        
+        The total number of pairs is equal to 85. We can get this by counting the total numbers pairs along each of the 10 columns and 5 rows. Let X be a random variable denoting the total number of pairs of students are expected to talk with each other. 
+
+        Let $X_k$ be an indicator variable indicating if the $k^{th}$ pair of students talk with each other. So we get, \[X = \sum_{k=1}^{85} X_k\]. 
+        
+         \[X_k = \begin{cases*}
+            1 & \text{if students in the pair from different schools} \\ 
+            0 & \text{otherwise}
+        \end{cases*}\]
+
+        
+        As each $X_k$ is an indicator variable, $E[X_k]$  is given by the probability that each student in the $k^{th}$ pair is from a different middle school. This probability is given by
+
+        \[Pr[X_k=1] = \frac{50 \cdot25}{50.49}  = \frac{25}{49}\]
+        Hence, \[E[X_k] = \frac{25}{49}\]
+
+        
+        Finally, using linearity of expectations, we get: 
+        \[E[X] = \sum_{k=1}^{85}E[X_k] = \frac{25}{49} \cdot85\]
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+    \textbf{Random permutations.} 
+    
+    Let $[n] = \{1,2,\dots,n\}$. Generate a permutation $\pi$ of $[n]$ uniformly at random. A fixed point of $\pi$ is an index $i$ such that $\pi(i)=i$.
+
+    \begin{enumerate}
+        \item[(a)] What is the expected number of fixed points? Justify your answer.
+
+        Now start with the identity permutation on $[n]$. Then create a (not necessarily uniform) random permutation using the following algorithm: Let $t$ be a given nonnegative integer. Pick two distinct indices $i,j \in [n]$ uniformly at random and swap $\pi(i)$ with $\pi(j)$. Repeat this process $t$ times.
+        
+        Our goal is to mix the numbers well enough so that the resulting permutation, while not uniformly random, behaves like one at least in terms of the fixed point count.
+
+        \item[(b)] Find the expected number of fixed points in $\pi$ after $t$ swaps. Justify your answer.
+
+        \item[(c)] Let's say the permutation after $t$ swaps is quasi-random if the number of fixed points is $O(1)$.  How many swaps (asymptotically) do we need? That is, how large should t be?
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $X$ denote the expected number of fixed points, and $X_i$ for each $1 \leq i \leq n$ be defined as follows: 
+        \[X_i = \begin{cases*}
+            1 & \text{if $\pi(i) = i$} \\ 
+            0 & \text{otherwise}
+        \end{cases*}\]
+
+        Then, $X = \sum_{i=1}^{n}X_i$, and by linearity of expectations, $E[X] = \sum_{i=1}^{n}E[X_i]$. Now note that, the probability that $\pi(i) = i$ is equal for each $i$, that is $E[X_i] = \frac{1}{n}$. 
+        Then, 
+        \[E[X] = \sum_{i=1}^{n} \frac{1}{n} = n \cdot \frac{1}{n} = 1\]
+        That is, the expected number of fixed points is $1$. 
+
+        \item 
+        Let $p_t$ be the probability that $i$ is fixed after $t$ swaps. Since every index has uniform probability the expected number of fixed points after $t$ swaps $E[X_t] = np_t$. We can calculate $p_t$ as follows: 
+        \[p_t = P[\text{fixed$|$ fixed before $t$-th swap}]p_{t-1} +  P[\text{fixed$|$ not fixed before $t$-th swap}](1-p_{t-1}) \]
+        \begin{enumerate}
+            \item If the $i$-th is fixed before the $t$-th swap: 
+            
+             Then $i$ would stay fixed if neither of the indices picked are $i$, that is the probability of it staying fixed is: 
+             \[P[\text{fixed$|$ fixed before $t$-th swap}] = \frac{\binom{n-1}{2}}{\binom{n}{2}} = \frac{(n-1)!2! (n-2)!}{2! (n-3)! n!} = \frac{(n-2)}{n}\]
+
+            \item If the $i$-th is not fixed before the $t$-th swap: 
+
+            Then $i$ would be fixed if we the indices we pick are $i$ and the index that would fix $i$. The probability that $i$ gets picked is $2/n$, and the probability that we pick the index that fixes $i$ is $1/(n-1)$. The probability that the $t$-th swap fixes $i$ is: 
+            \[P[\text{fixed$|$ not fixed before $t$-th swap}] = \frac{2}{n} \cdot \frac{1}{n-1} = \frac{2}{n(n-1)}\]
+        \end{enumerate}
+
+        That is the total probability of the $i$-th index being fixed after the $t$-th swap is: 
+        \begin{align*}
+            p_t &= P[\text{fixed$|$ fixed before $t$-th swap}]p_{t-1} +  P[\text{fixed$|$not fixed before $t$-th swap}](1-p_{t-1}) \\ 
+            &=\frac{n-2}{n}p_{t-1} + \frac{2}{n(n-1)}(1- p_{t-1})  \\ 
+            &= \frac{n-2}{n}p_{t-1} - \frac{2}{n(n-1)}p_{t-1} + \frac{2}{n(n-1)} \\ 
+            &= \frac{(n-2)(n-1) - 2 }{n(n-1)} p_{t-1} + \frac{2}{n(n-1)}
+        \end{align*}
+        
+        Since every index has uniform probability the expected number of fixed points after $t$ swaps $E[X_t] = np_t$, and after $t-1$ swaps $E[X_{t-1}] = np_{t-1}$. That gives us, 
+        \[E[X_t] =  \frac{(n-2)(n-1) - 2 }{(n-1)} E[X_{t-1}] + \frac{2}{(n-1)} =  \frac{n-3}{n-1} E[X_{t-1}] + \frac{2}{n-1}\]
+
+        For convenience let $\frac{n-3}{n-1} = a, \frac{2}{n-1} = b$. 
+        
+        \[E[X_{t}] =a E[X_{t-1}] +b\]
+
+        
+        Now note that by similar logic, 
+        \[E[X_{t-1}] = aE[X_{t-2}] + b\]
+        Substituting back we get, 
+        \[E[X_{t}] =a (aE[X_{t-2}] + b) +b = a^2 E[X_{t-2}] + ab + b\]
+        Where, 
+        \[E[X_{t-2}] = a E[X_{t-3}] + b\]
+        That is, 
+        
+        \[E[X_{t}] = a^2 (aE[X_{t-3}] + b) + ab + b = a^3 E[X_{t-3}] + a^2b + ab + b\]
+
+        So on, until, 
+        \[E[X_1] =a E[X_{0}] + b\]
+        where $E[X_0] = n$. 
+        Substituting this back in we get, 
+        \[E[X_{t}] = a^t E[X_{0}] + a^{t-1}b + \cdots  + a^2b + ab + b =  a^t E[X_{0}] + b (a^{t-1} + \cdots  + a^2+ a + 1)\]
+        Where the latter term is a geometric sum, 
+        
+        \[b (a^{t-1} + \cdots  + a^2+ a + 1) = b\fr{1 - a^{t}}{1 -a}\]
+
+        \[\implies E[X_{t}] =  a^t E[X_{0}] + b \fr{1 - a^{t}}{ 1- a}\]
+
+        Simplifying this, 
+        \begin{align*}
+            E[X_{t}] &=  a^t E[X_{0}] + b \fr{1 - a^{t}}{ 1- a} \\ 
+            &= \fr{n-3}{n-1}^t n + \fr{2}{n-1} \fr{1 - \fr{n-3}{n-1}^t }{1 - \fr{n-3}{n-1}} \\ 
+            &= \fr{n-3}{n-1}^t n + \fr{2}{n-1} \fr{1 - \fr{n-3}{n-1}^t }{\fr{2}{n-1}} \\ 
+            &= \fr{n-3}{n-1}^t n + 1 - \fr{n-3}{n-2}^t  \\ 
+            &= 1 + (n-1)\fr{n-3}{n-1}^t
+        \end{align*}
+
+        That is, the expected number of fixed points after $t$ swaps is 
+        \[E[X_{t}] = 1 + (n-1)\fr{n-3}{n-1}^t\]
+
+        \item For $E[X_t]$ to be $O(1)$ means that there exists some constant $c$ such that $T(n) \leq c$. That is, 
+                \[(n-1)\fr{n-3}{n-1}^t \leq c\]
+                
+
+        \begin{align*}
+            (n-1)\fr{n-3}{n-1}^t &\leq c \\
+            \fr{n-3}{n-1}^t &\leq \frac{c}{n-1} \\
+            t \log{\fr{n-3}{n-1}} &\leq \log c - \log {(n-1)}  \\ 
+            t \log\left({1 - \frac{2}{n-1}}\right) &\leq \log c - \log {(n-1)}  \\ 
+            t &\geq \frac{\log c - \log {(n-1)}}{ \log\left({1 - \frac{2}{n-1}}\right)}  \\ 
+            t &\geq \frac{\log \fr{c} {n-1}}{ \log\left({1 - \frac{2}{n-1}}\right)}  
+        \end{align*}
+        Note that for sufficiently large $n$, $\log (1 - \frac{2}{n-1}) \approx - \frac{2}{n-1}$ so we get, 
+        \[ t \geq \frac{n-1}{2}{\log \fr{n-1} {c}} \]
+    \end{enumerate}
+\end{solution}
+\end{document}

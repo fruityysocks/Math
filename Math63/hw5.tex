@@ -6,6 +6,10 @@
 
 \input{title}
 
+\bbni
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange.
+
+
 \begin{problem}{1}
     Discuss the continuity of the function $f : \mathbb{R} \to \mathbb{R}$ defined by
     \[
@@ -17,20 +21,141 @@
     \]
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    The function $f$ is not continous at rational points, but is continous at irrational points. 
+    \begin{enumerate}
+        \item At irrational points. 
+        
+        Let $x$ be an irrational number. Take any sequence $(x_n)$ such that,        
+        \[\underset{n\to \infty}{lim} \, x_n = x\] 
+        Since $x$ is irrational $f(x) = 0$. For each $n$ the term $x_n$ is either rational or irrational: 
+        \begin{enumerate}
+            \item $x_n$ is irrational. 
+            
+            Then $f(x_n) = 0$.  
+
+            \item $x_n$ is rational. 
+            
+            Let $x_n = \frac{p_n}{q_n}$ in lowest terms. Then, we claim that as $x_n \to x, q_n \to \infty$. 
+        
+            Assume for the sake of contradiction that $q_n$ does not tend to infinity, as $x_n$ tends to $x$. That is suppose, $1 \leq q_n \leq N$ for some $N$.  Then, by definition of limits, for every $\epsilon$, there exist some $M$ such that $n > M, \, d(x_n, x) < \epsilon$. That is, 
+            \[ x_n = \frac{p_n}{q_n} \in (x-\epsilon, x + \epsilon)\]
+            Which is, 
+            \begin{align*}
+                x - \epsilon &< \frac{p_n}{q_n} <  x+ \epsilon \\ 
+                q_n(x - \epsilon) &< p_n <  q_n(x+ \epsilon) \\ 
+            \end{align*}
+            Since the interval is bounded, there are only a finite number of integer values $p_n$ can have, and we already know that there are only a finite number of denominators that $x_n$ since $q_n$ is bounded by $N$ by assumption. Since there are finitely many possible rational numbers in the interval $(x-\epsilon, x + \epsilon)$ and infinitely many terms of the sequence lie in that interval, by the pigeonhole principle, at least one rational number must occur infinitely often. Hence a subsequence converges to that rational number. But limits are unique, and by assumption the limit $x$ is irrational. Hence a contradiction! That is, $q_n \to \infty$ as $x_n \to x$. 
+            
+            Note that  as $x_n \to x$, \[q_n \to \infty \implies f(x_n) = \frac{1}{q_n} \to 0\]
+        \end{enumerate}
+        Either ways, $f(x_n) \to 0 = f(x)$, therefore $f$ is continous at every irrational point. 
+        
+        \item At rational points. 
+        
+        Let $x$ be a rational number, where $x = \frac{p}{q}$ in lowest terms, then $f(x) = \frac{1}{q}$. Since the irrationals are dense in the reals, there exist a sequence $(x_n)$ of irrational $x_n$ such that 
+        \[\underset{n\to \infty}{lim} \, x_n = x\] 
+        But for all $x_n$, $f(x_n) = 0$. That is, 
+        \[\underset{n\to \infty}{lim} \, f(x_n) = 0\]
+        But because $f(x) = \frac{1}{q} \neq 0$, 
+        \[\underset{n\to \infty}{lim} \, f(x_n) \neq  f(\underset{n\to \infty}{lim} \, x_n)\] 
+        Hence, the function is not continous at rational points (by Proposition on Page 74). 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{2}
-     Let $E , E'$ be metric spaces, $f : E \to E'$ a continuous function. Prove that if $E$ is compact and $f$ is one-one onto then $f': E'\to E$ is continuous. (Hint: $f$ sends closed sets onto closed sets, therefore open sets onto open sets.)
+     Let $E , E'$ be metric spaces, $f : E \to E'$ a continuous function. Prove that if $E$ is compact and $f$ is one-one onto then $f^{-1}: E'\to E$ is continuous. (Hint: $f$ sends closed sets onto closed sets, therefore open sets onto open sets.)
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Assume $f: E \to E'$ is a bijective continous function, and $E$ is compact.
+    
+    Note that since $f$ is bijective, $f^{-1}$ exists and sends $f(p)$ to $p$ for all $p \in E$. To show that $f^{-1}$ is continous we need to show that for any open set $U$ in $E$, $(f^{-1})^{-1}(U) \subset E'$ is open. That is it suffices to show that $f$ sends open sets to open sets.  
+
+    Let $C \subset E$ be a closed subset. All closed subsets of a compact metric space are compact, hence $C$ is compact. And because continous functions send compact sets to compact sets, $f(C) \in E'$ is also compact. All compact subsets of a metric space are closed (Corollary 3, Page 56), hence $f(C)$ is also closed. That is $f$ maps closed sets to closed sets. 
+    
+    Note that since $f$ is bijective and maps closed sets $C$ to closed sets $f(C)$, it would map their compleements (open sets) $C'$ map to the complements of their images $f(C)'$ (also open sets). Hence, $f$ sends open sets to open sets, and $f^{-1}$ is continous. 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{3}
     A metric space $E$ is said to be arcwise connected if, given any $p, q \in E$ , there is a continuous function $f: [0, 1] \to E$ such that $f(0) = p, f(1) = q$. Show that any connected open subset of $E^n$ is arcwise connected.
 \end{problem}
 
+\begin{solution}
+    \bbni 
+
+    Let $C$ be a connected open subset of $E^n$. Pick $p \in C$. Let $C_p \subset C$ be defined as follows, 
+
+    \[C_p:= \{q \in C \, \big | \, \exists f: [0,1] \to E^n: f(0) = p, \,f(1) = q\}\]
+
+    Note that $C_p$ is non-empty since $p \in C_p$. Now, consider some $q \in C_p$. Since $C$ is open, there exists some $\epsilon$ such that $B_\epsilon(q) \subset C$ is open. For any point $q' \in B_\epsilon(q)$, there exists a line segment between $q = (q_1, \ldots, q_n)$ and $q' = (q'_1, \ldots, q'_n)$ to be the set of points 
+    \[\{(q_1) + (q'_1-q_1)t, \ldots , q_n + (q'_n-q_n)t): t \in [0,1]\} \subset B_\epsilon(q)\]
+    By joining these segments ($p$ to $q$, and $q$ to $q'$) we get a continous segement from $p$ to $q'$. That is, $B_\epsilon(q) \subset C_p$. Since $q$ was an arbitrary point in $C_p$ this holds for all points in $C_p$, and $C_p$ is open. 
+
+    Now consider a point $q$ such that $q \in C \setminus C_p$. Then, since $C$ is open, there exists some $\epsilon$ such that $B_\epsilon(q)$ is open. Then, $B_\epsilon(q) \cap C_p = \emptyset$. (For the sake of contradiction assume the intersection isn't empty, then $\exists x \in B_\epsilon(q) \cap C_p$ such that there is a path from $p$ to $x$ and there is also a straight line from $x$ to $q$, that is $q \in C_p$ which is a contradiction.) Since $q$ was an arbitrary point in $C \setminus C_p$, we can see that $C\setminus C_p$ is also open. Given $C$ is connected, $C_p$ is non-empty and both $C_p$ and it's compliment $C \setminus C_p$ are open, $C_p$ must be the whole subset $C$. 
+
+    Hence, any connected open subset $C \subset E^n$ is arcwise connected. 
+
+\end{solution}
+
+\newpage
+
 \begin{problem}{4}
-    Let $f, f_1, f_2, f_3, \ldots$ be continuous real-valued functions on the compact metric space $E$, with $\underset{x\to\infty}{\lim} f_n$. Prove that if $f_1(p) \leq f_2(p) \leq f_3(p) leq \ldots$ for all $p\in E$ then the sequence $f_1, f_2, f_3, \ldots$ converges uniformly.
+    Let $f, f_1, f_2, f_3, \ldots$ be continuous real-valued functions on the compact metric space $E$, with $\underset{n\to\infty}{\lim} f_n = f$. Prove that if $f_1(p) \leq f_2(p) \leq f_3(p) \leq \ldots$ for all $p\in E$ then the sequence $f_1, f_2, f_3, \ldots$ converges uniformly.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    We know that the sequence $(f_n)$ converges to $f$. That is, for any $p$ and for any $\epsilon >0$, there exists a $N_p >0$ such that $d(f(p), f_n(p)) = |f(p) - f_n(p)| < \epsilon$, whenever $n > N_p$. 
+
+    We want to show that given any $\epsilon > 0$, there is a positive integer $N$ such that $d(f(p), f_n(p))  = |f(p) - f_n(p)|< \epsilon$ whenever $n > N$, for all $p \in E$. 
+
+    To find the supremum of the $N_p$s we define functions  $g_n: E \to \R$, such that  \[g_n(p) = f(p) - f_n(p)\]
+    
+    Since continous real valued functions on a nonempty compact metric space attain a maximum at some point, let $M_n = \sup\{g_n(p), \forall p \in E\}$. 
+    Note that the sequence $(M_n)$ converges to $0$ because the sequence of functions $(f_n)$ is monotonic increasing. That is, 
+    \[\sup\{g_n(p), \forall p \in E\} \geq \sup\{g_{n+1}(p), \forall p \in E\}\]
+    So $(M_n)$ is monotonic decreasing and bounded by zero. Note that $\underset{n\to \infty}{\lim}{M_n} =0$ since, by definition of the limit of $(f_n)$ we can get arbitrarily close to $f$. 
+
+    Then, for any $\epsilon >0$, there exists an $N$, such that  $M_n < \epsilon$, for all $n>N$, and 
+    \[d(f(p), f_n(p)) \leq M_n < \epsilon\]
+    for all $p \in E$. Hence, $(f_n)$ is uniformly continous. 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{5}
     If $E$ is a compact metric space and $p_0 \in E$ we get a real-valued function $F$ on $C(E)$ by setting $F(f) = f (p_0)$ for all $f \in C(E)$. Prove that $F$ is uniformly continuous.
 \end{problem}
+
+\begin{solution}
+    \bbni
+    
+    The space $C(E)$ is space of all real valued continous functions, with the metric \[d = \max \{|f (p) - g(p)| \,\forall p \in E\}\]
+    Note that we have 
+    \begin{align*}
+        F: C(E) &\to \R \\ 
+        f &\mapsto f(p_0) 
+    \end{align*}
+    To show that $F$ is uniformly continous we need to show that  $\forall \epsilon > 0$ there exists a $\delta >0$ such that if $f, g \in C(E)$ and $d(f, g) < \delta$ then $|f(p_0) - g(p_0)| < \epsilon$. 
+    
+    Pick $\delta = \epsilon$. Now, if $d(f, g) < \delta$, then we have 
+    \[d(f, g) = \max \{|f (p) - g(p)| \,\forall p \in E\}  < \delta = \epsilon\] 
+
+    Note that \[ |f(p_0) - g(p_0)| \leq \max \{|f (p) - g(p)| \,\forall p \in E\} < \delta = \epsilon\]
+    That is, 
+    \[ |f(p_0) - g(p_0)|  < \epsilon\]
+
+    Hence, $F$ is uniformly continous. 
+\end{solution}
 
 \end{document}

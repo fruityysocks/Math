@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    Toss a fair coin repeatedly and record the results as a sequence of heads \texttt{(H)} and tails \texttt{(T)}. A run
+    is a maximal-length sequence of consecutive heads or tails; in other words, such sequence cannot
+    be made longer by including the adjacent symbols. For example, \texttt{HHHTTTTTHTTT} is a sequence
+    containing $4$ runs \texttt{HHH, TTTTT, H,} and \texttt{TTT}.
+    \begin{enumerate}
+        \item What is the expected number of runs if we throw the fair coin n times? (Hint: There is always an alternation between two runs; can we count those instead?)
+        \item What is the expected number of runs that has length exactly $2$? (Remember a run has to be maximal in length. Unlike the example in class, here we are looking for the exact count.)
+        \item  Now suppose after $n$ coin tosses there are exactly $n/2$ heads and $n/2$ tails (assume $n$ to be an even number). In this case, what is the expected number of runs?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \bbni 
+
+    \begin{enumerate}
+        \item Note that counting the number of runs is the same as counting the number of times there is an alteration between two runs. That is the first throw is always starts a run, and every time the $i$-th flip doesn't match the $(i-1)$-th flip, a new run starts. 
+        
+        Let $X$ be the number of runs in $n$ throws of the coin, and let $X_i$ be indicator variables defined as follows, 
+        \[ X_i = \begin{cases*}
+            0 & \text{if $i$-th flip = $(i-1)$-th flip } \\ 
+            1 & \text{otherwise}
+        \end{cases*} \quad \forall i,\,  2 \leq i \leq n\]
+        That is, 
+        \[X = 1 + \sum_{i=2}^{n}X_i\]
+        The expected number of runs $X$ then is, 
+        \[E[X] = 1 + E\left[\sum_{i=2}^{n}X_i\right]\]
+        By linearity of expectations this is equivalent to, 
+        \[E[X] = 1 + \sum_{i=2}^{n}E[X_i]\]
+        The probability that the $i$-th flip is different from the $(i-1)$-th flip for a fair coin is $\frac{1}{2}$. 
+        \[E[X] = 1 + \sum_{i=2}^{n}E[X_i] = 1 + (n-1)\frac{1}{2} = \frac{n+1}{2}\]
+
+        Thus, the expected number of runs if we throw a fair coin $n$ times is $\frac{n+1}{2}$. 
+
+        \item Let $X$ denote the number of runs of length exactly $2$ in $n$ fair coin tosses. We can do this by considering each starting point. Let $i$ denote the index of the $i$-th flip. Note that 
+        \[E[X] = \sum_{i=1}^{n} E[X_i]\]
+
+        where $X_i$ is the indicator variables defined as follows, 
+        \[ X_i = \begin{cases*}
+            0 & \text{if a run of length $2$ starts at $i$ } \\ 
+            1 & \text{otherwise}
+        \end{cases*} \quad \forall i,\,  1 \leq i \leq n\]
+
+        We are looking for subsequences \texttt{THHT} and  \texttt{HTTH}. There are $n-3$ starting positions for such a run. The probability of the sequence \texttt{THHT} occuring is $1/2^4$. Similarly, the probability of \texttt{HTTH} occuring is also $1/2^4$. Since there are $n-3$ such blocks, the expected number of such runs of length $2$ is
+        \[\fr{1}{2^4} \cdot 2  \cdot (n-3)= \frac{n-3}{8}\]
+        But also, at the boundaries we don't need one of the terminating terms and the sequences  \texttt{HHT,TTH,HTT,THH} are valid. The probability of each of them is $1/2^3$, and since there are $4$ acceptable sequences, the expected number of boundary runs is 
+            \[\fr{1}{8} \cdot 4 = \frac{1}{2}\]
+
+        Then, by linearity of expectation, the expected number of runs of length exactly two is 
+        \[E[X] =  \sum_{i=1}^{n} E[X_i] = \frac{n-3}{8} + \frac{1}{2} = \frac{n+1}{8}\]
+
+        \item As in part (1), let $X$ be the number of runs in $n$ throws of the coin, and $X_i$ be indicator variables defined as follows, 
+        \[ X_i = \begin{cases*}
+            0 & \text{if $i$-th flip = $(i-1)$-th flip } \\ 
+            1 & \text{otherwise}
+        \end{cases*} \quad \forall i,\,  2 \leq i \leq n\]
+        Then (same as part (1)) we get the that the expected number of runs is, 
+        \[E[X] = 1 + \sum_{i=2}^{n}E[X_i]\]
+
+        However, note that given any sequence we can construct another valid sequence by flipping every flip. That is, the probability that the $i$-th flip is heads is equal to the probability that the $i$-th flip is tails. Without loss of generality, assume that the $i$-th flip is heads, then, among the remaining $n-1$ positions, there are $n/2$ tails and $n/2 -1$ heads. Therefore, then the probability that the $(i+1)$-th flip results in a tails is, 
+        \[\Pr(X_{i+1} = 1) = \frac{n/2}{n-1}\]
+        By symmetry, this holds even if the $i$-th flip is tails. Then the expected value of the $(i+1)$-th flip starting a new run is 
+        \[E[X_i] = \frac{n/2}{n-1}\]
+
+        Substituting in, 
+        \[E[X] = 1 + \sum_{i=2}^{n}E[X_i] = 1 + (n-1)\fr{n/2}{n-1} = 1 + \frac{n}{2} = \frac{n+2}{2}\]
+        \end{enumerate}
+
+\end{solution}
+
+
+
+
+\end{document}

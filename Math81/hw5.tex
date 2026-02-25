@@ -1,80 +1,384 @@
 \documentclass[12pt]{article}
 
 \include{../style}
+\usepackage{tikz-cd}
 
 \begin{document}
 
 \input{title}
 
+
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange.
+\vspace{.1in}
+
 \begin{problem}{1}
-Let $F$ be a field and $K/F$ and $L/F$ be subextensions of a field extension $M/F$.
+    Let $F$ be a field and $K/F$ and $L/F$ be subextensions of a field extension $M/F$.
 
-\begin{enumerate}
-\item[(a)] Prove that if $K = F(\alpha_1, \dots, \alpha_n)$ and $L = F(\beta_1, \dots, \beta_m)$ are finitely generated, then
-\[
-KL = F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m).
-\]
+    \begin{enumerate}
+        \item[(a)] Prove that if $K = F(\alpha_1, \dots, \alpha_n)$ and $L = F(\beta_1, \dots, \beta_m)$ are finitely generated, then
+        \[
+        KL = F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m).
+        \]
 
-\item[(b)] Prove that if $K/F$ and $L/F$ are finite then $KL/F$ is finite and
-\[
-[KL : F] \le [K : F][L : F],
-\]
-with equality if and only if $K/F$ and $L/F$ are linearly disjoint.
+        \item[(b)] Prove that if $K/F$ and $L/F$ are finite then $KL/F$ is finite and
+        \[
+        [KL : F] \le [K : F][L : F],
+        \]
+        with equality if and only if $K/F$ and $L/F$ are linearly disjoint.
 
-\textit{Hint.} Prove that if $x_1, \dots, x_n$ is an $F$-basis for $K$ and $y_1, \dots, y_m$ is an $F$-basis for $L$, then the products $x_i y_j$ for $1 \le i \le n$ and $1 \le j \le m$ span $KL/F$ and are an $F$-basis if and only if $K/F$ and $L/F$ are linearly disjoint.
+        \textit{Hint.} Prove that if $x_1, \dots, x_n$ is an $F$-basis for $K$ and $y_1, \dots, y_m$ is an $F$-basis for $L$, then the products $x_i y_j$ for $1 \le i \le n$ and $1 \le j \le m$ span $KL/F$ and are an $F$-basis if and only if $K/F$ and $L/F$ are linearly disjoint.
 
-\item[(c)] Prove that finite extensions $K/F$ and $L/F$ of relatively prime degree are linearly disjoint.
+        \item[(c)] Prove that finite extensions $K/F$ and $L/F$ of relatively prime degree are linearly disjoint.
 
-\item[(d)] Prove that if $K/F$ and $L/F$ are linearly disjoint then $K \cap L = F$. Find an example showing that the converse is false.
+        \item[(d)] Prove that if $K/F$ and $L/F$ are linearly disjoint then $K \cap L = F$. Find an example showing that the converse is false.
 
-\item[(e)] Prove that if $K/F$ and $L/F$ are linearly disjoint finite Galois extensions then $KL/F$ is Galois and the map
-\[
-Gal(KL/F) \to Gal(K/F) \times Gal(L/F),
-\quad
-\sigma \mapsto (\sigma|_K, \sigma|_L)
-\]
-is a group isomorphism.
-\end{enumerate}
+        \item[(e)] Prove that if $K/F$ and $L/F$ are linearly disjoint finite Galois extensions then $KL/F$ is Galois and the map
+        \[
+        Gal(KL/F) \to Gal(K/F) \times Gal(L/F),
+        \quad
+        \sigma \mapsto (\sigma|_K, \sigma|_L)
+        \]
+        is a group isomorphism.
+    \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}
+        \item [(a)]
+        \begin{itemize}
+            \item[($\Leftarrow$)] $KL \supseteq F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m)$
+        
+            Note that $KL$ is defined as the smallest subfield of $M$ containing both $L$ and $K$. That is, 
+            \[F(\alpha_1, \dots, \alpha_n) \subset KL \text{ and } F(\beta_1, \dots, \beta_m) \subseteq KL\]
+            So $KL$ contains each $\alpha_i$ and each $\beta_j$, and hence $F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m) \subseteq KL$. 
+            \bbni 
+            
+            \item [($\Rightarrow$)] $KL \subset F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m)$
+            
+            Let $E = F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m)$
+            Note that \[K = F(\alpha_1, \dots, \alpha_n) \subset E \text{ and } L = F(\beta_1, \dots, \beta_m) \subset E\]
+            
+            Since $KL$ is the smallest fields containing $K$ and $L$, and $E$ contains both $K$ and $L$, 
+            \[KL \subseteq E = F(\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_m)\] 
+
+            That is $KL = F(\alpha_1, \ldots, \alpha_n, \beta_1, \ldots, \beta_m)$. 
+        \end{itemize}
+
+
+        \item [(b)]  Let $K = (\alpha_1, \ldots, \alpha_n)$, and $L =(\beta_1, \ldots, \beta_n)$. Also note, from part (1), $KL = F(\alpha_1, \ldots, \alpha_n, \beta_1, \ldots, \beta_m)$, or equivalently $KL = L(\alpha_1, \ldots, \alpha_n)$. 
+        
+        Now, we get the following towers: 
+
+        \[
+        \begin{tikzcd}
+        K = K_{n-1}(\alpha_n) & & KL = KL_{n-1}(\alpha_n) \\
+        K_{n-1} = K_{n-2}(\alpha_{n-1}) \arrow[u, "n_n"'] & & KL_{n-1} = KL_{n-2}(\alpha_{n-1}) \arrow[u, "m_n"'] \\
+        \vdots \arrow[u, "n_{n-1}"'] & & \vdots \arrow[u, "m_{n-1}"'] \\
+        K_1 = F(\alpha_1) \arrow[u, "n_2"'] & & KL_1 = L(\alpha_1) \arrow[u, "m_2"'] \\
+        F \arrow[u, "n_1"'] & & L \arrow[u, "m_1"']
+        \end{tikzcd}
+        \]
+        where, 
+        \[[K:F] = [K: K_{n-1}]\cdot [K_{n-1}: K_{n-2}] \cdot \ldots \cdot [K_1:F]\]
+        and, 
+        \[[KL:L] = [KL: KL_{n-1}]\cdot [KL_{n-1}: KL_{n-2}] \cdot \ldots \cdot [KL_1:L]\]
+
+        Note that at each step, 
+        \[[KL_{i}: KL_{i-1}] \leq [K_{i}: K_{i-1}] \]
+        because the minimal polynomial of $\alpha_i$ over $KL_{i-1}$ divides the minimal polynomial of $\alpha_i$ over $K_{i-1}$, i.e. the degree can only decrease.  
+        Combining these inequalities (over $n$ steps) gives us, 
+
+        \[[KL: L] \leq [K: F] \]
+
+        By Tower Law, 
+        \begin{align*}
+            [KL:F] &= [KL:L][L:F] \\ 
+            \intertext{Substituting in the inequality,}
+            [KL:F] &\leq [K:F][L:F] 
+        \end{align*}
+        Hence proved. 
+
+        Now we show that $[KL:F] \leq [L:F][K:F]$ if and only if $K$ and $L$ are linearly disjoint. 
+        Let the $F$-basis for $K$ as a vector space be $\{1 = \alpha_1, \alpha_2, \ldots, \alpha_n\}$ and the $F$-basis for $L$ as a vector space be $\{1 = \beta_1, \beta_2, \ldots, \beta_m\}$. Also, let $[K:F] = n, [L:F] = m$.
+        
+
+        ($\impliedby$) 
+
+        Assume $K$ and $L$ are linearly disjoint. 
+        
+        Then in $K/F$, we know that if 
+        \[a_1 \alpha_1 + \ldots + a_n\alpha_n = 0 \qquad a_i \in F\]
+        then $a_i = 0$, for all $i$. 
+        Since $K$ and $L$ are linearity disjoint, any $F$-linearly independent subset of $K$ is $L$-linearly independent in $KL$, that is, if 
+        \[\lambda_1 \alpha_1 + \ldots + \lambda_n\alpha_n = 0 \qquad \lambda_i \in L\]
+        then $\lambda_i = 0$, for all $i$. 
+
+        As $\lambda_i \in L$ we can write it as a linear combination such that $\lambda_i = \sum_{j=1}^{k}a_j\beta_j$, where $a_j \in F$ and $\beta_j$ is in the basis, and $m$ is the size of the basis. Substituting, 
+        \[\sum_{i=1}^n\sum_{j=1}^{m}a_{ij}\beta_j \alpha_i = 0\]
+        Then, $a_{ij} = 0$, for all $ij$. By linear disjoint-ness $\lambda_i = 0$, i.e. $sum_{j=1}^{m}a_{ij}\beta_j = 0$. But by linear indepence of $\beta_i$s, $a_{ij} = 0$, and hence $\{\alpha_i \beta_j\}$ are linearly independent for all $i, j$. Since $[KL:F] \leq n \cdot m$  we have $n\cdot m$ linearly independent elements, this is a maximal linearly independent set and hence a basis for $KL/F$. That is, $[KL:F] = nm = [K:F][L:F]$. 
+
+        \bbni
+
+        ($\implies$)
+
+        Assume $[KL:F] = [K:F][L:F] = nm$. 
+
+        We want to show that the $F$-basis of $K$ is $L$-linearly independent in $KL$. Consider the set,
+        \[\{\alpha_i \beta_j : 1 \leq i \leq n, 1 \leq j \leq m\}\]
+        
+        Any element of $KL$ is an $F$-linear combination of products of elements  from $K$ and $L$, i.e. the set $\{\alpha_i\beta_j\}$ spans $KL$ over $F$.  The set has $nm$ spanning elements, and since $[KL:F] = nm$, they must in fact form a $F$-basis.
+
+        Now suppose $\sum_{i=1}^n \lambda_i \alpha_i = 0$ for some $\lambda_i \in L$. 
+        Writing $\lambda_i = \sum_{j=1}^m a_{ij}\beta_j$ with $a_{ij} \in F$, we get:
+        \[\sum_{i=1}^n\sum_{j=1}^m a_{ij}\alpha_i\beta_j = 0\]
+        Since $\{\alpha_i\beta_j\}$ is an $F$-basis, $a_{ij} = 0$ for all $i,j$, 
+        and hence $\lambda_i = 0$ for all $i$. Thus $K$ and $L$ are linearly disjoint. 
+
+
+        \item[(c)] 
+                \[
+                \begin{tikzcd}
+                & KL & \\
+                K \arrow[ur, "a"] & & L \arrow[ul, "b"'] \\
+                & F \arrow[ul, "n"] \arrow[ur, "m"'] \arrow[uu, "k"] &
+                \end{tikzcd}
+                \]
+        Note that by tower law $a\cdot n = m \cdot b$ and $an | k$, $bm |k$. If $\gcd(n,m) =1$, $k \geq nm$. Since $k \geq nm$ and $k \leq nm$ (part (2)), $k = nm$. And from part (2), we know that $[KL:F] = nm$ if and only if $K$ and $L$ are linearly disjoint. Thus, $K$ and $L$ are disjoint. 
+
+        \item[(d)] Assume $K = F(\alpha_2, \ldots, \alpha_n)$ and $L = F(\beta_2, \ldots, \beta_n)$ are linearly disjoint. Let the basis for $K$ as a vector space be $\{1, \alpha_2, \ldots, \alpha_n\}$ and the basis for $L$ as a vector space be $\{1, \beta_2, \ldots, \beta_n\}$.
+        
+        Since both $K$ and $L$ are field extensions of $F$, the fact that $F \subseteq K\cap L$ is obvious. 
+        
+        Now, consider $x \in K\cap L$. Since $x \in K$, we can write, 
+        \[x = a_1 \cdot 1 + \sum_{i=2}^{n} a_i \alpha_i  \quad a_1, a_i \in F \] 
+        and, since $x \in L$,
+        \[x = -b_1 \cdot 1 + \sum_{j=2}^{m} - b_j \beta_j \quad b_1, b_j \in F \] 
+        Then, 
+        \begin{align*}
+        a_1 \cdot 1 + \sum_{i=2}^{n} a_i \alpha_i  + b_1 \cdot 1 + \sum_{i=2}^{m} b_j \beta_j &= 0 \\ 
+        (a_1 + b_1) \cdot 1 + \sum_{i=2}^{n} a_i \alpha_i   + \sum_{j=2}^{m} b_j \beta_j &= 0 \\ 
+        \end{align*}
+        We know that $1, \alpha_i, \beta_j$ are linearly independent (part (2)). Then, for all $i \in \{2, \ldots, n\}$ and $j \in \{2, \ldots, m\}$
+        \[ a_1 + b_1 = a_i = b_j = 0\] 
+        That implies, 
+        \[\sum_{i=2}^{n} - a_i \alpha_i = 0 \text{ and } x = a_1 \cdot 1\] 
+        And,
+        \[\sum_{j=2}^{m} - b_j \beta_j = 0 \text{ and } x = b_1 \cdot 1\] 
+        But $a_1, b_1 \in F$, i.e. $x \in F$. Since $x$ was an arbitary element in $K\cap L$, this proves the opposite containment.  
+        \[K \cap L \subseteq F\]
+        
+        Hence, 
+        \[K \cap L = F\]
+        
+        \textbf{CounterExample:}
+
+        Let $F = \Q, K = \Q(\sqrt[3]{2}), L=\Q(\omega\sqrt[3]{2})$. Then, $K\cap L = F = \Q$. But $[K:F] = 3, [L:F] = 3$ but $[KL:F] = 6 \neq 9$. Hence they are not linearly disjoint.
+
+        \item[(e)] Assume $K/F$ and $L/F$ are linearly disjoint finite Galois extensions. 
+        
+        Since $K/F$ is Galois, $K$ is the splitting field of some irreducible separable $f(x) \in F[x]$. Similarly, $L$ is the splitting field of some irreducible seperable $g(x) \in F[x]$. Also, since $K$ and $L$ are linearly disjoint (part (d)), $K \cap L = F$, i.e. $f, g$ don't share roots.   
+        
+        Now, consider the seperable polynomial $fg(x) \in F[x]$. Let it's splitting field be $R$. We want to show that $R = KL$. 
+
+        The containment $R \subseteq KL$ is obvious, since the respective splitting fields of $f$ and $g$ are subfields of $KL$. 
+        
+        Note that $f(x)$, and $g(x)$ split over $R$. By minimality of splitting fields, $K \subset R$ and $L \subset R$. But $KL$ is the smallest field containing both $K$ and $L$, i.e. $KL \subset R$. 
+
+        Hence, $R=KL$. Since $KL$ is the splitting field of a separable irreducible polynomial over $F[x]$, it is Galois. 
+
+        Now consider the map 
+        \begin{align*}
+            \phi: Gal(KL/F) &\to Gal(K/F) \times Gal(L/F) \\ 
+                \sigma &\mapsto (\sigma|_K, \sigma|_L)
+        \end{align*}
+        
+        Let $[K:F] = |Gal(K/F)| = n, [L:F] = |Gal(L/F)| = m$, that is $Gal(K/F) \times Gal(L/F) = nm$. Also note that since $K$ and $L$ are linearly disjoint, part (b) gives us \[[KL:F]  = nm = Gal(KL/F)\]
+
+        Note that $\phi$ is a homomorphism because for any $\sigma_a, \sigma_b \in Gal(KL/F)$, 
+        \begin{align*}
+            \phi(\sigma_a \circ \sigma_b) &= ((\sigma_a \circ \sigma_b)|_K,\ (\sigma_a \circ \sigma_b)|_L) \\
+            &= (\sigma_a|_K \circ \sigma_b|_K,\ \sigma_a|_L \circ \sigma_b|_L) \\
+            &= (\sigma_a|_K, \sigma_a|_L) \cdot (\sigma_b|_K, \sigma_b|_L) \text{\quad (componentwise multiplication)}\\ 
+            &= \phi(\sigma_a) \cdot \phi(\sigma_b)
+        \end{align*}
+
+        Let $\sigma \in \ker(\phi)$. Then, 
+        \begin{align*}
+            \phi(\sigma) &= (\sigma|_K,\ \sigma|_L)  = (id_K, id_L)
+        \end{align*}
+        That is, $\sigma|_K = \text{id}_K$ and $\sigma|_L = \text{id}_L$, meaning $\sigma$ fixes every element of $K$ and every element of $L$. Since every element of $KL$ is a product of elements from $K$ and $L$ (part (b)), $\sigma$ fixes all of $KL$, so $\sigma = \text{id}_{KL}$ and $\ker\phi$ is trivial.
+        An injective homomorphism between groups of the same size is surjective, and hence $\phi$ is a group isomorphism.
+
+    \end{enumerate}
+\end{solution}
+
+\newpage
 
 \begin{problem}{2}
-Let $K/F$ be a finite extension of fields and $f(x) \in F[x]$ an irreducible polynomial of degree $n$.
+    Let $K/F$ be a finite extension of fields and $f(x) \in F[x]$ an irreducible polynomial of degree $n$.
 
-\begin{enumerate}
-\item[(a)] Prove that if $n$ does not divide $[K : F]$ then $f(x)$ has no roots in $K$.
+    \begin{enumerate}
+        \item[(a)] Prove that if $n$ does not divide $[K : F]$ then $f(x)$ has no roots in $K$.
 
-\item[(b)] Prove that if $n$ is relatively prime to $[K : F]$ then $f(x)$ is irreducible over $K$.
-\end{enumerate}
+        \item[(b)] Prove that if $n$ is relatively prime to $[K : F]$ then $f(x)$ is irreducible over $K$.
+    \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item  Let $\alpha$ be a root to a minimal polynomial $f(x)$ then the extension \[[F(\alpha): F] = \deg(m_{\alpha/F}(x)) = n\] If some root $\alpha \in K$ then $F(\alpha) \subset K$. Then by tower law, \[[K:F(\alpha)][F(\alpha):F] = [K:F] \implies [F(\alpha):F] \big | [K:F]\] 
+        
+        But we know that $n \nmid [K:F]$, that is there are no elements of degree $n$ over $F$ in $K$ and hence no roots of $f(x) \in K$
+
+        \item Assume that $\gcd(n, [K:F]) = 1$, and $f(x)$ is irreducible over $F$. 
+        
+        We will prove this by contradiction. 
+        
+        Assume $f(x)$ is not irreducible over $K$. Then it splits into some irreducible polynomials $g_i(x) \in K[x]$ such that $f(x) = \prod g_i(x)$. 
+        Consider one such $g(x)$ over $K$. Let the degree of this polynomial be $d$, since $g(x)$ is irreducible over $K$ it is the minimal polynomial for some root $\alpha$. Then, 
+        
+        \[[K(\alpha) : K] = d\]
+
+        And since $f(x)$ is irreducible over $F$,
+        \[[F(\alpha) : F] = n\]
+
+        Since $F \subseteq F(\alpha) \subseteq K(\alpha)$ and $F \subseteq K \subseteq K(\alpha)$, 
+        applying the Tower Law twice gives:
+        \begin{align*}
+        [K(\alpha):F] &= [K(\alpha):K][K:F] = d\cdot[K:F] \\
+        [K(\alpha):F] &= [K(\alpha):F(\alpha)][F(\alpha):F] = [K(\alpha):F(\alpha)]\cdot n
+        \end{align*}
+        Hence $n \mid d\cdot[K:F]$. Since $\gcd(n,[K:F])=1$, 
+        \[n \mid d\]
+        But since $g(x) \mid f(x)$, we have $d \leq n$, and so $d = n$. Hence $f(x) = g(x)$ 
+        up to scalar multiples, i.e. $f(x)$ is irreducible over $K$.
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{3}
-Let $F$ be a field, $f(x)$ a polynomial of degree $n$ over $F$ with splitting field $E/F$.
+    Let $F$ be a field, $f(x)$ a polynomial of degree $n$ over $F$ with splitting field $E/F$.
 
-\begin{enumerate}
-\item[(a)] Let $K/F$ be a subextension of $E/F$. Prove that $E/K$ is a splitting field of $f(x)$ considered as a polynomial over $K$.
+    \begin{enumerate}
+        \item[(a)] Let $K/F$ be a subextension of $E/F$. Prove that $E/K$ is a splitting field of $f(x)$ considered as a polynomial over $K$.
 
-\item[(b)] Prove that $[E : F]$ divides $n!$.
+        \item[(b)] Prove that $[E : F]$ divides $n!$.
 
-\textit{Hint.} Use induction on $n$, and deal with the cases of $f$ reducible or irreducible separately. At some point you will need the fact that $a! b!$ divides $(a+b)!$, which you should also prove (or have already proved in Math 71).
-\end{enumerate}
+        \textit{Hint.} Use induction on $n$, and deal with the cases of $f$ reducible or irreducible separately. At some point you will need the fact that $a! b!$ divides $(a+b)!$, which you should also prove (or have already proved in Math 71).
+    \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item Let $F \subset K \subset E$, where $E = F(\alpha_1, \ldots, \alpha_n)$ where $\alpha_1, \ldots, \alpha_n$ are the $n$ roots of $f(x)$, and let $E'$ be the splitting field of $f(x) \in K[x]$
+        
+        Consider $f(x) \in K[x]$. Since $F \subset K$, and  $\alpha_1, \ldots, \alpha_n \in E$, $f(x)$ considered as a polynomial over $K$ definitely splits over $E$. That is, 
+        \[E' \subseteq E\]
+        
+        Also, by definition, $E' = K(\alpha_1, \ldots, \alpha_n)$. Since $F \subset K, F(\alpha_1, \ldots, \, \alpha_n) \subset K(\alpha_1, \ldots, \alpha_n)$. Then, by minimality of splitting fields we can seee $E \subseteq E'$.
+        
+        Together, these inclusions give, $E'=E$. Hence, $E/K$ is the splitting field of $f(x)$ as a polynomial over $K$. 
+
+
+        
+        \item We will prove that $[E:F]$ divides $n$ by induction. Let $[E:F] = m$. 
+        
+        \textbf{Base Case:} $n=1$. 
+
+        Consider a linear polynomial $f(x)$ over $F$. Its splitting field $E = F$, 
+        \[f(x) = x - \alpha  \implies f(\alpha) = 0\]
+        That is, $[E:F] = 1$ and $1 | 1!$. Hence base case holds. 
+
+
+        \textbf{Inductive Hypothesis:} Assume that the degree of the splitting field of polynomials with degree $x < n$ divides $x!$. 
+
+        \textbf{Inductive Step:} For a polynomial $f(x) \in F[x]$ of degree $n$ with splitting field $E$, there are two scenarios we must consider. 
+        \begin{enumerate}
+            \item $f(x)$ is irreducible over $F$. 
+            
+            Let $\alpha$ be a root of $f(x)$. So, 
+            \[[F(\alpha) : F ]= n\]
+
+            In $F(\alpha)$, we have $f(x) = (x - \alpha )g(x)$, where $\deg(g(x)) = n -1$. By tower law, 
+
+            \[[E:F] = [E:F(\alpha)][F(\alpha): F]\]
+
+            The splitting field of $g(x)$ over $F(\alpha)$ is $E$, and by IH 
+            \[[E:F(\alpha)] \big | (n-1)!\]
+
+            Note that $(n-1)! n \big | n!$.
+            
+            \item $f(x)$ is not irreducible over $F$. 
+            
+            Then $f(x) = g(x)h(x)$ for some $g(x), h(x) \in F[x]$. Note that both $g(x)$ and $h(x)$ have degree less than $n$. Let $\deg(g(x)) = a, \deg(h(x)) = b$, where $a+b = n$. Let $E_g$ be the splitting field of $g$, then $E$ is the splitting field of $h(x)$ over $E_g$.
+            By tower law, 
+            \[[E:F] = [E:E_g][E_g:F]\]
+            
+            By inducton hypothesis, $[E_g:F] \big | a!$ and $[E:E_g] \big |b!$. We need to show that $a!b! \big | n! = (a+b)!$. 
+
+            Recall from Group Theory, that $|S_a| = a!, \, |S_b| = b!$, and $|S_n| = n! = (a+b)!$. Moreover, note that  $S_a \times S_b \hookrightarrow S_{a+b}$ is an injective  group homomorphism, so $S_a \times S_b$ is isomorphic to a subgroup of $S_{a+b}$.  By Lagrange's Theorem: 
+            
+            \[|S_a \times S_b| \,\big |\, |S_{a+b}|\] 
+            \[a!\,b! \mid (a+b)!\]
+
+
+
+        %    \[
+        %     \begin{tikzcd}
+        %     E \arrow[dd, bend left, "m/n"] \\
+        %     \vdots \arrow[u] \\
+        %     E_1 = F(\alpha_1) \arrow[u] \\
+        %     F \arrow[u, "n"'] \arrow[uuu, bend right =70, "m"']
+        %     \end{tikzcd}
+        %     \]
+        \end{enumerate}
+        Hence, the hypothesis holds. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{4}
-Let $K/F$ be a Galois extension with Galois group isomorphic to $C_2 \times C_{12}$. How many subextensions $K/M/F$ are there satisfying:
+    Let $K/F$ be a Galois extension with Galois group isomorphic to $C_2 \times C_{12}$. How many subextensions $K/M/F$ are there satisfying:
 
-\begin{enumerate}
-\item[(a)] $[K : M] = 6$
+    \begin{enumerate}
+    \item[(a)] $[K : M] = 6$
 
-\item[(b)] $[M : F] = 6$
+    \item[(b)] $[M : F] = 6$
 
-\item[(c)] $Gal(K/M) \cong C_6$
+    \item[(c)] $Gal(K/M) \cong C_6$
 
-\item[(d)] $Gal(M/F) \cong C_6$
-\end{enumerate}
+    \item[(d)] $Gal(M/F) \cong C_6$
+    \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni 
 
+    We know from FTGT that for extensions of the form $K/M/F$, and the subgroup $H$ of the Galois Group $G \isom C_2 \times C_{12}$ that corresponds to the fixed field $M = K^H$ the following hold, 
+        \begin{enumerate}
+            \item $[K:M] = |H|$
+            \item $[M:F] = [G:H]$
+            \item $Gal(K/M) \cong H$
+            \item $Gal(M/F) \cong G/H$
+        \end{enumerate}
+    Also note that since $C_2 \times C_{12}$ is abelian $M/F$ is Galois.
 
-
-
+    \begin{enumerate}
+        \item [(a)] $3$. 
+        Then, the number of subextensions satisfying $[K:M] = 6$ is equal to the number of subgroups of size $6$. There are $3$ such subgroups $\langle (1, 2) \rangle, \langle  (0, 2) \rangle,  \langle (1,4) \rangle$ and thus, $3$ such subextensions. 
+        
+        \item[(b)] $3$. 
+        The number of extensions satisfying $[M:F] = 6$ is equal to the number of subgroups of index $6$ (order $4$). These are also $3$ in number, namely, $\langle (0, 3) \rangle, \langle (1, 3) \rangle, \langle (1, 0), (0, 6) \rangle$
+        
+        \item[(c)] $3$. The number of subextensions satisfying $Gal(K/M) \cong C_6$ is equal to the number of cyclic subgroups of order $6$ (since $C_2 \times C_3 \isom C_6$), which is $3$ (part (a)). 
+        
+        \item[(d)] $3$. The number of subextensions satisfying $Gal(K/M) \cong C_6$ is equal to the number of cyclic subgroups with index $6$ (order 4) (also recall, $C_2 \times C_3 \isom C_6$), which is $3$ (part (b)). 
+    \end{enumerate}
+\end{solution}
 \end{document}

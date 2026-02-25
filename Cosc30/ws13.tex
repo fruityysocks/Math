@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    There are many rooms in an art museum and hallways connecting one room to another. A guard standing in a room can see all the hallways connecting to the room, but not beyond. Put a minimum number of guards in the rooms so that all the hallways are guarded.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Define an undirected graph $G$ as follows: 
+    \begin{itemize}
+        \item Let the vertex set $V(G)$ contain all the rooms in the art museum. 
+        \item Create an edge in edge set $E(G)$ between two vertices if the corresponding two rooms are connected directly by a hallway. 
+    \end{itemize}
+    The problem to solve on the constructed graph is to find the smallest number of vertices $V_s(G)$ that touch all the edges. That number is the number of gaurds we need. 
+\end{solution}
+\bbni
+
+\begin{problem}{2}
+    Everyone in the class of COSC 30 has their preferred TAs (there might be multiple) and only goes to their office hours. Find a way to arrange all students into TA office hours so that every student joins with one of their preferred TAs, and every TA office hours have the same size. (We assume that the number of TAs divides the number of students.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Define a directed graph $G$ as follows: 
+    \begin{itemize}
+        \item Create a vertex set $V(G)$ with two subsets: $V_S(G) \subset V(G)$ consisting of all the students, and $V_{TA}(G) \subset V(G)$ consisting of all the TAs. 
+        \item Create an edge in edge set $E(G)$ between vertices $s$ and $t$ if a TA $t\in V_{TA}(G)$ is a preferred TA of a student $s \in V_S(G)$ (directed from $s$ to $t$). 
+    \end{itemize}
+    The problem to solve on the constructed graph is to find a subgraph such that a student is matched only to one TA and every TA is matched to $k$ students, where $k$ is the number of students divided by the number of TAs.  
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+    Lights Out is an electronic game that has an array of $5 \times 5$ push buttons that light up. Pushing a button toggles its light and the light of all the neighboring buttons. The game starts with all the lights on. Find a way to turn off all the lights through a sequence of button pushing.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+     Define an undirected graph $G$ as follows: 
+    \begin{itemize}
+        \item Create a vertex set $V(G)$ containing all the possible configurations ($2^{25}$ in number) of the game. 
+        \item Create an edge in edge set $E(G)$ between two vertices if the corresponding configurations differ by exactly one button push.
+    \end{itemize}
+    The problem to solve on the constructed graph is to find a path that goes from the configuration with all lights on to the configuration with all lights off. 
+\end{solution}
+
+\bbni
+
+\begin{problem}{$\star$4}
+    There are $n$ houses in the Upper Valley area that need cellphone signals. The coverage area of each cell tower is approximately a disk, all with a fixed radius. Find the minimum number of cell towers needed to cover every single house in the Upper Valley. [Hint: Not so fast; the possible locations for the cell towers is infinite. What to do?]
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let the radius of the coverage area of cell towers be $r$. Define an undirected graph $G$ as follows: 
+    \begin{itemize}
+        \item Create a vertex set $V(G)$ containing the $n$ houses in the Upper Valley area. 
+        \item Create an edge in edge set $E(G)$ between two vertices if the corresponding houses are within distance $r$ of each other. 
+    \end{itemize}
+    The problem to solve on the constructed graph is to pick the smallest subset $S$ of $V(G)$ such that the set of neighbourhoods of these vertices plus the set $S$ is a cover of $V(G)$. This does however significantly reduce the number of possible locations, because there could be towers centered between two houses that would form a smaller subset. 
+\end{solution}
+
+\end{document}
