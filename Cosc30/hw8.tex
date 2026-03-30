@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    \textbf{Hidden surface removal.}
+
+    At the dawn of 3D computer graphics, the Painter’s Algorithm is a technique used to determine the order in which polygons should be drawn on the screen to correctly handle visibility. The algorithm is inspired by the way a painter creates a painting—by painting distant objects first and then layering closer objects on top.
+
+    Start with a collection of triangles in 3D space, where every triangle is assumed to be flat and represented using the three extreme points each as a 3D vector. For example, a point $p$ is recorded as $(p.x, p.y, p.z)$. The algorithm follows these steps:
+
+    \begin{enumerate}
+        \item \textbf{Sorting by depth.} Each triangle is assigned a depth value. A common approach is to use the maximum $z$-coordinate of the triangle, $\max\{p.z, q.z, r.z\}$. The triangles are then sorted from back to front based on their depth values.
+        
+        \item \textbf{Rendering in order.} After sorting, polygons are drawn sequentially in the scene based on the depth, starting with the farthest and ending with the nearest. This ensures that closer triangles naturally obscure farther ones due to overdraw.
+    \end{enumerate}
+
+    One obvious issue is that the algorithm assumes that depth sorting establishes a valid rendering order. In cases where polygons do not have a strict ordering (for example, consider four polygons that overlap each other cyclically, like a basket weaving pattern), additional techniques such as splitting the polygons are required.
+
+    For this question, suppose every pair of overlapping triangles in the scene are non-interleaving, meaning that the minimum $z$-coordinate of one triangle is larger than the maximum $z$-coordinate of the other. Prove that under this condition, the depth-based ordering used in the Painter’s Algorithm always produces a valid sequence with no cycles in visibility relationships.
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    
+    Let $G$ be directed graph defined as follows: 
+    \begin{itemize}
+        \item Let the vertex set $V(G)$ contain all the triangles.
+        \item Create a directed edge in the edge set $E(G)$ between two vertices $u \to v$ if $\max z(u) < \min z(v)$. That is $u$ must be drawn before $v$.
+    \end{itemize}
+    
+    Suppose there is a directed path $u \to v \to w$. Then
+    \[\max z(u) < \min z(v) \le \max z(v) < \min z(w),\]
+    which implies
+    \[\max z(u) < \min z(w).\]
+    Thus the $z$-coordinates strictly increase along directed edges.
+    
+    Now assume for contradiction that there exists a directed cycle
+    \[v_1 \to v_2 \to \cdots \to v_k \to v_1.\]
+    From the definition of edges we obtain
+    \[\max z(v_1) < \min z(v_2) \le \max z(v_2) < \min z(v_3) \le \cdots < \min z(v_1),\]
+    which implies
+    \[\max z(v_1) < \min z(v_1),\]
+    a contradiction.
+    
+    That is, $G$ contains no directed cycles, and the elimination order produces a valid sequence without cycles in visibility relationships. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    A tournament can be constructed by directing every edge arbitrarily in an undirected complete graph (where every pair of vertices has an edge).
+
+    \begin{enumerate}
+        \item[(a)] Prove that given a tournament $G$, either $G$ is a dag, or there is a directed cycle of length $3$ in $G$.
+        
+        \item[(b)] Prove that given a tournament $G$, there is always a directed path passing through every single vertex in $G$.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{3} \textbf{Collection of shortest paths.}
+
+    Let $G$ be an undirected graph with weights on the edges, with a given set of vertices $v_1, \dots, v_k$ as terminals, and another given vertex $r$ as the root. In addition, we assume that there is exactly one unique shortest path between every two vertices in $G$. (We emphasize that there might still be many paths between a pair of vertices; only the shortest path between the two is unique.)
+
+    \begin{enumerate}
+        \item[(a)] Consider the graph formed by taking the union of every shortest path $P_i$ from terminal $v_i$ to $r$, denoted as 
+        \[
+        H := \bigcup_i P_i.
+        \]
+        If we direct the edges on each path $P_i$ from the terminal $v_i$ to the root $r$, we turn $H$ into a directed graph, called $\vec{H}$. Prove that every node in $\vec{H}$ has out-degree at most one.
+        
+        \item[(b)] Prove that the collection of shortest paths between $r$ and every $v_i$ forms a tree in $G$. In other words,
+        \[
+        \bigcup_i P_i
+        \]
+        is a tree.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item Note that if $P_i$ is the shortest path from $v_i$ to $r$, then every subpath of $P_i$ is also a shortest path. 
+        
+        Assume for the sake of contradiction that there exist a node $n \in \vec{H}$ with out-degree $> 1$. Then there exist paths $P_i, P_j \in \vec{H}$ such that 
+        \[v_i \to \cdots \to n \to n_1 \to \cdots \to r, \qquad v_j \to \cdots \to n \to n_2 \to \cdots \to r\]
+        where $n_1 \neq n_2$. But since subpaths of shortest paths are also shortest paths, the paths 
+        \[n \to n_1 \to \cdots \to r \qquad n \to n_2 \to \cdots \to r\]
+        are both shortest paths from $n$ to $r$. Because $n_1 \neq n_2$, these paths are distinct, which contradicts the assumption that there is a unique shortest path between every pair of vertices in $G$. Therefore every node in $\vec{H}$ has out-degree at most one.
+
+        \item To show that $H = \underset{i}{\bigcup} P_i$ is a tree, we need to show that it is connected and acyclic. 
+        \begin{enumerate}
+            \item Connected: Since every path $P_i$ connects $v_i$ to $r$, all vertices in $H$ have a path to $r$. Hence $H$ is connected.
+            \item Acyclic: Since $H$ is the collection of shortest paths $P_i$ by definition no cycles exist in any $P_i$. And if two paths $P_i$ and $P_j$ intersect at some node $n$, then from part (a) we know that there is one unique outgoing path towards $r$, and both $P_i$ and $P_j$ must follow this path, and since they follow the shortest path from $n$ to $r$ and don't diverge again. Therefore the union of the paths cannot contain a cycle.
+        \end{enumerate}
+
+         \[
+        \begin{tikzcd}
+        v_i \arrow[r] & \cdots \arrow[dr] & {}  & {}\\
+        {} & {} & n \arrow[r] & \cdots \arrow[r] & r\\
+        v_j \arrow[r] & \cdots \arrow[ur] & {}  & {}\\
+        \end{tikzcd}
+        \]
+ 
+
+        Hence, $H$ is a tree. 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

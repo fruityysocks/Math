@@ -1,0 +1,511 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+\usepackage{tikz-cd}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Sair Shaikh and Stack Overflow.
+
+
+% \begin{problem}{1}
+%     For $n \ge 0$, let $\phi_n = \zeta_{2^{n+2}}$ and $\xi_n = \phi_n + \phi_n^{-1}$. Let $K_n = \mathbb{Q}(\phi_n)$ and $K_n^+ = \mathbb{Q}(\xi_n)$.
+
+%     \begin{enumerate}
+%     \item[(a)] Prove that $[K_n : K_n^+] = 2$ and $[K_n^+ : \mathbb{Q}] = 2^n$. You may use the fact that $[K_n : \mathbb{Q}] = 2^{n+1}$.
+
+%     \item[(b)] Determine the quadratic equation that $\phi_n$ satisfies over $K_n^+$ in terms of $\xi_n$.
+
+%     \item[(c)] Prove that $\xi_{n+1}^2 = 2 + \xi_n$, and hence that
+%     \[
+%     \xi_n =
+%     \sqrt{\,2 + \sqrt{\,2 + \sqrt{\cdots + \sqrt{2}}}}
+%     \]
+%     where there are $n$ nested square roots. This provides an explicit presentation for the
+%     $2$-power roots of unity, showing that they are constructible (which we already knew).
+
+%     \item[(d)] Prove that $K_n/\mathbb{Q}$ is Galois with group $(\mathbb{Z}/2^{n+2}\mathbb{Z})^\times$ and that $K_n^+/\mathbb{Q}$ is Galois with group cyclic of order $2^n$. \textbf{Hint:} Recall the isomorphism
+%     \[
+%     (\mathbb{Z}/2^{n+2}\mathbb{Z})^\times \cong C_2 \times C_{2^n},
+%     \]
+%     where $C_m$ is a (multiplicatively written) cyclic group of order $m$.
+%     \end{enumerate}
+% \end{problem}
+
+% \begin{solution}
+%     \bbni
+%     \begin{enumerate}
+%         \item [(a)] Note that $[K_n: \Q] = 2^{n+1}$, and $K_n^+ \subset K_n$ since 
+%         \begin{align*}
+%             \xi_n &= \phi_n + \phi_n^{-1} \\ 
+%             &= \zeta_{2^{n+2}} + \zeta_{2^{n+2}}^{-1} \\ 
+%             &= \zeta_{2^{n+2}} + \zeta_{2^{n+2}}^{2^{n+2} - 1} \in K_n 
+%         \end{align*}
+%         Moreover note that $K_n^+ \subset \R$ since  
+%          \begin{align*}
+%             \xi_n &= \phi_n + \phi_n^{-1} \\ 
+%             &= \zeta_{2^{n+2}} + \zeta_{2^{n+2}}^{-1} \\ 
+%             &= \cos\fr{\pi}{2^{n+1}} + i\sin\fr{\pi}{2^{n+1}} + \left (\cos\fr{\pi}{2^{n+1}} - i\sin\fr{\pi}{2^{n+1}}\right ) \\ 
+%             &= 2\cos\fr{\pi}{2^{n+1}}
+%         \end{align*}
+%         and $\cos$ is a real valued function. 
+%         Then we have, 
+%         \[
+%         \begin{tikzcd}
+%         K_n = \Q(\phi_n) \\
+%         K_n^+ = \Q(\xi_n) \arrow[u]\\
+%         \Q \arrow[u] \arrow[bend left= -70, swap]{uu}{2^{n+1}}
+%         \end{tikzcd}
+%         \]
+
+%         Note that $i = \zeta_4 \in K_n$ for all $n$ since $(\phi_n)^{2^n} = i$, but $i \notin K_n^+$ since it is a real field. So, the field extension $[K_n:K_n^+] \geq 2$. And since $|phi_n \notin K_n^+$, ($\phi_n$ is a complex number) $[K_n:K_n^+] \leq 2$. 
+        
+        
+%         That is we have $[K_n:K_n^+] \geq 2$ and $[K_n:K_n^+] \leq 2$, $[K_n:K_n^+] = 2$.
+
+%         Then by Tower Law, $[K_n^+:\Q] = [K_n:\Q]/ [K_n:K_n^+]  = 2^{n+1} /2 = 2^n$. 
+%     \end{enumerate}
+% \end{solution}
+
+\begin{problem}{2}
+    Let $p$ be an odd prime number, $\zeta = \zeta_p$, and $K = \mathbb{Q}(\zeta)$. We know that $K/\mathbb{Q}$ is a Galois extension with (cyclic) group $G \cong (\mathbb{Z}/p\mathbb{Z})^\times$ and let $\sigma \in G$ be a generator. Let $H \subset G$ be the unique subgroup of index $2$. Define
+    \[
+    \eta_0 = \sum_{\tau \in H} \tau(\zeta),
+    \qquad
+    \eta_1 = \sum_{\tau \in G \setminus H} \tau(\zeta).
+    \]
+    These are called the periods of $\zeta$ with respect to $H$.
+
+    \begin{enumerate}
+    \item[(a)] Prove that $\sigma(\eta_0) = \eta_1$ and $\sigma(\eta_1) = \eta_0$ and that
+    \[
+    \eta_0 = \sum_{\substack{a \text{ square}}} \zeta^a,
+    \qquad
+    \eta_1 = \sum_{\substack{a \text{ nonsquare}}} \zeta^a,
+    \]
+    where the sums are taken over the set of squares and nonsquares, respectively, in $(\mathbb{Z}/p\mathbb{Z})^\times$.
+
+    \item[(b)] Prove that $\eta_0 + \eta_1 = -1$, and more generally, that
+    \[
+    \sum_{\tau \in G} \tau(\zeta^a) = -1
+    \]
+    for any $a$ with $p \nmid a$.
+
+    \item[(c)] Let
+    \[g = \sum_{i=0}^{p-1} \zeta^{i^2}\]
+    be the classical Gauss sum. Prove that
+    \[g = \sum_{i=0}^{p-2} (-1)^i \sigma^i(\zeta) = \eta_0 - \eta_1.\]
+
+    \item[(d)] Prove that $\tau(g) = g$ if $\tau \in H$ and $\tau(g) = -g$ if $\tau \in G \setminus H$. Conclude, using the Galois correspondence, that $[\mathbb{Q}(g) : \mathbb{Q}] = 2$. Also conclude that $\overline{g} = g$ if $-1$ is a square modulo $p$ and that $\overline{g} = -g$ if $-1$ is not a square modulo $p$, where the overline is complex conjugation. Hint. For the last part, recall that inversion is the same as complex conjugation for any root of unity.
+
+    \item[(e)] Prove that $g\overline{g} = p$. Hint. Transform $g\overline{g}$ to the double sum
+    \[
+    \sum_{k=0}^{p-2} (-1)^k
+    \sum_{j=0}^{p-2} \sigma^j\!\left(\frac{\sigma^k(\zeta)}{\zeta}\right),
+    \]
+    then use part (b).
+
+    \item[(f)] Prove that $g^2 = (-1)^{(p-1)/2} p$.
+
+    \item[(g)] Finally, conclude that
+    \[
+    \mathbb{Q}\!\left(\sqrt{(-1)^{(p-1)/2} p}\right)
+    \]
+    is the unique quadratic subfield of $\mathbb{Q}(\zeta_p)/\mathbb{Q}$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Note that we know that the set of non-zero squares form an index two subgroup of $\F_p^\times$ (from HW2, Problem $1.5$), and $(\Z/p\Z)^\times \isom \F_p^\times$. Hence $H$ must be isomorphic to this subgroup. 
+
+    \begin{enumerate}
+        \item [(a)]           
+        Let $\sigma$ be a generator for $G$. Since $H$ is the subgroup formed by non-zero squares in $G$, it's elements are of the form $\sigma^{2n}$, where $n \in \{1, \cdots, \frac{p-1}{2}\}$, that is they are even powers of $\sigma$. So, $\forall \tau \in H$, $\sigma \tau  = \sigma ^{2n + 1} \notin H$. Hence, 
+        \[\sigma(\eta_0) =  \underset{\tau \in H}{\sum}{\sigma(\tau(\zeta))} =\underset{\tau \in G \setminus H}{\sum}{\tau(\zeta)} = \eta_1 \]
+        And similarly, any element $\tau$ in $G \setminus H$ is an odd powers of $\sigma$. Then $\sigma \tau$ is an even power (odd + 1). Hence, $\sigma \tau \in H$, 
+        \[\sigma(\eta_1) =  \underset{\tau \in G \setminus H}{\sum}{\sigma(\tau(\zeta))} =\underset{\tau \in H}{\sum}{\tau(\zeta)} = \eta_0 \]
+
+        Moreover since $G \isom (\Z/p\Z)^\times$, each $\tau \in G$ corresponds to some $a \in (\Z/p\Z)^\times$. Since $\sigma$ is a generator, let $\tau = \sigma_a$ and we have $\tau(\zeta) = \zeta^a$. And as we already said $H$ has squares, and $G\setminus H$ doesn't. Hence, 
+        \[
+        \eta_0 = \sum_{\substack{a \text{ square}}} \zeta^a,
+        \qquad
+        \eta_1 = \sum_{\substack{a \text{ nonsquare}}} \zeta^a,
+        \]
+
+        \item [(b)] Note that if $p \nmid a$ then $\zeta^a$ is not $1$. Then, 
+        \begin{align*}
+            \underset{\tau \in G}{\sum} \tau (\zeta^a) = \underset{b \in (\Z/p\Z)^\times}{\sum} (\zeta^a)^b = \underset{b \in \{1, \ldots, p-1\}}{\sum} \zeta^{ab} 
+        \end{align*}
+        Since $p \nmid a$, multiplication by $a$ is a bijection on $(\Z/p\Z)^\times$. That is as $b$ ranges over $\{1, \ldots, p-1\}$ so does $ab \pmod p$. Hence we can write, 
+        \begin{align*}
+            \underset{\tau \in G}{\sum} \tau (\zeta^a) = \underset{b \in \{1, \ldots, p-1\}}{\sum} \zeta^{ab}  = \sum_{c = 1}^{p-1}\zeta^{c} = \zeta \frac{\zeta^{p-1} - 1}{\zeta-1} = \frac{1-\zeta}{\zeta - 1} = -1
+        \end{align*}
+        Moreover $\eta_0 + \eta_1 = -1$, when $a =1$ (because they iterate over $H$ and $G \setminus H$, and hence all of $G$). 
+
+        \item [(c)] 
+        \begin{enumerate}
+            \item[(i)]  Let $g = \sum_{i=0}^{p-1} \zeta^{i^2}$. Note that as $i$ cycles through $\{1, \ldots, p-1\}$, $i^2$ cycles through every square in that range twice. Hence, 
+
+                \begin{align*}
+                    g &= \sum_{i=0}^{p-1} \zeta^{i^2} \\ 
+                    &= \zeta^{0^2} + 2 \sum_{a \text{ square}}^{p-1} \zeta^{a}\\ 
+                    &= 1 + 2 \eta_0
+                \end{align*}
+                From part (b) we know $\eta_0 + \eta_1 = -1$, that is $-(\eta_0 + \eta_1) = 1$. 
+                \begin{align*}
+                    g &= 1 + 2 \eta_0 = -\eta_0 - \eta_1 + 2 \eta_0 = \eta_0 - \eta_1
+                \end{align*}
+        
+        
+        \item[(ii)] 
+        
+        From part (a) we know that $\eta_0$ is the sum of elements in $G$ that are even powers of the generator $\sigma$ applied to $\zeta$, and $\eta_1$ is the sum of elements in $G$ that are odd powers of the generator $\sigma$ applied to $\zeta$. That is, 
+            \begin{itemize}
+                \item Even Powers: $\sigma^0, \, \sigma^2, \ldots, \sigma^{p-3}$, so $i = 0, 2, \ldots, (p-3)/2$.
+                \item Odd Powers: $\sigma^1, \, \sigma^3, \ldots, \sigma^{p-2}$, so $i = 1, 3, \ldots, (p-1)/2$.
+            \end{itemize}
+            So we can write, 
+            \begin{align*}
+                \sum_{i=0}^{(p-3)/2} (-1)^{2i} \sigma^{2i}(\zeta) + \sum_{i=1}^{(p-1)/2} (-1)^{2i-1} \sigma^{2i-1}(\zeta) 
+                &= \sum_{i=0}^{(p-3)/2} \sigma^{2i}(\zeta) - \sum_{i=1}^{(p-1)/2} \sigma^{2i-1}(\zeta)  \\
+                &= \sum_{\tau \in H} \tau(\zeta) - \sum_{\tau \in G \setminus H} \tau(\zeta) \\ 
+                &= \eta_0 - \eta_1 = g
+            \end{align*}
+
+        \end{enumerate}
+       
+        Hence, 
+        \[g = \sum_{i=0}^{p-2} (-1)^i \sigma^i(\zeta) = \eta_0 - \eta_1.\]
+
+        \item [(d)] \begin{enumerate}
+            \item [(i)] $\tau(g)$, for $\tau \in H$ is 
+                        \begin{align*}
+                            \tau(g) &= \tau(\eta_0) - \tau(\eta_1)
+                        \end{align*}
+                        But since $\tau$ is an even power of $\sigma$, say $\tau = \sigma^{2k}$. We know from part (a) that 
+                        \[\sigma(\sigma(\eta_0)) = \sigma(\eta_1) = \eta_0 \qquad \sigma(\sigma(\eta_1)) = \sigma(\eta_0) = \eta_1\] 
+                        Thus $\sigma^2$ fixes both $\eta_0$ and $\eta_1$, and therefore any even power $\sigma^{2k}$ also fixes them. So, 
+                        \[\tau(g) = \eta_0 - \eta_1\]
+                        Similarly, $\tau(g)$, for $\tau \in G\setminus H$ is 
+                        \begin{align*}
+                            \tau(g) &= \tau(\eta_0) - \tau(\eta_1)
+                        \end{align*}
+                    Then $\tau$ is an odd power of $\sigma$, say $\tau = \sigma^{2k+1}$ we know from part (a) that \[\sigma(\eta_0) = \eta_1 \qquad \sigma(\eta_1) = \eta_0\] 
+                    Since $\sigma$ swaps $\eta_0$ and $\eta_1$ and $\sigma^{2k}$ fixes them, $\sigma^{2k+1}$ also swaps them. So, 
+                        \[\tau(g) = \eta_1 - \eta_0\]
+
+            \item [(ii)] That is, $g$ is fixed by an index $2$ subgroup of $G$, i.e. $H$, and thus by Galois correspondence is a degree two extension of $\Q$. That is, 
+                        \[[\Q(g):\Q] = [G:H] = 2\]
+
+            \item [(iii)] Note that complex conjugation sends $\zeta$ to $\zeta^{-1}$. Thus complex conjugation is the automorphism $\sigma_{-1} \in G$, where
+            \[
+            \sigma_{-1}(\zeta) = \zeta^{-1}.
+            \]
+            Hence $\overline{g} = \sigma_{-1}(g)$.
+
+            If $-1$ is a square modulo $p$, then $a = -1 \in (\Z/p\Z)^\times$ is a square, i.e. $\sigma_a \in H$, and by part (i), $\sigma_a(g) = g$. 
+            
+            If $-1$ is not a square modulo $p$, then $a = -1 \in (\Z/p\Z)^\times$ is not a square, i.e. $\sigma_a \in G \setminus H$, and by part (i), $\sigma_a(g) = - g$. 
+        \end{enumerate}
+        
+        \item[(e)] Note that complex conjugation sends $\sigma_i \to \sigma_{-i}$. So we have, 
+        \begin{align*}
+            g\overline{g} &= \left(\sum_{i=0}^{p-2}(-1)^i\sigma^i(\zeta)\right)\left(\sum_{j=0}^{p-2}(-1)^{-j}\sigma^{-j}(\zeta)\right) \\ 
+            &= \sum_{i=0}^{p-2}\sum_{j=0}^{p-2}(-1)^i(-1)^{-j}\sigma^i(\zeta)\sigma^{-j}(\zeta) \\
+            &= \sum_{i=0}^{p-2}\sum_{j=0}^{p-2}(-1)^{i-j}\sigma^{i-j}(\zeta) \\ 
+        \end{align*}
+        Let $k = i-j \pmod p$, and note that $\sigma^k(\zeta) = \sigma^j(\sigma^k(\zeta))\sigma^{-j}(\zeta) = \sigma^j\fr{\sigma^k(\zeta)}{\zeta}$. So, 
+        \begin{align*}
+            g\overline{g}
+            &= \sum_{i=0}^{p-2}\sum_{j=0}^{p-2}(-1)^{k}\sigma^{k}(\zeta) \\ 
+            &= \sum_{k=0}^{p-2}(-1)^k\sum_{j=0}^{p-2}\sigma^j\fr{\sigma^k(\zeta)}{\zeta} \\ 
+            \intertext{If $\sigma$ corresponds to $a \in (\Z/p\Z)^\times$, we have}
+            g\overline{g} &= \sum_{k=0}^{p-2}(-1)^k\sum_{j=0}^{p-2}\sigma^j(\zeta^{a^{k}-1}) \\ 
+            \intertext{Note that if $k = 0$, then $\zeta^{a^k-1} = 1$, and the inner sum evaluates to $p-1$ otherwise from part (b), the inner sum would evaluate to $-1$} 
+            g\overline{g}
+            &= \sum_{k=0}^{p-2}(-1)^k\sum_{j=0}^{p-2}\sigma^j(\zeta^{a^k-1})  \\
+            &= \sum_{k=0}^{k=0}(-1)^k\sum_{j=0}^{p-2}\sigma^j(\zeta^{a^k-1})  + \sum_{k=1}^{p-2}(-1)^k\sum_{j=0}^{p-2}\sigma^j(\zeta^{a^k-1})  \\
+            &= (p-1) + \sum_{k=1}^{p-2}(-1)^k(-1) \\
+            &=(p-1) + (-1)(-1) \\ 
+            &= p
+        \end{align*}
+        Hence proved. 
+
+        \item[(f)] From part (d) we know that $\overline{g} = g$ if $-1$ is a square modulo $p$, and $\overline{g} = -g$ otherwise. Recall from Math 71 that $-1$ is a square modulo $p$ iff $p -1 \equiv 0 \pmod 4$, that is $p-1$ is divisible by $2$ twice, and $(p-1)/2$ is even (otherwise it's odd). Hence, 
+        \begin{align*}
+            g^2 &= (-1)^{(p-1)/2}p
+        \end{align*}
+
+        \item [(g)] Note, $\Q(\sqrt{(-1)^{(p-1)/2}p}) = \Q(\sqrt{g^2}) = \Q(g)$. From part (a) we know that $[\Q(g) : \Q] = 2$ and since $H$ is the unique index two subgroup of the galois group $G$, it fixes this field. Hence, $[\Q(\sqrt{(-1)^{(p-1)/2}p}): \Q] = 2$.
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+\textbf{Fundamental Theorem of Algebra.}
+
+An ordered field is a field $F$ together with a subset $F^+$ of positive elements satisfying: $a,b \in F^+$ $\Rightarrow$ $a+b \in F^+$ and $ab \in F^+$ and for each $a \in F$ exactly one of $a \in F^+$, $a=0$, or $-a \in F^+$ is true.
+
+\begin{enumerate}
+\item[(a)] Prove that if $F$ is an ordered field then any nonzero square is positive, that $-1$ is not positive, and that $F$ has characteristic zero. Also, prove that $F(i) = F[x]/(x^2 + 1)$ is not an ordered field. \textbf{Challenge:} Prove that a field $F$ can be ordered if and only if $-1$ is not a sum of squares.
+
+\item[(b)] An ordered field $F$ is called real closed if every positive element has a square root and every polynomial of odd degree over $F$ has a root. Prove that $\mathbb{R}$ and $\mathbb{R} \cap \overline{\mathbb{Q}}$ are real closed. \textbf{Hint:} You may need a tiny bit of analysis, but try to keep it to a minimum.
+
+\item[(c)] Prove that a real closed field does not have any nontrivial finite extensions of odd degree.
+
+\item[(d)] Prove that if $F$ is real closed then the only quadratic extension of $F$ is $F(i)$, and every element of $F(i)$ has a square root.
+
+\item[(e)] Prove that a field $K$ is algebraically closed if and only if it does not admit any nontrivial algebraic extensions if and only if it does not admit any nontrivial finite extension.
+
+\item[(f)] Prove that if $F$ is a real closed field then $F(i)$ is algebraically closed. 
+
+\textbf{Hint:} First, let $L'/F(i)$ be a finite extension and $L/F$ the normal closure of $L'/F$. Then why is $L/F$ a Galois extension whose group $G$ has even order? Let $H \subset G$ be a Sylow $2$-subgroup. Use the Galois correspondence with $H \subset G$ to prove that $G$ is actually a $2$-group. Remember the result from abstract algebra that every finite $p$-group has a subgroup of index $p$, and use this, with the Galois correspondence, to prove that actually $G$ must be trivial.
+
+\item[(g)] Deduce that $\mathbb{C}$ and $\overline{\mathbb{Q}}$ are algebraically closed.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] Let $F$ be an ordered field. Then,
+        \begin{enumerate}
+            \item [(i)] Any non-zero square is positive. 
+            
+            Let $a$ be a non-zero element in $F$. 
+            If $a \in F^+$, then $a^2 = a \cdot a \in F^+$.  
+            
+            If $-a \in F^+$, then $(-a)^2 = (-a) \cdot (-a) \in F^+$. We want to show that $(-a)^2 = a^2$. Since, $-a = -1 \cdot a$, this is equivalent to showing that $-1^2 =1$ in $F$. 
+            
+            Now note that, 
+            \[(-1)(-1) + (-1)1 = (-1)(-1+1) = 0\]
+            But that also implies, 
+            \[(-1)(-1) = -(-1) = 1\]
+            Hence, proved. 
+
+            \bbni 
+
+            \item [(ii)] $-1$ is not positive. 
+            
+            We will show this by contradiction. Let $p \neq -1$, $p \in F^+$. 
+            For the sake of contradiction, assume $(-1) \in F^+$. 
+            Then since for any $a, b \in F^+, ab \in F^+$, $p (-1)  = -p \in F^+$. However, by definition of an ordered field, both $-p$ and $p$ can't be in $F^+$. Hence a contradiction, and $-1$ cannot be positive.  
+
+            \bbni 
+
+            \item [(iii)] $F$ has characteristic $0$. 
+            
+            The characteristic of a field $F$ is defined as the smallest positive integer $n$ such that $1+1 +  \cdots + 1 = 0$ ($n$ times) in $F$. From part (ii), we know that $-(-1) = 1 \in F^+$, $0 \notin F^+$, and we that for any $a,b \in F^+$, $a + b \in F^+$. So, $1 + \cdots + 1$ ($n$ times), for any $n$ cannot equal $0$. Hence, such an integer doesn't exist and $F$ must be characteristic $0$. 
+
+            \bbni 
+
+            \item [(iv)] $F(i) = F[x]/(x^2+1)$ is not an ordered field. 
+            
+            We will show this by contradiction. Assume $F(i)$ is an ordered field. Then for any $a \in F(i)$, exactly one of $a \in F^+, -a \in F^{-}, a = 0$ Then in $F(i)$, $i^2 + 1 = 0 \implies i^2 = -1$, but from part (i) we know that non-zero squares are positive, and from part (ii) we know that $-1$ is not positive. So, $i$ must be $0$, but we also know ($0 \cdot 0 = 0(0 + 0) = 0 \cdot 0  + 0 \cdot 0 \implies 0 \cdot 0 = 0 \cdot 0 - 0 \cdot 0  = 0$) that $0^2 = 0$. Hence, $i \notin F^+, -i \notin F^+, i \neq 0$, which is a contradiction, and $F(i)$ cannot be an ordered field.  
+
+            \bbni 
+            
+            \item [(v)] $F$ can be ordered if and only if $-1$ is not a sum of squares. 
+            
+            $(\implies)$ Assume $F$ is ordered. 
+
+            Let $a, b \in F$. 
+            Then, from part (i) we know that $a^2, b^2 \in F^+$, that is $a^2 + b^2 \in F^+$. But since $-1 \notin F^+$, it cannot be the sum of squares. 
+
+            \bbni 
+
+            $(\impliedby)$ Assume $-1$ is not a sum of squares in $F$.
+            
+            \textbf{Definition:} 
+                A field is called a real field if $-1$ is not a sum of two sqaures in the field. 
+             
+            \textbf{Definition:} 
+                A field is real closed if it is real and has no proper, real extensions. 
+                
+            \textbf{Claim:}
+                Every real field has a real closure. 
+
+            \textbf{Proof:} Let $F$ be a real field, $K_i/F$, for $i \in$ the indexing set $I$, be algebraic extensions of $F$.
+            Then, we define the set $K = \{K_i:$  $K_i/F$ real algrbriac extensions of $F\}$. Then we want to find $M$ such that $\forall K_i \in K, K_i \subseteq M$. Let $L$ be such that, 
+            \[L = \underset{K_i \in K}{\bigcup K_i}\]
+            
+            By Zorn's Lemma, if at least one $K_i$ is non-empty, and every constituent chain $C \subseteq L$ has an upperbound this limit exists. 
+
+            \begin{enumerate}
+                \item $L$ is not empty since $F/F$ is a real algebraic extension of $F$. 
+                \item Every constituent chain $C \subseteq L$ has an upperbound. 
+                
+                Let $K' = \underset{K_i \in C}{\bigcup K_i} \in C$ be this upper bound. We show that $K'$ is a real field. 
+                \begin{itemize}
+                    \item Closed under Inverses: 
+                    
+                    If $a \in K'$ then there exists some $K_i \in C$ such that $a \in K_i$. Since $K_i$ is a field, both the additive $-a$ and multiplicative inverse $a^{-1}$ of $a$ is in $K_i$ and hence in $K'$. 
+                    
+                    \item Closed under Addition:
+                    
+                    $\forall a, b \in K'$, then there exist $K_i$, $K_j \in C$ such that $a \in K_i$, $b\in K_j$. Since $C$ is totally ordered, either $K_i \subseteq K_j$ or $K_j \subseteq K_i$. Without loss of generality, asssume $K_i \subseteq K_j$, then $a \in K_j$, and since $K_j$ is a field, it is closed under addition, and there exist a $c \in K_j \subseteq K'$ such that $a + b = c$. Hence $K'$ is closed under addition. 
+
+                    \item Closed under Multiplication:
+                    
+                    Similarly, $\forall a, b \in K'$, then there exist $K_i$, $K_j \in C$ such that $a \in K_i$, $b\in K_j$. Since $C$ is totally ordered, either $K_i \subseteq K_j$ or $K_j \subseteq K_i$. Without loss of generality, asssume $K_i \subseteq K_j$, then $a \in K_j$, and since $K_j$ is a field, it is closed under multiplication, and there exist a $c \in K_j \subseteq K'$ such that $a \cdot b = c$. Hence $K'$ is closed under multiplication. 
+
+                    \item Distributivity, Commutativity, and Associativity also work similarly. 
+
+                    \item $-1$ is not a sum of two squares: 
+
+                    For the sake of contradiction assume it is. Then there exist some $a, b \in K'$ such that $a^2 + b^2 = -1$. Thus, there exist $K_i$, $K_j \in C$ such that $a \in K_i$, $b\in K_j$. Since $C$ is totally ordered, either $K_i \subseteq K_j$ or $K_j \subseteq K_i$. Without loss of generality, asssume $K_i \subseteq K_j$, then $a \in K_j$. Then $a^2 + b^2$ should sum to $-1$, but $K_j$ is real, a contradiction. Hence, $K'$ must be real. 
+                \end{itemize} 
+            \end{enumerate}
+            Hence, $K'$ is a real field, and $L$ exists. Thus, every field has a real closure. 
+
+            \textbf{Claim:}
+                A real closed field is ordered. 
+
+            \textbf{Proof:}
+                Let $F$ be a real closed field. Then $F$ has no real, proper, algebraic extensions. n particular, for every $a\in F$, exactly one of the polynomials
+                \[f(x) = x^2-a, \qquad  g(x) = x^2+a\]
+                has a root in $F$.
+
+
+               Since $F$ is real, $-1$ cannot be written as a sum of squares. Hence $x^2+1$ has no root in $F$, so $\sqrt{-1}\notin F$. It follows that for every $a\neq 0$, either $a$ is a square in $F$ or $-a$ is a square in $F$. Now, we can establish an ordering for $F$. 
+
+                Let $F^+$ be the set, 
+                \[F^+ = \{ a : \sqrt{a} \in F\}\]
+
+                \begin{enumerate}
+                    \item $F^+$ is closed under addition. 
+                    
+                    $\forall a, b \in F^+$, then both $a, b$ are squares and $a + b$ satisfies the polynomial $f(x) = x^2 - (a+b)$. Since $F$ has no real, proper, algebraic extensions $\sqrt{a+b}$ must be in $F$ and hence $a+b \in F^+$. 
+                    
+                    \item $F^+$ is closed under multiplication. 
+                    
+                    $\forall a, b \in F^+$ if $a = x^2, \, b=y^2$ then $a \cdot b = x^2 \cdot y^2 = (xy)^2$. Hence, $ab \in F^+$.
+
+                    \item For all $a \in F$ either $a = 0$ or $a \in F^+$ or $-a \in F^+$. 
+                    
+                    From what we said earlier, if $a \in F^+$ then $-a\notin F^+$. Otherwise both $a$ and $-a$ would be squares, so
+                    \[-1 = \frac{-a}{a}\]
+                    would be a square in $F$, implying $\sqrt{-1}\in F$, contradicting that $F$ is real.
+                    
+                    And, if $a\notin F^+$ then $a$ is not a square. By the property established earlier, this implies $-a$ is a square, hence $-a\in F^+$.
+                \end{enumerate}
+                
+                Hence $F^+$ forms the positive subset of $F$ and defines an ordering on $F$. 
+
+            
+            \bbni 
+
+            \textbf{Claim:} All real fields are ordered. 
+            
+            \textbf{Proof:} Let $F$ be a real field, and $\overline{F}$ be it's real closure. From the claim above we know that $\overline{F}$ is ordered, i.e., there exists a positive subset $\overline{F}^+ \subset \overline{F}$. Then, consider the subset $F^+ = F \cap \overline{F}^+$. We claim that this is the positive subset that defines an order on $F$. 
+            \begin{enumerate}
+                    \item $F^+$ is closed under addition. 
+                    
+                    If $a, b \in F^+$ then $a, b \in \overline{F}^+$. And since $\overline{F}^+$ is closed under addition $a + b \in \overline{F}^+$. But because $F$ is a field, $a +b \in F$. Hence $a + b \in F \cap \overline{F}^+$. Since $a, b$ were arbitrary this works for all $a, b \in F^+$.
+                    
+                    \item $F^+$ is closed under multiplication. 
+                    
+                    Similarly, if $a, b \in F^+$ then $a, b \in \overline{F}^+$. And since $\overline{F}^+$ is closed under multiplication $ab \in \overline{F}^+$. But because $F$ is a field, $ab \in F$. Hence $ab \in F \cap \overline{F}^+$. Since $a, b$ were arbitrary this works for all $a, b \in F^+$.
+
+                    \item For all $a \in F$ either $a = 0$ or $a \in F^+$ or $-a \in F^+$. 
+                    
+                    Since $\overline{F}$ is ordered, for any $a \in F^+, \, a \neq 0$, $\overline{F}^+$ only contains one of $a$ and $-a$. Hence, so does $F^+$. 
+                 \end{enumerate}
+                
+                Thus, $F^+$ forms the positive subset of $F$ and defines an ordering on $F$. Hence, all real fields are ordered. 
+
+            Thus, a field $F$ can be ordered if and only if $-1$ is not a sum of squares. 
+        \end{enumerate}
+
+        \item [(b)] \begin{enumerate}
+            \item [(i)]$\R$ is real-closed. 
+            
+            Let $a \in \R^+$. Finding the squareroot of $a$ is equivalent to solving the quadratic polynomial $f(x) = x^2 -a$ over $\R$. Now, note that at $x =0$, $f(x) = -a < 0$ and when $x > a$ then $f(x) > a > 0$. Then, by the intemediate value theorem there must exist some $x$ such that $f(x) = 0$. Hence, every positive real number has a square root.   
+
+            Let $f(x) \in \R$ be a monic polynomial of degree $n$, where $n$ is odd. Then as $x \to \infty$, $f(x) \to \infty$ and as $x \to -\infty$, $f(x) \to -\infty$. So there exist some $a, b$ such that $f(a) < 0 < f(b)$. Then by the intermediate value theorem there must exist some $c$ such that $f(x) = 0$. Hence every odd degree polynomial has at least one real root. 
+            \bbni 
+
+            \textit{Also note that over $\C$ non-real roots come in pairs. Since $f(x) \in \R$, complex conjugation fixes all coefficients of $f$. So if $\alpha$ is a root of $f(x)$, the complex conjugate of $f(\alpha)$ is $\overline{f(\alpha)} = f(\overline{\alpha}) = 0$ Hence, $\overline{\alpha}$ is also a root. That is, complex roots come in pairs.}
+            
+            \bbni
+
+            \item [(ii)] $\R \cap \overline{\Q}$ is real-closed. 
+            
+            Recall that $\overline{\Q}$ is the algebriac closure of $\Q$. So, $\overline{\Q} \cap \R$ is the real part of the algrbriac closure of the rationals. For convenience, let $K = \overline{\Q} \cap \R$. 
+
+           Let $a \in K^+$.  From part (i) we know that all positive real numbers have square roots, that is $\sqrt{a} \in \R$ So, it suffices to show that the squareroots is contained in $\overline{\Q}$. Since $\overline{\Q}$ is the algrbriac closure of $\Q$ and our subfield contains all real algebriac roots to polynomials over $\Q$, $a$ must satisfy some polynomial $f(x)$ over $\Q$. Then note that $\sqrt{a}$ satisfies $f(x^2)$. Hence $\sqrt{a}$ is algebriac and must be in the field.  
+
+            Let $f(x) \in K[x]$ be a polynomial of odd degree $n$. Note that if we consider $f(x) \in \overline{\Q}$, then all roots of $f(x)$ are in $\overline{\Q}$. Since $K$ is a restriction of $\overline{\Q}$ to the reals, and complex roots come in pairs, $K$ at least has one root that satisfies $f(x)$. Hence every odd degree polynomial has a root.
+        \end{enumerate}
+
+        \item [(c)] Let $F$ be a real-closed field, and $K/F$ a finite extension.  We know that finite extensions are generated by a finite number of algebraic elements over the base field. Let $K/F$ be generated by $m$ elements. Then there exists a tower, 
+         \[
+        \begin{tikzcd}
+        K = F(\alpha_1, \ldots, \alpha_{m-1})(\alpha_m) \\
+        K = F(\alpha_1, \ldots, \alpha_{m-2})(\alpha_{m-1}) \arrow[u] \\
+        \vdots \arrow[u] \\
+        F(\alpha_1) \arrow[u] \\
+        F \arrow[u]
+        \end{tikzcd}
+        \]
+        
+        Let $f_i(x) = m_{\alpha_i/F(\alpha_1, \ldots, \alpha_{i-1})}(x)$ be the minimal polynomial of degree $n_i$ of such an algebraic element. Note that $n_i$ is either $1$ (trivial extension) or even because from part (ii) we know that polynomials of odd degree have a root over the base field, that is if $n_i$ is odd then $f_i(x)$ is not irreducible and hence not the minimal polynomial. Also since the degree of the minimal polynomial is the degree of the extension, and each $f_i(x)$ has even degree, and by tower law $[K:F] = \prod_{i=1}^m n_i$ which is a product of even numbers and hence even. Hence, $F$ has no nontrivial finite extensions of odd degree. 
+
+        \item [(d)] Let $F$ be real-closed. Let $K/F$ be a quadratic extension. We know that $K$ is generated by an element that satisfies a quadratic minimal polynomial $f(x) \in F[x]$. But by definition, all positive elements have a square root in $F$. So, $f(x)$ must be satisfied by the squareroot of a negative element in $F$. But since $F$ is a field, we know that $-1$ exists, and any negative element $a \in F$ (that is $-a \in F^+$) can be written as $a = -1 \cdot -a$. Since $\sqrt{-a} \in F$, adjoining the squareroot of $a$ is equivalent to adjoining $\sqrt{-1}$. Hence, every quadratic extension of $F$ is $F(i)$, where $i = \sqrt{-1}$.
+        
+        Let $(a + bi)$ be an arbitrary element in $F(i)$, where $a,b \in F$. If $b = 0$ then $\sqrt{(a + bi)} = \sqrt a \in F$. If $b \neq 0$, we want to determine if there exist $c, d \in F(i)$ such that $(c+di)^2 = (a+bi)$. 
+        
+        On expanding we get, 
+        \[c^2  - d^2  = a, \qquad  2cd  = b\]
+        Now, note that $(c^2 + d^2)^2 = (c^2 - d^2)^2 + (2cd)^2 = a^2 + b^2$. And, $c^2 + d^2  = \sqrt{a^2 + b^2} \in F$ since $F$ is real-closed. Combining this with $c^2 - d^2 = a$ gives us, 
+
+        \[c^2 = \frac{\sqrt{a^2+b^2} + a}{2}, \qquad d^2 = \frac{\sqrt{a^2+b^2} - a}{2}\]
+
+        which are both positive since $\sqrt{a^2 + b^2} \geq \sqrt{a^2} \geq |a| > 0$. Hence, their square-roots exist in $F$, and we found are desired squareroot. 
+
+        \item [(e)] Let $A: K$ is algebraically closed, $B: K$ doesn't admit any non-trivial algebraic extensions, $C: K$ does not admit any non-trivial finite extension. 
+        
+
+        $A \implies B$ 
+
+        Assume $K$ is algebraically closed. Then any polynomial with coefficients in $K$ has roots in $K$. That is, there are no non-trivial algebraic extensions. 
+
+        \bbni 
+        $B \implies C$ 
+
+        Assume $K$ doesn't admit any non-trivial algebraic extensions. We know that all finite extensions are algebraic. Then, since $K$ doesn't admit any non-trivial algebraic extensions, it doesn't admit any non-trivial finite extensions. 
+        \bbni
+        $C \implies A$ 
+
+        Assume $K$ doesn't admit any non-trivial finite extensions. For the sake of contradiction, assume $K$ is not algebraically closed. Then there exists at least one polynomial $f(x) \in K[x]$, such that $\alpha \notin K$ is a root. Then $K(\alpha)/K$ is a simple finite extension. But $K$ doesn't admit any non-trivial finite extensions, so $K(\alpha)$ must be a trivial extension, i.e., $\alpha \in K$. A contradiction! Hence, $K$ is algebraically closed. 
+        
+        \item [(f)] Let $F$ be a real closed field and $F(i) = F(\sqrt{-1})$. Now let $L'/F(i)$ be a finite extension, and $L/F$ be the normal closure of $L'/F$. 
+        
+        \[
+        \begin{tikzcd}
+        L \\
+        L' \arrow[u] \\
+        F(i) \arrow[swap]{u}{n} \\
+        F \arrow[swap]{u} {2} \arrow[bend left=-60, shorten >=-2pt, swap]{uu}{p} \arrow[bend left=-70, shorten >=-4pt, swap]{uuu}{m}
+        \end{tikzcd}
+        \]
+        
+        Since $F$ is characteristic $0$, all of it's extensions must be characteristic $0$, and hence all polynomials over $L$ are separable. And since normal closures are algrbriac, we know that $L/F$ is a normal, separable, and  algebraic extension and hence is Galois. 
+        Let $G = Gal(L/F)$. Note that from part (c) we know that $[L:F] = m$ is even and hence $|G|$ is even. Then we claim that $G$ is a $2$-group. 
+        
+        \textbf{Proof:}
+        Assume for the sake of contradiction that $G$ is not a $2$-group. Let $|G| = m = 2^x \cdot y_1 \cdot \ldots \cdot y_n$, where $y_1, \cdots, y_n$ are odd primes. Then by Sylow's Theorems, we know that there exist subgroups of order $y_1, \cdots, y_n$ in $G$. Then by Galois correspondence, there exist subextensions of $F$ of degrees $y_1, \cdots, y_n$, but since $F$ has no nontrivial finite extensions of odd degree (part (c)) this is a contradiction. Hence, $G$ must be a $2$-group. 
+
+        $Gal(L/F(i))$ is a subgroup of the $2$-group $G$, hence is itself a $2$-group. If it were nontrivial, every nontrivial $p$-group has a subgroup of index $p$, so$ Gal(L/F(i))$ would have a subgroup of index $2$. By Galois correspondence this yields a degree-$2$ extension of $F(i)$, contradicting part (d). Hence $Gal(L/F(i))$ is trivial, and $F(i)$ is algebraically closed. 
+        
+
+        \item [(g)] $\R$ and $\overline{\Q}\cap \R$ are real closed fields, and from part (f) we know that $\R(i) = \C$ and $\overline{\Q }\cap \R(i) = \overline{\Q}$ are algebraically closed. Hence, $\C$ and $\overline{\Q}$ are algebraically closed. 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

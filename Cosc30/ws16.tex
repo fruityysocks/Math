@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+
+\begin{problem}{1}
+    A distance-2 coloring on an undirected graph $G$ is a labeling $\ell(\cdot)$ on the vertices of $G$ such that every pair of vertices within distance $2$ has different labels. In other words, we are looking for a function 
+    \[
+    \ell : V_G \to \{1, \dots, k\}
+    \]
+    so that if two vertices $x$ and $y$ share a common neighbor $z$, then $\ell(x) \ne \ell(y)$; the number of colors used is $k$.
+
+    Prove that every tree whose internal nodes have degree at most $3$ has a distance-2 coloring using at most $4$ colors.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    We will prove the statement by induction on the number of nodes in the tree. Let $T$ be an arbitrary tree with $n$ nodes and internal nodes having degree at most $3$. Assume for any tree $T'$ with less than $n$ nodes and internal nodes having degree at most $3$, $T'$ has a distance-$2$ coloring using at most $4$ colors. 
+    \begin{itemize}
+        \item If $T$ has $1$ or $2$ nodes we can color it with $4$ colors. 
+        \item If $T$ has $\geq 3$ nodes. Take a leaf node $n$ connected to an internal node $v$. Note that $v$ is connected to at most $2$ other nodes since every internal node has degree at most $3$. Remove $n$ to get a tree with less than $n$ nodes, and the internal nodes still have degree at most $3$. This has a distance-$2$ coloring using at most $4$ colors. Now attach $n$ back to $v$. Since $v$ is connected to at most $2$ other nodes, $v$ and these two nodes use at most $3$ colors, leaving us $1$ color to color $n$.
+    \end{itemize}
+        Hence, $T$ is distance-$2$ colorable with at most $4$ colors. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{2}
+    A directed graph $G$ is semi-connected if, for every pair of vertices $u$ and $v$, either $u$ is reachable from $v$ or $v$ is reachable from $u$ (or both).
+
+    Prove that given any directed acyclic graph $G$, $G$ is semi-connected if and only if there is a path in $G$ passing through every vertex of $G$. 
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+     ($\implies$)
+     Assume a directed acyclic graph $G$ is semi-connected. Then there exists an elimination ordering of $G$ such that vertex $v_k$ is a source in $D[v_k, \cdots, v_n]$. (At the begining $v_k = v_1$.) That is edges go from $v_i$ to $v_j$ for $i < j$. Also, since $G$ is semi-connected, for any consecutive pair of vertices in this ordering $v_i$ and $v_{i+1}$, there exists a path either from $v_i$ to $v_{i+1}$ or from $v_{i+1}$ to $v_i$. Since $G$ is acyclic, the path must be from $v_i$ to $v_{i+1}$ for all $i$. 
+
+     Note that the path between $v_i$ and $v_{i+1}$ connects the two vertices via a single edge because they appear consecutively in the elimination order. If there was some vertex $u$ on the path, then it would appear after $v_i$ but before $v_{i+1}$ in the order, and no such path exists. Hence, there exists a path passing through every vertex in $G$. 
+    \bbni
+
+     ($\impliedby$)
+     Assume a directed acyclic graph $G$ has a path passing through every vertex. 
+     \[P = v_1 \to v_2 \to \cdots \to v_{n-1} \to v_n\]
+
+     Then for any two vertices $v_i$ and $v_j$ (wlog assume $i < j$) then there exists a path \[v_i \to v_{i+1} \to \cdots \to v_j\] is a subpath of $P$, hence $v_j$ is reachable from $v_i$. Hence, $G$ is semi-connected.
+\end{solution}
+
+\end{document}

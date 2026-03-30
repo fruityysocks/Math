@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+Let $a_1, a_2, a_3, \ldots$ be a sequence of real numbers. Prove that if $\sum_{n=1}^{\infty} a_n$ converges absolutely, then so does $\sum_{n=1}^{\infty} (a_n)^p$ for any integer $p>1$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Since $\sum_{n=1}^\infty |a_n|$ converges absolutely, $\underset{n \to \infty}{\lim}|a_n| = 0$ (Corollary 1m page 142). That is there exists a positive integer $N$, such that for all $n>N$
+    \[(|a_n|)^p \leq |a_n| < 1\]
+    since $p > 1$ and $|a_n| < 1$. 
+    Then, since $\sum_{n>N}^\infty |a_n|$ converges, so does $\sum_{n>N}^\infty (|a_n|)^p$ (Comparison Test). Let $\sum_{n>N}^\infty (|a_n|)^p = A$. Then we have, 
+    \[\sum_{n=1}^\infty (|a_n|)^p = \sum_{n=1}^{N} (|a_n|)^p + \sum_{n>N}^\infty (|a_n|)^p = \sum_{n=1}^{N} (|a_n|)^p + A\]
+    Since both $\sum_{n=1}^N (|a_n|)^p$ and $A$ are finite, the series converges. Note that $(|a_n|)^p = |(a_n)^p|$. Hence $\sum_{n=1}^\infty |(a_n)^p|$ is convergent, and $\sum_{n=1}^\infty (a_n)^p$ converges absolutely.
+
+\end{solution}
+
+\newpage
+
+\begin{problem}{2}
+    Let $F:\mathbb{R}^2 \to \mathbb{R}$ be a continuous function, and let $y_1,y_2,y_3,\ldots$ be a sequence of real numbers that converges to $0$. Prove that
+    \[ \lim_{n\to\infty}\int_{0}^{1} F(x,y_n)\,dx = \int_{0}^{1} F(x,0)\,dx . \]
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Since convergent sequences of points are bounded (page 47), let $M = l.u.b.\,{|y_n|}$. We now look at the restriction of $F$ to the compact subspace $[0,1] \times [-M, M]$. $F$ is continuous on this compact space, and hence is uniformly continuous. That is for any $\varepsilon > 0$ there exists some $\delta > 0$ such that if the Euclidean distance $\|(x, y_n) -(x,0)\| < \delta$ then 
+    \[|F(x, y_n) - F(x, 0)| < \varepsilon\]
+    But note that $\|(x, y_n) -(x,0)\| = \sqrt{(x-x)^2 + (y_n-0)^2} = |y_n|$. Then as $|y_n| \to 0$, given any $\varepsilon >0$, for large enough $N$,
+    $|y_n| < \delta$ for all $n > N$ and $|F(x, y_n) - F(x, 0)| < \varepsilon$. Since $\delta$ depends only on $\varepsilon$ and not on $x$ the bound $|F(x, y_n) - F(x, 0)| < \varepsilon$ holds for all $x \in [0,1]$. Hence, $F(x,y_n)$ converges uniformly to $F(x, 0)$ on $[0,1]$. Then by the Theorem on page 138, we have 
+    \[ \lim_{n\to\infty}\int_{0}^{1} F(x,y_n)\,dx = \int_{0}^{1} \left(\lim_{n\to \infty} F(x,y_n)\right)\,dx = \int_{0}^{1} F(x,0)\,dx  \]
+\end{solution}
+
+\newpage 
+
+\begin{problem}{3}
+    A curve $f$ in $\mathbb{R}^N$ is a continuous function
+    \[
+    f:[0,1]\to \mathbb{R}^N, \qquad 
+    f(t)=(f_1(t),\ldots,f_N(t))\in\mathbb{R}^N .
+    \]
+
+    Let $\mathcal{C}$ denote the set of curves in $\mathbb{R}^N$ with the property that each component function $f_j$ is differentiable on $(0,1)$ with derivatives $f_j'$ that extend to continuous functions on $[0,1]$.
+
+    For two curves $f,g\in\mathcal{C}$ define the real number $d(f,g)$ by
+    \[
+    d(f,g)=\sum_{j=1}^{N} D(f_j,g_j)+D(f_j',g_j').
+    \]
+    Here $D(\cdot,\cdot)$ is as in Chapter IV.6. Then $d:\mathcal{C}\times\mathcal{C}\to\mathbb{R}$ satisfies the axioms of a metric (you do not have to prove this).
+
+    \begin{enumerate}
+    \item[(a)] Prove that $\mathcal{C}$ with the metric above is a complete metric space.
+
+    \item[(b)] The length of a curve is defined as in Problem VI.20. Denote the length of a curve $f\in\mathcal{C}$ by $L(f)$. Prove that the function
+    \[L:\mathcal{C}\to\mathbb{R}\]
+    is continuous.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Note that $d(f, g) = \sum_{j=1}^N (\max \{|f_j(p) - g_j(p)|: p \in [0,1]\} + \max \{|f'_j(p) - g'_j(p)|: p \in [0,1]\})$
+    \begin{enumerate}
+        \item [(a)] We want to show that any Cauchy sequence of functions $(f_n)$ in $\mathcal{C}$ converges. 
+        
+        Let $(f_n)$ be an arbitrary Cauchy sequence of functions in $\mathcal{C}$. Then we know that for all $\varepsilon >0$ there exists an $M$ such that $d(f_n, f_m) < \varepsilon/2N$ for all $n, m > M$. That is, 
+        \[d(f_n, f_m) = \sum_{j=1}^N (D(f_{n_j},f_{m_j}) + D(f_{n_j}',f_{m_j}')) 
+        %= \sum_{j=1}^N (\max \{|f_{n_j}(p) - f_{m_j}(p)|\} + \max  \{|f'_{n_j}(p) - f'_{m_j}(p)|\}) 
+        < \frac{\varepsilon}{2N}\]
+        That is $\forall j, \forall n, m > M$, $D(f_{n_j},f_{m_j}) < \frac{\varepsilon}{2N}$ and $D(f'_{n_j},f'_{m_j}) < \frac{\varepsilon}{2N}$, hence each individual sequence $(f_{n_j})$ and $(f_{n_j}')$ is Cauchy. Note that these functions are defined from $[0,1]$ to $\R$. Since $\R$ is complete, we know that the sequences converge uniformly (Proposition, page 86). Let the convergent functions and derivatives be denoted by $f_j, h_j$.  
+        \[(f_{n_j}) \to f_j, \qquad (f_{n_j}') \to h_j\]
+        Now we want to show that $f'_j = h_j$, for a given $j$. Note that each $f_{n_j}$ has a continuous derivative (since it is in $\mathcal{C}$), and we showed above that the sequence $(f_{n_j})$ and the sequence of their continuous derivatives converge uniformly. Then the derivative $\left (\underset{n\to \infty}{\lim} f_{n_j} \right )' = f_j'$ exists and is equal to $\underset{n\to \infty}{\lim} f_{n_j}' = h_j$ (Theorem, Page 140). Now we can define the limit $f$ of our original sequence $(f_n)$, 
+        \[f: [0,1] \to \R^N, \quad f(t) = (f_1(t), \ldots, f_N(t))\]
+        Note that $f\in \mathcal{C}$ because each component $f_j$ is differentiable with derivatives $f_j'$ that are continuous on $[0,1]$ since it is the uniform limit of continuous functions.
+
+        Finally, we verify that $d(f_n, f) \to 0$. Since $f_{n_j}$ converges uniformly to $f_j$ and $f_{n_j}'$ converges uniformly to  $f_j'$ for each $j$, given any $\varepsilon > 0$ 
+        there exists $M$ such that for all $n > M$ and all $j$,
+        \[
+        D(f_{n_j}, f_j) < \frac{\epsilon}{2N} \quad \text{and} \quad D(f_{n_j}', f_j') < \frac{\epsilon}{2N}.
+        \]
+        Therefore,
+        \[
+        d(f_n, f) = \sum_{j=1}^N \bigl(D(f_{n_j}, f_j) + D(f_{n_j}', f_j')\bigr) 
+        < \sum_{j=1}^N \frac{\epsilon}{2N} + \frac{\epsilon}{2N} = \epsilon.
+        \]
+        Hence $(f_n)$ has a limit in $\mathcal{C}$. Since $(f_n)$ was arbitrary, every cauchy sequence has a limit in $\mathcal{C}$, and hence $\mathcal{C}$ is complete.
+
+
+        \item [(b)] The length of a curve $f$ (Problem VI.20) is 
+        \[L(f) = \int_0^1 \sqrt{\left(f_1'(x)\right)^2 + \cdots + \left(f_N'(x)\right)^2}dx = \int_0^1\sqrt{\sum_{j=1}^N(f'_j)^2}dx\]
+        We want to show that $L$ is continuous, i.e., for any $\varepsilon > 0$, there exists a $\delta > 0$ such that if $d(f, g) < \delta$ then $|L(f) - L(g)| < \varepsilon$. 
+        \begin{align*}
+            |L(f) - L(g)| &= \left|\int_0^1\sqrt{\sum_{j=1}^N(f'_j(x))^2}dx - \int_0^1\sqrt{\sum_{j=1}^N(g'_j(x))^2}dx\right| \\ 
+            &= \left|\int_0^1 \left(\sqrt{\sum_{j=1}^N(f'_j(x))^2} - \sqrt{\sum_{j=1}^N(g'_j(x))^2}\right)dx\right| \\ 
+            &\leq \int_0^1 \left|\sqrt{\sum_{j=1}^N(f'_j(x))^2}- \sqrt{\sum_{j=1}^N(g'_j(x))^2}\right|dx \\ 
+        \end{align*}
+        \begin{align*}
+        \intertext{Applying the Proposition on Page 37 to the Euclidean norm gives us}
+            \int_0^1 \left|\sqrt{\sum_{j=1}^N(f'_j(x))^2} - \sqrt{\sum_{j=1}^N(g'_j(x))^2}\right|dx 
+            &\leq \int_0^1 \sqrt{\sum_{j=1}^N(f'_j(x)- g'_j(x))^2} dx \\ 
+        \intertext{Note that  $\sum_{j=1}^Na_j^2 \leq \sum_{j=1}^N |a_j|^2 \implies \sqrt{\sum_{j=1}^Na_j^2} \leq \sum_{j=1}^N |a_j|$. Then, we have}
+        \int_0^1 \left|\sqrt{\sum_{j=1}^N(f'_j(x))^2} - \sqrt{\sum_{j=1}^N(g'_j(x))^2}\right|dx 
+            &\leq \int_0^1 {\sum_{j=1}^N|f'_j(x)- g'_j(x)|} dx \\ 
+            &\leq \int_0^1 \sum_{j=1}^N D(f'_j, g_j') dx \\ 
+            &\leq \sum_{j=1}^N D(f'_j, g_j') \leq d(f, g) < \varepsilon
+        \end{align*}
+        Thus $|L(f) - L(g)| < d(f,g)$, so taking $\delta = \varepsilon$, we have that if $d(f, g) < \delta$, then $|L(f) - L(g)| < \varepsilon$. Hence $L: \mathcal{C} \to \R$ is a continuous function. 
+    \end{enumerate}
+\end{solution}
+\end{document}

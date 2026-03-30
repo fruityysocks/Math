@@ -7,8 +7,6 @@
 \input{title}
 
 \vspace{.1in}
-\textbf{Credit Statement:} Talked to Sair Shaikh'26, and Math Stack Exchange.
-\vspace{.07in}
 
 \begin{problem}{1}
     Let $f(x) \in \mathbb{R}[x]$ be a monic polynomial of degree $n \ge 1$ with discriminant $\Delta$.
@@ -20,6 +18,60 @@
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item[(a)] Let $f(x) \in \R[x]$ be a separable monic polynomial of degree $n \geq 1$, and let $r_2$ be the number of pairs of complex conjugate roots. Note that since $f(x)$ has real coefficients, complex roots come in pairs. The discriminant of $f(x)$ is defined as 
+        \[\Delta = \prod_{1 \leq i < j \leq n} (\alpha_i - \alpha_j)^2\]
+        where $\alpha$s are the roots of the polynomial. Each term in the product falls into one of these cases: 
+        \begin{enumerate}
+            \item Both $\alpha_i$ and $\alpha_j$ are real: 
+            
+            Then term $(\alpha_i - \alpha_j)^2$ is a positive real number. 
+            \item Both $\alpha_i$ and $\alpha_j$ are complex: 
+
+            If $\alpha_j = \overline{\alpha_i}$, then
+
+            \[(\alpha_i - \alpha_j)^2 = (2iIm(\alpha_i))^2 = -4Im(\alpha_i)^2 < 0\]
+
+            where $Im(\alpha_i)$ is the coefficient of the imaginary part of $\alpha_i$. 
+
+            If $\alpha_i$ and $\alpha_j$ are not conjugates, then their conjugates $\overline{\alpha_i}$ and $\overline{\alpha_j}$ also appear among the roots,
+            and the product            
+            \[ (\alpha_i - \alpha_j)^2 (\overline{\alpha_i} - \overline{\alpha_j})^2 = \big((\alpha_i - \alpha_j) (\overline{\alpha_i} - \overline{\alpha_j})\big)^2 > 0\]
+            is the square of a real number, hence positive.
+            
+            \item (WLOG) $\alpha_i$ is real and $\alpha_j$ is complex. 
+            
+            Then $\overline{\alpha_j}$ is also a root, and the product
+            \[({\alpha_i} - {\alpha_j})^2(\alpha_i - \overline{\alpha_j})^2  = (\alpha_i^2 - (\alpha_j + \overline{\alpha_j})\alpha_i + \alpha_j\overline{\alpha_j})^2  > 0\] 
+            since both $(\alpha_j + \overline{\alpha_j})$, and $\alpha_j \overline{\alpha_j}$ are real numbers. 
+        \end{enumerate}
+        That is the only term in the product that are not positive are the ones formed by complex conjugates (each pair contributing $-1$ to $\Delta$), and since there are $r_2$ pairs, the sign of the discriminant is $(-1)^{r_2}$. 
+
+        \item[(b)] Let $f(x) \in \R[x]$ be a cubic polynomial. Note that since complex roots occur in pairs, $f(x)$ either has all real roots, or one pair of complex roots and $1$ real root. 
+        
+        ($\implies$) Assume that $\Delta(f) \geq 0$. 
+
+        Then from part (a) we know that, $\sgn(\Delta(f)) = (-1)^{r_2}$ where $r_2$ is the number of pairs of complex roots. 
+
+        For a cubic polynomial, $r_2$ is either $0$ or $1$. If $r_2 = 1$, then
+        \[\operatorname{sgn}(\Delta(f)) = (-1)^1 = -1,\]
+        so $\Delta(f) < 0$. (Note that $\Delta(f) \neq 0$ because the roots would all be distinct.)
+        This contradicts the assumption that $\Delta(f) \ge 0$.
+
+        Hence $r_2 = 0$, and therefore all roots of $f(x)$ are real.
+
+        ($\impliedby$) Assume all roots of $f(x)$ are real. Let the, be $\alpha_1, \alpha_2, \alpha_3$. 
+
+        Then, 
+        \[\Delta(f) = \prod_{1 \leq i < j \leq 3}(\alpha_i - \alpha_j)^2\]
+        where each $\alpha_i - \alpha_j$ is a real number. Squares of real numbers are always positive. That is, $\Delta(f) \geq 0$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
 \begin{problem}{2}
     Let $\gamma = \sqrt{2 + \sqrt{2}} \in \mathbb{R}$.
 
@@ -30,19 +82,158 @@
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni 
+
+    \begin{enumerate}
+        \item [(a)] Let $f(x) = x - \gamma  \in \Q(\gamma)[x]$
+        \begin{align*}
+            x - \gamma &= 0 \\ 
+            x^2 &= 2 + \sqrt2 \\ 
+            x^4 &= 4 + 2 + 4\sqrt{2} = 4x^2 - 2 \\ 
+            g(x) &= x^4 - 4x^2 + 2
+        \end{align*}
+        Note that $g(x) \in \Q[x]$, and has $\gamma$ as a root. Also note that since $g(x)$ is irreducible by Eisenstein, it is the minimal polynomial of $\gamma$ over $\Q$. 
+
+        We know that $g(x)$ is separable because $g(x)$ and $g'(x) = 4x(x^2 -2)$ have no common factors. That is $\gcd(g(x), g'(x))) = 1$. Now, let $K$ be the splitting field of $g(x)$. 
+
+        Consider $x^2 = y$, then $g(y) = y^2 + 4y + 2$ with roots $2 + \sqrt{2}$ and $2 - \sqrt{2}$. That is, 
+        \[x^2 = 2 + \sqrt{2}, \qquad x^2 = 2 - \sqrt{2}\] 
+        giving us, 
+        \[x = \pm \sqrt{2 + \sqrt{2}}, \qquad x = \pm \sqrt{2 - \sqrt{2}}\]
+        now note, $\gamma^2 - 2 = \sqrt{2} \in \Q(\gamma)$, and $\sqrt{2 - \sqrt{2}} = \sqrt2 / \gamma \in \Q(\gamma)$ That is $K = \Q(\gamma)$. Since $\Q(\gamma)$ is the splitting field of a separable polynomial, it is Galois. 
+        
+        Now note, $|Gal(\Q(\gamma)/\Q)| = [\Q(\gamma):\Q] = 4$. So the group is either $C_4$ or $V_4$, that is showing that there exists an element of order $> 2$ suffices to show that the group is $C_4$. Consider the automorphism $\sigma \in Gal(\Q(\gamma)/\Q)$: 
+        \[\sigma: \sqrt{2 + \sqrt{2}} \mapsto \sqrt{2 - \sqrt{2}}\]
+        And $\sigma((\sqrt{2 + \sqrt{2}})^2) = (\sqrt{2 - \sqrt{2}})^2$, that is $\sqrt{2} \mapsto -\sqrt{2}$, and $\sigma(\sqrt{2 - \sqrt{2}}) = -\sqrt{2} / (\sqrt{2 - \sqrt{2}})$
+
+        \begin{align*}
+            \sigma (\sqrt{2 + \sqrt{2}}) &= \sqrt{2 - \sqrt{2}} \\ 
+            \sigma ^2 (\sqrt{2 + \sqrt{2}}) &= \sigma(\sqrt{2 - \sqrt{2}}) = -\sqrt{2} / (\sqrt{2 - \sqrt{2}})  = - (\sqrt{2 + \sqrt{2}})\\ 
+        \end{align*}
+        That is $|\sigma| \neq 2$ and since it is not the identity, it must have order $> 2$, i.e. the Galois group of $\Q(\gamma)$ is $C_4$.
+
+        \item[(b)] $\Q(\gamma, i) \subseteq \Q(\zeta_{16})$.
+        \begin{align*}
+            \zeta_{16}^4 = i, \quad i \in \Q(\zeta_{16})
+        \end{align*}
+        And, 
+        \begin{align*}
+            \zeta_{16} &= \cos\fr{2\pi}{16} + i \sin \fr{2\pi}{16} =\cos\fr{\pi}{8} + i \sin \fr{\pi}{8} \\ 
+            \zeta_{16}^{15} &= \cos\left(2\pi - \fr{\pi}{16}\right) + i \sin \left(2\pi - \fr{\pi}{16}\right)  = \cos\fr{\pi}{8} - i \sin \fr{\pi}{8} \\ 
+            \intertext{But} 
+            \cos\fr{\pi}{8} &=  \sqrt{\frac{1 + \cos\fr{\pi}{4}}{2}} \\ 
+            &= \sqrt{\frac{\frac{2 + \sqrt2}{2}}{2}} =  \sqrt{\frac{2 + \sqrt2}{4}} = \frac{\sqrt{2 + \sqrt{2}}}{2} = \frac{\gamma}{2}
+        \intertext{And} 
+            \sin\fr{\pi}{8} &=  \sqrt{\frac{1 - \cos\fr{\pi}{4}}{2}} \\ 
+            &= \sqrt{\frac{\frac{2 - \sqrt2}{2}}{2}} =  \sqrt{\frac{2 - \sqrt2}{4}} = \frac{\sqrt{2 - \sqrt{2}}}{2} 
+        \intertext{Which gives us,}
+            \zeta_{16} + \zeta_{16}^{15} &= 2 \cdot \frac{\sqrt{2 + \sqrt{2}} }{2} = \gamma
+        \end{align*}
+        Hence $\gamma, i \in \Q(\zeta_{16})$
+
+        $\Q(\gamma, i) \supseteq \Q(\zeta_{16})$. 
+          \begin{align*}
+            \zeta_{16} &= \cos\fr{2\pi}{16} + i \sin \fr{2\pi}{16} \\ 
+            &=\cos\fr{\pi}{8} + i \sin \fr{\pi}{8}
+        \intertext{But} 
+            \cos\fr{\pi}{8} &=  \sqrt{\frac{1 + \cos\fr{\pi}{4}}{2}} \\ 
+            &= \sqrt{\frac{\frac{2 + \sqrt2}{2}}{2}} =  \sqrt{\frac{2 + \sqrt2}{4}} = \frac{\sqrt{2 + \sqrt{2}}}{2}
+        \intertext{And} 
+            \sin\fr{\pi}{8} &=  \sqrt{\frac{1 - \cos\fr{\pi}{4}}{2}} \\ 
+            &= \sqrt{\frac{\frac{2 - \sqrt2}{2}}{2}} =  \sqrt{\frac{2 - \sqrt2}{4}} = \frac{\sqrt{2 - \sqrt{2}}}{2} 
+        \intertext{Which gives us,}
+            \zeta_{16} &= \cos\fr{\pi}{8} + i \sin \fr{\pi}{8} \\ 
+            &= \frac{\sqrt{2 + \sqrt{2}}}{2} + i \frac{\sqrt{2 - \sqrt{2}}}{2}
+        \end{align*}
+        Note from part(a), we know that $\sqrt{2 - \sqrt{2}} \in \Q(\gamma)$ so $\sqrt{2 - \sqrt{2}} \in \Q(\gamma,i)$ and hence $\zeta_{16} 
+        \in \Q(\gamma,i)$.  
+        
+        Note that $Gal(\Q(\zeta_{16})/\Q) \isom (\Z/16\Z)^\times$ (Theorem 26). Where, 
+        \begin{align*}
+        \varphi: (\Z/16\Z)^\times &\to Gal(\Q(\zeta_{16})/\Q) \\ 
+        a \pmod {16} &\mapsto  \sigma_a
+        \end{align*}
+        where $\sigma_a$ is the automorphism defined by $\sigma_a(\zeta_{16}) = \zeta_{16}^a$. That is the elements of the Galois group take primitive $n$-th roots to primitive $n$-th roots. 
+        
+        Action on $i$: 
+        \[\sigma_a (i) = \sigma_a(\zeta_{16}^4) = \zeta_{16}^{4a}\]
+        where $4a$ is computed mod $16$. 
+        
+        That is, if $a \equiv 1, 5, 9, 13 \pmod {16}$ then $4a \equiv 4 \pmod {16}$ and $\zeta_{16}^4 = i$. Else if $a \equiv 3, 7, 11, 15 \pmod {16}$ then $4a \equiv 12 \pmod {16}$ and $\zeta_{16}^{12} = -i$. 
+
+        Action on $\gamma$: 
+        \[\sigma_a (\gamma) = \sigma_a(\zeta_{16} + \zeta_{16}^{-1}) = \zeta_{16}^{a} + \zeta_{16}^{-a} = 2\cos\!\left(\frac{2\pi a}{16}\right)\]
+        where $a$ is computed mod $16$. 
+
+        In particular,
+
+        \[
+        \begin{aligned}
+        a &\equiv 1,15 &\pmod{16}
+        &\Rightarrow\quad
+        \sigma_a(\gamma)=\zeta_{16}+\zeta_{16}^{-1}, \\[6pt]
+        a &\equiv 3,13 &\pmod{16}
+        &\Rightarrow\quad
+        \sigma_a(\gamma)=\zeta_{16}^3+\zeta_{16}^{-3}, \\[6pt]
+        a &\equiv 5,11 &\pmod{16}
+        &\Rightarrow\quad
+        \sigma_a(\gamma)=\zeta_{16}^5+\zeta_{16}^{-5}, \\[6pt]
+        a &\equiv 7,9 &\pmod{16}
+        &\Rightarrow\quad
+        \sigma_a(\gamma)=\zeta_{16}^7+\zeta_{16}^{-7}.
+        \end{aligned}    
+        \]
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{3}
-    In this problem, you’ll see a polynomial whose roots are solvable by radicals but whose splitting field is not itself a radical extension. Let $K = \mathbb{Q}(\zeta_7)$ and $L = \mathbb{Q}(\zeta_7 + \zeta_7)$.
+    In this problem, you'll see a polynomial whose roots are solvable by radicals but whose splitting field is not itself a radical extension. Let $K = \mathbb{Q}(\zeta_7)$ and $L = \mathbb{Q}(\zeta_7 + \overline{\zeta_7})$.
 
     \begin{enumerate}
         \item[(a)] Prove that $K/\mathbb{Q}$ is a radical extension.
 
-        \item[(b)] Prove that $L/\mathbb{Q}$ is not a radical extension. Warning. A simple extension $F(\alpha)$ can be radical even if $\alpha$ is not an $n$th root of anything in $F$ (try to think of an example).
+        \item[(b)] Prove that $L/\mathbb{Q}$ is not a radical extension. 
+        
+        \textbf{Warning:} A simple extension $F(\alpha)$ can be radical even if $\alpha$ is not an $n$th root of anything in $F$ (try to think of an example).
 
-        \item[(c)] Find the minimal polynomial of $\zeta_7 + \zeta_7$. Hint. $\zeta_7^4 = \zeta_7^3$.
+        \item[(c)] Find the minimal polynomial of $\zeta_7 + \overline{\zeta_7}$. Hint. $\zeta_7^4 = \overline{\zeta_7}^3$.
 
         \item[(d)] Write down a polynomial of degree 3 over $\mathbb{Q}$ (that is solvable by radicals but) whose splitting field is not a radical extension of $\mathbb{Q}$.
     \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item [(a)] Let $K = \Q(\zeta_7)$. Now note $\zeta_7^7 = 1 \in \Q$. Since the element $\zeta_7$ is a 7th root of an element of $\mathbb{Q}$ it is obtained from $\mathbb{Q}$ by adjoining a radical, and hence is a radical extension. 
+        
+        \item [(b)] Since $\zeta_7$ is a primitive root of unity, we know, 
+        \[[K/\Q] = \varphi(7) = 6\]
+        and, 
+        \[Gal(K/\Q) \isom (\Z/7\Z)^\times\]
+        Now, since $F \subseteq L \subseteq K$ and $\zeta_7 + \overline{\zeta_7} = 2\cos(2\pi/7) \in \R$, $[K:L] = 2$ and by Tower Law, $[L:F]$ must be $3$. 
+        
+        For the sake of contradiction, assume $L$ is radical. Since $3$ is prime, by Tower Law there are no non-trivial extensions then $\zeta_7+ \overline{\zeta_7} = \sqrt[3]{a}$, for some $a \in \Q$. 
+        Moreover, $L/\Q$ is Galois (it is the fixed subfield of an abelian Galois group). But if this extension is Galois, then $L$ must have all roots of $x^3 - a$, which are $\sqrt[3]{a}, \,\zeta_3\sqrt[3]{a}, \, \zeta_3^2\sqrt[3]{a}$. But $L \subset \R$, and hence a contradiction.
+
+        That is, $L/\Q$ is not a radical extensions.  
+
+        \item [(c)] Note that $\overline{\zeta_7} = \zeta_7^6$, and $\Phi_7(x) = x^6 + x^5 + x^4 + x^3 + x^2 + x + 1 = 0$, that is 
+        \[\zeta_7^6 + \zeta_7^5 + \zeta_7^4 + \zeta_7^3 + \zeta_7^2 + \zeta_7  + 1= 0 \]
+        \[(\zeta_7^6 + \zeta_7) + (\zeta_7^4 + \zeta_7^3) + (\zeta_7^2 + \zeta_7^5)  + 1= 0 \]
+        Also, 
+        \[(\zeta_7^6 + \zeta_7)^2 = \zeta_7^5 + \zeta_7^2 + 2, \qquad (\zeta_7^6 + \zeta_7)^3 = \zeta_7^4 + \zeta_7^3 + 3(\zeta_7^6 + \zeta_7)\]
+        Substituting back, $x = \zeta_7^6 + \zeta_7$, 
+        \[x + x^3 - 3x + x^2 - 2  + 1 = x^3 + x^2 -2x -1= 0 \]
+        The minimal polynomial is $x^3 + x^2 - 2x - 1 = 0$. 
+        \item [(d)] $f(x) = x^3 + x^2 - 2x - 1$
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{4}
     Let $f(x) \in \mathbb{Q}[x]$ be an irreducible quartic polynomial and $K = \mathbb{Q}(\alpha)$ for a root $\alpha$ of $f(x)$. Let $G \subset S_4$ be the Galois group of the splitting field of $f(x)$ over $\mathbb{Q}$.
@@ -56,13 +247,114 @@
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] ($\implies$) Assume $K/\Q$ has no non-trivial intermediate subfields. 
+        
+        $L$ be the splitting field of $f(x)$ over $\Q$. That is $F \subset K \subseteq L$. And let $G = Gal(L/\Q) \subseteq S_4$.
+        Since $f(x)$ is irreducible, we know that $[K:\Q] =4$, and also that $G$ is transitive. 
+        
+        Let $H \subset G$ be the group that fixes $K$ in $L$. Then by Galois correspondence, if $K/\Q$ has no non-trivial subfields, there are no groups between $H$ and $G$. From FTGT, the following holds 
+        \[[K:\Q] = [G:H] = 4\]  
+
+        Now consider the transitive subgroups of $S_4$. 
+        \begin{enumerate}
+            \item [(i)] $C_4$ - A subgroup of index $4$ would have order $1$. There is a subgroup of order $2$ between ${1}$ and $C_4$ and hence there exist a corresponding nontrivial intermediate subfield. 
+            \item [(ii)] $V_4$ - A subgroup of index $4$ would have order $1$. There are $3$ subgroups of order $2$ between ${1}$ and $V_4$ and hence there exist corresponding nontrivial intermediate subfields. 
+            \item [(iii)] $D_8$ - A subgroup of index $4$ would have order $2$. There are several subgroups of order $4$ between ${1}$ and $D_4$ and hence there exist corresponding nontrivial intermediate subfields. 
+            \item [(iv)] $A_4$ - A subgroup of index $4$ would have order $3$. There is no subgroup of size $6$ in $A_4$, so there are no subgroups and hence no intermediate fields. 
+            \item [(v)] $S_4$ - A subgroup of index $4$ would have order $6$. The stabilizer of a root is isomorphic to $S_3 \subset S_4$. And note that althought there is a group of order $12$ in $S_4$, $S_3 \not \subseteq A_4$ Hence there are no intermediate fields. 
+        \end{enumerate}
+
+        Hence, the only possible transitive groups of $S_4$ that $G$ can be is $A_4$ and $S_4$. 
+
+        \bbni 
+
+        ($\impliedby$) Assume $G= A_4$ or $G = S_4$. Let $L$ be the splitting field of $f(x)$ over $\Q$, and let $H = Gal(L/K)$. Then we have $F \subset K \subseteq L$, and $\{e\} \subset H \subset G$. Moreover, we know $[L:\Q] = |G|$, and $[K:\Q] = 4$, then by Tower Law $[L:K] = |G|/4$.
+        
+        \begin{enumerate}
+            \item [(i)] $G = S_4$. 
+
+            $[L:K] = 6 = |H|$, which means $|H| \isom S_3$.  There is no subgroup of size $6$ in $A_4$. The stabilizer of a root is isomorphic to $S_3 \subset S_4$. Note that althought there is a group of order $12$ in $S_4$, $S_3 \not \subseteq A_4$ Hence there are no intermediate fields.
+
+            \item [(ii)] $G = A_4$. 
+            
+            $[L:K] = 3$, that is $Gal(L/K) \isom C_3$. And there are no subgroups between $C_3$ and $A_4$, i.e. there are no corresponding subfields between $K/\Q$. 
+        \end{enumerate}
+
+        Hence proved. 
+
+        \item[(b)] 
+        ($\implies$) Assume $\alpha$ is constructible. 
+
+        Then there exists a tower of quadratic extensions
+        \[ \mathbb{Q} = F_0 \subset F_1 \subset \cdots \subset F_r \]
+        with $[F_{i+1}:F_i] = 2$ and $\alpha \in F_r$. That is $\Q(\alpha) \subseteq F_r$. 
+
+        Since $K = \mathbb{Q}(\alpha)$ has $[K:\mathbb{Q}] = 4$, we have $K \subseteq F_r$. Let $L$ be the normal closure of $K/\mathbb{Q}$ and let  $G = \mathrm{Gal}(L/\mathbb{Q})$.        Since $L \subseteq F_r$ and $[F_r:\mathbb{Q}] = 2^r$, it follows that $|G| = [L:\mathbb{Q}]$ is a power of $2$. Now consider the transitive subgroups of $S_4$. 
+        \begin{enumerate}
+            \item [(i)] $C_4 = \langle g \rangle$ 
+            \[{1} \trianglelefteq \langle g^2 \rangle \trianglelefteq\langle g \rangle = C_4 \]
+            And there exists a corresponding quadratic tower of extensions that reaches $K$. 
+            \item [(ii)] $V_4 = \{1, a, b, ab\}$ 
+            \[{1} \trianglelefteq \langle a \rangle \trianglelefteq\langle a, b\rangle = V_4 \]
+            And there exists a corresponding quadratic tower of extensions that reaches $K$. 
+
+            \item [(iii)] $D_8 = \langle s, r \, | \, e = s^2 = r^4 , sr = r^{-1}s \rangle$            
+            \[{1} \trianglelefteq \langle r^2 \rangle \trianglelefteq\langle r^2, s \rangle \triangleleft \langle r, s \rangle = D_8 \]
+            And there exists a corresponding quadratic tower of extensions that reaches $K$. 
+
+
+            \item [(iv)] $A_4$ - This group has order $12$ which is not a power of $2$, hence there doesn't exist such a sequence, and there does not exist a corresponding quadratic tower that reaches $G$, hence elements with this Galois groups are not constructible. 
+            \item [(v)] $S_4$ - This group has order $24$ which is not a power of $2$, hence there doesn't exist such a sequence, and there does not exist a corresponding quadratic tower that reaches $G$, hence elements with this Galois groups are not constructible.  
+        \end{enumerate}
+
+
+        Hence $G \cong C_4, \; V_4, \; \text{or } D_8$. 
+        \bbni 
+
+        ($\impliedby$) Assume that the normal closure $L$ of $K/\mathbb{Q}$ has
+        \[
+        G = \mathrm{Gal}(L/\mathbb{Q}) \cong C_4, \; V_4, \; \text{or } D_8.
+        \]
+
+        Since these are all 2-groups, we can find a chain of subgroups
+        \[
+        \{1\} = G_0 \subset G_1 \subset \cdots \subset G_n = G
+        \]
+        with $[G_{i+1} : G_i] = 2$. By the Fundamental Theorem of Galois Theory, this corresponds to a tower of quadratic extensions
+        \[
+        \mathbb{Q} = L^G \subset L^{G_{n-1}} \subset \cdots \subset L^{G_0} = L
+        \]
+        where each extension has degree $2$.
+
+        Since $K = \mathbb{Q}(\alpha)$ is an intermediate field of $L/\mathbb{Q}$, it lies in this tower. Hence $K/\mathbb{Q}$ is obtained by successive quadratic extensions, and therefore $\alpha$ is constructible.
+
+        Hence proved. 
+
+        \item [(c)] Let $f(x) = x^4  -x -1$, and $\alpha$ be a root to $f(x)$. Consider $f(x) \in \F_2[x]$. For $x = 0$: 
+        \[f(0) = (0)^4 - 0 - 1 = 1\]
+        And, for $x = 1$: 
+        \[f(1) = (1)^4 - 1 - 1 = -1\]
+        That is, $f(x)$ doesn't factor into a linear * cubic polynomials, or  $2$ linear * quadratic, or $4$ linears. That only leaves us with it factoring into two quadratics, The only irreducible quadratic in $\F_2[x]$ is $g(x) = x^2 + x + 1$. Note that $g(x) \nmid f(x)$. 
+        Hence $f(x)$ is irreducible and $[\Q(\alpha):\Q] = 4$. To check separablity we note that $f'(x) = 4x^3 - 1$, and $\gcd(f'(x), f(x)) =1$, hence it is separable. 
+        
+        Let $g(x)$ be the cubic resolvant of $f(x)$. Then $g(x) = x^3 +4x - 1$. This polynomial is also irreducible by RRT. And $\Delta(g) = \Delta(f) = -27(-1)^2 - 4(4)^3 = -283$, which is not a square in $\Q$. Then its Galois group is $S_4$, and by part (b) we know that this is not constructible. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{5}
     Let $p$ be a prime number and $S_p$ the symmetric group on $p$ things.
 
     \begin{enumerate}
         \item[(a)] Prove that an element of $S_p$ has order $p$ if and only if it is a $p$-cycle.
 
-        \item[(b)] Prove that $S_p$ is generated by any choice of element of order $p$ and a transposition. Find a composite $n$ and a choice of an $n$-cycle and a transposition that do not generate $S_n$. Hint. For any $n$, DF 3.5 Exercise \#4 says that $S_n$ is generated by $(12)$ and $(12 \cdots n)$. What is special about $p$ being prime is that every element of order $p$ in $S_p$ is a $p$-cycle and every power of a $p$-cycle is a $p$-cycle (or the identity), which are facts you should verify. Hence up to conjugation and taking powers, you can assume that your transposition is $(12)$ and that your $p$-cycle is $(12 \cdots)$. What then?
+        \item[(b)] Prove that $S_p$ is generated by any choice of element of order $p$ and a transposition. Find a composite $n$ and a choice of an $n$-cycle and a transposition that do not generate $S_n$. 
+        
+        \textbf{Hint.} For any $n$, DF 3.5 Exercise \#4 says that $S_n$ is generated by $(12)$ and $(12 \cdots n)$. What is special about $p$ being prime is that every element of order $p$ in $S_p$ is a $p$-cycle and every power of a $p$-cycle is a $p$-cycle (or the identity), which are facts you should verify. Hence up to conjugation and taking powers, you can assume that your transposition is $(12)$ and that your $p$-cycle is $(12 \cdots)$. What then?
 
         \item[(c)] Let $F \subset \mathbb{R}$ be a subfield. Prove that if $f(x) \in F[x]$ is an irreducible polynomial of degree $p$ having $p - 2$ real roots, then the Galois group of $f(x)$ over $F$ is isomorphic to $S_p$.
 
@@ -73,4 +365,135 @@
         \item[(f)] Prove that the Galois group of the polynomial $x^5 - x^4 - x^2 - x + 1$ over $\mathbb{Q}$ is isomorphic to $S_5$. Hint. You are allowed to use real analysis (e.g., the intermediate value theorem), but as a challenge, try to find a purely algebraic (possibly computer-aided) way.
         \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item[(a)] $(\implies)$
+        Assume $\sigma \in S_p$ has order $p$. Recall that the order of a permutation is equal to the lcm of the lengths of its disjoint cycles. Since $p$ is prime, the only such decomposition of $\sigma$ would be into a $1$-cycle (fixed points) and a $p$-cycle. Note that since there are $p$ total objects there can be at most $1$ $p$-cycle, i.e. $\sigma$ cannot be decomposed into two or more disjoint $p$ cycles.
+        
+
+        $(\impliedby)$
+        The order of a cycle is equal to its length, i.e., a $p$-cycle has order $p$. 
+
+        \item[(b)] Let $\sigma = (a_1, \ldots, a_p) \in S_p$ be a $p$ cycle, and $\tau = (a_1, a_2)$ be a transposition.
+        Recall from Math 71, that elements in $S_n$ are conjugate if they have the same cycle type. That is $p$-cycles are conjugate in $S_p$ and transpositions are also conjugate in $S_p$, or the conjugacy action acts transitively on these cycles. Then, upto conjugation we assume $\sigma = (1, 2, \ldots, p)$ and $\tau = (1, 2)$. Then by DF 3.5 Exercise \#4, $S_p$ is generated by $(1, 2, \ldots p)$ and $(1,2)$. 
+        
+        \item [(c)] Let $F \subset \R$, $K$ be the splitting field of $f(x) \in F[x]$. Assume that $f(x)$ has $p-2$ real roots, or $f(x)$ has two complex roots (which are complex conjugates). We know that the Galois group $G$ of $K$ is a subset of $S_p$. 
+        
+        Note that complex conjugation fixes $F$ and the real roots, and hence is an automorphism. The order this automorphism is $2$ since the complex conjugation of the complex conjugation is the orginal number. Since $f(x)$ is irreducible $G$ acts transitively on the set of roots. 
+        
+        \textbf{Claim:} If $G \subseteq S_p$ is a transitive subgroup it contains a $p$ cycle.
+
+        \textbf{Proof:} Assume $G$ is a transitive subgroup. Then by orbit stabilizer 
+        \[|G| = |orb(x)| \cdot |stab(x)| = p \cdot |stab(x)|\]
+        That is $p \big | |G|$. By Cauchy's Theorem, we know that every group with order divisible by $p$ has an element of order $p$, and from part (a) we know that if any $x \in G \subseteq S_p$ has order $p$ then it is a $p$-cycle. 
+        Hence proved. 
+
+        That is, $G$ has a $2$-cycle and a $p$-cycle. From (b), we know that the subgroup of $G$ generated by these cycles is $S_p$. Hence, $S_p \subseteq G \subseteq S_p$, so $G = S_p$. 
+
+        \item [(d)] Let $F \subset \R$, if $f(x) \in F[x]$ is an irreducible cubic with $\Delta <0$ then from Problem 1 (b), we know that it has $2$ complex roots. From part (c), this gives us that the Galois group of $f(x)$ over $F$ is isomorphic to $S_3$.
+        \item [(e)] Let $f(x) = x^3 - x -1$. 
+        Note that $f(x)$ is irreducible by RRT since $f(1) = -1$ and $f(-1) = -1$. Also, recall from pset $4$ problem 3, that given a polynomial $g(x) = x^3 + px + q$, it's discriminant $\Delta(f)$ is $-4p^3 - 27q^2$.         
+
+        That is, $\Delta(f) = -4(-1)^3 - 27(-1) = -23$. Since $\Delta(f) <0$ and $f(x)$ irreducible, from part (d), we know that the Galois group of $f(x)$ is isomorphic to $S_3$.
+
+        \item [(f)] 
+        % Let $g(x) = a_0x^5 + a_1x^4 + a_2x^3 + a_3x^2 + a_4x + a_5$ be a general quintic equation, and let $\alpha_1, \ldots, \alpha_5$ be the roots of $g(x)$. Then, we can write, 
+        % \[g(x) = (x-\alpha_1)(x-\alpha_2)(x-\alpha_3)(x-\alpha_4)(x-\alpha_5)\]
+        % Using elementary symmetric polynomials we can rewrite $g(x)$ as, 
+        % \begin{align*}
+        %     g(x) &= \sum_{j=0}^5 (-1)^{5-j}e_{5-j}x^j \\
+        %     &= (-1)^5e_5 + (-1)^4e_4x + (-1)^3e_3x^2 + (-1)^2e_2x^3 + (-1)e_1x^4 + (-1)^0e_0x^5 \\ 
+        %     &= -e_5 + e_4 x - e_3 x^2 + e_2 x^3 - e_1 x^4 + x^5 \\
+        %     &=  x^5 - e_1 x^4 + e_2 x^3 - e_3 x^2 + e_4 x - e_5.
+        % \end{align*}
+
+        % Expanding the elementary symmetric polynomials,
+        % \[
+        % e_1 = \sum_{i=1}^5 \alpha_i,
+        % \qquad
+        % e_2 = \sum_{i<j} \alpha_i \alpha_j,
+        % \qquad
+        % e_3 = \sum_{i<j<k} \alpha_i \alpha_j \alpha_k,
+        % \]
+        % \[
+        % e_4 = \sum_{i<j<k<\ell} 
+        % \alpha_i \alpha_j \alpha_k \alpha_\ell,
+        % \qquad
+        % e_5 = \alpha_1 \alpha_2 \alpha_3 \alpha_4 \alpha_5.
+        % \]
+
+        % The discriminant of $g$ is
+        % \[\Delta(g)=\prod_{1 \le i < j \le 5} (\alpha_i - \alpha_j)^2 = e_1 e_4 + e_2 e_3 + e_5\]
+        % Since the determinant works for all quintics of the general form we check use computation to check specific polynomials to determine $A, B, C, D$: 
+
+        
+        
+        Let $f(x) = x^5 - x^4 - x^2 - x +1$. 
+        
+        Consider $f(x) \in \F_2[x]$. Then, 
+        \[f(0) = 0 - 0 - 0 - 0 + 1 = 1\]
+        and, 
+        \[f(1) = 1 - 1 - 1 - 1 + 1 = -3 \equiv -1\]
+        since there are no roots in $\F_2[x]$, $f(x)$ can not factor as a linear * quartic, or a linear * 2 quadratics. However, we must still check that it doesn't factor as a degree $2$ and a degree $3$ polynomial. In $\F_2[x]$ the only irreducible quadratic is $g(x) = x^2 + x + 1$. Note $g(x) \nmid f(x)$
+        That is it is irreducible. 
+        Using computation, we can calculate that \[\Delta(f) = -1 * 7 * 1217\]
+        Since, $\sgn(\Delta(f)) = -1$, using Problem $1$ part (a), we can say that this means that there is only $1$ pair of complex conjugate roots (since $f$ can have at most $2$ pairs, and odd sign signifies odd number of pairs, we deduce that there is only $1$ pair). That is there are $5-2$ real roots, and from part (c), we know that the Galois group of $f(x)$ over $F$ is isomorphic to $S_5$. 
+        
+        % Note that $f(x)$ is irreducible by RRT since $f(1) = -1$, and $f(-1) =  -1$. Let $\alpha_1, \ldots, \alpha_5$ be the roots of $f(x)$. Then, we can write, 
+        % \[f(x) = (x-\alpha_1)(x-\alpha_2)(x-\alpha_3)(x-\alpha_4)(x-\alpha_5)\]
+        % Using elementary symmetric polynomials we can rewrite $f(x)$ as, 
+        % \begin{align*}
+        %     f(x) &= \sum_{j=0}^5 (-1)^{5-j}e_{5-j}x^j \\
+        %     &= (-1)^5e_5 + (-1)^4e_4x + (-1)^3e_3x^2 + (-1)^2e_2x^3 + (-1)e_1x^4 + (-1)^0e_0x^5 \\ 
+        %     &=  x^5 - e_1 x^4 + e_2 x^3 - e_3 x^2 + e_4 x - e_5.
+        % \end{align*}
+
+        % Using elementary symmetric polynomials, we can write $f(x)$ as
+        % \begin{align*}
+        %     f(x)
+        %     &= \sum_{j=0}^{5} (-1)^{5-j} e_{5-j} x^j \\
+        %     &= (-1)^5 e_5 + (-1)^4 e_4 x + (-1)^3 e_3 x^2 
+        %     + (-1)^2 e_2 x^3 + (-1)^1 e_1 x^4 + (-1)^0 e_0 x^5 \\
+        %     &= -e_5 + e_4 x - e_3 x^2 + e_2 x^3 - e_1 x^4 + x^5 \\
+        %     &= x^5 - e_1 x^4 + e_2 x^3 - e_3 x^2 + e_4 x - e_5.
+        % \end{align*}
+
+        % Expanding the elementary symmetric polynomials,
+        % \[
+        % e_1 = \sum_{i=1}^5 \alpha_i,
+        % \qquad
+        % e_2 = \sum_{i<j} \alpha_i \alpha_j,
+        % \qquad
+        % e_3 = \sum_{i<j<k} \alpha_i \alpha_j \alpha_k,
+        % \]
+        % \[
+        % e_4 = \sum_{i<j<k<\ell} 
+        % \alpha_i \alpha_j \alpha_k \alpha_\ell,
+        % \qquad
+        % e_5 = \alpha_1 \alpha_2 \alpha_3 \alpha_4 \alpha_5.
+        % \]
+
+        % The discriminant of $f$ is
+        % \[
+        % \Delta(f)
+        % =
+        % \prod_{1 \le i < j \le 5} (\alpha_i - \alpha_j)^2.
+        % \]
+
+        % Since $\Delta(f)$ is a symmetric polynomial in the roots,
+        % it can be expressed as a polynomial in the elementary symmetric
+        % polynomials $e_1,\dots,e_5$.
+
+        % But $e_1,\dots,e_5 \in F$ (they are the coefficients of $f$),
+        % so
+
+        % \[
+        % \Delta(f) \in F.
+        % \]
+
+        % \todo{}
+    \end{enumerate}
+\end{solution}
 \end{document}

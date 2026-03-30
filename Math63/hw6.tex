@@ -10,17 +10,195 @@
     Prove that a differentiable real-valued function on $\R$ with bounded derivative is uniformly continuous.
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    Let $f'$ be the derivative of a differentiable function $f: \R \to \R$, and let $M$ be a constant such that 
+    \[|f'(x)| \leq M \quad \text{for all $x \in \R$}\] 
+    Note that by MVT, for any $x, y \in \R$ such that $x \neq y$ there exists some $c$ between $x$ and $y$ such that 
+    \[|f(x) - f(y)| = |(x - y)| \,|f'(c)|\]
+    But since $f'(c) \leq M$, 
+    \[|f(x) - f(y)| \leq |x - y| \, M\]
+    Now fix an $\epsilon >0$. To show that $f$ is uniformly continuous, we need to show that there exists a $\delta >0$ such that if $x, y \in \R$ and $|x -  y| < \delta$ then $|f(x) - f(y)| < \epsilon$. That is, 
+    \[|f(x) - f(y)| \leq  \delta M < \epsilon\]
+    Choose $\delta = \epsilon /M$.  Here note that if $M = 0$ then $|f'(c)| = 0$, and $f$ is a constant function, and trivially unifromly continuous. If $M \neq 0$ then $\delta$ is well-defined. Then we get, for any
+    $\epsilon > 0$ there exists a $\delta > 0$ such that if $x, y \in \R$ and $|x - y| < \delta = \epsilon /M$ then, 
+    \[|f(x) - f(y)| \leq  |x-y| M \implies |f(x) - f(y)| < \delta M = \epsilon\]
+    Hence, $f$ is uniformly continuous. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{2}
-    Let $f$ be a real-valued function on an open subset $U$ of $\R$ that is twice differentiable at $x_o \in U$. Show that if $f'(x_0) = 0$ and $f"(x_0) < 0$ $(f" (x_0) > 0)$ then the restriction of $f$ to some open ball of center o attains a maximum (minimum) at $x_0$.
+    Let $f$ be a real-valued function on an open subset $U$ of $\R$ that is twice differentiable at $x_o \in U$. Show that if $f'(x_0) = 0$ and $f"(x_0) < 0$ $(f" (x_0) > 0)$ then the restriction of $f$ to some open ball of center $x_0$ attains a maximum (minimum) at $x_0$.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Assume $f'(x_0) =0$ and $f''(x_0) < 0$. Note that, 
+    \[f''(x_0) = \underset{x \to x_0}{\lim} \frac{f'(x) - f'(x_0)}{x-x_0}\]
+    But $f'(x_0) = 0$, and $f''(x_0) < 0$
+    \[f''(x_0) = \underset{x \to x_0}{\lim} \frac{f'(x)}{x-x_0}< 0 \]
+    because the limit is negative, there exists some $\epsilon > 0$ such that, 
+    \[0 < |x- x_0| < \epsilon\]
+    then, in the ball $B_\epsilon(x_0)$ centered at $x_0$ with radius $\epsilon$, 
+    \[\frac{f'(x)}{x-x_0} < 0\]
+   Now if, $x < x_0$, then $f'(x) > 0$ and if $x > x_0$, then $f'(x) < 0$. That is, $f'(x)$ changes sign at $f'(x_0)$, i.e. the derivative is postive to the left of $x_0$ (implying that the function increases) and is negative to the right of $x_0$ (implying that the function decreases). Hence, $f(x_0)$ is a maximum in the ball $B_\epsilon(x_0)$. 
+
+   A similar proof (with only switching inequalities) works to show that if $f''(x_0) > 0$ then the restriction of $f$ to some open ball of center $x_0$ attains a minimum at $x_0$. 
+\end{solution}
+
+\newpage
 
 \begin{problem}{3}
     A real-valued function on an open interval in $\R$ is called convex if no point on the line segment between any two points of its graph lies below the graph. If the function is differentiable, this condition is known to be equivalent to the condition that no point of the graph lie below any point of any tangent to the graph. If the function is twice differentiable the condition is known to be equivalent to the second derivative of the function being nonnegative at all points. State these conditions in precise analytic terms and prove them.
 \end{problem}
 
+\begin{solution}
+    \bbni
+    
+    Let $f: I \to \R$ be a real valued function on an open interval $I \subset \R$.
+
+    \textbf{Definition:}
+        The function $f$ is convex if given any two points $(x_1, f(x_1))$ and $(x_2, f(x_2))$ on the graph, no points on the line segment connecting them lies below the graph. 
+        
+        Let $t \in [0,1]$. The points between $x_1$ and $x_2$ are 
+        \[(1-t)x_1 + tx_2\] 
+        and the corresponding point on the line segment is, 
+        \[((1-t)x_1 + tx_2, (1-t)f(x_1)+tf(x_2))\]
+        and the corresponding point on the graph is, 
+        \[((1-t)x_1 + tx_2, f((1-t)x_1 + tx_2))\]
+
+        where $(1-t)f(x_1)+tf(x_2) \geq f((1-t)x_1+ tx_2)$. 
+        \\
+        \newpage
+        \textbf{Claim:} If $f$ is differentiable, then $f$ is convex if and only if for the tangent line $y = f(x_0) + f'(x_0)(x-x_0)$, 
+        \[f(x) \geq f(x_0) + f'(x_0)(x-x_0). \]
+        
+        \textbf{Proof:} 
+        
+        $(\implies)$
+        Assume $f$ is convex. Then for any two points $(x, f(x))$ and $(x_0, f(x_0))$ on the graph, we have $(1-t)f(x_0)+tf(x) \geq f((1-t)x_0+ tx)$, $\forall t \in [0,1]$.
+        
+        Fix $x$. Let $y= (1-t)x_0 + tx$. Note, 
+        \[y - x_0 = t(x -x_0)\] 
+        Then, 
+        \begin{align*}
+            (1-t)f(x_0)+tf(x) = f(x_0) + t(f(x) - f(x_0)) &\geq f(y) \\ 
+           t(f(x) - f(x_0))  &\geq f(y) - f(x_0)\\ 
+            \frac{t(f(x) - f(x_0)) }{y - x_0}&\geq \frac{f(y) - f(x_0)}{y-x_0}\\ 
+            \frac{t(f(x) - f(x_0))  }{t(x - x_0)}&\geq \frac{f(y) - f(x_0)}{y-x_0}\\ 
+            \frac{f(x) - f(x_0)  }{x - x_0}&\geq \frac{f(y) - f(x_0)}{y-x_0}
+        \end{align*}
+        
+        Then as $t \to 0, \, y \to x_0 $, 
+        \[\underset{y \to x_0}{\lim} \frac{f(y) - f(x_0)}{y-x_0} = f'(x_0)\]
+        That is, 
+        \[\frac{f(x) - f(x_0)  }{x_0 - x} \geq f'(x_0) \implies f(x) \geq f'(x_0)(x_0 -x) + f(x_0)\]
+
+        Hence the forward direction holds. 
+
+        \bbni 
+
+        $(\impliedby)$
+        Assume the graph lies above every tangent line. That is,
+        \[f(x) \geq f(x_0) + f'(x_0)(x-x_0), \qquad \forall x,x_0 \]
+        And we want to show that 
+        \[f((1-t)x_0 + t(x)) \leq (1-t)f(x_0) + tf(x) = f(x_0) + t(f(x) - f(x_0)).\]
+
+
+        For $x > x_0$, we have, 
+        \begin{align*}
+            f(x) &\geq f(x_0) + f'(x_0)(x-x_0) \\ 
+            \frac{f(x)  - f(x_0)}{x-x_0}  &\geq f'(x_0)\\ 
+        \end{align*}
+        But also since the assumption is true for every tangent line the following also holds, 
+         \begin{align*}
+            f(x_0) &\geq f(x) + f'(x)(x_0-x) \\ 
+            \frac{f(x)  - f(x_0)}{x-x_0}  &\leq f'(x)\\ 
+        \end{align*}
+
+        i.e., for all $x_0 < x$, the following holds
+        \[f'(x_0) \leq \frac{f(x) - f(x_0)}{x-x_0} \leq f'(x)\]
+        $f'$ is increasing. Now let, $y = (1-t)x_0 + t(x)$. By MVT, there exists a $c$ such that $x_0 < c < y$, and 
+        \[f(y) - f(x_0) = f'(c)(y-x_0)\] 
+        Since $f'$ is increasing and $c < x$,
+        \[f'(c) \leq \frac{f(x) - f(x_0)}{x - x_0}\]
+        Then we get, 
+        \begin{align*}
+            \frac{f(y) - f(x_0)}{y-x_0} &\leq \frac{f(x) - f(x_0)}{x - x_0} \\ 
+            \frac{f((1-t)x_0 + tx) - f(x_0)}{(1-t)x_0 + tx-x_0} =  \frac{f((1-t)x_0 + tx) - f(x_0)}{t(x - x_0)} &\leq \frac{f(x) - f(x_0)}{x - x_0} \\ 
+            {f((1-t)x_0 + tx) - f(x_0)} &\leq \frac{f(x) - f(x_0)}{x - x_0} {t(x - x_0)} = t(f(x) - f(x_0))\\
+            {f((1-t)x_0 + tx)} &\leq t(f(x) - f(x_0)) + f(x_0)
+        \end{align*}
+        Hence proved. 
+
+        \bbni
+        \textbf{Claim:} If $f$ is twice differentiable, then $f$ is convex if and only if $f''(x) \geq 0$
+        
+        \textbf{Proof:} 
+        
+        ($\implies$) Assume $f$ is twice differentiable and convex. In the proof above we saw that if $f$ is differentiable and convex then $f'$ is increasing. Now note that since $f''$ exists, $f'$ is differentiable. And the derivative of an increasing function  is always $\geq 0$. Hence, the forward direction holds. 
+
+        ($\impliedby$) Assume $f''(x) \geq 0$. That is, $f'$ is an increasing function. Then using the same logic as the reverse direction of the proof above, we can see that $f$ is convex. 
+
+        Hence the claim holds. 
+\end{solution}
+
+\newpage
+
 \begin{problem}{4}
      Prove that $\int_0^1 f(x)dx = 0$ if $f(1/n) = 1$ for $n = 1,2,3,\ldots$ and $f(x) = 0$ for all other $x$ .
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Note that $f(x)=1$ at the points 
+    $\left\{1,\frac{1}{2},\frac{1}{3},\cdots\right\}$,
+    and $f(x)=0$ elsewhere. Since $\frac{1}{n}\to 0$, these points
+    cluster only at $0$.
+
+    On any subinterval of $[0,1]$ there are points where $f(x)=0$,
+    so for every partition $P$,
+    \[
+    g.l.b.\left(\sum_{i=1}^N f(x_i')(x_i-x_{i-1})\right)=0.
+    \]
+    Hence the $g.l.b.$ is $0$.
+    
+    It remains to show that the least upper bound can be made arbitrarily small. Fix $k>0$. Choose $\epsilon>0$ such that
+    \[\epsilon < \frac{k}{2}\]
+    Now partition $[0,1]$ as $[0,\epsilon] \cup [\epsilon,1]$. Then we have the following cases: 
+    \begin{enumerate}
+        \item  On $[\epsilon,1]$ there are only finitely many points where $f(x)=1$.
+        Let $N$ be the number of such points. Around each of these points,
+        choose a small interval of length less than $\frac{k}{2N}$.
+        Then the total length of these intervals is less than
+        \[N \cdot \frac{k}{2N} = \frac{k}{2}\]
+
+        On subintervals not containing one of these points,
+        the maximum of $f$ is $0$. On subintervals containing one,
+        the maximum is $1$. Hence,
+        \[l.u.b.\left(\sum_{i=1}^N f(x_i')(x_i-x_{i-1})\right)\le \frac{k}{2}\quad \text{on } [\epsilon,1]\]
+
+        \item On $[0,\epsilon]$, the maximum value of $f$ is at most $1$,
+        so the contribution from this interval is at most
+        \[1 \cdot \epsilon < \frac{k}{2}\]
+    \end{enumerate}
+   
+    Therefore,
+    \[    l.u.b.\left(\sum_{i=1}^N f(x_i')(x_i-x_{i-1})\right)
+    < \frac{k}{2} + \frac{k}{2} = k\]
+
+    Note that since $k>0$ was arbitrary and the $g.l.b.$ is $0$,
+    it follows that
+    \[
+    \int_0^1 f(x)\,dx = 0
+    \]
+\end{solution}
+
+\newpage 
 
 \begin{problem}{5}
     Does $\int_0^1 f(x)dx$ exist for the following function $f$: 
@@ -30,7 +208,29 @@
     \end{cases*}\]
 \end{problem}
 
+\begin{solution}
+    \bbni
+    
+    Let $P$ be a partition of $[0,1]$. Since the irrationals are dense in the Reals, on every subinterval of $[0,1]$, there exists some $x \notin \Q$, such that $f(x) = 0$, and we get,   
+    \[g.l.b.\left(\sum_{i=1}^N f(x_i')(x_i-x_{i-1})\right) = 0\]
 
+    Now, note that the least upper bound of the riemann sum can be made arbitrarily small. Fix an $\epsilon > 0$. Let $M \in \Z^+$ such that $\frac{1}{M} < \frac{\epsilon}{2}$. 
+    Consider the rational numbers $\frac{p}{q} \in [0,1]$
+    written in lowest terms with $q \le M$.
+    There are only finitely many such numbers.
+    Around each of these points choose a small interval so that
+    the total length of all such intervals is less than $\frac{\epsilon}{2}$. On these intervals $f(x)$ is at most $1$, so their total contribution to the sum is at most $\frac{\epsilon}{2}$. On the remaining subintervals, every rational number has
+    denominator $q > M$, so
+    \[
+    f(x) = \frac{1}{q} \le \frac{1}{M} < \frac{\epsilon}{2}.
+    \]
+    Since the total remaining length is at most $1$,
+    their contribution to the upper sum is at most $\frac{\epsilon}{2}$. Therefore,
+    \[l.u.b.\left(\sum_{i=1}^N f(x_i')(x_i-x_{i-1})\right)< \frac{\epsilon}{2} + \frac{\epsilon}{2}= \epsilon.\]
 
+    Since $\epsilon>0$ was arbitrary and the $g.l.b.$ is $0$,
+    it follows that the integral exists and is,
+    \[\int_0^1 f(x)\,dx = 0.\]
+\end{solution}
 
 \end{document}

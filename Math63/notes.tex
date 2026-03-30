@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\section{Differentiation}
+
+\begin{itemize}
+    \item \textbf{Definition:} A real valued function $f$ on an open subset $U \subset \R$ is differentiable at $x_0 \in U$ if 
+    \[f'(x_0) = \underset{x \to x_0}{\lim}\frac{f(x) - f(x_0)}{x - x_0}\]
+    exists. That is for each $\epsilon > 0$ there exists $\delta >0$ such that 
+    \[\left |\frac{f(x) - f(x_0)}{x-x_0} - f'(x_0) \right | \leq \epsilon \implies |f(x) - f(x_0) - f'(x_0) (x-x_0)| \leq \epsilon|x-x_0|\]
+    whenever $|x - x_0| < \delta$. 
+    \item $f$ differentiable $\implies f$ continuous. 
+    \item Let $U$ be an open susbset of $\R$. If $f: U \to \R$ attains a maximum/minimum at $x_0 \in U$ then $f'(x_0) = 0.$  
+    \item \textbf{Rolle's Theorem:} Let $a, b \in \R, a < b$ and let $f: [a,b] \to \R$ continuous, and differentiable on $(a,b)$, and such that $f(a) = f(b) = 0$. Then there exists $c \in (a,b)$ such that $f'(c) = 0$.
+    
+    \textbf{Proof:} Since $[a,b]$ compact, $f$ attains a max and a min. If max and min @ end points, then $f'(x) = 0$ for all $x$. Else by the statement above, there exists an $x_0$ such that $f'(x_0) = 0$. 
+    \item \textbf{MVT:} Let $a, b \in \R, a < b$ and let $f: [a,b] \to \R$ continuous, and differentiable on $(a,b)$, and such that $f(a) = f(b) = 0$. Then there exists $c \in (a,b)$ such that 
+    \[f(b) - f(b) = (b-a)f'(c)\]
+    \item If $f$ has positive/negative derivative at each point then $f'$ is strictly inc/dec. 
+    \item If $f: U \to \R$ is $(n+1)$ times differentiable, then for any $a, b \in U$ we define $R_n(b, a)$ by, 
+    \[f(b) = f(a) + \frac{f'(a)(b-a)}{1!} + \frac{f''(a)(b-a)^2}{2!} + \cdots + \frac{f^{(n)}(a)(b-a)^n}{n!} + R_n(b,a)\]
+    and \[\frac{d}{dx}R_n(b,x) = - \frac{f^{(n+1)}(x)(b-x)^n} {n!}\]
+    \item \textbf{(not) Taylor's Thm :} If $f: U \to \R$ is $(n+1)$ times differentiable, then for any $a, b \in U$ we define $R_n(b, a)$ by, 
+    \[f(b) = f(a) + \frac{f'(a)(b-a)}{1!} + \frac{f''(a)(b-a)^2}{2!} + \cdots + \frac{f^{(n)}(a)(b-a)^n}{n!} + \frac{f^{(n+1)}(c)(b-a)^{n+1}}{(n+1)!}\]
+    where $c \in [a, b]$.
+\end{itemize}
+
+\section{Integration}
+
+\begin{itemize}
+    \item \textbf{Definition:} Partition of a closed interval $[a,b]$ refers to a finite sequence of numbers such that $a = x_0, x_1, \ldots, x_N = b$. The width of the partition is 
+    \[\max\{x_i - x_{i-1}, i = 1, 2, \ldots, N\}\]
+    And the Riemann sum for $f: [a,b] \to \R$ corresponding to a given partition is 
+    \[S = \sum_{i=1}^Nf(x_i')(x_{i} - x_{i-1})\]
+    where $x_i' \in (x_{i-1}, x_i)$.
+    And $f$ is Riemann integrable if there exists $A \in \R$ such that for any $\epsilon >0$ there exists a $\delta>0$ such that $|S-A| < \epsilon$ where $S$ is a Riemann sum corresponding to a partition of $[a,b]$ of width less than $\delta$. Then $A = \int_a^bf(x)dx$. 
+    \item \textbf{``Cauchy-like" criterion:} $f: [a,b] \to \R$ is Riemann integrable iff $\forall \epsilon >0$ there exists $\delta >0$ such that $|S_1 - S_2| < \epsilon$ whenever $S_1, S_2$ are Riemann sums for $f$ of width less than $\delta$.  
+    \item Step-functions are integrable, and $f: [a,b] \to \R$ is integrable iff for each $\epsilon>0$ there exist step functions $f_1, f_2$ on $[a,b]$ such that $f_1(x) \leq f(x) \leq f_2(x)$ for each $x\in [a,b]$, and $\int_a^b(f_2(x) - f_1(x))dx < \epsilon$. 
+    \item If $f:[a,b] \to \R$ is integrable, then it is bounded.
+    \item \textbf{FTC:} Let $f: U \to \R$ continous, $a\in U$. Define $F:U \to \R$ such that $F(x) = \int_a^xf(t)dt$ for all $x\in U$. Then $F$ is differentiable and $F' = f$.
+\end{itemize}
+
+\section{Interchange of Limit Operations}
+
+\begin{itemize}
+    \item \textbf{Thm:} If $f_1, f_2, f_3, \ldots$ is a uniformly convergent sequence of continous real-valued funcs on $[a,b]$ then 
+    \[\int_a^b\left(\underset{n\to \infty}{\lim}f_n(x)\right)dx = \underset{n\to \infty}{\lim}\int_a^bf_n(x)dx\]
+    \item \textbf{Thm:} Let $f_1, f_2, f_3, \ldots$ be a sequence of real-valued functions on an open interval $U \in \R$, each having a continuous derivative. Suppose that the sequence $f_1', f_2', f_3', \ldots$ converges untformly on $U$ and that for some $a\in U$ the sequence $f_1(a), f_2(a), f_3(a), \ldots$ converges. Then $\underset{n\to \infty}{\lim}$ exists, is differentiable, and
+    \[\left(\underset{n\to \infty}{\lim} f_n\right)' = \underset{n\to \infty}{\lim}f_n'\]
+    \item $\sum_{n=1}^\infty a_n$ converges iff for any $\epsilon > 0$ there is a positive integer $N$ such that if $n \geq m \geq N$ then $|a_{m+1} + a_{m_2} + \ldots +a_n| < \epsilon$.
+    \item If $\sum_{i=1}^\infty a_n$  converges then $\underset{n\to \infty}{\lim}a_n =0$. 
+    \item If $a_1, a_2, a_3, \ldots$ are nonnegative real numbers, then either the series $\sum_{n=1}^\infty a_n$ converges or it has arbitrarily large partial sums.
+    \item \textbf{Definition:} If $a_1, a_2, a_3, \ldots$ are real numbers, the series $\sum_{n=1}^\infty a_n$  is said to be absolutely convergent if the series $\sum_{n=1}^\infty |a_n|$ is convergent.
+\end{itemize}
+\end{document}

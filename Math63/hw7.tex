@@ -1,0 +1,273 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+\textbf{Credit Statement:} Math Stack Exchange.
+
+\begin{problem}{1}
+    Prove that if the real-valued function $f$ on the interval $[a, b]$ is integrable on $[a,b]$ then so is $|f|$, and $\left | \int_a^b f(x) dx \right | \leq \int_a^b |f(x)|dx$. 
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $f: [a,b] \to \R$ be an integrable function. 
+    Since $f$ is integrable, given any $\varepsilon > 0$ there exists a $\delta >0$ such that $|S_1(f) - S_2(f)| < \epsilon$ when $S_1(f)$ and $S_2(f)$ are riemann sums for $f$ corresponding to partitions of $[a,b]$ of width less than $\delta$. 
+    Now, let $P$ be any partition with width less than $\delta$, and pick two different tags $t_i$, $s_i$. For each subinterval $I_i$, define tags:
+    \[
+    t_i^+ = \begin{cases} t_i & \text{if } f(t_i) \geq f(s_i) \\ s_i & \text{if } f(t_i) < f(s_i) \end{cases} \qquad 
+    t_i^- = \begin{cases} s_i & \text{if } f(t_i) \geq f(s_i) \\ t_i & \text{if } f(t_i) < f(s_i) \end{cases}
+    \]
+    Then define:
+    \[S_1(f) = \sum_i f(t_i^+) \cdot |I_i|, \qquad S_2 (f)= \sum_i f(t_i^-) \cdot |I_i|\]
+    
+    And the corresponding riemann sums for $|f|$ are: 
+    \[S_1(|f|) = \sum_{i}|f(t_i^+)| \cdot |I_i| \qquad S_2(|f|) = \sum_{i}|f(t_i^-)|\cdot |I_i|\]
+    Then, 
+    \[|S_1(|f|) - S_2(|f|)| \leq \sum_{i} \left | |f(t_i^+)| - |f(t_i^-)| \right | \cdot |I_i| \leq \sum_i |f(t_i^+) - f(t_i^-)| \cdot |I_i| = |S_1(f) - S_2(f)| < \varepsilon\]
+    That is, 
+    \[|S_1(|f|) - S_2(|f|)| \leq  |S_1(f) - S_2(f)| < \varepsilon\]
+    Hence, the same $\delta$ works for $|f|$, and $|f|$ is integrable. 
+    
+    Since both $f$ and $|f|$ are integrable, for any $\varepsilon$ there exist a $\delta$ (note that the same $\delta$ works for both functions as we proved in the previous part) such that $\left| S(f) - \int_a^b f(x) dx \right| < \varepsilon$, and $\left| S(|f|) - \int_a^b |f(x)| dx \right| < \varepsilon$. Moreover, note that for any given partition and tag choice, 
+    \[|S(f)| = \left| \sum_i f(t_i)|I_i|\right| \leq \sum_i|f(t_i)|\cdot |I_i| = S(|f|)\]
+    Now note that by the triangle inequality, 
+    \[\left| \int_a^b f(x) dx \right| \leq \left| S(f) - \int_a^b f(x) dx \right| + S(f) < \varepsilon + S(|f|)\]
+    Also, 
+    \[\left| S(|f|) - \int_a^b f(|x|) dx \right|  < \varepsilon \implies S(|f|) < \varepsilon + \int_a^b f(|x|) dx \]
+    Substituting this into the first inequality gives us, 
+    \[\left| \int_a^b f(x) dx \right|  < 2\varepsilon + \int_a^b f(|x|)dx\]
+    That is, 
+    \[\left | \int_a^b f(x) dx \right | \leq \int_a^b |f(x)|dx\]
+    Hence proved.
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+     Prove that if $f$ is a continuous real-valued function on the interval $[a, b]$ such that $f(x) \geq 0$ for all $x \in [a,b]$  and $f(x) > 0$ for some $x \in [a,b]$ then $\int_a^bf(x)dx > 0$. 
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Let $c \in [a,b]$ be such that $f(c) >0$. Given that $f$ is a continuous function, it is continuous at $c$. Let $\varepsilon_0 = f(c)/2$. Then there exists some $\delta_0$ such that if $|x - c| < \delta_0$ then $|f(x) - f(c)| < \varepsilon_0$.
+
+    Now consider the interval $I = (c - \delta_0, c + \delta_0) \cap [a,b]$. For any $x \in I$, we have 
+    \[f(x) > f(c) - \varepsilon_0 = f(c) - \frac{f(c)}{2} = \frac{f(c)}{2}\]
+    Since $c \in [a,b]$, $I$ contains $c$ and therefore has positive length. Then for any $\alpha, \beta \in I$ such that $\alpha < \beta$, we have 
+    \[\int_a^b f(x)dx = \int_a^\alpha f(x)dx  + \int_\alpha^\beta f(x)dx  + \int_\beta^b f(x)dx\]
+    Since $f(x) \geq 0$ for all $x \in [a,b]$ we get, 
+    \[\int_a^b f(x)dx \geq \int_\alpha^\beta f(x) dx \geq \frac{f(c)}{2}(\beta - \alpha) > 0\]
+    Hence proved. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+    Show that if $f$ is a continuous real-valued function on the interval $[a,b]$ and $f(x) \geq 0$ for all $x \in [a,b]$ then 
+    \[\underset{n \to \infty}{lim} \left(\int_a^b \left( f(x)\right)^n dx\right)^{1/n} = \max \{f(x): x \in [a,b]\}.\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $f$ be a continuous real-valued function on the interval $[a, b]$ and $f(x) \geq 0$ for all $x \in [a,b]$. We will prove this by showing that the upper bound equals the lower bound. 
+
+    Since $f$ is continuous on a closed, bounded interval it attains a maximum $f(c) = M$ at some $c \in [a,b]$. Then, since $f(x) \leq M$ for all $x \in [a,b]$, 
+    \[\int_a^b f(x) dx \leq M(b-a) \implies \int_a^b(f(x))^n \leq M^n(b-a)\]
+    Taking $n$-th roots gives us, 
+    \[\left(\int_a^b(f(x))^n\right)^{1/n} \leq M(b-a)^{1/n}\]
+
+
+    Since $f$ is continuous at $c$ for a given $\varepsilon > 0$, there exists a $\delta >0$ such that 
+    \[f(x) > M - \varepsilon \qquad \forall x \in (c - \delta, c + \delta) \cap [a,b]\]
+    Let $I_\delta = (c - \delta, c + \delta) \cap [a,b]$, with length $\ell$. Then, 
+    \[\int_a^b f(x) dx \geq \int_{I}f( x) dx \geq (M-\varepsilon) \cdot \ell\]
+    That is, 
+    \[\int_a^b (f(x))^n dx \geq  (M-\varepsilon)^n \cdot \ell\]
+    Taking $n$-th roots gives us, 
+    \[\left( \int_a^b (f(x))^n dx \right)^{1/n}\geq (M-\varepsilon)\cdot \ell^{1/n}\]
+
+    Combining both bounds gives us,
+    \[(M - \varepsilon)\cdot \ell \leq \left(\int_a^b(f(x))^n\right)^{1/n} \leq M(b-a)^{1/n}\]
+    Taking limits gives, 
+    \[\underset{n \to \infty}{\lim}{(M - \varepsilon)\cdot \ell} \leq \underset{n\to \infty}{\lim}{\left(\int_a^b(f(x))^n\right)^{1/n}} \leq \underset{n\to \infty}{\lim}{M(b-a)^{1/n}}\]
+    Note that $n \to \infty$, $1/n \to 0$, and $(b-a)^{1/n}, \, \ell^{1/n} \to 1$. Also, as $\varepsilon \to 0$, $(M - \varepsilon) \to M$.
+    So, 
+    \[M \leq \underset{n\to \infty}{\lim}{\left(\int_a^b(f(x))^n\right)^{1/n}} \leq M\]
+    Thus, 
+    \[\underset{n\to \infty}{\lim}{\left(\int_a^b(f(x))^n\right)^{1/n}} = M\]
+    Hence proved.
+\end{solution}
+
+
+\newpage 
+
+\begin{problem}{4}
+     Let $[a, b]$ and $[c, d]$ be closed intervals in $\R$ and let $f$ be a continuous real-valued function on $\{(x,y) \in E^2: x \in [a,b], \, y\in [c,d]\}$. Show that the function $g:[c,d] \to \R$ defined by $g(y) = \int_a^bf(x,y)dx$ for all $y \in [c,d]$ is continuous.
+\end{problem}
+
+\begin{solution}
+    \bbni    
+
+    We want to show that $g(y) = \int_a^b f(x,y) dx$  is continuous. Let $\varepsilon_g > 0$, $y_0$ be an arbitrary value in $[c,d]$. Then, 
+    \[|g(y) - g(y_0)| = \left|\int_a^bf(x,y) dx - \int_a^b f(x, y_0) dx\right| = \left|\int_a^b (f(x,y) -  f(x, y_0) )dx\right|\]
+    
+    Note that $f(x,y)$ is continous on a compact set $[a,b] \times [c,d]$, it is uniformly continuous. Pick $\varepsilon = \varepsilon_g/(b-a) > 0$ then by uniform continuity there exists a $\delta > 0$ such that if $|x -x_0| < \delta$ and  $|y - y_0| < \delta$ then $|f(x,y) - f(x_0, y_0)| < \varepsilon$. Since we have $|x - x| = 0 < \delta$ and $|y - y_0| < \delta$, 
+    \[\left|\int_{a}^{b} (f(x,y) - f(x, y_0)) dx\right| \leq \int_{a}^{b} \left|(f(x,y) - f(x, y_0)) \right| dx < \varepsilon(b-a) = \varepsilon_g \]
+   
+    Therefore, for all $\varepsilon_g >0$ there exists a $\delta_g  = \delta >0$ such that if $|y - y_0| < \delta_g$ then $|g(y) - g(y_0)| < \varepsilon_g$. Since $\varepsilon_g$ was arbitrary, $g(y)$ is continuous. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{5}
+    A curve in a metric space $E$ is a continuous function $f$ from an interval $[a,b]$ in $\R$ into $E$; its length is 
+    \[l.u.b.\left \{ \sum_{i=1}^N d(f(x_{i-1}), f(x_i)): x_0, x_1, \ldots, x_N \text{ is a partition of } [a,b]\right \},\]
+    if this $l.u.b.$ exists. 
+    
+    Prove that if $E = E^n$ and $f(x) = (f_1(x),\ldots,f_n(x))$, where $f_1,\ldots, f_n: [a, b] \to \R$ are continuous functions which have continuous derivatives on $(a, b)$ that extend to continuous functions on $[a, b]$, then the curve has length and this length is
+    \[\int_a^b \sqrt{\left(f_1'(x)\right)^2 + \cdots + \left(f_n'(x)\right)^2}dx.\]
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $S$ be the set
+    \begin{align*}
+        S &= \left\{ \sum_{i=1}^N d(f(x_{i-1}), f(x_i)): x_0, x_1, \ldots, x_N \text{ is a partition of } [a,b]\right\} \\
+        &= \left\{ \sum_{i=1}^N \sqrt{\sum_{j=1}^n (f_j(x_i) - f_j(x_{i-1}))^2 } : x_0, x_1, \ldots, x_N \text{ is a partition of } [a,b]\right\}
+    \end{align*}
+    Then, $S$ is not empty, as for the trivial partition $x_0 = a, x_1 = b$,
+    \[d(f(a), f(b)) = \sqrt{\sum_{j=1}^n (f_j(b) - f_j(a))^2 } \in S\]
+    Also note that since all $f'_j$ are continuous on $[a,b]$, they are bounded. 
+    That is for each $f'_j$ there exists some maximum value $M_j = 
+    \underset{x\in [a,b]}{\max}|f'_j|$, such that for all $x \in [a,b]$, 
+    $|f'_j(x)| \leq M_j$. Then by MVT, for any $f_j$ and any interval 
+    $[x_{i-1}, x_i]$ there exists some $c_{ij} \in (x_{i-1}, x_i)$ such that,
+    \begin{align*}
+        |f_j(x_i) - f_j(x_{i-1})| &= |f'_j(c_{ij})|(x_i - x_{i-1}) \leq M_j(x_i-x_{i-1}) \\
+        \intertext{Summing over all $j$ gives us}
+        d(f(x_{i-1}), f(x_i)) = \sqrt{\sum_{j=1}^{n}\left( f_j(x_i) - f_j(x_{i-1})\right)^2} &\leq \sqrt{\sum_{j=1}^{n}M_j^2} \cdot \left( x_i - x_{i-1}\right)
+        \intertext{Summing over all $i$ gives us}
+        \sum_{i=1}^{N}d(f(x_{i-1}), f(x_i)) &\leq \sqrt{\sum_{j=1}^{n}M_j^2} \cdot (b-a)
+    \end{align*}
+    This shows that $S$ is a non-empty set that is bounded from above, hence $\ell = \text{l.u.b.}\, S$ exists.
+
+    Now, let $A = \int_a^b \sqrt{\left(f_1'(x)\right)^2 + \cdots + 
+    \left(f_n'(x)\right)^2}dx$. We will show $\ell = A$ by proving $\ell \geq A$  and $\ell \leq A$.
+
+    First note that for any partition $P$, adding a point $x_i^* \in [x_{i-1}, x_i]$ cannot decrease the sum, since by the triangle inequality in $E^n$:
+    \[d(f(x_{i-1}), f(x_i)) \leq d(f(x_{i-1}), f(x_i^*)) + d(f(x_i^*), f(x_i))\]
+    Hence for any partition $P$, any refinement of $P$ has a sum at least as large.
+
+    By MVT, for each subinterval $[x_{i-1}, x_i]$ and each $j$, there exists 
+    $c_{ij} \in (x_{i-1}, x_i)$ such that:
+    \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) = \sum_{i=1}^{N} \sqrt{\sum_{j=1}^{n}(f'_j(c_{ij}))^2} \cdot (x_i - x_{i-1}) = \sum_{i=1}^{N} h(c_{ij})(x_i - x_{i-1})\]
+    where $h(x) = \sqrt{\sum_{j=1}^{n}(f'_j(x))^2}$. Note that this would be a valid riemann sum for $\int_a^b \sqrt{\sum_{j=1}^{n}(f'_j(c_{ij}))^2} dx$ except that the $c_{ij}$ depend on $j$ and hence there the $c_{ij}$ are not the same for all $j$ which is required. However, since $h$ is continuous on $[a,b]$ as a composition of continuous functions, hence is uniformly continuous on the compact set $[a,b]$, and we can show that this sum is close to a true riemann sum.
+
+    Let $\varepsilon > 0$. Since $h$ is integrable with integral $A$, there exists $\delta_1 > 0$ such that for any partition of width less than $\delta_1$ and any tag choice $t_i$:
+    \[\left|\sum_{i=1}^N h(t_i)(x_i - x_{i-1}) - A\right| < \varepsilon\]
+    By uniform continuity of $h$, there exists $\delta_2 > 0$ such that if $|x - y| < \delta_2$ then \[|h(x) - h(y)| < \varepsilon/(b-a)\] Then 
+    for any partition of width less than $\delta_2$, any $c_{ij}$ and $t_i$ in the same subinterval satisfy $|c_{ij} - t_i| < \delta_2$, giving:
+    \[\left|\sum_{i=1}^{N}h(c_{ij})(x_i - x_{i-1}) - \sum_{i=1}^{N}h(t_i)(x_i - x_{i-1})\right| \leq \frac{\varepsilon}{b-a}\sum_{i=1}^N(x_i - x_{i-1}) = \varepsilon\]
+    Let $\delta = \min(\delta_1, \delta_2)$. Then for any partition of width less than $\delta$, by the triangle inequality:
+    \[\left|\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) - A\right| \leq \left|\sum_{i=1}^{N}h(c_{ij})(x_i - x_{i-1}) - \sum_{i=1}^{N}h(t_i)(x_i - x_{i-1})\right| + \left|\sum_{i=1}^{N}h(t_i)(x_i - x_{i-1}) - A\right| < 2\varepsilon\]
+    That is, for any partition of width less than $\delta$:
+    \[A - 2\varepsilon < \sum_{i=1}^N d(f(x_{i-1}), f(x_i)) < A + 2\varepsilon\]
+
+    \textbf{Showing $\ell \geq A$:} 
+    
+    By definition of $\ell$ as a least upper bound, there exists a partition $P^*$ with sum within $\varepsilon$ of $\ell$. Refine $P^*$ to a partition $P^{**}$ of width less than $\delta$. Since refinement does not decrease the sum:
+    
+    \[\ell \geq \sum_{P^{**}} d(f(x_{i-1}), f(x_i)) \geq \sum_{P^*} d(f(x_{i-1}), f(x_i)) > A - 2\varepsilon\]
+    
+    Since this holds for any $\varepsilon > 0$, we can rescale $\varepsilon = \varepsilon /2$ we conclude $\ell \geq A$
+    
+    \textbf{Showing $\ell \leq A$:} 
+    
+    Again by definition of $\ell$, there exists a partition $P^*$ with sum within $\varepsilon$ of $\ell$. Refine $P^*$ to a partition $P^{**}$ of width less than $\delta$. Since refinement does not decrease the sum:
+    \[\ell - \varepsilon < \sum_{P^*} d(f(x_{i-1}), f(x_i)) \leq \sum_{P^{**}} d(f(x_{i-1}), f(x_i)) < A + 2\varepsilon\]
+    
+    Hence $\ell < A + 3\varepsilon$. Since this holds for any $\varepsilon > 0$, we can rescale $\varepsilon = \varepsilon/3$ and we conclude $\ell \leq A$. 
+    Therefore $\ell \geq A$ and $\ell \leq A$, 
+    \[\ell = A = \int_a^b\sqrt{\sum_{j=1}^{n}(f_j'(x))^2}\,dx \]
+
+    
+
+    
+    
+%     Now, to find the length of the curve, we must show that $\ell = \int_a^b \sqrt{\left(f_1'(x)\right)^2 + \cdots + \left(f_n'(x)\right)^2}dx$. Let $A = \int_a^b \sqrt{\left(f_1'(x)\right)^2 + \cdots + \left(f_n'(x)\right)^2}dx$. We will prove this by showing $\ell\geq A$ and $\ell \leq A$. 
+
+%     By MVT, we know that 
+%     \[d(f(x_{i-1}), f(x_i)) = \sqrt{\sum_{j=1}^{n}\left( f_j(x_i) - f_j(x_{i-1})\right)^2} = \sqrt{\sum_{j=1}^{n}(f'_j(c_{ij}))^2} \cdot \left( x_i - x_{i-1}\right)\]
+%     Then our sum becomes, 
+%     \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) = \sum_{i=1}^{N} \sqrt{\sum_{j=1}^{n}(f'_j(c_{ij}))^2} \cdot \left( x_i - x_{i-1}\right)\]
+    
+%     Note that this would be a valid riemann sum for $\int_a^b \sqrt{\sum_{j=1}^{n}(f'_j(c_{ij}))^2} dx$ except that the $c_{ij}$ depend on $j$ and hence there the $c_{ij}$ are not the same for all $j$ which is required. 
+%     For convenience let $h(x) = \sqrt{\sum_{j=1}^{n}(f'_j(x))^2}$. Note that $h(x)$ is continuous on $[a,b]$ as it is a composition of continuous functions, hence uniformly continuous on the compact set $[a,b]$. 
+%     Uniform continuity tells us that for any $\varepsilon  > 0$ there exists a $\delta >0$ such that for any $x, y \in [a,b]$ if $|x - y| < \delta$ then, 
+%     \[|h(x) - h(y)| < \frac{\varepsilon}{b-a}\]
+%     Now if the partition has width less than $\delta$, all points $c_{ij}$ and $t_i$ lie in the same subinterval, so $|c_{ij} - t_i| < \delta$, then: 
+%     \[\sum_{i=1}^{N}(h(c_{ij}) - h(t_i)) (x_i - x_{i-1}) \leq \sum_{i=1}^{N}|h(c_{ij}) - h(t_i)| (x_i - x_{i-1}) \leq \frac{\varepsilon}{b-a} \sum_{i=1}^{N}(x_i - x_{i-1}) = \varepsilon\]
+%     That is, our sum differs from the riemann sum $\sum_{i=1}^N h(t_i)(x_i - x_{i-1})$ by less than $\varepsilon$. Since $h$ is integrable and the riemann sum converges to $\int_a^b h(x)dx$, for fine enough partitions:
+%     \[\sum_{i=1}^N h(t_i)(x_i - x_{i-1}) > \int_a^b h(x)dx - \varepsilon\]
+%     Combining,
+%     \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) > \int_a^b h(x)dx - 2\varepsilon\]
+   
+%     Note that for any partition $P$, adding a point to $P$ cannot decrease the sum. This follows from the triangle inequality in $E^n$: for any point $x_i^* \in [x_{i-1}, x_i]$: 
+%     \[d(f(x_{i-1}), f(x_i)) \leq d(f(x_{i-1}), f(x_i^*)) + d(f(x_i^*), f(x_i))\]
+%     Hence finer partitions give larger sums.
+
+%     We now show $\ell \geq A$. Let $\varepsilon > 0$. By definition of $\ell$ as a least upper bound, there exists a partition $P^*$ with sum within 
+% $\varepsilon$ of $\ell$. We can refine $P^*$ to a partition of width less 
+% than $\delta$ without decreasing the sum. For this refined partition, we 
+% showed:
+% \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) > A - 2\varepsilon\]
+% Since the polygonal sum only increases under refinement and $\ell \geq$ 
+% every element of $S$:
+% \[\ell \geq \sum_{i=1}^N d(f(x_{i-1}), f(x_i)) > A - 2\varepsilon\]
+% Since this holds for any $\varepsilon > 0$, we conclude $\ell \geq A$.
+
+
+% % Since this holds for any $\varepsilon > 0$, and the sum is an element of $S$, we have 
+%     % \[\ell \geq  A = \int_a^b \sqrt{\sum_{j=1}^n (f_j'(x))^2}\, dx\]
+
+%     % Similarly, we show that $\ell \leq A$. By MVT, for each subinterval 
+%     % $i$ and each function $j$, there exists a $c_{ij}$ such that 
+%     % \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) = \sum_{i=1}^{N} \sqrt{\sum_{j=1}^{n}(f'_j(c_{ij}))^2} \cdot \left( x_i - x_{i-1}\right) = \sum_{i=1}^{N} h(c_{ij}) \cdot \left( x_i - x_{i-1}\right)\]
+%     % And again since $h(x)$ is uniformly continuous, for any $\varepsilon > 0$ there exists a $\delta$ such that for all points $c_{ij}$ and $t_i$ that lie in the same subinterval, if $|c_{ij} - t_i| < \delta$ then 
+%     % \[\left | \sum_{i=1}^{N}h(c_{ij})(x_i - x_{i-1})  -  \sum_{i=1}^{N}h(t_i) (x_i - x_{i-1}) \right | < \varepsilon\]
+%     % Since $h(x)$ is integrable, this holds for the reimann sum $A$ too,
+%     % \[\left | \sum_{i=1}^{N}h(c_{ij})(x_i - x_{i-1})  - A \right | < \varepsilon\]
+%     % And since we showed above that 
+%     % \[\left | \sum_{i=1}^N d(f(x_{i-1}), f(x_i))  - \sum_{i=1}^{N} h(t_i)(x_i - x_{i-1})\right | <\varepsilon\]
+%     % Combinging gives us, 
+%     % \[\left | \sum_{i=1}^N d(f(x_{i-1}), f(x_i))  - A\right | <2\varepsilon\]
+
+%     Now note that since $h$ is integrable and the Riemann sum converges to $A$, for any  $\varepsilon > 0$ there exists $\delta_1 > 0$ such that for any partition  of width less than $\delta_1$ and any tag choice $t_i$:
+%     \[\left|\sum_{i=1}^N h(t_i)(x_i - x_{i-1}) - A\right| < \varepsilon\]
+
+%     By uniform continuity of $h$, there exists $\delta_2 > 0$ such that for  any partition of width less than $\delta_2$, any $c_{ij}$ and $t_i$ in  the same subinterval satisfy $|c_{ij} - t_i| < \delta_2$, giving: 
+%     \[\left|\sum_{i=1}^{N}h(c_{ij})(x_i - x_{i-1}) - \sum_{i=1}^{N}h(t_i)(x_i - x_{i-1})\right| < \varepsilon\]
+%     Let $\delta = \min(\delta_1, \delta_2)$. Then for any partition of width less than $\delta$, by the triangle inequality:
+%     \[\left|\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) - A\right| \leq \left|\sum_{i=1}^{N}h(c_{ij})(x_i - x_{i-1}) - \sum_{i=1}^{N}h(t_i)(x_i - x_{i-1})\right| + \left|\sum_{i=1}^{N}h(t_i)(x_i - x_{i-1}) - A\right| < 2\varepsilon\]
+%     That is, 
+%     \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) < A + 2\varepsilon\]
+%     Note that for any partition $P$, adding a point to $P$ cannot decrease the sum. This follows from the triangle inequality in $E^n$: for any  point $x_i^* \in [x_{i-1}, x_i]$:
+%     \[d(f(x_{i-1}), f(x_i)) \leq d(f(x_{i-1}), f(x_i^*)) + d(f(x_i^*), f(x_i))\]
+%     Hence finer partitions give larger sums, and $\ell = \text{l.u.b.}\, S$  is approached from below by finer and finer partitions.
+
+%     Now let $\varepsilon > 0$. By definition of $\ell$ as a least upper bound,  there exists a partition $P^*$ with sum within $\varepsilon$ of $\ell$:
+%     \[\ell - \varepsilon < \sum_{i=1}^N d(f(x_{i-1}), f(x_i)) \leq \ell\]
+%     We can refine $P^*$ to a partition of width less than $\delta = \min(\delta_1, \delta_2)$ without decreasing the sum. For this refined partition, we showed:
+%     \[\sum_{i=1}^N d(f(x_{i-1}), f(x_i)) < A + 2\varepsilon\]
+%     Since the polygonal sum only increases under refinement, we have $\ell \leq A + 2\varepsilon$. Since this holds for any $\varepsilon > 0$, we conclude $\ell \leq A$. 
+%     So, 
+%     \[\ell \geq A \text{ and } \ell \leq A \implies \ell = A = \int_a^b\sqrt{\sum_{j=1}^{n}(f_j'(x))^2}dx\]
+\end{solution}
+\end{document}

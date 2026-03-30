@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+Prove that a graph $G$ is a tree if and only if $G$ is (C) connected and (MinC) deleting an edge from $G$ disconnects the graph.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Graph $G$ is a tree if and only if $G$ is connected and acyclic. So we just need to prove that the edge deleting property (MinC) is the same as $G$ being acyclic. 
+
+    \bbni 
+    $(\implies)$ Assume that $G$ is connected and acyclic. We want to show that then it is also minimally connected. 
+
+    Consider two arbitrary vertices $u$ and $v$ in $G$. Since $G$ is connected there exist at least one path between them, and since $G$ is acyclic there exist at most one path between them. That is, there is exactly one path between $u$ and $v$, and deleting an arbitrary edge on this path would seperate the graph into two disjoint connected components. 
+
+    \bbni
+    $(\impliedby)$ Assume $G$ is connected and minimally connected. We want to show that then it is acyclic. 
+
+    For the sake of contradiction, assume that $G$ contains a cyclic. Now consider two adjacent vertices $u$ and $v$ on this cycle. Since the cycle provides another path to get from $u$ to $v$, removing the edge between the two vertices would still leave $G$ connected, contradicting the assumption that $G$ is minimally connected. Hence, $G$ cannot contain a cycle. 
+
+    \bbni
+    Hence, a graph is a tree if and only if it is connected and deleting an edge from the graph disconnects it. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    Prove that if an $n$-node graph $G$ has (E) exactly $n - 1$ edges and is (C) connected, then $G$ is (A) acyclic (and thus a tree).
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Assume $G$ has $n$ nodes, exactly $n-1$ edges and is connected. We want to show that $G$ is acyclic (and thus a tree). 
+    
+    Assume for the sake of contradiction that $G$ contains a cycle. Let this cycle have $k$ vertices. Since a cycle has the same number of edges as vertices, the cycle contains $k$ edges, where $k \ge 2$.    
+    
+    These $k$ vertices already form a connected component using $k$ edges. We are left with $n-k$ vertices outside the cycle. In order for $G$ to be connected, each of these $n-k$ vertices must be connected to the cycle (or to vertices already attached to it). Attaching each new vertex to an existing connected component requires at least one edge.
+    
+    Therefore, we need at least $n-k$ additional edges to connect the remaining vertices to the cycle. Altogether, the total number of edges in $G$ must be at least
+    \[k + (n-k) = n\]
+    So, we have $n-1-k$ edges, hence this gives us a contradiction. Therefore $G$ must be acyclic, and thus is a tree.
+\end{solution}
+\end{document}

@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 \include{../style}
+\usepackage{tikz-cd}
 
 \begin{document}
 
@@ -12,7 +13,7 @@
     Vector Racer is a two-player paper-and-pencil racing game.1 The game is played with a track drawn on a sheet of graph paper. The players alternately choose a sequence of grid points that represent the motion of a car around the track, subject to certain constraints explained below: 
     
     \begin{center}
-            \includegraphics[width=0.5\linewidth]{assests/S1.png}
+            \includegraphics[width=1\linewidth]{assests/S1.png}
     \end{center}
     
     Each car has a position and a velocity, both with integer x- and y-coordinates. A subset of grid squares is marked as the starting area, and another subset is marked as the finishing area. The initial position of each car is chosen by the player somewhere in the starting area; the initial velocity of each car is always (0,0). At each step, the player optionally increments or decrements either or both coordinates of the car’s velocity; in other words, each component of the velocity can change by at most 1 in a single step. The car’s new position is then determined by adding the new velocity to the car’s previous position. The new position must be inside the track; otherwise, the car crashes and that player loses the race. (For sake of simplicity, we allow the “glitch” that the car can pass through obstacles that are not on tracks when there is enough velocity.) The race ends when the first car reaches a position inside the finishing area.
@@ -26,6 +27,32 @@
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item [(a)] Define an directed graph $G$ as follows: 
+        \begin{itemize}
+            \item Let the vertex set $V$ contain all possible legal states of the car. That is a vertex $v \in V$ is defined such that $v = (x, y, v_x, v_y)$, where the first two entries denote the position (a $0$ bit in the track), and the latter two denote the velocity. 
+            
+            Note that starting vertices look like $(x,y, 0,0)$, and finishing vertices are bits in the last column.
+            \item Create an edge in the edge set $E$ between two vertices $v, v'$ if 
+            \begin{itemize}
+                \item $|v'_x - v_x| \le 1$ and $|v'_y - v_y| \le 1$,
+                \item $(x',y') = (x + v'_x,\, y + v'_y)$,
+                \item $(x',y')$ is bit $0$ in the $n \times n$ array (that is it lies inside the track).
+            \end{itemize}
+        \end{itemize}
+        The problem to solve on the constructed graph is to find the shortest path between a given starting position and a legal finishing position. (The given starting position is the input, and the shortest path is the output.)
+        \item [(b)] Let $P$ be a shortest path from a starting vertex to a finishing vertex in $G$. 
+        
+        Then, if during this run the car is at the same position and the same velocity (i.e. visits the same node twice) then $P$ contains a closed walk. Removing this walk would give us a strictly shorter path from the start to the finish, contradicting the assumption that $P$ was shortest. Thus, the car can never be at the same position with the same velocity twice.
+
+        The car can be at the same position twice with different velocities because these states correspond to different nodes. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
 \begin{problem}{2}
     \textbf{Needles on the ground.} 
     
@@ -34,7 +61,7 @@
     A collection of line segments partitions the plane into connected regions, each of which is a maximally connected component in the plane subtracting the line segments. The size of a region is the number of crossings on the boundary of the region. Notice that the same crossing may show up multiple times on the boundary; in this case we count its multiplicity.
 
      \begin{center}
-            \includegraphics[width=0.5\linewidth]{assests/S2.png}
+            \includegraphics[width=1\linewidth]{assests/S2.png}
     \end{center}
     Prove that given an arbitrary collection of $n$ line segments, some segment has few crossings. Specifically, there is a segment that intersects at most
     \[
@@ -43,9 +70,75 @@
     other line segments, where $|R|$ is the size of the region $R$.
 \end{problem}
 
+\begin{solution}
+    \bbni
+    
+    Note that the sum of the sizes of the regions $R$, i.e., $\sum_{\text{region } R}|R|$ is equal to the total number of intersections times $4$ (since we account for edge cases by counting multiplicatively). That is, 
+    \[\sum_{\text{region } R}|R| = 4 \cdot \frac{1}{2}\sum_{i = 1}^{n} d_i = 2 \cdot \sum_{i = 1}^{n} d_i \]
+    where $d_i$ is the number of intersections the $i$-th segment has.  
+    
+    Dividing by $2n$ on each side gives us the average number of intersections the line segements have, 
+    \[\frac{\sum_{\text{region } R}|R|}{2n} =  \frac{1}{n}  \sum_{i = 1}^{n} d_i \]
+
+    Then we have two cases: if line segment has the same number of crossings ($=\frac{1}{n}  \sum_{i = 1}^{n} d_i$) then we found several segments with at most $\frac{\sum_{\text{region } R}|R|}{2n}$ crossings, and else if some line segement has more crossings then the average, then some other segment must have less crossings than the average giving us our desired line segment. 
+
+
+
+    % Moreover, the maximum number of possible line segments is $n(n-1)$
+
+
+
+    % $1$ or $0$ intersections between any two line segments. 
+
+    % regions are maximally connected
+
+    % size of $R$ is $|R| = $ number of crossings including multiplicity. 
+
+    % Given $n$ line segments, there exist a segment with at most $\sum_{\text{region }R} |R| /2n$ other segments. 
+
+    % $\sum_{\text{region }R} |R| $ is the total number of intersections with multiplicity. 
+
+    % $\sum_{\text{region }R} |R|  = 4 * $ number of intersections 
+    % $\sum_{\text{region }R} |R|  = 4 * 1/2 \sum_{i=1}^n d_i \leq 2n(n-1)$ where $d_i$ is the number of intersections of each segment
+
+    % maximum number of intersections is $n(n-1)/2$d
+
+    % So, $\sum_{\text{region }R} |R|  \leq 4 n (n-1) /2 \implies \sum_{\text{region }R} |R| /2n \leq n -1$ 
+
+
+\end{solution}
+
+\newpage 
+
 \begin{problem}{3}
     A graph is regular if all its vertices have the same degree. Prove that every $n$-node simple regular graph $G$ with at least $n^2/4$ edges must be connected.
     
     [You really need the simpleness. Can you come up with a counter-example if the graph is not simple?]
 \end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $G$ be a simple regular graph with $n$ nodes and at least $n^2/4$ edges. Also, let $V$ be the set of vertices, and $E$ be the set of edges.  
+    Then we have, 
+    \[\sum_{v \in V} \deg(v) = n \deg(v) = 2|E|\]
+    Because $|E| \ge \frac{n^2}{4}$, we get,
+    \[n\deg(v) = \ge 2 \cdot \frac{n^2}{4} \implies \deg(v) \ge \frac{n}{2}\]
+
+    Since $G$ is simple, that implies that each node has at least $n/2$ distinct neighbours, so each node is connected to at least $n/2$ other distinct nodes.  
+    Now, note that every connected component of $G$ has at least $n/2 + 1$ vertices. But if there were at least two components, the total number of vertices would be at least
+    \[
+        2\left(\frac{n}{2}+1\right) = n + 2,
+    \]
+    which is impossible since $G$ has only $n$ vertices. Hence, $G$ can only have $1$ component, and hence is connected.  
+
+    Counter-example: 
+    \begin{center}
+            \begin{tikzcd}[row sep=3em, column sep=3em]
+            {} & \bullet \arrow[r, - ] \arrow[bend right =70, -]{r} & \bullet  \\
+            {} & \bullet \arrow[r, - ] \arrow[bend left =70, -]{r} & \bullet 
+        \end{tikzcd}
+    \end{center}
+    We have $4$ nodes, and $4 (\geq 4^2 /4)$ edges, and each node has degree $2$, but it forms two connected subgraphs. 
+\end{solution}
 \end{document}
