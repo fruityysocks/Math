@@ -1,0 +1,91 @@
+
+\documentclass[12pt]{article}
+
+\include{../style}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{microtype}
+
+\begin{document}
+
+\input{title}
+
+\vspace{.1in}
+
+\textbf{Credit Statement:} Talked to Carson Bates'27, Kiran Jones '27, and Sophie Park'27. 
+
+\begin{problem}{1}
+    Design a regular expression for each of the following languages. No formal proofs required, but explanation of your construction in a few English sentences would be helpful. Throughout the exercise we assume the alphabet to be $\Sigma := \{0, 1\}.$
+
+    \begin{enumerate}
+        \item Set of all strings (over $\Sigma := \{0,1\}$) containing $000$ or $111$ as substrings.
+        \item Set of all strings (over $\Sigma := \{0,1\}$) containing $000$ or $111$ as subsequences.
+        \item Set of all strings (over $\Sigma := \{0,1\}$) not containing $000$ nor $111$ as substrings.
+        \item Set of all strings (over $\Sigma := \{0,1\}$) not containing $000$ nor $111$ as subsequences.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $(\Sigma^\star000\Sigma^\star) + (\Sigma^\star111\Sigma^\star)$
+        
+        The first term is the set of all strings containing $000$ as a substring, and the second term is the set of all strings containing $111$ as a substring. Note that their union also contains all strings with both $000$ and $111$ as substrings. 
+
+        \item $(\Sigma^\star 0 \Sigma^\star0 \Sigma^\star0\Sigma^\star) + (\Sigma^\star 1 \Sigma^\star 1 \Sigma^\star 1 \Sigma^\star)$
+        
+        Similar to part (1), the first term contains all strings containing $000$ as a subsequence and the second term contains all strings containing $111$ as a subsequence. And their union contains all strings with both $000$ and $111$ as subsequences. 
+
+        \item $((1 + 11) + \epsilon)((0+00)\cdot(1+11))^\star((0+00)+\epsilon)$
+        
+        The expression $((0+00)\cdot(1+11))^\star$ allows us to ensure that there are only runs of maximum length two for each symbol. And the expressions $((1 + 11) + \epsilon)$ and $((0+00)+\epsilon)$ allow the string to begin or end with either type symbol or be empty. 
+
+        \item $((01 + 0) + (10 + 1) + \epsilon)^2 + 0011 + 1100$
+        
+        Note that since we don't want subsequences of either symbols of length $3$, the longest valid strings are of length $4$. The expression $((01 + 0) + (10 + 1) + \epsilon)^2$ allows us to construct all but two valid expressions. 
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{$\star$}
+
+    \begin{enumerate}
+        \item[5.] Set of all strings containing $000$ and $111$ as substrings.
+        % \item[6.] Set of all strings that contains at least three $0$s and two $1$s
+        \item[7.]  Set of all strings except for $000$ and $111$. 
+        \item[8.] Set of all strings with more $01$s than $10$s
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni    
+    \begin{enumerate}
+
+    \item[5.] $\Sigma^* 000 \Sigma^\star 111 \Sigma^\star + \Sigma^* 111 \Sigma^\star 000 \Sigma^\star$
+        
+        Similar to part (1).  The first term is the set of all strings containing $000$ followed by $111$ as substrings, and the second term is the set of all strings containing $111$ followed by $111$ as substrings. 
+
+        \vspace{1em}
+
+        \textit{Note:} Let $A, B$ be regular languages, where $B$ is finite. Note that since regular languages are recursively defined as 
+        \[A = \left\{\underset{i}{\bigcup} x_i \, \big |\,  \forall x\in A\right\}\]
+        then for any $x \in A$ we can define 
+        % $A - \{x\} =  \left\{\underset{i}{\bigcup} x_i \, \big |\,  \forall x_i\in A, x_i \neq x\right\}$ and 
+
+        \[A = x + A',\text{ where } A' =  \left\{\underset{i}{\bigcup} x_i \, \big |\,  \forall x_i\in A, x_i \neq x\right\}\] 
+        Then to determine the set $A-B$ of expressions $x$ such that $x \in A$ and $x \notin B$, disregarding efficiency,  we can define $A - B$ as follows: 
+        \vspace{1em}
+
+    \begin{lstlisting}[mathescape]
+setminus (A, B): 
+   $ A-B = A$
+    for $(x \in B)$: 
+        if $(x \in A-B)$: 
+            $A - B = A' $
+    \end{lstlisting}
+        % \item [6] A
+        \item[7.]$\Sigma^\star - \{000, 111\}$
+        \item[8.] $(0^+1^+)^+$
+        % $((0)^*  + ((10)^* \cdot 1) + (1)^*)^* \cdot (01) \cdot ((0)^*  + ((10)^*1) + (1)^*)^* $
+    \end{enumerate}
+\end{solution}
+\end{document}

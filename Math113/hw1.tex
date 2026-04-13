@@ -1,0 +1,229 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1.4.1}
+    Show the following properties for the complex exponential: 
+    \begin{enumerate}
+        \item $e^{z+2\pi i} = e^z$
+        \item $e^{z+w} = e^ze^w$
+        \item $e^{z-w} = \frac{e^z}{e^w}$
+        \item $e^{-w} = \frac{1}{e^w}$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $z = x + iy$. Then, 
+        \begin{align*}
+            e^{z+2\pi i} &= e^{x + iy + 2 \pi i} = e^{x + i(y + 2\pi)} \\ 
+            &= e^x \cos(y+ 2\pi) + ie^x \sin (y + 2\pi) \\
+            &=e^x (\cos(y)\cos(2\pi) - \sin(y)\sin(2\pi)) + ie^x (\sin(y)\cos(2\pi) + \cos(y)\sin(2\pi)) \\ 
+            &=e^x (\cos(y) \cdot 1 - \sin(y) \cdot 0) + ie^x (\sin(y)\cdot 1 + \cos(y) \cdot 0) \\
+            &= e^x\cos(y) + ie^x\sin(y) \\ 
+            &= e^{x+iy} \\ 
+            &= e^z
+        \end{align*}
+        Hence $e^{z + 2\pi i} = e^z$ holds. 
+
+        \item Let $z = x + iy$ and $w = x' + iy'$. Then, 
+        \begin{align*}
+            e^{z+w} &= e^{x + iy + x' + iy'} = e^{(x+x') + i(y+y')} \\ 
+            &= e^{x+x'} \cos(y+ y') + ie^{x+x'} \sin (y + y') \\
+            &=e^{x+x'} (\cos(y)\cos(y') - \sin(y)\sin(y')) + ie^{x+x'} (\sin(y)\cos(y') + \cos(y)\sin(y')) \\ 
+        \intertext{From Real Analysis we know that $e^{x+x'} = e^x e^{x'}$. So we get,}
+         e^{z+w} &=e^{x}e^{x'} \cos(y)\cos(y') - e^{x}e^{x'}\sin(y)\sin(y') + i e^{x}e^{x'}\sin(y)\cos(y') + ie^{x}e^{x'} \cos(y)\sin(y') \\ 
+         &= e^x  \cos(y) \left( e^{x'} \cos(y') + i e^{x'}\sin(y')\right) + e^x\sin(y) \left(i e^{x'} \cos(y') - e^{x'}\sin(y')\right) \\ 
+         &= e^x  \cos(y) \left( e^{x'} \left(\cos(y') + i \sin(y')\right)\right) + e^x\sin(y) \left( e^{x'} \left(i\cos(y') - \sin(y')\right)\right) \\ 
+         &= e^x\cos(y) \cdot e^w + e^x\sin(y) \left( ie^{x'} \left(\cos(y') + i\sin(y')\right)\right) \\ 
+         &= e^x\cos(y) \cdot e^w + e^x\sin(y) \cdot i e^{w} \\
+         &= e^w \left(e^x\cos(y) + ie^x\sin(y)\right) \\ 
+         &= e^w \cdot e^z 
+        \end{align*}
+        Hence $e^{z + w} = e^z \cdot e^w$ holds. 
+
+        \item Let $z = x + iy$ and $w = x' + iy'$. Then, 
+        \begin{align*}
+            e^{z-w} &= e^{x + iy - x' - iy'} = e^{(x-x') + i(y-y')} \\ 
+            &= e^{x-x'} \cos(y-y') + ie^{x-x'} \sin (y - y') \\
+            &=e^{x-x'} (\cos(y)\cos(y') + \sin(y)\sin(y')) + ie^{x-x'} (\sin(y)\cos(y') - \cos(y)\sin(y')) \\ 
+        \intertext{From Real Analysis we know that $e^{x-x'} = \frac{e^x }{e^{x'}}$. So we get,}
+         e^{z-w} &=e^{x}e^{-x'} \cos(y)\cos(y') + e^{x}e^{-x'}\sin(y)\sin(y') + i e^{x}e^{-x'}\sin(y)\cos(y') - ie^{x}e^{-x'} \cos(y)\sin(y') \\ 
+         &= e^x  \cos(y) \left( e^{-x'} \cos(y') - i e^{-x'}\sin(y')\right) + e^x\sin(y) \left(i e^{-x'} \cos(y') + e^{-x'}\sin(y')\right) \\ 
+         &= e^x  \cos(y) \left( e^{-x'} \left(\cos(y') - i \sin(y')\right)\right) + e^x\sin(y) \left( e^{-x'} \left(i\cos(y') + \sin(y')\right)\right) \\ 
+         &=e^x  \cos(y) e^{-x-iy} + e^x\sin(y) \left( ie^{-x'} \left(\cos(y') - i \sin(y')\right)\right) \\ 
+         &= e^{-x-iy}(e^x\cos(y) + e^x\sin(y)) = e^{-w} \cdot e^z \\
+         &= \frac{e^z}{e^w}
+        \end{align*}
+        Hence $e^{z - w} = \frac{e^z}{e^w}$ holds. 
+
+        \item This follows from (3) if we let $z = 0$. 
+        \[e^{-w} = e^{0 - w} = \frac{e^0}{e^z} = \frac{1}{e^z}\]
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{1.4.8(a)}
+    Use $(1.6)$, De Moivre's Formula, and the geometric sum $1+z + \cdots z^n = \frac{z^{n+1}-1}{z-1}$ to prove the following assuming $0 < \theta < 2\pi$. 
+    \[ 1 + \cos(\theta) + \cdots + \cos(n\theta) = \frac{1}{2} + \frac{\sin((n+1/2)\theta)}{2\sin(\theta/2)}\]
+\end{problem}
+
+\begin{solution}     
+        \bbni
+
+\end{solution}
+
+
+\begin{problem}{1.4.9}
+    Observe that the $n$th roots of $1$ are given by $\{1, \omega, \cdots, \omega^{n-1}\}$, where $\omega = e^{2\pi i/n}$. Assuming $n > 1$, show that $1+\omega+\cdots+\omega^{n-1} = 0$. Prove a similar result for the $n$th-roots of $-1$. 
+\end{problem}
+
+\begin{solution}
+    \bbni
+    Let $p = 1+\omega+\cdots+\omega^{n-1}$. We can see that $p$ is a geometric series. 
+    Then, 
+    \begin{align*}
+        p &= 1+\omega+\cdots+\omega^{n-1} \\ 
+        p &= \frac{1 - \omega^n}{1 - \omega} \\ 
+        \intertext{Note that $\omega ^ n = 1$. So we get,} 
+        p &= \frac{1 - 1}{ 1 - \omega} = 0
+    \end{align*}
+    Hence, $p = 0$. 
+
+    Note that $n-th$ roots of $-1$ is the set $\left \{\zeta_{2n}^{(2k+1)}; 0 \leq k \leq n-1 \right \}$ where $\zeta_{2n}$ is the $2n$-th root of unity. That is, 
+    \[\zeta_{2n}^{2k+1} = (e^{2\pi i / 2n})^{2k+1} = (e^{\pi i / n})^{2k+1} = e^{(2k+1)\pi i/n}\] 
+    Let $\sigma = e^{\pi i /n}$ and $p' = \sigma + \sigma^3 + \sigma ^5 +  \cdots + \sigma^{2n-1}$. Again this is a geometric series. Then, 
+    \begin{align*}
+        p' &= \sigma + \sigma^3 + \sigma ^5 +  \cdots + \sigma^{2n-1} \\ 
+         &= \sigma \left ( 1 + \sigma^2 + \sigma ^4 +  \cdots + \sigma^{2(n-1)} \right ) \\ 
+         &= \sigma \left ( 1 + e^{2\pi i /n} + (e^{2\pi i /n}) ^2 +  \cdots + (e^{2\pi i /n})^{(n-1)} \right ) \\ 
+         &= \sigma \cdot 0 = 0   
+    \end{align*}
+\end{solution}
+
+
+\begin{problem}{1.4.13}
+    Suppose that $p(z) = a_nz^n + \cdots + a_1z + a_0$ has real coefficients. 
+    \begin{enumerate}
+        \item Show that if $z_0$ is a root of $p$, then either $z_0$ is real or $\overline{z}_0$ is also a root of $p$. 
+        \item Assuming the Fundamental Theorem of Algebra, show that $p$ must factor as a product: 
+        \[ p(z) = a_n(z-r_1)\cdots(z-r_k)q_1(z)\cdots q_s(z)\]
+        where $r_i$ are real and $q_i$ are irreducible quadratic polynomials with real coefficients and no real roots. 
+        \item Factor $p(z) = z^4 + z^3 + z^2 + z + 1$ into a product of irreducible quadratics. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $z_0 = x_0 + iy_0$ be a root of $p$. That is $p(z_0) = 0$. Consider $\overline{p(z_0)}$. 
+        \todo{Show $|\cdot | $ distributes over addtion and mult?}
+        \begin{align*}
+            \overline{p(z_0)} &= \overline{a_n}  \cdot \overline{z_0^n} + \cdots + \overline{a_1} \cdot \overline{z_0} + \overline{a_0} = \overline{0} \\ 
+        \intertext{Since $a_i$ is real for all $n \geq i \geq 0$, and $\overline{a_i} = a_i$, we have,}
+            \overline{p(z_0)} &= a_n \overline{z_0^n} + \cdots + a_1 \overline{z_0} + a_0 = 0 \\ 
+            &= a_n (\overline{z_0})^n + \cdots + a_1 \overline{z_0} + a_0 = 0 = p(\overline{z_0})
+        \end{align*}
+        Thus, $\overline{z_0}$ is a root to $p$. That is, either $\overline{z_0} = z_0$ (that is $z_0$) is real, or $\overline{z_0} \neq z_0$ and is also a root of $p$. 
+
+        \item The Fundamental Theorem of Algebra says that polynomial with complex coefficients factors completely into linear factors over the complex numbers. Assume $p(z)$ has $k$ real roots and $s$ pairs (from part (1) we know that if $z(s) = 0$ then $z(\overline{s}) = 0$) of complex roots. Then we can write, 
+        \begin{align*}
+            p(z) &=  a_nz^n + \cdots + a_1z + a_0 \\
+            &=  a_n\left(z^n + \cdots + \frac{a_1}{a_n}z + a_0 \right) \\ 
+            &= a_n(z - r_1)(z-r_2)\cdots(z-r_k)(z - s_1)(z - \overline{s_1})\cdots(z - s_s)(z- \overline{s_s}) \\
+            &= a_n(z - r_1)(z-r_2)\cdots(z-r_k)(z^2 - (s_1+\overline{s_1})z + s_1\overline{s_1}) \cdots (z^2 - (s_s+\overline{s_s})z + s_s\overline{s_s})
+        \end{align*}
+        {Let $s = x + iy$. Then, 
+        \[s + \overline s = x + iy + x - iy = 2 x = 2 \text{Re}(s)\] \[\text{ and }\] \[s\overline s = (x+iy)(x-iy) = x^2 + y^2 = |s|^2 \]}
+        Now we can write, 
+        \begin{align*}
+            p(z) 
+            &= a_n(z - r_1)(z-r_2)\cdots(z-r_k)(z^2 - 2\text{Re}(s_1)z + |s_1|^2)\cdots (z^2 - 2\text{Re}(s_s)z  + |s_s|^2)
+        \end{align*}
+        Now let $(z^2 - 2\text{Re}(s_i)z + |s_i|^2) = q_i(z)$, for all $i$ such that $1 \leq i \leq s$.
+        \begin{align*}
+            p(z)&= a_n(z - r_1)(z-r_2)\cdots(z-r_k)q_1(z) \cdots q_s(z)
+        \end{align*}
+        Note that by assumption $s_i \in \C \setminus \R$, that is each $q_i$ has no real roots and real coefficients (since both $2$Re$(s_i)$ and $|s_i|^2$ are real), and hence is irreducible over the real numbers.
+
+        \item Roots of this equation are $e^{2 \pi i k/5}, \, k \in \{1, 2, 3, 4, 5\}$ \todo{}
+        
+
+    \end{enumerate}
+\end{solution}
+
+
+\begin{problem}{1.5.2}
+    Let $c \in \C \setminus \{0\}$ and $a \in \C$. Show that the geometric series $P: \sum_{n=0}^\infty ca^n$ converges to $\frac{c}{1-a}$ if $|a| < 1$ and diverges otherwise. 
+\end{problem}
+\begin{solution}
+        \bbni
+
+\end{solution}
+
+
+\begin{problem}{1.5.8}
+    Prove Dini's theorem: Suppose that $(h_n)$ is a sequence of continuous non-negative functions on a compact set $K$ converging monotonically to zero on $K$. Then $h_n \searrow 0$ uniformly on $K$. 
+\end{problem}
+
+\begin{solution}
+       \bbni
+
+\end{solution}
+
+
+\begin{problem}{2.1.8}
+    Let \( A_r(z_0) = \{ z \in \mathbb{C} : |z - z_0| > r > 0 \} \) and suppose that
+    \[ g(z) = \sum_{j=1}^{\infty} \frac{b_j}{(z - z_0)^j} \]
+    converges for all \( z \in A_r(z_0) \) as in Ex 1.5.10. Show that both \( g \) and \( g' \) are holomorphic on \( A_r(z_0) \) and that
+    \[ g'(z) = \sum_{j=1}^{\infty} \frac{-j b_j}{(z - z_0)^{j+1}} \]
+    for all \( z \in A_r(z_0) \).
+
+    Show also that the coefficients \( b_j \) appearing in the first equation are uniquely determined by \( g \).
+\end{problem}
+\begin{solution}
+   
+\end{solution}
+
+\begin{problem}{2.2.3}
+    Suppose that $D$ is a domain and $f \in H(D)$. Show that if $f$ is real-valued in $D$, then $f$ is constant. 
+\end{problem}
+
+\begin{solution}
+        \bbni
+        $D$ is a connected open subset of $\C$ and $f$ is complex differentiable on $D$. We know that 
+        \[f(x + iy) = u(x,y) + iv(x,y)\]
+        Since $f$ is real valued in $D$, $v(x,y) = 0$ everywhere on $D$, that is 
+        \[v_x = v_y = 0\]
+        Then since the Cauchy-Riemann equations hold we have, 
+        \[u_x = v_y = 0, \quad u_y = -v_x = 0\]
+        Hence, $f'(z) = f_x(z) = u_x + i v_x = 0$, and since $z$ was an arbitrary element in $D$ this holds for all $z$. By a result shown in class, since $D$ is a domain and $f'(z) = 0$ for all $z \in D$, $f$ is constant on $D$. 
+\end{solution}
+
+\newpage
+
+
+\begin{problem}{2.2.5}
+    Let \( f : D \subset \mathbb{C} \to \mathbb{C} \) be a function of the form \( f(z) = u(z) + i v(z) \), and let \( F : D \subset \mathbb{R}^2 \to \mathbb{R}^2 \) be the companion function \( F(x,y) = (u(x,y), v(x,y)) \). Let \( z_0 = x_0 + i y_0 \in D \). Show that \( f'(z_0) \) exists if and only if the Cauchy-Riemann equations hold at \( z_0 \) and \( F \) is differentiable at \( (x_0, y_0) \).
+    
+    (Hint: if we let \( z = h + i k \) and if \( T \) is given by the matrix
+    \[ [T] =  \begin{pmatrix}
+        u_x(x_0,y_0) & -v_x(x_0,y_0) \\
+        v_x(x_0,y_0) & u_x(x_0,y_0)
+    \end{pmatrix}, \]
+    then
+    \[ \|F(x_0 + h, y_0 + k) - F(x_0, y_0) - T(h,k)\| = |f(z + z_0) - f(z_0) - w z| \]
+    where \( w = u_x(x_0,y_0) + i v_x(x_0,y_0) = f_x(z_0) \). Then remember Ex 2.2.1.)
+\end{problem}
+
+\begin{solution}
+    \bbni    
+\end{solution}
+
+\end{document}

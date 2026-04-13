@@ -1,0 +1,256 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+\usepackage{tikz-cd}
+
+\begin{document}
+
+\input{title}
+
+\section{Rings}
+
+\textbf{Important Example:} Let $X$ be a ``geometric set'', and consider the ring $$\Hom(X, \R) = \{X \overset{f}{\to} \R\}$$ with pointwise addition and multiplication $$(f+g)(x) = f(x) + g(x), \quad (fg)(x) = f(x)g(x)$$
+    
+    $r \in \Hom(X, \R)$ is a unit if and only if there exists $g \in \Hom(X, \R)$ such that $fg = 1$ if and only if $\forall x \in X, (fg)(x) = f(x) g(x) = 1$
+    
+    $$\Hom(X, \R)^\times = \Hom(X, \R^\times)$$
+    
+    % \item Levels to Studying Rings: elementwise, ideals, homomorphisms between rings, modules. 
+
+
+\begin{definition}
+     Let $a \in R$,  $a \neq 0$
+    \begin{itemize}
+        \item $a$ is a unit if and only if $\exists b \in R$ such that $ab = 1$, 
+        \item $a$ is a zero divisor if and only if $\exists b \in R \setminus \{0\}$ such that $ab = 0$, 
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}
+    The set of units $R^\times = \{a \in R \,| \, a \text{ is a unit}\}$ is a group under multiplication. 
+    
+    \textit{Proof:} Worksheet (03/31). 
+\end{lemma}
+
+% \item \textbf{Definition:} A ring homomorphism is a function $\phi: R \to S$ such that all the usual properties hold. 
+
+\begin{lemma}[Useful Lemma]
+    If $\phi: R \to S$ is a ring homomorphism, then it follows from the definition that 
+    \begin{itemize}
+        \item $\phi(0_R) = 0_S$
+        \item $\phi(-a) = -\phi(a)$
+        \item $\phi(a^{-1}) = \phi(a)^{-1}$
+    \end{itemize}
+\end{lemma}
+
+\begin{remark}
+     $\Z$ is initial in the category of rings. There is a unique homomorphism from the initial object to every other object. For any ring $R$, 
+    $$Hom(\Z, R) = \{1 \to 1_R\}$$
+    We don't know anything about homomorphisms to the initial obejct. 
+\end{remark}
+
+\section{Ideals}
+
+
+\begin{lemma}
+     If $\phi: R\to S$ is any ring homomorphism and $J \subset S$ is an ideal $\phi^{-1} (J)$ is also an ideal. 
+
+    \textit{Proof:} Worksheet $Q4.1$.  
+\end{lemma}
+
+\begin{theorem}
+     If $I \subset R$ is an ideal then, 
+    \begin{enumerate}
+        \item There exists a ring $R/I$ and a surjective ring homomorphism $\pi: R \to R/I$ such that $\ker(\pi) = I$. Moreover $R/I$ and $\pi$ are unique upto isomorphism. 
+        \item There is an inclusion preserving bijection 
+        \[\{\text{Ideals in $R/I$}\} \leftrightarrow \{\text{Ideals in $R$ containing $I$}\}\]
+        \[\overline{J} \leftrightarrow \pi^{-1}(\overline{J})\]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \bbni
+    \begin{enumerate}
+        \item Construct $R/I$ explicitly. 
+        
+        \item $I$ gives an equivalence relation $\sim$ on $R$ such that
+        
+        \[a \sim b \iff a - b \in I \iff a = b + I\]
+        
+        Show that equivalence classes $R/\sim$ is a ring. 
+        
+        \[R \to R /I = R/\sim\]
+        \[a \mapsto \overline{a} = a + I\]
+
+
+     Let $\overline J$ be an ideal in $R/I$, and $J$ be an ideal in $R$ and define the maps 
+        \[\phi: \overline{J} \to \pi^{-1}(\overline{J}), \quad \psi: J \to \pi(J)\]
+
+        Now we want to show that $\phi \circ \psi = \psi \circ \phi =id$. Consider $\phi \circ \psi(J)$ and $\psi \circ \phi(\overline J)$. Note that
+        \[\psi \circ \phi(\overline J) = \pi (\pi^{-1} (\overline J)) = \overline J\]
+        since $\pi$ is surjective. Thus $\psi \circ \phi = id$. 
+
+        Now, note that $J \subseteq \phi \circ \psi (J) = \pi^{-1}(\pi(J))$, and since $\overline 0 \in \pi(J)$, $I \subseteq \pi^{-1}(\pi(J))$. An element $x \in \pi^{-1}(\overline J)$ looks like $x + I$, and $\pi^{-1}(\overline J) = J + I$ 
+        Moreover since $\overline{0} \in \overline{J}$, we have $\pi^{-1}(\overline{0}) \subseteq \pi^{-1}(\overline{J})$ which implies $I \subseteq J$.  Thus, $\psi \circ \phi(J) = J$ and $\psi \circ \phi = id$.    
+    \end{enumerate}
+\end{proof}
+
+\textbf{Exercise:} Describe the ideals in 
+    \begin{enumerate}
+        \item $\Z/\langle 24 \rangle= \{\langle 0 \rangle, \langle 1 \rangle,\langle 2 \rangle,\langle 3 \rangle, \langle 4 \rangle,\langle 6 \rangle, \langle 8 \rangle, \langle 12 \rangle\}$
+        \item $\Z/\langle n \rangle = \{\langle d \rangle: d | n\}$
+        \item $\Z/\langle 3 \rangle = \{\langle 0 \rangle, \langle 1 \rangle\}$
+        \item $\Z/\langle 5 \rangle = \{\langle 0 \rangle, \langle 1 \rangle\}$
+        \item $\C[x,y]/\langle y - x^2\rangle \iso \C[x] = \{\text{Ideals in } \C[x]\}$
+        \item $\C[x]/\langle x^n\rangle = \{\langle x^i \rangle : 0 \leq i < n\}$
+    \end{enumerate}
+
+\begin{lemma}
+    If $\phi: R \to S$ is a ring homomorphism with $\ker(\phi) \supseteq I$ then there exists a unique morphism $\widetilde{\phi}: R/I \to S$ 
+    
+      \begin{center}
+        \begin{tikzcd}[row sep=3em, column sep=3em]
+            R  \arrow[]{r}{\pi} \arrow[swap]{d}{\phi} & R/I  \arrow[dashed] {dl} {\widetilde{\phi}} \\
+            S & {}
+        \end{tikzcd}
+      \end{center}
+    \textbf{Universal Property of Quotinents:} Upto isomorphism $R/I$ is the ring such that 
+    \[\Hom(R/I, S) = \{\phi: R \to S: I \subset \ker(\phi)\}\]
+
+    We want to define $\widetilde{\phi}(\overline{a}) = \widetilde{\phi}(a + I) = \phi(a)$ and $\widetilde{\phi}(\overline{0}) = 0$. 
+\end{lemma}
+
+\begin{lemmact}
+    Maximal Ideal $\implies$ Prime Ideals. 
+\end{lemmact}
+
+\begin{definition}
+    The spectrum of a ring $R$ is the set 
+    \[\Spec(R) = \{\text{Prime Ideals in } R\}\]
+    the maximal spectrum of $R$ is the set 
+    \[m\Spec(R) = \{\text{Maximal Ideals in } R\}\]
+    
+    $\Spec(R)$ is where the `geometry lives'. 
+    Note that $m\Spec(R) \subset \Spec(R)$. 
+
+    \textbf{Example:} $R = \Z[\sqrt{-5}]$. $2$ is irreducible but not prime. $R/ \langle 2 \rangle = \Z / 2\Z \times \Z/2\Z$. 
+    
+    \textbf{Example:} $R = \C[x,y] / \langle x^3 - y^2 \rangle $. $x$ is irreducible, but $\langle x \rangle$ is not prime. $R / \langle x \rangle = \C[y]/ \langle y \rangle$ and $y$ is a zero divisor.   
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a non-zero ring. \begin{enumerate}
+        \item $R$ has a maximal ideal. 
+        \item If $I \subsetneq R$ is a proper ideal there exists a prime ideal $P\subseteq R$ such that $I \subset P \subsetneq R$.  
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \textbf{Zorn's Lemma:} Let $(P, \leq)$ be a po-set. 
+    
+    If $P \neq \emptyset$ and if $C = C_1 \leq C_2 \leq C_3 \leq \cdots$ is a chain in $(P, \leq)$ then there exists $B \in P$ such that $C_i \leq B$ for all $i$, then there exists $M \in P$ such that  if $S \leq M$ then $M = S$. 
+
+    Let $P = \{$Proper ideals in $ R\}$ and $\leq$ be inclusion. We claim that $(P, \leq)$ is a poset. 
+
+    \begin{enumerate}
+        \item \begin{itemize}
+            \item $P \neq \emptyset$ since $\langle 0 \rangle \in P$. 
+            \item Given a chain in $P$ 
+        \[I_1 \subseteq I_2 \subseteq \cdots\]
+        Then, define $B = \bigcup I_j$. Note that $B$ is an ideals since union of nested ideals is an ideal. And $B$ is proper since $1 \notin I_j$ for all $j$, and hence $1 \notin B$. Then there exists some ideal $M \subset R$ such that  $M$ is maximal. 
+        \end{itemize}
+        \item Follows from (1). Let $R = R/I$. Pre-image of prime ideals is prime. 
+    \end{enumerate}
+    Thus, $m\Spec(R) \neq \emptyset$ and $\Spec(R) \neq \emptyset$. 
+\end{proof}
+
+\section{Zariski Topology}
+
+\begin{definition}
+    If $S \subseteq R$ is any subset of $R$, 
+    \[\V(S) = \{[P] \in \Spec (R) | S \subseteq P\} \subseteq \Spec (R)\]
+\end{definition}
+
+\begin{definition}
+    An algebraic subset of $\K^n$ of some field $K$ is a set of the form \[\V(\cS) = \{P \in \K^n | f(p) = 0, \forall f \in \cS\}\] for a subset $\cS \subset \K[x_1, \cdots, x_n]$
+\end{definition}
+
+\textbf{Examples:} 
+\begin{itemize}
+    \item $\V(x^2 + y^2 -1) \subseteq \R^2$ 
+    
+    \[\{(x,y) \in \R^2 | x^2 + y^2 - 1 = 0\}\]
+
+
+    \item $\V(x^2 + y^2 -1) \subseteq \R^3$ 
+    
+    \[\{(x,y, z) \in \R^3 | x^2 + y^2 - 1 = 0\}\]
+
+
+    \item $\V(x^2 - y) \subseteq \R[x,y]$ 
+    
+    \[\{(x,y) \in \R[x,y] | x^2 = y\}\]
+
+
+    \item $\V(x^2 - xy) \subseteq \R[x,y]$ 
+    
+    \[\{(x,y) \in \R[x,y] \, | \,x = 0, \,  x- y = 0\}\]
+
+
+    \item $\V(x^2 +1) \subseteq \R[x]$ 
+    
+    \[\V(x^2 + 1) = \emptyset\]
+
+    \item $\V(x^2 +1) \subseteq \C[x]$ 
+    
+    \[\V(x^2 + 1) = \{i, -i\}\]
+
+
+    \item $\V(x^2 +4) \subseteq \F_3[x]$ 
+    
+    \[\V(x^2 + 4) = \emptyset\]
+
+
+    \item $\V(x^2 +4) \subseteq \F_p[x]$ 
+    
+    \todo{}
+
+
+    \item $\V(x^6 - 3x^5y + 3x^4y^2 -x^3y^3) \subseteq \R[x,y]$ 
+    
+    \[\V(x^6 - 3x^5y + 3x^4y^2 -x^3y^3) = \V(x^3(x-y)^3) = \{(x,y) \in \R[x,y] \, | \,x = 0, \,  x- y = 0\}\]
+
+    \item $\V(n(x^2+y^2+z^2), n \in \Z) \subseteq \R^3$
+    
+    \todo{} 
+
+    \item $\V(\text{a collection of any linear polynomials in } \K[x_1, \cdots, x_n])$
+    
+    \todo{}
+\end{itemize}
+
+\begin{definition}
+    Let $V \subseteq \K^n$ be an algebraic set. The defining ideal of $V$ is 
+    \[\I(V) = \{f \in \K[x_1, \cdots, x_n] \, | \, f(p) = 0, \forall p \in V \}\]
+\end{definition}
+
+\begin{definition}
+    If $\fM\subseteq R$ is a maximial ideal, the residue field of $\fM$ is $R/\fM$.
+\end{definition}
+
+\begin{definition}
+    Let $\K$ be a field. A $\K$ algebra is the data of a ring $R$ together with a fixed ring homomorphism 
+    \[\alpha: \K \to R\]
+\end{definition}
+
+\begin{definition}
+    If $(R, \K \overset{\alpha}{\to} R)$ and $(S, \K \overset{\beta}{\to} S)$ are $\K$-algebras, a ring map $\phi: R \to S$ is a morphism of $\K$-algebras iff
+
+    \begin{center}
+        \begin{tikzcd}
+        R \arrow[r, "\phi"] & S \\ 
+        \K \arrow[u, "\alpha"] \arrow[ur, "\beta"]
+    \end{tikzcd}
+    \end{center}
+\end{definition}
+\end{document}

@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\vspace{.1in}
+
+\textbf{Credit Statement:} Talked to Sophie Park'27. 
+
+\begin{problem}{1}
+    Construct deterministic finite automata (DFAs) for each of the following languages. No formal proofs required, but explanation of your construction in a few English sentences would be helpful. Throughout the exercise we assume the alphabet to be $\Sigma = \{0,1\}$.
+    \begin{enumerate}
+        \item Set of all strings where number of $0$s is divisible by $5$ 
+        \item Set of all strings with exactly a single $1$, and the number of $0$s is divisible by $5$.
+        \item Set of all strings containing $000$ or $111$ as subsequences. 
+        \item Set of all strings not containing $000$ nor $111$ as subsequences. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item The DFA tracks the number of $0$s seen so far modulo $5$. Each state represents the current count of $0$s mod $5$; a $0$-transition advances the state by $1 \pmod 5$, and a $1$-transition leaves the state unchanged. The unique accepting state is $0$ (the start state), since the empty string has zero $0$s, and $0 \equiv 0 \pmod 5$. 
+
+        
+        
+        \begin{tikzcd}
+        {}\arrow[r] & \dcircled{\epsilon} \arrow[out=55, in=125, loop, swap, "1"] \arrow[r, "0"] & \circled{1} \arrow[out=55, in=125, loop, swap, "1"] \arrow [r, "0"] & \circled{2} \arrow[out=55, in=125, loop, swap, "1"] \arrow [r,  "0"] & \circled{3} \arrow[out=55, in=125, loop, swap, "1"] \arrow [r, "0"] & \circled{4} \arrow[out=55, in=125, loop, swap, "1"] \arrow [llll, swap, "0", out=-130, in=-50]
+        \end{tikzcd}
+
+
+        \newpage 
+        \item The DFA tracks two quantities simultaneously: the number of 0s seen mod 5, and whether zero or exactly one 1 has been seen. This gives a $5 \times 2$ grid of states $(a, b)$ where  $a$ is the zero-count modulo $5$ and $b$ is the one-count. A $0$-transition increments $a$ by $1 \pmod 5$; a $1$-transition increments $b$ by $1$. If $b \geq 2$ we get to a fail state. The unique accepting state is $(0,1)$: zero $0$s modulo $5$ and exactly one $1$.
+
+        
+        \begin{tikzcd}
+        {} & {} & {} & \circled{fail} \\ 
+        {} & \dcircled{0,1} \arrow[urr, "1"] \arrow[r, "0"] & \circled{1,1} \arrow[ur, "1"] \arrow [r, "0"] & \circled{2,1} \arrow[u, "1"] \arrow [r,  "0"] & \circled{3,1} \arrow[ul, "1"] \arrow [r, "0"] & \circled{4,1} \arrow[ull, "1"] \arrow[llll, bend left=-100, "0"] \\ 
+        {}\arrow[r] & \circled{0,0} \arrow[u, "1"] \arrow[r, "0"] & \circled{1,0} \arrow[u, "1"] \arrow [r, "0"] & \circled{2,0} \arrow[u, "1"] \arrow [r,  "0"] & \circled{3,0} \arrow[u, "1"] \arrow [r, "0"] & \circled{4,0} \arrow[u, "1"] \arrow [llll, swap, "0", out=-130, in=-50]
+        \end{tikzcd}
+
+         
+        \newpage
+         Note that the DFAs for parts (3) and (4) are complements of each other. Each state is a tuple $(a,b)$ with $a,b \in \{0,1,2\}$ respectively counting $0$s and $1$s seen so far. A $0$-transition increments $a$ (if $a<2$), and a $1$-transition increments $b$ (if $b<2$); once either counter would exceed $2$, the machine enters a state representing ``$000$ or $111$ has appeared as a subsequence." For part (3) this is the only accepting state; for part (4), which accepts strings containing neither subsequence, all states except this one are accepting. 
+
+        \item \begin{tikzcd}
+        {} & {}& {} & \circled{0,2} \arrow[dr, "0"] \arrow[ddrrr, bend left=20, "1"] & {} & {}\\
+        {} & {}  & \circled{0, 1} \arrow[ur, "1"] \arrow[dr, "0"] & {} & \circled{1,2} \arrow[drr, "1"] \arrow[dr, "0"]\\
+        {}\arrow[r] & \circled{$\epsilon$} \arrow[ur, "1"] \arrow[dr, "0"]&{} & \circled{1,1} \arrow[dr, "0"] \arrow[ur, "1"] &{} & \circled{2,2}  \arrow[r, "\Sigma"]& \dcircled{fail} \arrow[out=-25, in=25, loop, swap, "\Sigma"]  \\ 
+        {} & {}  & \circled{1, 0} \arrow[ur, "1"] \arrow[dr, "0"] & {} & \circled{2,1} \arrow[ur, "1"] \arrow[urr, "0"] \\
+        {} & {}& {} & \circled{2,0} \arrow[ur, "1"] \arrow[uurrr, bend left =-10, "0"] & {}. & {}\\
+        \end{tikzcd}
+
+        \item \begin{tikzcd}
+        {} & {}& {} & \dcircled{0,2} \arrow[dr, "0"] \arrow[ddrrr, bend left=20, "1"] & {} & {}\\
+        {} & {}  & \dcircled{0, 1} \arrow[ur, "1"] \arrow[dr, "0"] & {} & \dcircled{1,2} \arrow[drr, "1"] \arrow[dr, "0"]\\
+        {}\arrow[r] & \dcircled{\epsilon} \arrow[ur, "1"] \arrow[dr, "0"]&{} & \dcircled{1,1} \arrow[dr, "0"] \arrow[ur, "1"] &{} & \dcircled{2,2}  \arrow[r, "\Sigma"]& \circled{fail} \arrow[out=-25, in=25, loop, swap, "\Sigma"] \\ 
+        {} & {}  & \dcircled{1, 0} \arrow[ur, "1"] \arrow[dr, "0"] & {} & \dcircled{2,1} \arrow[ur, "1"] \arrow[urr, "0"] \\
+        {} & {}& {} & \dcircled{2,0} \arrow[ur, "1"] \arrow[uurrr, bend left =-10, "0"] & {}. & {}\\
+        \end{tikzcd}
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{$\star$}
+    To think about later: 
+    \begin{enumerate}
+        \item [5.] Set of all strings that are binary representations of nonnegative integers divisible by $5$.
+        \item [6.]Set of all strings whose reverses are nonnegative integers divisible by $5$ in binary.
+    \end{enumerate}
+\end{problem}
+
+\end{document}

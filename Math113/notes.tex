@@ -1,0 +1,702 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+$03/30$
+
+\begin{enumerate}
+    \item Let $\C = \R^2$ with vector addition $(a,b) + (c,d) = (a+c, b+d)$ and multiplication $(a,b)(c,d) = (ac-bd, ad+bc)$. Note $\R \hookrightarrow \C : a \to (a, 0)$. 
+    
+    \item \begin{align*}
+        (a,b) &= (a,0) + (0,1)(b,0) \\ 
+        \implies (0,1)^2 &= (-1,0) \\ 
+        \implies (a,b) &= (a,0) + i(b,0)
+    \end{align*}
+    \item Let $D$ be a disk, $F: D \subset \R^2 \to \R^2$ denote a function defined on $D$ taking values in $\R^2$, then $F(x,y) = (u(x,y), v(x,y))$ where $u, v : D \subset \R^2 \to \R$. Then \[f(x + iy) = u(x,y) + iv(x,y)\]
+    
+    \item \textbf{Proposition 1.7:} Suppose $D \subset \R^2$ is open and connected and $u : D \subset \R^2 \to \R$ such that $u_x \equiv 0 \equiv u_y$, then $u$ is constant.
+    
+    \item \textbf{Definition:} $f : D \subset \R^2 \to \R^2$ is differentiable at an interior point $z_0 \in D$. If there exists a linear map $T : \R^2 \to \R^2$ such that 
+    \[\lim_{z\to 0} \frac{1}{||z||}||f(z+z_0) - f(z_0) - T(z)|| = 0\]
+
+    \item \textbf{Remark:} If $f(z) = (u(x,y), v(x,y))$ is differentiable at $z_0$ then $u,v$ have $1$st partials at $z_0$ and the matrix of $T$ with respect to the standard basis is \[[T]_\sigma = \begin{pmatrix}
+        u_x(z_0) && u_y(z_0) \\ v_x(z_0) && v_y(z_0)
+    \end{pmatrix}\]
+    This is the Jacobian. Note that the existence of Jacobian doesn't mean that the fuc is differentiable. 
+
+    \item \textbf{Theorem 1.8:} Suppose that $f: D \to \R^2$ is given by $f(x,y) = (u(x,y), v(x,y))$ and $D_r(z_0) \subset D$. If the first partials of $u, v$ exist in $D$ are continuous at $z_0$ then $f$ is differentiable at $z_0$. 
+    
+    \item If $u_x$ is defined on a neighbourhood of $z_0$ then we can talk about its partials, 
+    \[u_{xy}(z_0) = \frac{\d}{\d y}\frac{\d u}{\d x} (z_0) = \frac{\d^2u}{\d y \d x} (z_0) \]
+    \[u_{xx}(z_0) = \frac{\d}{\d x}\frac{\d u}{\d x} (z_0) = \frac{\d^2u}{\d x^2} (z_0) \]
+
+    \item \textbf{Clairaut's( ?) Theorem:} If $u_{xy}$ and $u_{yx}$ are continuous at $z_0$ then $u_{xy}(z_0) = u_{yx}(z_0)$.
+    
+    \item \textbf{Definition:} We define $\exp: \C \to \C$ by 
+    \[\exp (x+iy) = e^x\cos(y) + ie^x\sin(y)\]
+    we often write $e^z$ instead of $\exp(z)$. 
+    
+    \item \textbf{Proposition 1.16:} 
+    \begin{enumerate}
+        \item [(a)] $e^{z+2\pi i} = e^z$
+        \item [(b)] $e^{z+w} = e^ze^w$
+        \item [(c)] $e^z = e^w \iff w = z+2\pi ik$, $k \in \Z$
+        \item [(d)] $(e^z)^n = e^{nz}$, $n \in \Z$
+    \end{enumerate}
+
+    \textbf{Proof:} Let $z =x + i\theta$ and $w = y + i \phi$ \todo{}, 
+    \item $\tau \in \C$ is unimodular if $|\tau| = 1$. This happens $\iff \tau =e^{i\theta}$, $\theta \in \R$. If $z \in \C \setminus \{0\}$ then $ z = |z| \cdot \frac{z}{|z|} = re^{i\theta}$ when $r = |z|$ and $\theta \in \R$. We have $\arg(z) \{ \theta \in \R: \, z = |z|e^{i\theta}\}$ and if $z = re^{i\theta_0}$ then, $$\arg(z) = \{\theta_0 + 2 \pi k: \, k \in \Z\}$$ Note that $\arg$ is a set-valued function defined on $\C \setminus \{0\}$. 
+    
+    \item \textbf{Proposition 1.22:} Let $f(z) = \exp(z)$. Then $f$ maps $\C$ to $\C \setminus \{0\}$. If $z \neq 0$, then $\{w \in \C, \, e^w = z\} =\{ln(|z|) + i\theta: \, \theta \in \arg(z)\} = ln(|z|) + i\arg(z)$. If $z \neq 0$ then $\log (z) = ln(|z|) + i \arg(z)$. 
+    
+    \item \textbf{Definition:} Suppose that $f$ is a set-valued function on a set $D$. Then a branch of $f$ in $D$ is a continuous function $F: D \to \C$ such that $F(z) \in f(z) $ for all $z \in D$. Example: 
+    Let $z \in \C \setminus \{0\}$ then $\exists! \theta \in (-\pi, \pi]$ such that $\theta \in \arg(z)$. Then we can define $\text{Arg}: \C \setminus \{0\} \to (-\pi, \pi]$ such that $\text{Arg}(z) \in (-\pi, \pi]$ and $\text{Arg}(z) \in \arg(z)$ has an discontinuity on $(-\infty, 0]$ but is continuous on $D ^\star  = \C \setminus (-\infty, 0]$ (See lemma 1.26). 
+
+    A branch of $\arg$ in $D$ gives us a branch of $\log$ in $D$. We call $\text{Log}(z) = ln (|z|) _ i \text{Arg}(z)$ the principal branch of $\log$ in $D^\star$.  
+
+    \item Branch-cut
+\end{enumerate}
+
+\newpage 
+
+$04/01$
+
+\begin{enumerate}
+    \item If $(a_n) \in \C$ is a sequence then $\sum_{n=1}^\infty a_n$ converges if the sequence $(S_n)$ converges, where  \\$S_n = \sum_{i=1}^n a_n$, and then, 
+    \[\sum_{n=1}^\infty = \lim_{n\to \infty} S_n\]
+    \item The sequence converges absolutely if $\sum_{n=1}^\infty |a_n| < \infty$
+    \item \textbf{Lemma 1.29:} An absolutely convergent series is convergent.
+    
+    \textit{Proof:} Suppose that $\sum_{n=1}^\infty |a_n| <\infty$. Then given $\epsilon > 0$, $\exists N$ such that for all $n > N$, 
+    \[\sum_{n=N}^\infty |a_n| < \epsilon\]
+    Now if $m > n > N$, we have 
+    \[|S_m - S_n| \leq \sum_{k=n+1}^m |a_k| \leq \sum_{k=n}^N|a_k| <\epsilon\]
+    That is $(S_n)$ is Cauchy and $(S_n)$ converges. 
+    \item \textbf{Theorem 1.30:} Let $(a_n) \in \C$ 
+    \begin{enumerate}
+        \item If $|a_n| < b_n$ and $\sum_{n=1}^\infty b_n < \infty$ then $(a_n)$ is absolutely convergent. 
+        \item If $\lim_{n\to \infty} \left|\frac{a_{n+1}}{a_n}\right| = L$, then $\sum_{n=1}^\infty a_n$ is absolutely convergent if $L < 1$, and diverges if $L > 1$. 
+        \item Let $L = \lim \sup |a_n| ^{1/n}$. If $L < 1$ then $\sum a_n$ converges absolutely and diverges if $L > 1$. 
+        
+        Note: if $(a_n) \in \R$, then $\alpha_n = \sup \{a_k : k \geq n\}$ and $\alpha_{n+1} \leq \alpha_n$. That is $(\alpha_n)$ is monotonic decreasing. 
+        \[\lim_n \sup a_n = \lim_n \sup_{k \geq n} a_k = \inf_n \sup_{k \geq n} a_k\]
+    \end{enumerate}
+
+    \item Recall, if $(f_n)$ is a sequence of $\C$-valued functions on $D \subset \C$, then we say $(F_n)$ converges pointwise on $D$ to $F: D \subset \C \to \C$ if 
+    \[\lim_{n\to \infty} F_n(z) = F(z), \qquad \forall z \in D\]
+    We say that $(F_n)$ converges uniformly to $F$ on $D$ if $\forall \epsilon > 0$ there exists an $N$ such that $\forall n \geq N$, 
+    \[|F_n(z) - F(z)| < \epsilon \qquad \forall z \in D\]
+    We use the same terminology for the series $\sum_{n=1}^\infty F_n$ by considering the partial sums $S_n (z) = \sum_{i=1}^n F_i (z)$. 
+
+    \item \textbf{Theorem 1.31 (Weierstrass M-test):} Suppose $D \in \C$ and $(F_n)$ is a sequence of $\C$-valued functions on $D$ such that $|F_n(z)| \leq M_n$ for all $z \in D$. If $\sum_{n=1}^\infty M_n < \infty$ then $\sum_{n=1}^\infty F_n$ converges uniformlyon $D$ to some $F: D \subset \C \to \C$. 
+    
+    \textit{Proof:} Note that $\forall z \in D$, $\sum_{n=1}^\infty F_n(z)$ converges to some $F(z) \in \C$ by comparison test. If $\epsilon > 0$, then $\exists N$ such that $\forall n \geq N$, $\sum_{n=N}^\infty M_n < \epsilon$. 
+    
+    Then if $n \geq N$, 
+    \begin{align*}
+        |F(z) - S_n(z)| &= |F(z) - \sum_{k=1}^n F_k (z)| \\ 
+        &= \left| \sum_{k= n+1}^\infty F_k(z)\right| \leq  \sum_{k= n+1}^\infty |F_k(z)| \leq  \sum_{k= n+1}^\infty M_k < \epsilon 
+    \end{align*}
+
+    \item \textbf{Definition:} Let $(a_n)_{n=0}^\infty \in \C$ and $z_0 \in \C$. Then $K = \sum_{n=0}^\infty a_n(z-z_0)^n$ is called a power seires centered at $z_0$ with coefficients $a_k$. 
+    
+    \item \textbf{Theorem 1.34:} Consider $K$ . Then $\exists R \in [0, \infty]$ such that 
+    \begin{enumerate}
+        \item $K$ converges if $|z-z_0| < R$, 
+        \item $K$ converges if $|z-z_0| > R$, 
+        \item and if $ 0 < r < R$, $K$ converges uniformly on $D_r(z_0)$. 
+    \end{enumerate}
+
+    Furthermore 
+    \[\frac{1}{R} = \lim_n \sup |a_n|^{1/n}\]
+
+    \todo{Subdisks?}
+
+    \textbf{Proof:} WLOG let $z_0 =0$. If $K$ converges only on $z = 0$, then we can take $R = 0$ so that (a) and (b) hold and (c) is vacuous. 
+
+    Suppose $K$ converges at $z_1$ with $|z_1| > 0$ then there exists $M$ such that $|a_n z_1^n| \leq M$, for all $n$. 
+
+    If $|z| < |z_1|$ then $|a_nz^n| = |a_nz_1^n| \left|\frac{z}{z_1}\right|^n \leq M \left|\frac{z}{z_1}\right|^n$ and $K$ converges absolutely at $z$ by the comparison test. 
+
+    Let $R = \sup \{\, |z|: K$ converges at $z \}$. If $|z| < R$, then $\exists z$ such that $K$ converges at $z$, and $|z| < |z_1|$. But then $K$ converges absolutely at $z$. 
+    
+    
+    If $|z| > R$ then we know $K$ diverges at $z$.
+    
+    Thus (a) and (b) hold with $R$. 
+
+    If $0 < r < R$ then $K$ converges absolutely at $z= r$, and ww can let $M_n = |a_n|r^n$. Therefore $K$ converges uniformly on $D_r(0)$ and (c) holds. 
+
+    Now let $R_0^{-1} = \lim_n \sup |a_n|^{1/n}$. If $0 < |z| < R_0$ then $\lim_n \sup |a_nz_n|^{1/n} = R_0^{-1}|z| < 1$. That is, $K$ converges absolutely at $z$. If $|z| > R_0$ then $\lim_n \sup |a_nz_n|^{1/n} = R_0^{-1}|z| > 1$. That is, $K$ diverges. Hence, $R = R_0$. 
+
+    \item Recall that a subset $D \subset \C$ is connected if it does not admit a non trivial partition into relatively open sets. 
+    
+    \textit{Remark:} A set $A \in \C$ is connected if given open sets $U$, $V \in \C$ such that $\{A \cap U, A \cap V \}$ is a partition of $A$ ($A$ is a disjoint union of those two sets) and if $A \cap U \neq \emptyset$ then $A \cap V = \emptyset$. 
+    
+    \textbf{Definition:} We call a connected open subset $D \subset \C$ a domain. 
+
+    \item If $E \subset \C$ and $z \in E$ then $E(z) = \bigcup \{A \subset \C : z \in A \subset E$ and $A$ is connected $\}$. Then $E(z)$ is connected. And if $E(z) \cap E(w) \neq \emptyset$ then $E(z) = E(w)$.
+    
+    That is $\{E(z) : z \in \C \}$ is a partition of $E$ into connected subsets called the connected components of $E$. 
+
+    Since disks $D_r(z_0)$ are connected it follows that the connected components of an open set $U$ are open. \textit{Exercise W2.1.2}
+
+    \item  $E \subset \C$ is path connected if given $z, w \in \C$ there is a continuous function $\gamma: [0,1] \to E$ such that $\gamma(0) = z$ and $\gamma(1) = w$. Because $[0,1] \subset \R$ is connected, it follows that path connected sets are connected. 
+    
+    \textit{The converse is not true.}
+\end{enumerate}
+
+
+\begin{problem}{}
+    Let $(a_n) \in \R$. 
+    Suppose $\sum a_n$ converges.
+    \begin{enumerate}
+        \item Does $\sum a^2_n$ converge? 
+        \item Does $\sum a^3_n$ converge? 
+    \end{enumerate}
+\end{problem}
+
+
+\newpage 
+
+04/03 
+
+\begin{enumerate}
+    \item \textbf{Definition:} Supppose that $F: D \subset \C \to \C$ and that $z_0$ is an interior point of $D$. Then $F$ is complex differentiable at $z_0$ if 
+    \[F'(z_0) = \lim_{h\to 0} \frac{F(z_0+h) - F(z_0)}{h}\]
+    exists, then we call $F'(z_0)$ the derivative of $F$ at $z_0$. If $D$ is open and $F'(z)$ exists for all $z \in D$ then we say that $F$ is holomorphic on $D$ and write $H(D)$ for the set of all holomorphic functions on $D$. If $F \in H(\C)$ then we say $F$ is entire. 
+
+    \textbf{Remark:} If $F(z) = z^n$ for $n \in \N$, then $f^{-1}(z) = n z^{n-1}$ with the same proof as Math 3. Similarly, the usual sum, product, quotinent and chain rules with basically the same proofs. 
+
+    \textbf{Remark:} Thus, polynomials are entire, and rational functions are holomorphic on their natural domains. 
+
+    \textbf{Example:} Let $f(z) = |z|^2$. Thus, if $z = x + iy$ then $f(z) =  x^2 + y^2$. It's companion is $F(x,y) = (x^2 + y^2, 0)$. 
+    
+    Recall that $|z|^2 = z \overline{z}$, so 
+    \begin{align*}
+        f'(z) &= \lim_{ h \to 0 } \frac{|z + h| ^2 - |z|^2}{h} \\ 
+        &= \lim_{ h \to 0 } \frac{(z+h)(\overline z + \overline h) - |z|\overline z}{h} \\ 
+        &= \lim_{ h \to 0 } \frac{z\overline h + \overline z h + h \overline h}{h} \\ 
+        &= \overline z + z \lim_{h\to 0} \frac{\overline h}{h} + 0 
+    \end{align*}
+
+    Suppose $f'(z)$ exists and $h = x +iy$. 
+
+    \begin{align*}
+        f'(z) &= \overline z + \lim_{x + iy \to 0} \frac{x - iy}{x + iy}  \\ 
+        &= \overline z + z \lim_{x \to 0} \frac{x}{x} = \overline z + z 
+    \end{align*}
+    But also must have 
+
+    \begin{align*}
+        f'(z) &= \overline z + \lim_{y \to 0} \frac{-y}{y} = \overline z - z
+    \end{align*}
+    Then, $f'(z)$ exists only if $z = 0$ and $f'(0) = 0$. 
+
+    \item \textbf{Theorem 2.4:} Suppose $r > 0$ and 
+    \[f(z) = \sum_{n=0}^\infty a_n (z - z_0)^n \qquad \forall z \in D_r(z_0)\]
+    Then $f  \in H(D_r(z_0))$ and 
+    \[f'(z) = \sum_{n=1}^\infty na_n (z - z_0)^{n-1} \qquad \forall z \in D_r(z_0)\]
+
+    \textit{Proof:}
+    Since $\lim_{n\to \infty}n^{1/n} = 1$, the radius of convergence of $f(z)$ and $f'(z)$ are equal. Thus $\forall z \in D_r(z_0)$ it suffies to see that $f'(z)$ exists and equals $g(z) = \sum_{n=1}^\infty na_n (z - z_0)^{n-1}$. 
+    
+    Using a change of variables we can assume $z_0 = 0$. Fix $z \in D_r(0)$ and $p$ such that $0 \leq |z| \leq p < r$. If $ w\neq z$, then 
+    \[\frac{f(w)- f(z)}{w -z} - g(z) = \sum_{n=1}^\infty \left(\frac{a_nw^n - a_nz^n}{w-z} - na_nz^{n-1}\right)\]
+
+    where $A_1 = 0$ and for $n \geq 2$ 
+    \begin{align*}
+        A_n &= \frac{w^n - z^n}{w-z} - nz^{n-1} \\ 
+        &= \left[\sum_{k=0}^{n-1} w^{n-1-k}z^k \right] - nz^{n-1} \\ 
+        \intertext{We claim this equals,}
+        &= (w-z) \sum_{k=1}^{n-1} kz^{k-1}w^{n-k-1}
+    \end{align*}
+    to see this, expand. 
+
+
+    Thus if $|w| < p$ and $n \geq 2$. 
+
+    \begin{align*}
+        A_n &\leq |w -z| \sum_{k=0}^{n-1}kp^{n-2} \\ 
+        &= |w-z| p^{n-2}\frac{n(n-1)}{2}
+    \end{align*}
+    
+    Thus if $|w| < p$, 
+
+    \begin{align*}
+        \left|\frac{f(w) - f(z)}{w-z} - g(z)\right| \leq |w-z| \sum_{n=2}^\infty n^2 |a_n| p^{n-2}
+    \end{align*}
+
+    But 
+    \[\lim_n \sup |a_n|^{1/n} = \frac{1}{R}\] 
+    and $ p < r \leq R$. That implies $\sum_{n=2}^\infty n^2|a_n|p^{n-2}$ converges to some $M > 0$. Therefore, $|w| < p$, then  
+    \begin{align*}
+        \left|\frac{f(w) - f(z)}{w-z} - g(z)\right| \leq |w-z| M
+    \end{align*}
+    then $f'(z)$ exists and equals $g(z)$. 
+
+    \item \textbf{Corollary 2.7:} If 
+    \[f(z) = \sum_{n=0}^\infty a_n (z-z_0)^n\] 
+    for all $z \in D_r(z_0)$. then $f$ has derivatives of all orders in $D_r(z_0)$ and 
+    \[a_n = \frac{f^{(n)}(z)}{n!}\]
+    In particular $a_n$ is uniquely determined by $f$ at $z_0$. 
+
+    \textit{Proof:} By induction 
+    \[f^{(k)}(z) = \sum_{n=k}^\infty n(n-1) \cdots (n-k-1)a_n |z - z_0|^{n-k}\]
+    for all $z \in D_r(z_0)$. 
+
+    (HW 2.1.8)
+
+    \item \textbf{Definition:} If $f$ has derivatives of all orders at $z_0$ then 
+    \[\sum_{n=0}^\infty \frac{f^{(n)} (z_0)}{n!}(z-z_0)^n\]
+    is called the Taylor Series for $f$ about $z_0$. 
+
+
+    We know that $\frac{1}{1-z} = 1 + z + z^2 + \cdots , |z| < 1$ Hence, $\frac{1}{1+z^2} = 1 - z^2 + z^4 - z^6 + \cdots , |z| < 1$. 
+    Note $f^{(2027)}(0) =0, f^{(2026)}(0) = -(2026!)$. 
+
+    \item \textbf{Definition:} Suppose that $D \subset \C$ is open. We say $f : D \subset \C \to \C$ is analytic on $D$ if given $z_0 \in D$ there exists $r > 0$ such that $D_r(z_0) \subset D$ then $\exists a_n$ such thtat 
+    \[f(z) = \sum_{n=0}^\infty a_n(z-z_0)^n\]
+    for all $z \in D_r(z_0)$. (W Ex. 2.1.7)
+
+    \item Given $f : D \subset \C \to \C$, 
+    \[f(x_iy) = u(x, y) + iv(x,y)\]
+    where $u, v : D \subset \R^2 \to \R$ and let 
+    \[F(x,y) = (u(x,y), v(x,y)).\]
+
+    Example: $f(z) = z^3$
+
+    \[f(x + iy) = (x+iy)^3 = x^3 + i3x^2y - 3xy^2 - iy^3\]
+    that is, 
+    \[u(x,y) = x^3 - 3xy^2, \qquad v(x,y) = 3x^y - y^3\]
+
+    \item \textbf{Cauchy-Riemann Equations:} We say $f(x+iy) = u(x,y) + iv(x,y)$ satisfies the Cauchy-Riemann equations at $z_0$ if 
+    \[u_x(z_0) = v_y(z_0)  \text{ and } u_y(z_0) = -v_x(z_0)\]
+    If we use the notation $f_x = u_x + iv_x$ and $f_y = u_y + iv_y$ then we get 
+    \[f_x(z_0) = - if_y(z_0)\]
+
+    Also, 
+
+    \[f_x(z) = \lim_{x \to 0, \, x \in \R} \frac{f(z+x) - f(z)}{x} = u_x(z_0) + iv_x(z_0)\]
+
+    \[f_y(z) = \lim_{y \to 0, \, y \in \R} \frac{f(z+iy) - f(z)}{y} = u_y(z_0) + iv_y(z_0)\]
+
+
+    \item \textbf{Theorem:} Let $f$ and $F$ be as above. Assume $z_0$ is an interior point of $D$. Then $f$ is complex differentiable if and only if $F$ is complex differentiable at $z_0$ and the Cauchy-Riemann equations hold. In the case $f'$ and $z_0$ exist, then 
+    \[f'(z_0) = f_x(z_0) = -if_y(z_0)\]
+\end{enumerate}
+
+\newpage
+
+06/04 
+
+\begin{enumerate}
+    \item \textbf{Theorem:} Suppose that $f(x+iy) = u(x,y) + iv(x,y)$ is defined on $D \subset \C$ and let 
+    \[F(x,y) = (u(x,y), v(x,y))\]
+    be the companion function. If $z_0$ is an interior point of $D$ then $f$ is complex differentiable at $z_0$ if and only if the Cauchy-Riemann equations hold and $F$ is differentiable at $z_0$, if $f'(z_0)$ exists, then 
+    \[f'(z_0) = f_x(z_0) = -ify(z_0)\]
+
+    \textit{Proof:} Suppose $f'(z_0)$ exists, then 
+    \begin{align*}
+        f'(z_0) &= \lim_{x+iy \to 0} \frac{f(z_0 + x + iy) - f(z_0)}{x+ iy} \\ 
+        &= \lim_{x \to 0} \frac{f(z_0 + x) - f(z_0)}{x} = f_x(z_0)\\ 
+    \end{align*}
+
+    But also, we have, 
+
+     \begin{align*}
+        f'(z_0)
+        &= \lim_{y \to 0} \frac{f(z_0 + iy) - f(z_0)}{iy} = -if_y(z_0)\\ 
+    \end{align*}
+
+    The rest is Exercise 2.2.5.
+
+    \textbf{Example:} Let $f(z) = \overline{z}$. Then $u(x,y) = x, \, v(x,y) = -y$. Then, 
+    \[u_x \equiv 1, \qquad v_y \equiv 1\]
+    Cauchy Riemann never holds. That is, the function is not complex differentiable anywhere. But $F(x,y) = (x,-y)$. 
+
+    \item \textbf{Theorem 2.15:} Suppose $D$ is open, and $F: D \subset \C \to \C$ has continuous first partials in $D$. If the Cauchy-Riemann Equations hold throughout $D$, then $f \in H(D)$. 
+    
+    \textbf{Corollary:} The complex exponential function $f(z) = \exp(Z)$ is entire and $f'(z) = f(z), \, \forall z \in \C$. 
+
+    \textit{Proof:} $f(x+iy) = e^x \cos(y) + ie^x\sin(y)$. Then, $u(x,y) = e^x\cos(y)$ and $v(x,y) = e^x\sin(y)$. Then, 
+    \[u_x = e^x \cos(y) = v_y, \quad u_y = -e^x \sin(y) = -v_x\]
+
+    Hence, $f$ is entire. 
+    \[f'(x+iy) = f_x(x+iy) = e^x \cos(y) + ie^x\sin(y) = f(x+iy).\]
+
+    \item \textbf{Remark:} If $f(z) = \exp(z)$ then $f$ has derivatives of all orders, and its Taylor series at $z_0 = 0$ is 
+    \[\sum_{n=0}^\infty \frac{z^n}{n!}\]
+
+    \item \textbf{Proposition:} Suppose $D$ is a domain and $f \in H(D)$. Then if $f'(z) = 0$ for all $z \in D$, then $f$ is constant. 
+    
+    \textit{Proof:} Let $f(z) = u(z) + iv(z)$. Since 
+    \[f'(z) = f_x(z) = -if_y(z)\]
+    it follows that $u_x \equiv u_y \equiv v_x \equiv v_y \equiv 0$. That implies that $u, v$ are constant, which implies $f$ is constant. 
+
+    \item \textbf{Lemma 2.19:} Suppose $f$ is a branch of $\log(y)$ on a domain $D$. Then $\Re(f(z)) = \ln(|z|)$, $f = H(D)$ and $f'(z) = 1/z, \forall z \in D$. 
+    
+
+    \textit{Proof:} By definition, $f$ is continuous and $\exp(f(z)) = z$, $\forall z \in D$. Then, 
+    \[|z| = |\exp(f(z))| = \exp(\Re(f(z)))\]
+
+    And 
+    \[\ln(|z|) = \Re(f(z))\]
+
+    Now, let $z_0 \in D$. We want to show that 
+    \[\lim_{z\to z_0} \frac{f(z) - f(z_0)}{z-z_0} = \frac{1}{z_0}\]
+    Let $w_0 = f(z_0)$ and fix $\epsilon > 0$. Since, 
+    \[\lim_{w \to w_0} \frac{e^w - e^{w_0}}{w- w_0} = e^{w_0} = z_0\]
+    Since $e^{w_0} \neq 0$, $\exists \d'>0$ such that$ 0 < |w - w_0| < \d'$  that implies $e^w - e^{w_0 } \neq 0$ and 
+    \[\left| \frac{w-w_0}{e^w - e^{w_0}} - \frac{1}{z_0}\right| < \epsilon\]
+    Since $f$ is continuous, $\exists \d > 0$ such that $0 < |z  -z_0| <\d$ we have 
+    \[|f(z) - f(z_0) |< \d'\]
+    Now if we write $w = f(z)$, then 
+    \[\left| \frac{f(z) - f(z_0)}{z-z_0} - \frac{1}{z_0}\right| = \left| \frac{w - w_0}{e^w - e^{w_0}} - \frac{1}{z_0}\right|  < \epsilon\]
+    since $0 < |w - w_0 | < \d'$, then $f'(z_0) = \frac{1}{z_0}$.
+
+    Similar to Inverse Function Theorem. 
+
+    \item \textbf{Definition:} Suppose that $u : D \subset \R^2 \to \R$ has continuous second partials on $D$ then $u$ is harmonic on $D$ if 
+    \begin{align*}
+        \Delta u (x,y) &= \frac{\d^2 u}{\d x^2} (x,y) + \frac{\d^2 u}{\d y^2} (x,y)  = 0 \\
+        &= u_{xx}(x,y) + u_yy (x,y)  = 0
+    \end{align*}
+
+    \item \textbf{Proposition:} Suppose $D$ is a domain and that $f(x+iy) = u(x,y) + iv(x,y)$ is in $H(D)$. If $u$ and $v$ have continuous second partials then $u$ and $v$ are harmonic in $D$. 
+    
+    \textit{Proof:} We can use Clairaut's Theorem. 
+    \[u_{xx} = \frac{\d}{\d x} u_x = \frac{\d}{\d y} v_y = \frac{\d}{\d y} v_x = -\frac{\d}{\d y} u_y = -u_{yy}\]
+    Note $v = \Re (-if)$. 
+
+    \item \textbf{Definition:} If $u$ is harmonic in $D$ then we call $v$ a harmonic conjugate for $u$ in $D$ if 
+    \[f(z) = u(z) + iv(z)\]
+    is holomorphic in $D$.
+
+    Weird Stuff: We don't know if the harmonic conjugate is harmonic, and we don't know if v is the harmonic conjugate for u then u is the harmonic conjugate for v, 
+
+    \item \textbf{Lemma:} Suppose that $v$ and $w$ are harmonic conjugates for $u$ is a domain $D$. Then $\exists r \in \R$ such that 
+    \[w(z) = v(z) + r, \quad \forall z \in D\]
+
+    \textit{Proof:} By assumption $f = u + iv$ and $g = u + iw$ are in $H(D)$. Then 
+    \[h = -i(f-g)  \in H(D)\]
+    But $h$ is real valued and constant. 
+
+    Exercise 2.2.12: Show that $u(z) = \ln(|z|) = \frac{1}{2} \ln(x^2+y^2)$ is harmonic in $\C \setminus \{0\}$. But $u$ does not have a harmonic conjugate in $\C \setminus \{0\}$. 
+
+    \textit{Proof:} If $v$ were such a function, then $v$ would still be the harmonic conjugate to $u$ in $D^\star = \C \setminus (-\infty, 0]$. That is $v(z) = \text{Arg}(z) + r, \, \forall z \in D^\star$. 
+    But $\text{Arg}(z)$ has a jump discontinuity and hence $v$ cannot be extended to a continuous function. 
+
+
+    \textbf{Corollary:} There is no branch of $\log(z)$ in $\C\setminus \{0\}$. 
+
+
+    $\text{Log}(z) = \ln(|z|) + i \text{Arg}(z)$ is holomorphic in $D^\star = \C \setminus (-\infty, 0]$. 
+    \[\mathcal{L}(z) =\ln(|z|) + i \arg_0(z) \] 
+    is holomorphic in $D^\star_0 = \C \setminus [0, \infty)$. 
+\end{enumerate}
+
+\newpage
+
+\begin{definition}
+    If $X$ is a topological space, then a curve in $X$ is a continuous function $\gamma: [a,b] \subset \R \to X$. We call $[a,b]$ the parameter space and write $\gamma^\star$ for the image $\gamma([a,b])\subset X$. If $\gamma(a) = \gamma(b)$ we call $\gamma$ closed, and we also have $\gamma(s) \neq \gamma(t)$ when $a \leq s < t < b$, then we say $\gamma$ is a simple closed curve. 
+
+    A simple closed curve is called a \textbf{Jordan Curve}. 
+
+    If $X \subset \C$ we write, $\gamma(t) = x(t) + iy(t)$. 
+    We let $\gamma'(t) = \lim_{h\to 0} \frac{1}{h} (\gamma(t+h) - \gamma(t))$ if it exists. This happens iff $x'(t)$ and $y'(t)$ exist, and then 
+    \[\gamma'(t) = x'(t) + iy'(t)\]
+\end{definition}
+
+\begin{definition}
+    $\gamma$ is smooth if $\gamma'(t)$ exists and is non-zero for all $t \in [a,b]$. 
+\end{definition}
+
+\textbf{Examples:} 
+
+\begin{enumerate}
+    \item Consider $\gamma_1(t) = t + it^2$ if $t \in [-1,1]$ (smooth) and $\gamma_2(t) = t^3 + it^6$ for $t \in [-1,1]$ (not smooth $\gamma_2(0,0) = 0$). 
+    \item  $\gamma(t) = t^3 + it^2$, $t \in [-1, 1]$. That is $y = x^{2/3}$ (not smooth). 
+\end{enumerate}
+
+\begin{theorem}{Jordan Curve Theorem.}
+    If $\gamma$ is a Jordan Curve, then $\C \setminus \gamma^\star$ consists of two domains each of which has $\gamma ^\star$ as its boundary. 
+\end{theorem}
+
+\begin{remark}
+    $\gamma^\star$ is compact, it is contained in some $D_R(0)$ and hence exactly one of the components of $\C \setminus \gamma^\star$ of $\C \gamma ^\star$ is bounded and we call that the interior of $\gamma$. 
+\end{remark}
+
+\begin{definition}
+    A curve $\gamma: [a, b] \to \C$ is called a path or a contour if there is a partition 
+    \[P = \{a = t_0 < t_1 < \cdots < t_n =b\}\]
+    such that $\gamma'(t)$ is continuous on $[t_{k-1}, t_k]$ for $1 \leq k \leq n$. If $D \subset \C$ then we say $\gamma$ is a path in $D$ if $\gamma^\star \subset D$. 
+\end{definition}
+
+\begin{definition}
+    Let $\gamma : [a, b] \to \C$ be a curve. Say $\gamma(t) = x(t) + iy(t)$.
+    \[\int_a^b \gamma(t) dt = \int_a^b x(t) dt + i \int_a^b y(t) dt\]
+    Then if $\gamma'$ is continuous then 
+    \[\int_a^b \gamma'(t) dt = x(b) - x(a) + i(y(b) - y(a))\]
+\end{definition}
+
+\begin{prop}
+    Suppose $\gamma$ and $\sigma$ are curves defined on $[a,b]$. Then, 
+    \begin{enumerate}
+        \item $\int_a^b (\gamma(t) + \sigma(t)) dt = \int_a^b \gamma(t) dt + \int_a^v \sigma(t) dt$
+        \item If $\alpha \in \C$ then $\int_a^b \alpha \gamma(t) dt = \alpha \int_a^b \gamma(t) dt$. 
+        \item $\left| \int_a^b \gamma(t) dt \right| \leq \int_a^b |\gamma(t)| dt$. 
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+
+    \begin{enumerate}
+        \item Straightforward. 
+        \item Is routine if $\alpha \in \R$. If $\alpha = a + ib$ we can multiply it out and use the definition. 
+        \item Let $\tau$ be a unimodular constant such that 
+        \[\left| \int_a^b \gamma(t) dt \right| = \tau \int_a^b \gamma(t)dt\]
+        Now, 
+        \begin{align*}
+            \left| \int_a^b \gamma(t) dt \right| &=  \int_a^b \tau \gamma(t)dt \\ 
+            &= \text{Re}\left( \int_a^b \tau \gamma(t)dt \right) \\ 
+            &= \int_a^b \text{Re}\left( \tau \gamma(t)\right)dt \\ 
+            &\leq \int_a^b |\tau \gamma(t)|dt \\ 
+            &= \int_a^b | \gamma(t)|dt \\ 
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    If $\gamma: [a,b] \to \C$ is a path, then the opposite path $-\gamma$ is $-\gamma:[a,b] \to \C$ where, 
+    \[-\gamma(t) = \gamma(b+a-t)\]
+\end{definition}
+
+\begin{definition}
+    If $z, w \in \C$ then $[z,w]$ is the path with $\gamma:[0,1] \to \C$ such that 
+    \[\gamma(t) = z + t (w-z)\]
+\end{definition}
+
+\begin{remark}
+    $-[z,w] = [w,z]$
+\end{remark}
+
+\begin{remark}
+    If $\gamma: [a,b] \to \C$ is a path and $\gamma(t) = x(t) + iy(t)$, then there exists a partition $P = \{a = t_0 < t_1 < \cdots < t_n =b\}$ such that $\gamma^\star$ is continuous on $[t_{k-1}, t_k]$. Then $x'$ and $y'$ are Riemann integrals on $[a,b]$. Now if $\sigma : [a,b] \to \C$ is any curve, then we can define 
+    \[\int_a^b \sigma(t) \gamma'(t) dt = \sum_{k=1}^n \int_{t_{k-1}}^{t_k}\sigma(t) \gamma'(t) dt\]
+
+    Similarly we'll write, 
+    \[\int_a^b |\gamma'(t)| dt = \sum_{k=1}^n \int_{t_{k-1}}^{t_k}|\gamma'(t) |dt\]
+\end{remark}
+
+\begin{definition}
+    If $\gamma: [a,b] \to \C$ is a path and if $f \in C(\gamma^\star)$ then the path integral of $f$ along $\gamma$ is 
+    \[\int_\gamma f(z)dz = \int_a^b f(\gamma(t))\gamma'(t) dt\]
+
+    (Recall a linear combination of line integrals Ex 3.2.6).
+\end{definition}
+
+If $f, g \in C(\gamma^\star)$ then, 
+\begin{align*}
+    \int_\gamma(f(z) + g(z)) dz &= \int_\gamma f(z)dz + \int_\gamma g(z)dz \\ 
+    \int_\gamma \alpha f(z) dz &= \alpha \int_\gamma f(z)dz  \\
+    \int_{-\gamma}  f(z) dz &= - \int_\gamma f(z)dz  \\
+\end{align*}
+
+Recall $[z,w]$ is given by $\gamma(t) = z +t(w-z)$, $t \in [0,1]$
+\[\int_{[z,w]} f(z) dz = \int_0^1 f(\gamma(t)) \gamma'(t) dt = (w-z)\int_0^1f(z+t(w-z))dt\]
+
+\begin{remark}
+    We call $\gamma : [0, 2\pi] \to \C$ given by 
+    \[\gamma(t) = a +re^{it}\]
+    the positively oriented circle of radius $r$ centered at $a$.
+\end{remark}
+
+\begin{theorem}{Homer's Cauchy Theorem.}
+    Let $\gamma(t) =a + re^{it}$ with $r > 0$ and $t \in [0,2\pi]$. Then if $n \in \Z$, we have that $\int_\gamma(z-a)^n dz = \begin{cases}
+        0, & n\neq -1 \\
+        2\pi i, & n = -1
+    \end{cases}$
+
+    If $\sigma(t) = e^{\alpha}$ with $\alpha \in \C$ then $\sigma'(t) =\alpha e^{\alpha t}$. If $\neq -1$, then, 
+    \begin{align*}
+        \int_\gamma(z-a)^n dz &= \int_0^{2\pi}(re^{it})^n rie ^{it} dt \\
+        &= r^{n+1} i \int_0^{2\pi}e^{i(n+1)t} dt\\ 
+        &= ir^{n+1} \frac{e^{i(n+1)t}}{i(n+1)} \big \vert_0^{2\pi} = 0
+    \end{align*}
+\end{theorem}
+
+\begin{definition}
+    Two paths $\gamma_1$ and $\gamma_2$ with $\gamma_1^\star = \gamma_2^\star$ are called equivalent if 
+    \[\int_{\gamma_1} f(z) dz = \int_{\gamma_2}f(z) dz\] 
+    for all $f \in C(\gamma^\star)$. 
+\end{definition}
+
+\begin{lemma}[{3.20}]
+    Suppose $\gamma: [a,b] \to \C$ is a path and that $\phi: [c,d] \to [a,b]$ is differentiable with $\phi(c) = a$ and $\phi(d) = b$. Let $\sigma(t) = \gamma(\phi(t))$. Then $\sigma$ is path defined on $[c,d]$ which is equivalent to $\gamma$. 
+\end{lemma}
+\begin{proof}
+    Check $\sigma'(t) = \gamma'(\phi(t))\phi'(t)$. 
+
+    If $f \in C(\gamma_1^\star)$, then 
+
+    \begin{align*}
+        \int_\sigma f(z) dz &= \int_c^d f(\sigma(t)) \sigma'(t) dt \\ 
+        &= \int_c^d f(\gamma(\phi(t))) \gamma'(\phi(t))\phi(t) dt \\ 
+        \intertext{Let $u = \phi(t)$, $du = \phi'(t)$}
+        \int_\sigma f(z) dz &= \int_{\phi(c)}^{\phi(d)} f(\gamma(u))\gamma'(u) du \\
+        &= \int_a^b f(\gamma(u)) \gamma'(u) du \\
+        &= \int_\gamma f(z) dz
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    Every path is equivalent to the path defined on $[0,1]$. 
+\end{corollary}
+
+\begin{definition}
+    Suppose $\gamma:[a.b] \to \C$ and $\sigma:[c,d] \to \C$ are paths so that $\gamma(b) = \sigma(c)$. Then their join is the path 
+    \[\gamma + \sigma : [0,1] \to \C\]
+    given by 
+    \[\gamma + \sigma(t) = \begin{cases}
+        \tilde{\gamma} (t), & 0 \leq t \leq \frac{1}{2} \\ 
+        \tilde{\sigma} (t), & \frac{1}{2} \leq t \leq 1 \\ 
+    \end{cases}\]
+    where $\tilde{\gamma}$ is a path on $\left[0, \frac{1}{2}\right]$ equivalent to $\gamma$ and $\tilde{\sigma}$ is any path on $\left[ \frac{1}{2},1\right]$ equivalent to $\sigma$. 
+
+    We could be definite and write 
+    \[\gamma + \sigma(t) = \begin{cases}
+        \gamma(a + 2(b-a)t), & 0 \leq t \leq \frac{1}{2} \\ 
+        \gamma(c + 2(d-c)(t - \frac{1}{2})), &  \frac{1}{2} \leq t \leq 1 
+    \end{cases}\]
+
+    And
+
+    \begin{align*}
+        \int_{\gamma + \sigma} f(z) dz &= \int_{\tilde{\gamma}} f(z) dz + \int_{\tilde{\sigma}} f(z) fz \\ 
+        &= \int_\gamma f(z) dz + \int_\sigma f(z)dz 
+    \end{align*}
+\end{definition}
+
+\begin{lemma}[3.7]
+    Suppose $\gamma:[a,b] \to D$ is a path in a domain $D$ and $f \in H(D)$. Suppose that $f'$ is continuous and $\gamma'$ is continuous then $\sigma(t) = f(\gamma (t))$ is a path on $[a,b]$ such that 
+    \[\sigma'(t) = f'(\gamma(t))\gamma'(t)\]
+\end{lemma}
+
+\begin{proof}
+    Because $f'$ is continuous, we just need to show that the following equation holds, 
+    \[\sigma'(t) = f'(\gamma(t))\gamma'(t).\]
+    Let $t \in (a,b)$. Then, 
+    \begin{align*}
+        \sigma'(t) &= \lim_{h \to 0} \frac{1}{h} \left( \sigma(t + h) - \sigma(t)\right) \\ 
+        &= \lim_{h \to 0} \frac{1}{h} \left( f( \gamma(t + h)) - f(\gamma(t))\right) \\ 
+        &= \lim_{h \to 0} G(h) \frac{\gamma(t+h) - \gamma(t)}{h}
+    \intertext{when,}
+    G(h) &= \begin{cases}
+        \frac{f(\gamma(t+h)) - f(\gamma(t))}{\gamma(t+h)-\gamma(t)}, & \gamma(t+h) \neq \gamma(t) \\ 
+        f'(\gamma(t)), & \gamma(t+h) = \gamma(t) \\ 
+    \end{cases}
+    \end{align*}
+    It is not hard to see that $G$ is continuous ar $0$. Now we are done. 
+\end{proof}
+
+\begin{theorem}[Fundamental Theorem for Path Integrals]
+    Suppose $D$ is a domain and that $f: D \subset \C \to \C$ is continuous. Suppose that $F \in H(D)$ and $F'(z) = f(z), \forall z \in D$. Then if $\gamma: [a,b] \to D$ is any path in $D$, 
+    \[\int_\gamma f(z) dz = F(\gamma(b)) - F(\gamma(a))\]
+\end{theorem}
+
+\begin{proof}
+    We have
+    \begin{align*}
+        LHS &= \int_a^b f(\gamma(t))\gamma(t) dt \\ 
+        &= \sum_{k=1}^n \int_{t_{k-1}}^{t_k} f(\gamma(t))\gamma'(t) dt \\ 
+    \end{align*}
+    where $\gamma'$ is continuous on $[t_{k-1}, t_k]$. But, 
+    \[\frac{d}{dt} \left(t \to F(\gamma(t))\right) = f(\gamma(t)) \gamma'(t) = \sum_{k=1}^nF(\gamma(t_k)) - F(\gamma(t_{k-1}))\]
+\end{proof}
+
+\begin{definition}
+    Let $\gamma: [a,b] \to \C$ is a path, then the length of $\gamma$ is 
+    \[\ell(\gamma) = \int_a^b |\gamma'(t)| dt\]
+
+    See Remark 3.2.7. 
+\end{definition}
+
+\begin{prop}
+    Suppose $\gamma:[a,b] \to \C$ is a path and $F \in C(\gamma^\star)$. 
+    \begin{enumerate}
+        \item [(a)] If $|f(z)| \leq M$ for all $z \in \gamma^\star$, then 
+        \[\left| \int_\gamma f(z) dz\right| \leq M \ell(\gamma)\] 
+
+        \item[(b)] If $(f_n) \subset C(\gamma^\star)$ and if $f_n \to f$ uniformly on $\gamma^\star$, then 
+        \[\lim_{n\to \infty} \int_\gamma f_n(z) dz = \int_\gamma f(z) dz\]
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    \begin{enumerate}
+        \item [(a)] \begin{align*}
+            \left| \int_\gamma f(z) dz \right| &= \left| \int_a^b f(\gamma(t)) \gamma'(t) dt\right| \\ 
+            & \leq \int_a^b \left| f(\gamma(t))\right| |\gamma(t)| dt \\ 
+            &\leq M \int_a^b |\gamma'(t)|dt \\ 
+            &= M \ell(\gamma)
+        \end{align*}
+
+        \item[(b)] Let $\epsilon > 0$. Then $\exists N$ such that for all $n \geq N$ 
+        \[|f_n(z)  - f(z)| < \frac{\epsilon}{\ell(\gamma) +1}, \quad \forall z \in \gamma^\star\]
+        Now using part (a) 
+        \begin{align*}
+            \left|\int_\gamma f(z) dz - \int_\gamma f_n(z) dt\right| &= 
+             \left|\int_\gamma (f(z) dz - f_n(z) )dz\right| \leq \frac{\epsilon}{\ell(\gamma ) + 1} \ell(\gamma) < \epsilon
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[3.31]
+    Supppose that $\gamma$ is a path and that $f \in C(\gamma^\star)$. Let $D = \C \setminus \gamma^\star$. Define, 
+    \[F(z) = \int_\gamma \frac{f(w)}{w-z} dz, \qquad \forall z \in D\]
+    Then $F$ is analytic on $D$. For $n \geq 0$, 
+    \[F^{(n)}(z) = n! \int_\gamma \frac{f(w)}{(w-z)^{n+1}} dw\]
+    Moreover, the radius of convergence of the Taylor series in $F$ about $a \in D$ is at least $\sup \{R : D_R(a \subset D)\}$. 
+\end{theorem}
+
+\begin{proof}
+    Fix $a \in D$. Since $D$ is open, $\exists R > 0$ such that $D_R(a) \subset D$. If $z \in D_R(a)$ and $w \in \gamma^\star$ then, 
+    \[\left|\frac{z-a}{w-a}\right| \leq \frac{|z -a|}{R}  < 1\]
+
+    Hence, 
+    \begin{align*}
+        \frac{1}{w-z} &= \frac{1}{w-a-(z-a)} = \frac{1}{w-a} \frac{1}{1 - \frac{z-a}{w-a}} \\ 
+        &= \frac{1}{w-a} \sum_{n=0}^\infty \left( \frac{z-a}{w-a}\right)^n \\ 
+        &= \sum_{n=0}^\infty \left( \frac{(z-a)^n}{(w-a)^{n+1}}\right)  
+    \end{align*}
+    Note that if $w = \gamma^\star$, then $| w- a| \geq R$ and $\exists M$ such that $|f(w)| \leq M$, for all $w \in \gamma^\star$. Hence, 
+    \[\left| f(w)\frac{(z-a)^n}{(w-a)^{n+1}}\right| \leq \frac{M}{R} \left(\frac{|z-a|}{R}\right)^n\]
+    This for fixed $z \in D_R(a)$, 
+    \[\frac{f(w)}{w-z} = \sum_{n=0}^\infty f(w) \frac{(z-a)^n}{(w-a)^{n+1}}\]
+    uniformly in $w$ by Weierstrass $m$-test. 
+    
+    Thus $\forall z \in D_R(a)$, we have 
+    \begin{align*}
+        F(z) &= \int_\gamma\frac{f(w)}{w-z} dw \\ 
+        &= \int_\gamma \left( \sum_{n=0}^\infty f(w) \frac{(z-a)^n}{(w-a)^{n-1}}\right) dw \\
+        &= \sum_{n=0}^\infty \left( \int_\gamma\frac{f(w)}{(w-a)^{n-1}} dw\right) (z-a)^n 
+    \end{align*}
+    Thus $F$ is analytic and 
+    \[\frac{F^{(n)}(a)}{n!} = \int_\gamma \frac{f(w)}{(w-a)^{n+1}} dw\]
+\end{proof}
+
+\begin{definition}
+    If $\gamma$ is a closed path and $z_0 \in \C \setminus \gamma^\star$, then the index of $\gamma$ about $z_0$ is 
+    \[\text{Ind}_\gamma (z_0) = \frac{1}{2 \pi i } \int_\gamma\frac{1}{z-z_0} dz.\]
+
+    Note that the Antiderivate of $\frac{1}{z - z_0}$ is 
+    \[\ln(|z-z_0) + i\arg(z-z_0)\]
+
+    \[\text{Ind}_\gamma (z_0) = \frac{1}{2\pi} \left(\arg(\gamma(b) - z_0) - \arg(\gamma(a) - z_0)\right)\]
+\end{definition}
+\end{document}

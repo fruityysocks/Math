@@ -1,0 +1,314 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\section{Topology}
+
+\begin{definition}
+    A topology on a set $X$ is a collection $J$ of subsets of $X$ having the following properties. 
+    \begin{enumerate}
+        \item $\emptyset, X \in J$ 
+        \item The union of the elements of any sub-collection of $J$ is in $J$. 
+        \item The intersection of finitely many elements in $J$ is in $J$. 
+    \end{enumerate}
+    A set for which a topology has been specified is said to be a topological space. We think of it as a pair $(X, J)$. 
+\end{definition}
+
+\begin{definition}
+     Elements of $J$ are called open sets of the topological space $(X, J)$.
+\end{definition}
+
+\begin{definition}
+     A subspace $Y$ of a topological space $(X, J)$ is a subset $Y \subset X$ which is given the `subspace topology' where the open sets of $Y = \{U \cap Y : U \in J\}$
+\end{definition}
+
+\begin{definition}
+    Let $(X_1, J_1)$ and $(X_2, J_2)$ be topological spaces. A map $f: (X_1, J_1) \to (X_2, J_2)$ is said to continuous if $f^{-1} (U) \in J_1$ for all $U \in J_2$.    
+\end{definition}
+
+\begin{definition}
+     Let $(X, J)$ and $(X', J')$ be topological spaces. Then they are homeomorphic if $\exists$ a continuous bijection $f: (X, J) \to (X', J')$. So that $f^{-1}$ is also continuous. 
+\end{definition}
+
+    
+\textbf{Exercise:} Show that any two open intervals of $\R$ are homeomorphic (where we put subspace topology on the open intervals). 
+    
+    \textit{Solution:} Let $(a,b)$ and $(c,d)$ be open intervals. \todo{} 
+
+\begin{remark}
+    Number of path connected topologies is preserved by continuous maps. For instance, $[0,1]$ is not homeomorphic to $(0,1)$, and $\R$ is not homeomorphic to $\R^2$.     
+\end{remark}
+
+
+\textbf{Exercise:} Is $\R^2$ homeomorphic to $\R^3$? 
+    
+\textbf{Exercise:} Is $S^2 ( = x^2 + y^2 + z^2  = 1)$ homeomorphic to $T^2 = S^1 \times S^1$?
+
+\textbf{Exercise:} Is $S^2$ homeomorphic to $S^1 \times [a,b)$? 
+    
+\begin{definition}
+    If $f$ and $f'$ are continuous maps from spaces $X$ to $Y$ we say that $f$ is homotopic to $f'$ if $\exists$ a continuous map $F: X \times I = [0,1]  \to Y$ such that $F(x, 0) = f(x)$ and $F(x, 1) = f'(x)$.  $F$ is called the homotopy between $f$ and $f'$, and we write $f \simeq f'$.
+\end{definition}
+
+\begin{definition}
+    \todo{Product Topology}
+\end{definition}
+
+\begin{definition}
+    Define a path $f$ as $f: [0,1] \to X$ with $f(0) = x_0$ and $f(1) = x$. 
+\end{definition}
+
+\begin{definition}
+    Two paths $f, f': [0,1] \to X$ are said to be path homotopic if there exist a continuous map $F: I \times I \to X$ such that $\forall s \in I$, 
+    \[ F(s, 0) = f(s), \qquad F(s, 1) = f'(s)\]
+    and $\forall t \in I$, 
+    \[ F(0, t) = x_0, \qquad F(0, t) = x\]
+
+    Then we write $f \underset p \simeq f'$. 
+\end{definition}
+
+
+\begin{example}
+    Let $f: X \to \R^2$ and $g: X \to \R^2$ then $f \simeq g$. 
+\end{example}
+
+\begin{proof}
+     Want to find $F$ such that $F: X \times I \to \R^2$. $F(x, 0) = f(x), F(x,1) = f'(x)$ for all $x \in X$. 
+    The following map (straight line homotopy) works. 
+    \[F(x,t) = (1-t)f(x) + tf'(x)\]
+\end{proof}
+
+\begin{lemma}
+     The relations $\simeq$ and $\simeq_p$ are equivalence relations. 
+\end{lemma}
+
+\begin{proof}
+    \bbni
+    \begin{enumerate}
+        \item Reflexive: $f \simeq f$ by $F(s,t) = f(s)$. 
+        \item Symmetric: Let $f \simeq g$ by the homotopy $F(s,t)$. We can show $g \simeq f$ by $F(w,t) = F(s,1-t)$. 
+        \item Transitive: Let $f \simeq g$ by $F(s_1,t)$ and $g \simeq h$ by $G(s_2,t)$. We can show that $f \simeq h$ by $H(s,t) = \begin{cases*}
+            s = s_1, \, 0 \leq t \leq 1/2 \\ 
+            s = s_2, \, 1/2 \leq t \leq 1 \\  
+        \end{cases*}$
+        \todo{check and also prove for $\simeq_p$}
+    \end{enumerate}
+    Thus path-homotopies are equivalence relations and we write $[f]$ to denote the path-homotopy equivalence class of $f$. 
+\end{proof}
+
+\begin{lemma}[Pasting Lemma]
+    Let $X = A \cup B$ be a topological space with $A, B \subset X$ are closed. Let $f: A \to Y, g: B \to Y$ be continuous and $f(x) = g(x), \forall x \in A \cap B$, then 
+    \[h(x) \begin{cases*}
+        f(x), \, x \in A \\ 
+        g(x), \, x \in B
+    \end{cases*}\]
+    is continuous.
+\end{lemma}
+
+\begin{definition}
+     Let $f: I \to X$ be a path from $x_0$ to $x_1$ and $g: I \to X$ be a path from $x_1$ to $x_2$, then we define a new path 
+    \[f \star g: I \to X\]
+    from $x_0$ to $x_2$ by 
+    \[f \star g (t) = \begin{cases*}
+        f(2t), \, t \in [0, 1/2] \\ 
+        g(2t-1), \, t \in [1/2, 1] \\ 
+    \end{cases*}\]
+    $\star$ is composition of paths. 
+
+    Some Properties of $`\star'$. 
+    \begin{enumerate}
+        \item $`\star'$ is well-defined operation in the path homotopy equivalence class, 
+        \[[f] \star [g] = [f \star g]\]
+        \item Identity: 
+        \[[f] \star [e_{x_1}] = [f], \quad [e_{x_0}] \star [f] = [f]\]
+
+        where $e_{x_t}$ is the constant path based at $x \in X$ and $t \in [0,1]$
+
+        \item Inverse: 
+        \[[f]\star[\overline{f}] = [e_{x_0}], \quad [\overline f] \star [f] = [e_{x_1}]\]
+        where $\overline{f}(t) = f(1-t)$. 
+
+        \item Associative: 
+        \[[f] \star ([g]\star[h]) = ([f]\star [g]) \star [h]\]
+    \end{enumerate}
+\end{definition}
+
+\begin{proof}
+    \bbni
+    \begin{enumerate}
+        \item Let $f \simeq_p f'$ by $F$ and $g \simeq g'$ by $G$, then we can show that $f \star g \simeq f' \star g'$ by defining $H: I \times I \to X$ such that 
+        \[H(s,t) = \begin{cases*}
+            F(2s, t), \, s \in [0, 1/2] \\ 
+            G(2s -1, t), \, s \in [1/2, 1]
+        \end{cases*}\]
+
+        \item $f \star e_{x_1} \simeq f$ by $H : I \times I \to X$ such that 
+        \[H(s,t) = \begin{cases*}
+            f \fr{2 \cdot s}{2-t}, \, s \in \left [0, \frac{2-t}{2} \right ] \\ 
+            x_1, \, s \in \left [\frac{2-t}{2},1 \right ] \\ 
+        \end{cases*}\]
+
+        \item $f \star \overline f \simeq_p e_{x_0}$. 
+        
+        Define a path $\alpha(t)$ that starts at $x_0$ and ends at $f(t)$. Then the path-homotopy is given by $\alpha(t) \star \overline{\alpha}(t)$. 
+
+        \[H(s,t) = \begin{cases*}
+            f(2st), \, s \in [0, 1/2] \\ 
+            f(2t(1-s)), \, s \in [1/2, 1]
+        \end{cases*}\]
+        \todo{straight line homotopy}
+        \item \todo{}
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    Note that $\star$ operation on the set of path-homotopy equivalence classes of paths in the space $X$ forms a groupoid structure.
+\end{remark}
+
+\section{The Fundamental Group}
+
+\begin{definition}
+    Let $X$ be a space and $x_0 \in X$ be a point in $X$ we say that a path $f: I \to X$ is a loop based at $x_0$ if $f(0) = f(1) = x_0$
+\end{definition}
+
+\begin{definition}
+    The set of all path-homotopy equivalence classes of loops based at $x_0$ forms a group under $\star$, called the fundamental group of $x$ based at $x_0$, denoted as $\pi_1(X, x_0)$
+
+    \begin{itemize}
+        \item Identity: $[e_{x_0}]$
+        \item Inverses: $[f] \to [\overline{f}]$
+    \end{itemize}
+
+    \textbf{Example:} $\pi_1(\R^n, (0,0)) \equiv 0  \equiv \langle e_{\text{origin}} \rangle$
+    \begin{proof}
+        Take any two loops $f(t), g(t)$ based at the origin. Then consider the straight-line homotopy 
+        \[H(s,t) = f(s) (1-t) + tg(s)\]
+        (Check that it is a path homotopy) 
+    \end{proof}
+\end{definition}
+
+\begin{definition}
+    Let $\alpha$ be a path from $x_0$ to $x_1$, where $x_0, x_1 \in X$. We define a map $\hat{\alpha}: \pi_1 (X, x_0) \to \pi_1(X, x_1)$ such that 
+    \[\hat{\alpha}([f]) := [\overline{\alpha}] \star [f] \star [\alpha] =[\overline{\alpha}\star f \star \alpha]  \]
+\end{definition}
+\begin{prop}
+    $\hat{\alpha}$ is well-defined and an isomorphism. 
+\end{prop}
+
+\begin{proof}
+    Let $f \simeq_p f'$. We need to check that 
+    \begin{align*}
+    [\overline{\alpha}] \star [f] \star [\alpha]  = [\overline{\alpha}] \star [f'] \star [\alpha]  
+    \\ 
+    \iff [\overline{\alpha} \star f \star \alpha]  = [\overline{\alpha} \star f \star \alpha] 
+    \\
+    \iff \overline{\alpha} \star f \star \alpha \simeq_p \overline{\alpha} \star f' \star \alpha
+    \end{align*}
+    Since $\star$ is well-defined, $[f] \star [\alpha] = [f'] \star [\alpha]$,  $\hat{\alpha}$ is well-defined
+
+
+    Let $[f], [g] \in \pi_1(X, x_0)$. 
+    \begin{align*}
+        \hat{\alpha}([f]) \star \hat{\alpha} ([g]) &= [\overline{\alpha}] \star [f] \star [\alpha] \star  [\overline{\alpha}] \star [f] \star [\alpha] \\ 
+        &=  [\overline{\alpha}] \star [f] \star [e_{x_0}] \star [g] \star [\alpha] \\
+        &=  [\overline{\alpha}] \star [f] \star [g] \star [\alpha] \\ 
+        &= \hat{\alpha}([f] \star [g])
+    \end{align*}
+    Hence $\hat{\alpha}$ is a homomorphism. To check that $\hat{\alpha}$ is an isomorphism, we see that $\hat{\overline{\alpha}} (\hat{\alpha}) ([f]) = [f]$ for all $[f] \in \pi_1(X, x_0)$.  
+\end{proof}
+
+\begin{corollary}
+    The fundamental group of $X$ based at $x_0$ only depends on the path-connected component of $x_0 \in X$ upto isomorphism. 
+\end{corollary}
+
+\begin{definition}
+    Let $h: X \to Y$ be a continuous map such that $h(x_0) = y_0$, $x_0 \in X, y_0 \in Y$. Then define $h_\star: \pi_1(X, x_0) \to \pi_1(Y, y_0)$ by $h_\star([f]) = [h \circ f]$. This is a push-forward map. 
+\end{definition}
+
+\begin{prop}
+    $h_\star$ is a well-defined homomorphism. 
+\end{prop}
+
+\begin{proof}
+    Let $f \simeq_p f'$. We need to check that $h \circ f \simeq_p h \circ f'$. 
+    Let $H: I \times I \to X$ be the path homotopy between $f$ and $f'$. Consider $h \circ H: I\times I \to Y$. 
+    \begin{align*}
+        h\circ H(s, 0) &= h \circ f \\ 
+        h\circ H(s, 1) &= h \circ f' \\ 
+        h\circ H(0,t) &= h \circ f(0) \\ 
+        h\circ H(1,t) &= h \circ f(1) = h \circ f(0) 
+    \end{align*}
+
+    Hence $h \circ H$ is the required path-homotopy. 
+
+    Consider $[f], [g] \in \pi_1(X, x_0)$. We want to show that 
+    $h_\star([f]) \star h_\star([g]) = h_\star([f] \star [g])$. 
+    \begin{align*}
+        h_\star([f])\star h_\star([g])  = [h \circ f] \star [h \circ g] 
+    \end{align*}
+    Note that it suffies to show that $h(f \star g) = (h \circ f) \star (h \circ g)$. Now, 
+    \begin{align*}
+        h(f \star g)(s) &= \begin{cases} 
+            (h \circ f)(2s), & s\in \left[0,\frac{1}{2}\right]\\
+            (h \circ g)(2s-1), & s\in \left[\frac{1}{2}, 1\right]\\
+        \end{cases} \\
+            &=( h\circ f) \star (h\star g) 
+    \end{align*}
+    Hence proved. 
+\end{proof}
+
+\begin{theorem}
+    If $h: (X, x_0) \to (Y, y_0)$ and $k: (Y, y_0) \to (Z, z_0)$ then 
+    \begin{enumerate}
+        \item [(a)] $(k \circ h)_\star = k_\star \circ h_\star$
+        \item [(b)] If $\id: (X, x_0) \to (X, x_0)$ is the identity map then $(\id)_\star$ is the identity $\pi_1(X, x_0) \to \pi_(X, x_0)$. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item [(a)] \begin{align*}
+            (k \circ h)_\star ([f]) &= \left[(k \circ h) \circ (f)\right] \\
+            &= [k(h(f))] \\ 
+            &= [k_\star(h_\star[f])]\\
+            &= (k_\star \circ h_\star) [f]
+        \end{align*}
+        \item [(b)] $(\id)_\star [f] = [\id \circ f] = [f]$
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    If $h: X\to Y$ is a homeomorphism then $\pi(X, x_0) \cong \pi(Y, h(x_0)$ via $h_\star$. 
+\end{corollary}
+
+\begin{definition}
+    Let $P: E\to B$ be a surjective map. A open set $U \subseteq B$ is said to be evenly covered by $P$ if $P^{-1} (U) = \underset \alpha \bigsqcup V_\alpha$, where $V_\alpha$ are open sets of $E$ for all $\alpha$ and $P|_{V_\alpha}$ is a homeomorphism of $V_\alpha$ onto $U$. 
+\end{definition}
+
+\begin{definition}
+    Let $P: E \to B$ be surjective if every point $b \in B$ has a neighbourhood $U \subset B$ such that $U$ is evenly covered by $P$. Then we say that $P$ is a covering map and $E$ is a covering space of $B$.
+
+    \textbf{Examples:} 
+    \begin{enumerate}
+        \item $\id: X \to X$. 
+        \item $X \times \{1, 2, \cdots, n\} \overset P \to X$ where $P(X, i)  = x$.
+    \end{enumerate} 
+\end{definition}
+
+\begin{theorem}
+    The map $P: \R \to S'$ such that $x \mapsto (\cos(2\pi x), \sin(2 \pi x))$ is a covereing space. 
+\end{theorem}
+
+\begin{proof}
+    $P^{-1}(U) = \underset{n \in \Z}{\bigsqcup} \left(n - \frac{1}{4}\right)\left(n + \frac{1}{4}\right) =: V_n$
+
+    Restricted to each $V_n$ the map $P$ is a homeomorphism because $\sin(2 \pi x)$ is strictly monotonic on $V_n$ for all $n$. 
+
+    \todo{finish}
+\end{proof}
+
+\end{document}

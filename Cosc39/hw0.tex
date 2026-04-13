@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\newcommand{\odds}{\text{odds}}
+\newcommand{\evens}{\text{evens}}
+\newcommand{\bit}{\text{bitrev}}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    \textbf{Neighborhoods in Graphs.} 
+    
+    Let $G$ be an directed graph, possibly with self-loops (an edge whose head and tail is the same vertex). Define $V$ and $E$ to be the vertex set and edge set of $G$, respectively.
+
+    The neighborhood function $N : V \to 2^V$ takes a vertex $v$ and maps it to the subset of vertices that are out-neighbors of $v$ in $G$. We also define the neighborhood of any subset of vertices $S$ as the union of each individual neighborhood for each vertex in $S$. In notation,
+    \[
+    N(S) := \bigcup_{v \in S} N(v).
+    \]
+
+    Fix a starting vertex $s$ in $V$. The $k$-th neighborhood of $s$ is defined to be $N(N(\cdots N(s)\cdots))$, where $N(\cdot)$ is applied $k$ times.
+
+    \begin{enumerate}
+    \item[(a)] Describe an algorithm to decide if the following is true: for every vertex $t$ in $V$, there is an integer $k$ such that the $k$-th neighborhood of $s$ contains $t$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item [(a)] Let $G$ be a graph and $s$ be the starting vertex. Then to determine if there exists an integer $k$ such that the $k$-th neighborhood of $s$ contains $t$ is the same as asking if there exists a directed path of length $k$ (for some $k \in \Z$) from $s$ to $t$ (for all $t$).
+        
+        To do this we perform DFS, track visited vertices $V_v$, and return true iff $|V_v| = |V|$. Note that by definition $s \in N^k(s)$ for some $k$ if there is a path from $s$ to $s$. Then, we can define a pseudo-function as follows: 
+\vspace{.05in}
+
+        \begin{lstlisting}[mathescape]
+Connected(G, s):
+visited = {}
+stack = [s]
+while stack is not empty:
+    v = pop(stack)
+    for each out-neighbor u of v:
+        if u $\notin$ visited:
+            visited = visited $\cup$ {u}
+            push(stack, u)
+return $\mathbbm{1}[|\text{visited}| = |V|]$
+        \end{lstlisting}
+        
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+\textbf{Bit reversal.} 
+
+    Consider the following pairs of functions on strings over alphabet $\Sigma$:
+
+    \[ \text{evens}(w) := \begin{cases} 
+        \epsilon & \text{if } w = \epsilon, \\ \text{odds}(x) & \text{if } w = a \cdot x \text{ for some } a \in \Sigma \text{ and } x \in \Sigma^*
+    \end{cases} \]
+
+    \[\text{odds}(w) :=\begin{cases}
+        \epsilon & \text{if } w = \epsilon, \\a \cdot \text{evens}(x) & \text{if } w = a \cdot x \text{ for some } a \in \Sigma \text{ and } x \in \Sigma^*
+    \end{cases}\]
+
+    For example,
+    \[
+    \text{evens}(\text{penpineappleapplepen}) = \text{epnapeplpn},
+    \]
+    \[
+    \text{odds}(\text{penpineappleapplepen}) = \text{pnieplapee}.
+    \]
+
+    We define the bit-reversal function as
+    \[
+    \text{bitrev}(w) :=
+    \begin{cases}
+    w & \text{if } |w| \le 1, \\
+    \text{bitrev}(\text{odds}(w)) \cdot \text{bitrev}(\text{evens}(w)) & \text{otherwise}.
+    \end{cases}
+    \]
+
+    Prove the following statements:
+    \begin{enumerate}
+    \item[(a)] $|\text{odds}(w)| < |w|$ and $|\text{evens}(w)| < |w|$ for any string $w$ of length at least $2$.
+
+    \item[(b)] $|\text{bitrev}(w)| = |w|$ for any string $w$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    \begin{enumerate}
+        \item [(a)] Let $w$ be any string, and let $|w|$ denote is length. We will prove a stronger statement to solve this question. We claim that 
+        \[|\odds(w)| = \ceil{\frac{|w|}{2}}, \quad |\evens(w)| = \floor{\frac{|w|}{2}}.\]
+        We will prove this using induction. 
+        
+        \textbf{Base Case:} 
+        \begin{itemize}
+            \item If $|w| = 0$ then the statement vacuously holds. 
+            \item If $|w| = 1$ then $|\odds(w)| = 1$ and $|\evens(w)| = 0$. Hence, the statements holds. 
+        \end{itemize}
+
+        \textbf{Induction Hypothesis:} For any string $w$ of length $|w| < n$, 
+        \[|\odds(w)| = \ceil{\frac{|w|}{2}}, \quad |\evens(w)| = \floor{\frac{|w|}{2}}\]
+
+        \textbf{Inductive Case:} Let $w=abx$, where $a, b \in \Sigma$ and $x \in \Sigma^{n-2}$. That is $|w| = n$. Then, 
+        \begin{align*}
+            |\odds(w)| = |\odds(abx)| = |a \, \evens(bx)| = |a \,\odds(x)| = 1 + |\odds(x)|
+        \end{align*}
+        Note that since $|x| < |w|$ by IH $|\odds(x)| = \ceil{\frac{|x|}{2}}$, and since $|w| = |x| + 2$, 
+        \[\ceil{\frac{|w|}{2}} = \ceil{\frac{|x|}{2} + 2} = \ceil{\frac{|x|}{2}} + 1 = |\odds(x)| + 1 = |\odds(w)|\]
+        
+        Similarly, 
+        \begin{align*}
+            |\evens(w)| = |\odds(bx)| = |b \, \evens(x)| = 1 + |\evens(x)|
+        \end{align*}
+        Note that since $|x| < |w|$ by IH $|\evens(x)| = \floor{\frac{|x|}{2}}$, and since $|w| = |x| + 2$, 
+        \[\floor{\frac{|w|}{2}} = \floor{\frac{|x|}{2} + 2} = \floor{\frac{|x|}{2}} + 1 = |\evens(x)| + 1 = |\evens(w)|\]
+        
+        Hence, the induction hypothesis holds, and $|\text{odds}(w)| < |w|$ and $|\text{evens}(w)| < |w|$ for any string $w$ of length at least $2$.
+
+        \item [(b)] We will also prove this using induction. Let $w$ be any string. 
+        
+        \textbf{Induction Hypothesis:} For any string $w$ of length $|w| < n$, $|\bit(w)| = |w|$. 
+        
+        \textbf{Base Case:} If $|w| \leq 1$ then by definition,
+        \[|\bit(w)| = |w|\]
+
+        \textbf{Inductive Case:} If $|w| = n$, then 
+        \[|\bit(w)| = |\bit(\odds(w)) \cdot \bit(\evens(w))|\]
+        
+        
+        From part (a), we know that for any string $w$ of length $|w| = n$, 
+        \[|\odds(w)| = \ceil{\frac{|w|}{2}}, \quad |\evens(w)| = \floor{\frac{|w|}{2}}\]
+
+        Since both $|\odds(w)| < n$ and $|\evens(w)| < n$ by IH we have 
+        \[|\bit(\odds(w))| = |\odds(w)|, \qquad |\bit(\evens(w))| = |\evens(w)|\]
+        That is, 
+        \begin{align*}
+            |\bit(w)| &= |\bit(\odds(w)) \cdot \bit(\evens(w))| \\
+            &= |\odds(w)| + |\evens(w)|\\
+            &= \ceil{\frac{|w|}{2}} + \floor{\frac{|w|}{2}}
+        \end{align*}
+        Then we have two cases: 
+        \begin{itemize}
+            \item $|w|$ is even. Then, 
+            \[\ceil{\frac{|w|}{2}} + \floor{\frac{|w|}{2}} = {\frac{|w|}{2}} + {\frac{|w|}{2}} = |w|\]
+            \item $|w|$ is odd. Then, 
+            \[\ceil{\frac{|w|}{2}} + \floor{\frac{|w|}{2}} = \left({\frac{|w| + 1}{2}}  \right)+ \left({\frac{|w| - 1}{2}}  \right) = |w|\]
+        \end{itemize}
+        Hence, $|\bit(w)| = |w|$, and the hypothesis holds! 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

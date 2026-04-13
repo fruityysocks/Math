@@ -1,0 +1,174 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+\textbf{Register machine.}
+
+A $k$-register machine is a DFA augmented with extra $k$-bits of memory called registers; the transition of the DFA is determined by both the input bit and the current values in the registers. Formally, a $k$-register machine $M$ consists of the following components:
+\begin{itemize}
+    \item a set of states $Q$,
+    \item a starting state $s \in Q$,
+    \item a set of accepting states $A \subseteq Q$,
+    \item an alphabet set $\Sigma$,
+    \item a set of registers  $R = \underbrace{\Sigma \times \cdots \times \Sigma}_{k \text{ times}}$,
+    taking values over $\Sigma$,
+    \item a transition function 
+    $\delta : Q \times \Sigma \times R \to Q \times R$,
+    that is, given the current state $q$, an input character $a$, and current values of the $k$ registers $r := (r_1, \dots, r_k)$, the transition function outputs the next state $\delta(q,a,r)$ and writes the new values $r' := (r_1', \dots, r_k')$ into the registers.
+\end{itemize}
+
+We can define the extended transition function $\delta^*$ similarly to the regular DFA. Just like regular DFAs, a $k$-register machine $M$ accepts a string $w$ if $\delta^*(s, w) \in A$. The language of a $k$-register machine $M$ is defined to be
+\[
+L(M) := \{ w \in \Sigma^* : M \text{ accepts } w \}.
+\]
+
+Prove that given any language $L$ of some $k$-register DFA $M$ for constant $k$, one can construct a regular DFA $D$ that accepts the same set of strings in $L$. In notation,
+\[
+\forall \text{ $k$-register DFA } M, \; \exists \text{ DFA } D \text{ such that } L(D) = L(M).
+\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    For each $\d(q, a, r)$
+\end{solution}
+
+\begin{problem}{2}
+\textbf{Erasing digit sequence.}
+
+Let the input be a string of digits from $0$ to $9$ (in other words, the alphabet set $\Sigma$ is $\{0, \dots, 9\}$). The ERASE function is defined as follows:
+
+\begin{lstlisting}[mathescape]
+ERASE(w):
+    input: digit string w
+    r $\leftarrow$ $\varepsilon$
+    while w is not empty:
+        d $\leftarrow$ first digit of w
+        remove the first digit of w
+        r $\leftarrow$r $\cdot$ d   // append d after r
+        if there are at least d digits left in w:
+            remove d digits from w
+        else:
+            return fail
+    return r
+\end{lstlisting}
+
+A digit string $w$ is \emph{erasable} if $\text{ERASE}(w)$ successfully returns another digit string.
+
+For example, the string
+\[
+w = 314159265358979323846264338327950288419
+\]
+is erasable because
+\[
+\text{ERASE}(w) = 355243251.
+\]
+
+Construct DFAs that recognize the following languages:
+
+\begin{enumerate}
+    \item[(a)] $\{ w \in \Sigma^* : w \text{ is erasable} \}$
+    \item[(b)] $\{ w \in \Sigma^* : \text{both } w \text{ and } \text{ERASE}(w) \text{ are erasable} \}$
+\end{enumerate}
+
+\textbf{Note:} It is not sufficient to just draw the diagram; you must explain your construction, especially what each state represents, in English (this is equivalent to commenting your code). Alternatively, you may describe the DFAs using the formal tuple $(Q, s, A, \Sigma, \delta)$, but you still need to explain your construction. Answers without English explanations will receive no credit, even when correct.
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] We construct a DFA with 10 states: a starting (accepting) state $q_0$, and states $q_1, \ldots, q_9$ forming a counting chain. 
+        \begin{itemize}
+            \item $q_0$: Starting state. It accepts both an empty string, and an 'erasable block'. Reading $0$ loops back to this state since we don't need to erase any digits.
+            \item $q_k$ for $k\in \{1, \cdots, 9\}$. These transition states help us skip exactly $k$ characters. If we run out of characters in the input string, then the DFA fails. If we don't, we go back to the starting state having completed an 'erasable block'.
+            \item Transitions: 
+            \[\delta(q_0, d) = \begin{cases} q_0 & \text{if } d = 0 \\ q_d & \text{if } d \in \{1, \ldots, 9\} \end{cases}\]
+            And, 
+            \[\delta(q_k, d) = q_{k-1} \text{ for } k \geq 1,\ d \in \Sigma\]
+        \end{itemize}
+        
+        \begin{center}
+            \begin{tikzcd}
+            {} & {} & \circled{q_1} \arrow[dddl, swap, "\Sigma", bend left = -80] \\ 
+            {} & {} & {} & \circled{q_2} \arrow[ul, swap,  "\Sigma"] \\ 
+            {} & {} & {} & \circled{q_3} \arrow[u, swap, "\Sigma"] \\ 
+            {} \arrow[r] &  \dcircled{q_0}  
+            \arrow[out=75, in=100, loop, swap, "0"] 
+            \arrow[uuur, "1"]
+            \arrow[uurr, "2"] 
+            \arrow[urr, "3"] 
+            \arrow[rr, "4"] 
+            \arrow[drr, "5"] 
+            \arrow[ddrr, "6"] 
+            \arrow[dddrr, "7"] 
+            \arrow[ddddrr, "8"]
+            \arrow[dddddrr, "9"] 
+            & {} & \circled{q_4} \arrow[u, swap, "\Sigma"] \\ 
+            {} & {} & {} & \circled{q_5} \arrow[u, swap, "\Sigma"] \\ 
+            {} & {} & {} & \circled{q_6} \arrow[u, swap, "\Sigma"] \\ 
+            {} & {} & {} & \circled{q_7} \arrow[u, swap, "\Sigma"] \\ 
+            {} & {} & {} & \circled{q_8} \arrow[u, swap, "\Sigma"] \\ 
+            {} & {} & {} & \circled{q_9} \arrow[u, swap, "\Sigma"] \\ 
+            \end{tikzcd}
+        \end{center}
+
+        \newpage
+
+        \item [(b)] To solve this problem, we construct a $1$-register machine (from Problem 1 we know that this is equivalent to constructing a DFA). Similar to part (a), the machine has $10$ states. Let the current character being read be $d$. 
+        \begin{itemize}
+            \item $q_0$: Starting state. It accepts both an empty string, and a complete sequence of erasable blocks. If $r_1 = 0$, reading digit $d$ begins a erasure block in $\text{ERASE}(w)$'s own erasure, so we update $r_1 \leftarrow d$ (note that we don't decrement in the same loop we assign $r_1$ a new value). 
+            If $r_1 > 0$, the current digit is a header digit erased by $\text{ERASE}(w)$'s erasure, so we decrement $r_1 \leftarrow r_1 - 1$.
+            
+            \item $q_k$ for $k\in \{1, \cdots, 9\}$. These transition states help us skip exactly $k$ characters in $w$, and $r_1$ remains unchanged. If we run out of characters in the input string, then the DFA fails. If we don't, we go back to the starting state having completed an 'erasable block' for $w$. 
+            \item The terminating condition is when we are at $q_0$ with no more characters to read and $r_1 = 0$.  
+            \item Transitions: 
+                \[
+                \delta(q_0, d, r_1) = \begin{cases} q_0 & \text{if } d = 0 \\ q_d & \text{if } 
+                d \in \{1, \ldots, 9\} \end{cases}\]
+                And, 
+                \[\delta(q_k, d, r_1) = q_{k-1} \text{ for } k \geq 1,\ d \in \Sigma
+                \]
+
+            \item Register updates:
+                \[
+                r_1 \leftarrow \begin{cases} d & \text{if at } q_0 \text{ and } r_1 = 0 \\ 
+                r_1 - 1 & \text{if at } q_0 \text{ and } r_1 > 0 \\ 
+                r_1 & \text{if at } q_k,\ k \geq 1 \end{cases}
+                \]
+        \end{itemize}
+        
+        
+        \begin{center}
+            \begin{tikzcd}
+                {} & {} & \circled{q_1} \arrow[dddl, swap, "\Sigma", bend left = -80] \\ 
+                {} & {} & {} & \circled{q_2} \arrow[ul, swap,  "\Sigma"] \\ 
+                {} & {} & {} & \circled{q_3} \arrow[u, swap, "\Sigma"] \\ 
+                {} \arrow[r] &  \dcircled{q_0}  
+                \arrow[out=75, in=100, loop, swap, "0"] 
+                \arrow[uuur, "1"]
+                \arrow[uurr, "2"] 
+                \arrow[urr, "3"] 
+                \arrow[rr, "4"] 
+                \arrow[drr, "5"] 
+                \arrow[ddrr, "6"] 
+                \arrow[dddrr, "7"] 
+                \arrow[ddddrr, "8"]
+                \arrow[dddddrr, "9"] 
+                & {} & \circled{q_4} \arrow[u, swap, "\Sigma"] \\ 
+                {} & {} & {} & \circled{q_5} \arrow[u, swap, "\Sigma"] \\ 
+                {} & {} & {} & \circled{q_6} \arrow[u, swap, "\Sigma"] \\ 
+                {} & {} & {} & \circled{q_7} \arrow[u, swap, "\Sigma"] \\ 
+                {} & {} & {} & \circled{q_8} \arrow[u, swap, "\Sigma"] \\ 
+                {} & {} & {} & \circled{q_9} \arrow[u, swap, "\Sigma"] \\ 
+            \end{tikzcd}
+        \end{center}
+    \end{enumerate}
+\end{solution}
+\end{document}

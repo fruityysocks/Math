@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\vspace{.1in}
+
+\textbf{Credit Statement:} \tism
+
+\begin{problem}{1}
+    Show that if $h, h': X \to Y$ are homotopic and $k, k': Y\to Z$ are homotopic, then $k \circ h$ and $k' \circ h'$ is are homotopic. 
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Assume $h \simeq h'$ and $k \simeq k'$. Then there exist $F_h$ and $F_k$ such that 
+    \[F_h(x,0) = h(x), \, F_h(x,1) = h'(x), \, F_k(x,0) = k(x), \, F_k(x,1) = k'(x)\]
+    To show that $k \circ h \simeq k' \circ h$, we define $F:X \times I \to Z$ as,
+    \[F(x,t) = F_k (F_h(x,t), t)\]
+    Note that $F$ is the composition of continuous maps and hence is continuous. We verify initial and final points.  
+    \[F(x,0) = F_k(F_h(x, 0),0) = F_k(h(x), 0) = k(h(x)) = k \circ h (x)\]
+    \[F(x,1) = F_k(F_h(x, 1),1) = F_k(h'(x), 1) = k'(h'(x)) = k' \circ h' (x)\]
+    Therefore there exists a continuous deformation of $k \circ h$ to $k' \circ h'$, and $k \circ h \simeq k' \circ h$. 
+\end{solution}
+
+\newpage
+
+\begin{problem}{2}
+    A space $X$ is said to be contractible if the identity map $i_x: X\to X$ is homotopic to a constant map. 
+    \begin{enumerate}
+        \item Show that $I$ and $R$ are contractible. 
+        \item Show that a contractible space is path connected. 
+        \item Show that if $Y$ is contractible, then for any $X$ the set $[X, Y]$ has a single element. 
+        \item Show that if $X$ is contractible and $Y$ is path connected, then $[X, Y]$ has a single element. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{3}
+    A subset $A$ of $\R^n$ is said to be star convex if for some point $a_0$ of $A$, all the line segments joining $a_0$ to other points of $A$ lie in $A$. 
+    \begin{enumerate}
+        \item Find a star convex set that is not convex. 
+        \item Show that if $A$ is star convex, $A$ is simply connected. 
+        \item Show that if $A$ is star convex, any two paths in $A$ having the same initial and final points are path homotopic. 
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{4}
+    Let $x_0$ and $x_1$ be two given points of the path-connected space $X$. Show that $\pi_1(X, x_0)$ is abelian if and only if for every pair $\alpha$ and $\beta$ of paths from $x_0$ to $x_1$, we have $\hat{\alpha} = \hat{\beta}$. 
+\end{problem}
+
+\begin{problem}{5}
+    Let $A$ be a subset of $\R^n$ let $h: (A, a_0) \to (Y, y_0)$. Show that if $h$ is extendable to a continuous map of $\R^n$ into $Y$, then $h_\star$ is the zero homomorphism (the trivial homomorphism that maps everything to the identity element). 
+\end{problem}
+
+\begin{problem}{6}
+    Let $G$ be a topological group with operation $\cdot$ and the identity element $x_0$. Let $\Omega(G, x_0)$ denote the set of all loops in $G$ based at $x_0$. If $f, g \in \Omega(G, x_0)$, let us define a loop $f \otimes g$ by the rule 
+    \[(f \otimes g)(s) = f(s) \cdot g(s)\]
+    \begin{enumerate}
+        \item Show that this operation makes the set $\Omega(G, x_0)$ into a group. 
+        \item Show that this operation induces a group operation $\otimes$ on $\pi_1(G, x_0)$. 
+        \item Show that the two group operations $\star$ and $\otimes$ on $\pi_1(G, x_0)$ are the same. [\textit{Hint:} Compute $(f \star e_{x_0})\otimes(e_{x_0}\star g)$]. 
+        \item Show that $\pi_1(G, x_0)$ is abelian. 
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{7}
+    Show that the map $f: S^1 \to S^1$, defined as $f(z) = z^n$ for $z \in S^1 \subset \C$, is a covering map. Here we think of $S^1$ as $\{z \in \C, \text{ such that } |x| = 1\}$.
+\end{problem}
+
+
+\end{document}
