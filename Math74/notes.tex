@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{amsart}
 
 \include{../style}
 
@@ -6,10 +6,10 @@
 
 \input{title}
 
-\section{Topology}
+\section{Topological Spaces $\&$ Homeomorphisms}
 
 \begin{definition}
-    A topology on a set $X$ is a collection $J$ of subsets of $X$ having the following properties. 
+    A \textbf{topology} on a set $X$ is a collection $J$ of subsets of $X$ having the following properties. 
     \begin{enumerate}
         \item $\emptyset, X \in J$ 
         \item The union of the elements of any sub-collection of $J$ is in $J$. 
@@ -19,47 +19,63 @@
 \end{definition}
 
 \begin{definition}
-     Elements of $J$ are called open sets of the topological space $(X, J)$.
+     Elements of $J$ are called \textbf{open sets} of the topological space $(X, J)$.
 \end{definition}
 
 \begin{definition}
-     A subspace $Y$ of a topological space $(X, J)$ is a subset $Y \subset X$ which is given the `subspace topology' where the open sets of $Y = \{U \cap Y : U \in J\}$
+     A subspace $Y$ of a topological space $(X, J)$ is a subset $Y \subset X$ which is given the \textbf{subspace topology} where the open sets of $Y = \{U \cap Y : U \in J\}$
 \end{definition}
 
 \begin{definition}
-    Let $(X_1, J_1)$ and $(X_2, J_2)$ be topological spaces. A map $f: (X_1, J_1) \to (X_2, J_2)$ is said to continuous if $f^{-1} (U) \in J_1$ for all $U \in J_2$.    
+    A space $X$ is \textbf{path connected} if every pair of points of $X$ can be joined by a path in $X$. 
 \end{definition}
 
 \begin{definition}
-     Let $(X, J)$ and $(X', J')$ be topological spaces. Then they are homeomorphic if $\exists$ a continuous bijection $f: (X, J) \to (X', J')$. So that $f^{-1}$ is also continuous. 
+    Let $(X_1, J_1)$ and $(X_2, J_2)$ be topological spaces. A map $f: (X_1, J_1) \to (X_2, J_2)$ is said to \textbf{continuous} if $f^{-1} (U) \in J_1$ for all $U \in J_2$.    
 \end{definition}
 
-    
-\textbf{Exercise:} Show that any two open intervals of $\R$ are homeomorphic (where we put subspace topology on the open intervals). 
-    
-    \textit{Solution:} Let $(a,b)$ and $(c,d)$ be open intervals. \todo{} 
+\begin{definition}
+     Let $(X, J)$ and $(X', J')$ be topological spaces. Then they are \textbf{homeomorphic} if $\exists$ a continuous bijection $f: (X, J) \to (X', J')$. So that $f^{-1}$ is also continuous. 
+\end{definition}
+
+\begin{exercise}
+    Show that any two open intervals of $\R$ are homeomorphic (where we put subspace topology on the open intervals). 
+\end{exercise}    
+
+\begin{solution}
+    Let $(a,b)$ and $(c,d)$ be open intervals. \todo{} 
+\end{solution}
 
 \begin{remark}
     Number of path connected topologies is preserved by continuous maps. For instance, $[0,1]$ is not homeomorphic to $(0,1)$, and $\R$ is not homeomorphic to $\R^2$.     
 \end{remark}
 
+\begin{exercise}
+    \bbni 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Is $\R^2$ homeomorphic to $\R^3$? 
+        \item Is $S^2 ( = x^2 + y^2 + z^2  = 1)$ homeomorphic to $T^2 = S^1 \times S^1$?
+        \item Is $S^2$ homeomorphic to $S^1 \times [a,b)$? 
+    \end{enumerate}
+\end{exercise}
 
-\textbf{Exercise:} Is $\R^2$ homeomorphic to $\R^3$? 
-    
-\textbf{Exercise:} Is $S^2 ( = x^2 + y^2 + z^2  = 1)$ homeomorphic to $T^2 = S^1 \times S^1$?
-
-\textbf{Exercise:} Is $S^2$ homeomorphic to $S^1 \times [a,b)$? 
+\begin{solution}
+    \bbni 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item \todo{}
+    \end{enumerate}
+\end{solution}
     
 \begin{definition}
-    If $f$ and $f'$ are continuous maps from spaces $X$ to $Y$ we say that $f$ is homotopic to $f'$ if $\exists$ a continuous map $F: X \times I = [0,1]  \to Y$ such that $F(x, 0) = f(x)$ and $F(x, 1) = f'(x)$.  $F$ is called the homotopy between $f$ and $f'$, and we write $f \simeq f'$.
+    If $f$ and $f'$ are continuous maps from spaces $X$ to $Y$ we say that $f$ is homotopic to $f'$ if $\exists$ a continuous map $F: X \times I = [0,1]  \to Y$ such that $F(x, 0) = f(x)$ and $F(x, 1) = f'(x)$.  $F$ is called the \textbf{homotopy} between $f$ and $f'$, and we write $f \simeq f'$.
 \end{definition}
 
 \begin{definition}
-    \todo{Product Topology}
+    If $X$ and $Y$ are topological spaces, we can define a \textbf{product topology} on $X \times Y$ by saying that a basis consists of the subsets $U \times V$ as $U$ ranges over open sets in $X$ and $V$ ranges over open sets in $Y$.
 \end{definition}
 
 \begin{definition}
-    Define a path $f$ as $f: [0,1] \to X$ with $f(0) = x_0$ and $f(1) = x$. 
+    Define a \textbf{path} $f$ as $f: [0,1] \to X$ with $f(0) = x_0$ and $f(1) = x$. 
 \end{definition}
 
 \begin{definition}
@@ -101,8 +117,8 @@
 \end{proof}
 
 \begin{lemma}[Pasting Lemma]
-    Let $X = A \cup B$ be a topological space with $A, B \subset X$ are closed. Let $f: A \to Y, g: B \to Y$ be continuous and $f(x) = g(x), \forall x \in A \cap B$, then 
-    \[h(x) \begin{cases*}
+    Let $X = A \cup B$ be a topological space with $A, B \subset X$ are closed. Let $f: A \to Y, g: B \to Y$ be continuous and $f(x) = g(x), \, \forall x \in A \cap B$, then 
+    \[h(x) = \begin{cases*}
         f(x), \, x \in A \\ 
         g(x), \, x \in B
     \end{cases*}\]
@@ -117,7 +133,7 @@
         f(2t), \, t \in [0, 1/2] \\ 
         g(2t-1), \, t \in [1/2, 1] \\ 
     \end{cases*}\]
-    $\star$ is composition of paths. 
+    where $\star$ is \textbf{composition of paths}. 
 
     Some Properties of $`\star'$. 
     \begin{enumerate}
@@ -172,31 +188,33 @@
 \section{The Fundamental Group}
 
 \begin{definition}
-    Let $X$ be a space and $x_0 \in X$ be a point in $X$ we say that a path $f: I \to X$ is a loop based at $x_0$ if $f(0) = f(1) = x_0$
+    Let $X$ be a space and $x_0 \in X$ be a point in $X$ we say that a path $f: I \to X$ is a \textbf{loop} based at $x_0$ if $f(0) = f(1) = x_0$
 \end{definition}
 
 \begin{definition}
-    The set of all path-homotopy equivalence classes of loops based at $x_0$ forms a group under $\star$, called the fundamental group of $x$ based at $x_0$, denoted as $\pi_1(X, x_0)$
+    The set of all path-homotopy equivalence classes of loops based at $x_0$ forms a group under $\star$ called the \textbf{fundamental group} of $x$ based at $x_0$, denoted as $\pi_1(X, x_0)$
 
     \begin{itemize}
         \item Identity: $[e_{x_0}]$
         \item Inverses: $[f] \to [\overline{f}]$
     \end{itemize}
 
-    \textbf{Example:} $\pi_1(\R^n, (0,0)) \equiv 0  \equiv \langle e_{\text{origin}} \rangle$
-    \begin{proof}
+    \begin{example}
+        $\pi_1(\R^n, (0,0)) \equiv 0  \equiv \langle e_{\text{origin}} \rangle$
+        \begin{proof}
         Take any two loops $f(t), g(t)$ based at the origin. Then consider the straight-line homotopy 
         \[H(s,t) = f(s) (1-t) + tg(s)\]
-        (Check that it is a path homotopy) 
+        \todo{(Check that it is a path homotopy)}
     \end{proof}
+    \end{example}
 \end{definition}
 
 \begin{definition}
-    Let $\alpha$ be a path from $x_0$ to $x_1$, where $x_0, x_1 \in X$. We define a map $\hat{\alpha}: \pi_1 (X, x_0) \to \pi_1(X, x_1)$ such that 
-    \[\hat{\alpha}([f]) := [\overline{\alpha}] \star [f] \star [\alpha] =[\overline{\alpha}\star f \star \alpha]  \]
+    Let $\alpha$ be a path from $x_0$ to $x_1$, where $x_0, x_1 \in X$. We define a map $\widehat{\alpha}: \pi_1 (X, x_0) \to \pi_1(X, x_1)$ such that 
+    \[\widehat{\alpha}([f]) := [\overline{\alpha}] \star [f] \star [\alpha] =[\overline{\alpha}\star f \star \alpha]  \]
 \end{definition}
 \begin{prop}
-    $\hat{\alpha}$ is well-defined and an isomorphism. 
+    $\widehat{\alpha}$ is well-defined and an isomorphism. 
 \end{prop}
 
 \begin{proof}
@@ -208,17 +226,17 @@
     \\
     \iff \overline{\alpha} \star f \star \alpha \simeq_p \overline{\alpha} \star f' \star \alpha
     \end{align*}
-    Since $\star$ is well-defined, $[f] \star [\alpha] = [f'] \star [\alpha]$,  $\hat{\alpha}$ is well-defined
+    Since $\star$ is well-defined, $[f] \star [\alpha] = [f'] \star [\alpha]$,  $\widehat{\alpha}$ is well-defined
 
 
     Let $[f], [g] \in \pi_1(X, x_0)$. 
     \begin{align*}
-        \hat{\alpha}([f]) \star \hat{\alpha} ([g]) &= [\overline{\alpha}] \star [f] \star [\alpha] \star  [\overline{\alpha}] \star [f] \star [\alpha] \\ 
+        \widehat{\alpha}([f]) \star \widehat{\alpha} ([g]) &= [\overline{\alpha}] \star [f] \star [\alpha] \star  [\overline{\alpha}] \star [f] \star [\alpha] \\ 
         &=  [\overline{\alpha}] \star [f] \star [e_{x_0}] \star [g] \star [\alpha] \\
         &=  [\overline{\alpha}] \star [f] \star [g] \star [\alpha] \\ 
-        &= \hat{\alpha}([f] \star [g])
+        &= \widehat{\alpha}([f] \star [g])
     \end{align*}
-    Hence $\hat{\alpha}$ is a homomorphism. To check that $\hat{\alpha}$ is an isomorphism, we see that $\hat{\overline{\alpha}} (\hat{\alpha}) ([f]) = [f]$ for all $[f] \in \pi_1(X, x_0)$.  
+    Hence $\widehat{\alpha}$ is a homomorphism. To check that $\widehat{\alpha}$ is an isomorphism, we see that $\widehat{\overline{\alpha}} (\widehat{\alpha}) ([f]) = [f]$ for all $[f] \in \pi_1(X, x_0)$.  
 \end{proof}
 
 \begin{corollary}
@@ -226,7 +244,7 @@
 \end{corollary}
 
 \begin{definition}
-    Let $h: X \to Y$ be a continuous map such that $h(x_0) = y_0$, $x_0 \in X, y_0 \in Y$. Then define $h_\star: \pi_1(X, x_0) \to \pi_1(Y, y_0)$ by $h_\star([f]) = [h \circ f]$. This is a push-forward map. 
+    Let $h: X \to Y$ be a continuous map such that $h(x_0) = y_0$, $x_0 \in X, y_0 \in Y$. Then define $h_\star: \pi_1(X, x_0) \to \pi_1(Y, y_0)$ by $h_\star([f]) = [h \circ f]$. This is a \textbf{push-forward} map. 
 \end{definition}
 
 \begin{prop}
@@ -286,17 +304,20 @@
 \end{corollary}
 
 \begin{definition}
-    Let $P: E\to B$ be a surjective map. A open set $U \subseteq B$ is said to be evenly covered by $P$ if $P^{-1} (U) = \underset \alpha \bigsqcup V_\alpha$, where $V_\alpha$ are open sets of $E$ for all $\alpha$ and $P|_{V_\alpha}$ is a homeomorphism of $V_\alpha$ onto $U$. 
+    Let $P: E\to B$ be a surjective map. A open set $U \subseteq B$ is said to be \textbf{evenly covered} by $P$ if $P^{-1} (U) = \underset \alpha \bigsqcup V_\alpha$, where $V_\alpha$ are open sets of $E$ for all $\alpha$ and $P|_{V_\alpha}$ is a homeomorphism of $V_\alpha$ onto $U$. 
 \end{definition}
 
 \begin{definition}
-    Let $P: E \to B$ be surjective if every point $b \in B$ has a neighbourhood $U \subset B$ such that $U$ is evenly covered by $P$. Then we say that $P$ is a covering map and $E$ is a covering space of $B$.
+    Let $P: E \to B$ be surjective if every point $b \in B$ has a neighbourhood $U \subset B$ such that $U$ is evenly covered by $P$. Then we say that $P$ is a \textbf{covering map} and $E$ is a \textbf{covering space }of $B$.
 
-    \textbf{Examples:} 
-    \begin{enumerate}
+    \begin{example}
+        \bbni
+
+        \begin{enumerate}
         \item $\id: X \to X$. 
         \item $X \times \{1, 2, \cdots, n\} \overset P \to X$ where $P(X, i)  = x$.
-    \end{enumerate} 
+        \end{enumerate} 
+    \end{example}
 \end{definition}
 
 \begin{theorem}
@@ -311,4 +332,164 @@
     \todo{finish}
 \end{proof}
 
+\begin{definition}
+    If a path-connected space $X$ has $\pi_1(X, x_0) \iso 0$ then we say that $X$ is \textbf{simply-connected}.
+\end{definition}
+
+\begin{lemma}
+    If $X$ is simply-connected, then any two paths in $X$ with the same initial point and end point are path-homotopic. 
+\end{lemma}
+
+\begin{proof}
+    $f \star \overline{g} \simeq_p e_{x_0}$ and $f \simeq_p f \star e_{x_1} \simeq_p f \star (\overline{g} \star g) \simeq_p (f \star \overline{g}) \star g \simeq_p  e_{x_0} \star g \simeq_p g.$
+\end{proof}
+
+\begin{definition}
+    Let $p: E \to B$ be a surjective map, $f: X\to B$ be a map from $X \to B$. Then a map $\widetilde{f}: X \to E$ is called \textbf{lifting} of $f$ to $E$ if $p \circ \widetilde{f} = f$. 
+
+    \begin{center}
+        \begin{tikzcd}
+            {} & E \arrow[d, "p"] \\ 
+            X \arrow[r,"f", swap] \arrow[dashed, "\widetilde{f}"]{ur} & B
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{lemma}[Path Lifting Lemma]
+    Let $p: E\to B$ be a covering map with $p(e_0) = b_0$. Any path $f:[0,1] \to B$ beginning at $b_0$ can be lifted uniquely to a path $\widetilde{f}: [0,1] \to E$ beginning at $e_0$.
+\end{lemma}
+
+\begin{proof}
+    Cover $B$ by open sets $U$, each of which is evenly covered by $p$. We can find a subdivision (partition) defined by $s_0, \cdots, s_n \in [0,1]$ such that $f([s_i, s_{i+1}])$ is contained entirely inside a evenly covered $U$ for all $i$. \todo{Think about why this is possible}. Now we will define $\widetilde{f}$ inductively. Suppose that $\widetilde{f}(0) = e_0$ and it has been defined for $0 \leq s \leq s_i$ for some $i$. We will now define $\widetilde{f}$ at $[s_i, s_{i+1}]$. Suppose that $f([s_i, s_{i+1}]) \subset U$ where $U$ is evenly covered open set of $B$. This implies that $p^{-1}(U) = \sqcup_\alpha V_\alpha$. Now, $\widetilde{f}(s_i)$ lies in one such $V_\alpha$ say $V_0$. 
+
+    Define $\widetilde{f}$ on $[s_i, s_{i+1}]$ as $\widetilde{f}(s) := (p |_{V_0})^{-1}(f(s))$ for all $s \in [s_i, s_{i+1}]$. 
+    By pasting lemma $\widetilde{f}$ is continuous on $[0,s_{i+1}]$ and we argue inductively to define $\widetilde{f}$ for $[0.1]$. 
+    
+    By induction, we can again suppose that for another lift $\widetilde{f'}: [0,1] \to E$ of $f$ with $\widetilde{f'}(0) = e_0$, it agress with $\widetilde{f}$ of $0 \leq S \leq S_i$ for some $i$ \[\widetilde{f'}(s) = \widetilde{f}(s), \qquad \forall s \in [0, s_i]\]
+    Now we would like to show that 
+    \[\widetilde{f'} (s) = \widetilde{f} (s), \qquad \forall s \in [s_i, s_{i+1}] \]
+    \[\widetilde{f'} (s) =  (p|_{V_0})^{-1} \circ f (s), \qquad \forall s \in [s_i, s_{i+1}] \]
+    $\widetilde{f'}(s_i)$ lies in $V_0$ since $\widetilde{f'}(s_i) = \widetilde{f}(s_i)$. 
+    $\implies \widetilde{f'}([s_i, s_{i+1}])$ lies in $V_0$. 
+    
+    $p \circ \widetilde{f'} = f$ on $[s_1, s_{i+1}]$. But $\widetilde{f'}([s_i, s_{i+1}]) \subset V_0$ and $P|_{V_0}$ is a homeomorphism. 
+
+    Then for all $s \in [s_i, s_{i+1}]$
+    \[\implies \widetilde{f'}(s) = (p|_{V_0})^{-1} \circ f (s) = \widetilde{f}(s)\]
+\end{proof}
+
+\begin{lemma}[Path Homotopy Lifting Lemma]
+    Let $p: E \to B$ be a covering map. Let $p(e_0) = b_0$. Let $f: I \times I \to B$ be a map, with $f(0,0) = b_0$. Then there exists a lifting of $f$ to $E$ such that $\widetilde{f}(0,0) = e_0$. If $f$ is a path homotopy, so is $\widetilde{f}$. 
+\end{lemma}
+
+\begin{proof}
+
+    \todo{$I \times I$ is a rectangle. Pick a parition of both sides, then the image of these small rectangles will be contained in $U$ }
+
+    1. Define $\widetilde{f}$ on $0 \times I$ and $I \times 0$ by lifting both of those paths to paths that begin at $e_0$. 
+
+    2. Take a subdivision of $I \times I$ say $I_i \times J_j$ such that each of those small rectangles are contained in an evenly covered open set of $B$. 
+
+    3. By induction assume that $\widetilde{f}$ has been defined on $I_i \times J_j$ such that $i < i_0, j = j_0$. 
+
+    4. Now, to define $\widetilde{f}$ on $I_{i_0} \times I_{j_0}$ we consider the image of the union of left and bottom edge of $I_{i_0} \times I_{j_0}$ under $\widetilde{f}$. This lies inside $V_0 \subset p^{-1}(U)$.
+\end{proof}
+ 
+\begin{remark}
+    The lifted path homomoty is also unique. 
+\end{remark}
+
+\begin{lemma}
+    Let $P: E \to B$ be a covering map with $P(e_0) = b_0$. Let $f, g$ be two paths in $B$ from $b_0$ to $b_1$. Let $\widetilde{f}, \widetilde{g}$ be their lifts beginning at $e_0$. Then if $f \simeq_p g \implies \widetilde{f}$ and $\widetilde{g}$ end at the same point and they are path homotopic. 
+\end{lemma}
+
+\begin{proof}
+    Assume $f \simeq_p g$ with the path homotopy $F : I \times I \to B$. Then Lemma $2.15$ implies that $F$ lifts to $\widetilde{F}: I \times I \to E$ with $\widetilde{F}(0,t) = e_0$.
+
+    Then we can say that $\widetilde{F}(1, t) = e_1$ for some $e_1 \in P^{-1}(b_1), \, \forall t \in I$. 
+    By uniqueness of path lifting, $f, g$ have unique lifts to $E$, beginning at $e_0$. We also know that $\widetilde{F}(s,0)$ and $\widetilde{F}(s,1)$ are lifts of $f, g$ both beginning at $e_0$. 
+
+    Then $\widetilde{F}(s,  0) = \widetilde{f}$ and $\widetilde{F}(s,1) = \widetilde{g}$ for all $s \in I$. Hence $\widetilde{F}(1,0) = \widetilde{F}(1,1) \implies \widetilde{f}(1) = \widetilde{g}(1)$, and $\widetilde{f} \simeq \widetilde{g}$. 
+\end{proof}
+
+\begin{theorem}
+    $\pi_1(S^1, (1,0) = b_0) \iso (\Z, +)$
+\end{theorem}
+
+\begin{proof}
+    \bbni
+    
+    \begin{center}
+        \begin{tikzcd}
+            {} & \R \arrow[d] \\ 
+            I \arrow[ur, "\widetilde{f}"] \arrow[r, "f"] & S^1
+        \end{tikzcd}
+    \end{center}
+
+    Consider the convering map 
+    \[P: \R \to S^1, \, P(x) = (\cos(2\pi x), \sin(2 \pi x))\]
+    Let $[f] \in \pi_1(S^1, b_0)$. Let $\widetilde{f}$ be the lift of $f$ to $\R$ beginning at $0$. Now consider $\widetilde{f}(1)$. It will be an integer since $\widetilde{f}(1) \in P^{-1}(b_0) = P^{-1}((1,0))$. Define 
+    \[\phi: \pi_1 (S^1, b_0) \to \Z, \quad \phi([f]) = f(1)\] 
+    By previous lemma, $\phi$ is well-defined. 
+
+    Now we show that $\phi$ is surjective. Let $n \in \Z$. Define $\widetilde{f}$ to be the path in $\R$ which starts at $0$ and ends at $n$. Then by definition, $(P \circ \widetilde{f})$ will start at $(1,0)$ and end at $(1,0)$ where $\widetilde{f}$ is by definition the lift of $(P \circ \widetilde{f})$ beginning at $0$. So $\phi([P \circ \widetilde{f}]) = n$. 
+
+    To show that $\phi$ is injective suppose that $\phi([f]) = \phi([g]) = n$ for some $[f], [g] \in \pi_1(S^1, b_0)$ we need to show that $[f] = [g] \in \pi_1(S^1, b_0)$. 
+
+    Now let $\widetilde{f}$ and $\widetilde{g}$ be two lifts of $f$ and $g$ respectively beginning at $0$. Moreover, since $\R$ is simply connected and $\widetilde{f}(0) = \widetilde{g}(0) = 0$, $\widetilde{f}(1) = \widetilde{g}(1) = n$, $\widetilde{f} \simeq_p \widetilde{g}$,  then $P \circ \widetilde{F}$ will be the path-homotopy between $f$ and $g$. This implies $[f] = [g]$. 
+
+    Now we want to show that $\phi$ is a group homomorphism. Let $[f], [g] \in \pi_1(S^1, b_0)$ such that $\phi([f]) = n, \, \phi([g]) = m$ for $n, m \in \Z$. Now we want to show that $\phi([f] \star [g]) = \phi([f \star g]) = n+m$. 
+    We need to find a lift of $f \star g$ beginning at $0$ and ending at $n+m$. 
+
+    Let $\widetilde{f}, \widetilde{g}$ be lifts of $f, g$ respectively, $\widetilde{f}(0) = \widetilde{g}(0) = (0)$. 
+
+    Define a path on $\R$ by 
+    
+    \[h(s) = \begin{cases}
+        \widetilde{f}(2s),  &s \in \left[0, \frac{1}{2}\right] \\ 
+        n + \widetilde{g}(2s-1),  &s \in \left[\frac{1}{2}, 1\right] \\ 
+    \end{cases}\]
+
+    Then $h$ is a path beginning at $0$ and ending at $n+m$. Now consider, 
+    \[P(h(s))= \begin{cases}
+        P \circ \widetilde{f}(2s),  &s \in \left[0, \frac{1}{2}\right] \\ 
+        P \circ (n + \widetilde{g}(2s-1)) = P \circ \widetilde{g}(2s-1),  &s \in \left[\frac{1}{2}, 1\right] \\ 
+    \end{cases} \]
+    This implies that $h(s)$ is a lift of $f \star g(s) \implies \phi([f \star g]) = h(1) = n + m$
+\end{proof}
+
+\begin{corollary}
+    Fundamental Theorem of Algebra.
+\end{corollary}
+
+\begin{proof}
+    Let $p(z) = z^n + a_1z^{n-1} + \cdots + a_n$, where $a_i \in \C$. 
+    
+    For the sake of contradiction assume that $p$ has no roots in $\C$. Then for each $r \in \R^+$ define a function 
+    \[f_r(s) = \frac{\frac{p(r e^{2 \pi i s})}{p(r)}}{\left|\frac{p (r e^{2 \pi i s})}{p(r)}\right|} \in \C\]
+
+    Note that $f_r(s)$ is a loop in $S^1$ based at $(1,0)$ for all $r$. ($f_r(0) = (1,0) = f_r(1)$ and $|f_r(s)| = 1, \forall s$). 
+    Note that as $r$ varies $f_r$ gives a path homotopy in $S^1$ between loops that are based at $(1,0)$. Now, note that $f_0(s)$ is the trivial loop based at $(1,0)$. This implies, 
+    \[[f_r(s)] = [f_0(s)] = 0 \in \pi_1(S^1, (1,0))\]
+    Now fix a large value of $r$ such that $r > |a_1| + \cdots |a_n|$ and $r > 1$. Now, we have for $|z| = r$ 
+    \[|z^n|  = |z| \cdot |z^{n-1}| > (a_1z^{n-1} + \cdots + a_n)|z^{n-1}| \geq |a_1z^{n-1}| + \cdots |a_n| \geq |a_1z^{n-1} + \cdots + a_n|\]
+    Hence,
+    \[|z^n| > |a_1z^{n-1} + \cdots + a_n|\]
+    This implies that the polynomial $p_t(z) = z^n + t(a_1z^{n-1} + \cdots +a_n)$, $\forall t \in [0,1]$ has no roots in circle $|z| = r$. If we now replace $p$ by $p_t$ in the definition of $f_r(s)$ we get 
+    \[f_r(s,t) = \frac{\frac{p_t(r e^{2 \pi i s})}{p_t(r)}}{\left|\frac{p_t (r e^{2 \pi i s})}{p_t(r)}\right|}\]
+
+    At $t = 1$,
+    \[f_r(s, 1) = f_r(s) \in \pi_1(S^1, (1,0))\]
+    At $t = 0$, 
+    \[f_r(s, 0) = e^{2 \pi i n s}, \quad \forall s \in [0,1]\]
+    So $[f_r(s,0)] = n \in \Z \iso \pi_1(S^1, (1,0))$. But $f_r(s,t)$ as we vary $t \in [0,1]$ gives a path homotopy between $f_r(s,0)$ and $f_r(s,1) \implies [f_r(s,0)] = [f_r(s)] \in \pi_1(S^1, (1,0)) \implies n =0$ contradicting that $p$ is not constant. 
+\end{proof}
+
+\begin{remark}
+    In general, we have $P:(E, e_0) \to (B, b_0)$ be a covering map. If $E$ is path-connected then there exists a surjection $\phi: \pi_1(B, b_0) \to P^{-1}(b_0)$. If $E$ is simply-connected, then $\phi$ is a bijection. 
+\end{remark}
+
+\begin{proof}
+    HW1 iirc
+\end{proof}
 \end{document}

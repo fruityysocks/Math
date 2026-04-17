@@ -1,5 +1,6 @@
 \usepackage{fullpage}
 \usepackage{mdframed}
+\usepackage{multicol}
 \usepackage{colonequals}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
@@ -15,7 +16,6 @@
 \usepackage{tikz-cd}
 \usepackage{enumitem}
 \usepackage{euler}
-\newcommand{\bb}{\mathbb}
 
 
 \newtheorem{theorem}{Theorem}[section]
@@ -26,18 +26,19 @@
 \newtheorem{lemmact}[theorem]{Lemmact}
 \newtheorem{prop}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[section]{Example}
+\newtheorem{example}{Example}[section]
 
 
-\newtheorem*{exercisehelper}{Exercise.}
-\newenvironment{exercise}[1]{%
-  \IfBlankTF{#1}
-    {\renewcommand{\exercisehelper}{\textbf{Exercise} \unskip}}
-    {\renewcommand\exercisehelper{\textbf{Exercise #1}}}%
-  \exercisehelper
-}{\endexercisehelper}
+% \newtheorem*{exercisehelper}{Exercise.}
+% \newenvironment{exercise}[1]{%
+%   \IfBlankTF{#1}
+%     {\renewcommand{\exercisehelper}{\textbf{Exercise} \unskip}}
+%     {\renewcommand\exercisehelper{\textbf{Exercise #1}}}%
+%   \exercisehelper
+% }{\endexercisehelper}
 
 \theoremstyle{remark}
+\newtheorem{exercise}{Exercise}[section]
 \newtheorem*{solution}{Solution}
 \newcommand{\mathcat}[1]{\textup{\textbf{\textsf{#1}}}} % for defined terms
 
@@ -61,6 +62,7 @@
 
 \let\H\relax
 \let\P\relax
+\newcommand{\bb}{\mathbb}
 \newcommand{\H}{\mathbb H}
 \newcommand{\P}{\mathbb P}
 \newcommand{\C}{\mathbb C}
@@ -85,7 +87,7 @@
 \newcommand{\e}{\epsilon}
 \newcommand{\OO}{\mathcal{O}}
 \newcommand{\FF}{\mathcal{F}}
-\newcommand{\GG}{\mathcal{G}}
+\newcommand{\cG}{\mathcal{G}}
 \newcommand{\HH}{\mathcal{H}}
 \newcommand{\EE}{\mathcal{E}}
 \newcommand{\CC}{\mathcal{C}}
@@ -96,7 +98,13 @@
 \DeclareMathOperator{\fm}{\mathfrak{m}}
 \DeclareMathOperator{\fM}{\mathfrak{M}}
 
-\DeclareMathOperator{\LT}{LT}
+
+\newcommand{\LC}{\text{LC}}
+\newcommand{\LM}{\text{LM}}
+\newcommand{\LT}{\text{LT}}
+\newcommand{\init}{\text{in}}
+
+
 \DeclareMathOperator{\cS}{\mathscr S}
 \DeclareMathOperator{\cR}{\mathscr R}
 \DeclareMathOperator{\cT}{\mathscr T}

@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1. Binary addition}
+Let’s leave the theory land and apply our knowledge in finite automata to some real problems.
+
+For any string $w \in \{0,1\}^*$, let $\langle w \rangle_2$ denote the integer represented by $w$ in binary. For example:
+\[
+\langle \epsilon \rangle_2 = 0, \quad
+\langle 0011 \rangle_2 = 3, \quad
+\langle 1010 \rangle_2 = 10, \quad
+\langle 1111 \rangle_2 = 15.
+\]
+
+Let $L$ and $L'$ be arbitrary automatic languages over the alphabet $\{0,1\}$. Prove that the following language is also automatic:
+\[
+\left\{ w \in \{0,1\}^* : \langle w \rangle_2 = \langle x \rangle_2 + \langle y \rangle_2 \text{ for some } x \in L, y \in L' \right\}.
+\]
+
+\textbf{Hint:} Try to prove first the case when both $L$ and $L'$ are languages containing a single binary integer.
+\end{problem}
+
+\begin{problem}{2. When does an NFA accept everything?}
+Let $N$ be an arbitrary NFA with $n$ states for some alphabet $\Sigma$ of size at least $2$. How long can the shortest word rejected by $N$ be?
+
+Put differently, let $L(N)$ be the language recognized by the NFA $N$, and define
+\[
+\Sigma^{\le f(n)} := \Sigma^0 \cup \cdots \cup \Sigma^{f(n)}.
+\]
+What is the smallest $f(n)$ such that
+\[
+\Sigma^{\le f(n)} \subseteq L(N) \implies L(N) = \Sigma^*?
+\]
+
+\begin{enumerate}
+\item [(a)] Prove that $f(n) \le 2^n$.
+
+\item [(b)] Consider the alphabet
+\[
+\Sigma := \left\{
+\begin{pmatrix}0\\0\end{pmatrix},
+\begin{pmatrix}0\\1\end{pmatrix},
+\begin{pmatrix}1\\0\end{pmatrix},
+\begin{pmatrix}1\\1\end{pmatrix},
+\#
+\right\}.
+\]
+
+Define $s_n$ to be the following word:
+\[
+s_n := \# 
+\begin{pmatrix}0\\0\end{pmatrix}
+\begin{pmatrix}0\\0\end{pmatrix}
+\cdots
+\begin{pmatrix}0\\1\end{pmatrix}
+\# 
+\begin{pmatrix}0\\0\end{pmatrix}
+\cdots
+\begin{pmatrix}1\\0\end{pmatrix}
+\# 
+\cdots 
+\#
+\begin{pmatrix}1\\1\end{pmatrix}
+\cdots
+\begin{pmatrix}0\\1\end{pmatrix}
+\#.
+\]
+
+Notice that if we drop the brackets, then we can interpret the $0$s and $1$s between two consecutive $\#$ symbols (referred to as a \emph{chunk}) as two binary numbers stacked on top of each other.
+
+If we read the top numbers in every chunk from left to right, they form a binary counter from $0$ to $2^n - 1$. For the bottom numbers, they form a binary counter from $1$ to $2^n$.
+
+For example,
+\[
+s_2 := \# 
+\begin{pmatrix}0\\0\end{pmatrix}
+\begin{pmatrix}0\\1\end{pmatrix}
+\#
+\begin{pmatrix}0\\1\end{pmatrix}
+\begin{pmatrix}1\\0\end{pmatrix}
+\#
+\begin{pmatrix}1\\1\end{pmatrix}
+\begin{pmatrix}0\\1\end{pmatrix}
+\#,
+\]
+the top numbers are $00, 01, 10$, and the bottom numbers are $01, 10, 11$.
+
+Construct an NFA recognizing the language $\Sigma^* \setminus \{s_n\}$.
+
+\textbf{Hint:} You need to build separate gadgets to check:
+\begin{itemize}
+\item each chunk between two consecutive $\#$ has length exactly $n$,
+\item the two counts within a chunk differ by one,
+\item the counts in adjacent chunks are consistent.
+\end{itemize}
+
+For full credit, you can use at most $C \cdot n + o(n)$ states for constant $C$. This shows $f(n) \ge \Omega(2^n / C)$.
+
+\item[$\star$ (c)] Prove or disprove that $f(n) \ge 2^{n - o(n)}$.
+\end{enumerate}
+\end{problem}
+
+
+
+
+\end{document}

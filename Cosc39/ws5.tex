@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Sophie Park'27, Carson Bates'27, and Kiran Jones'27. 
+
+\begin{problem}{1}
+    Let $L$ be an arbitrary automatic language. Prove that the following languages are also automatic.
+
+    \begin{enumerate}
+        \item  nosuffix$(L) := \{w \in L: \text{no proper suffix of $w$ is in $L$}\}$
+        % \item  nosuffix$(L) := \{w \in \Sigma^\star: \text{no proper suffix of $w$ is in $L$}\}$
+        \item suffix$(L) := \{y \in \Sigma^\star: x y \in L \text{ for some } x \in \Sigma^\star\}$
+        \item dropout$(L) := \{xz \in \Sigma^\star: xyz \in L \text{ for some } x, z \in \Sigma^\star \text{ and } y \in \Sigma\}$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $D$ be a DFA that recognize the automatic language $L$, described by the tuple $(Q,s,A,\Sigma, \delta)$. We now construct a new $\varepsilon$-DFA $N$ that recognizes the language rev(nosuffix$(L)$) as follows: 
+        \begin{itemize}
+            \item $Q_N = Q_D \cup \{s_N\}$.        
+            \item We add a new start state called $s_N$ with $\varepsilon$-transitions to all $a \in A_D$ where $A_D$ were the accepting states in $D$. 
+            \item $A_N = \{s_D\}$, where $s_D$ is the start state for $D$.  
+            \item For every transition $\delta_D(q, a) = q'$ in $D$ we add a transition $\delta_N (q', a) = q$ in $N$. And we remove every transition from $p$ to other states $q$ (even if $p = q$ if $p$ is an accepting state in $D$. That is, 
+            \[\delta(p, a) = \emptyset\] 
+            for every $p \in A$ and $a \in \Sigma$. 
+        \end{itemize}
+
+
+        We argue that $N$ accepts a string $w$ if and only if rev$(w) \in L$ and has no proper suffixes in $L$. 
+        
+        $(\implies)$
+        
+        Assume $N$ accepts $w$. Then there exists a path $\delta^\star_N(s_N, w) = s_D$ where, 
+        \[s_N \xrightarrow{\varepsilon} q \xrightarrow{w} s_D\]
+         for some $q \in A_D$. Then by construction (and reversal of transitions) we have $\delta^\star(s_D, \text{rev}(w)) = q \in A_D$. So rev$(w) \in L$. 
+        
+
+        For contradiction, assume that $\mathrm{rev}(w)$ has a proper suffix $\mathrm{rev}(y)$ such that $\mathrm{rev}(y) \in L$. Then we can write
+        \[
+        \mathrm{rev}(w) = \mathrm{rev}(x)\,\mathrm{rev}(y),
+        \]
+        so $w = yx$, where $y \neq w$. Then in $D$ we have, 
+        \[
+        s_D \xrightarrow{x} q \xrightarrow{y} q' \in A_D.
+        \]
+
+        But the reverse of this path in $N$ gives us a path
+        \[
+        A_D \ni q' \xrightarrow{\mathrm{rev}(y)} q \xrightarrow{\mathrm{rev}(x)} s_D \in A_N
+        \]
+
+        Since $q' \in A_D$, there is an $\varepsilon$-transition from $s_N$ to $q'$. So in $N$, we can start at $q'$ and follow the path $\mathrm{rev}(y)$ to reach $q$.
+
+        But by construction, we removed all outgoing transitions from accepting states in $D$. Thus, for any $a \in \Sigma$, we have
+        \[
+        \delta_N(q', a) = \emptyset.
+        \]
+        This means that rev$(w) \notin L(N)$, a contradiction. 
+        Hence, $\mathrm{rev}(w)$ has no proper suffix in $L$, and hence $\mathrm{rev}(w) \in \mathrm{nosuffix}(L)$.
+        
+        $(\impliedby)$
+
+        Assume $ w\in \text{nosuffix}(L)$. Then there exists some path $\delta^\star(s_D, w)  = q\in A$, and no proper suffix of $w$ is in $L$, meaning there is no shorter subset of this path that leads to acceptance. Then by construction $\delta'_N(s_N, \text{rev}(w)) = s_D \in A_N$. Hence, rev$(w) \in L(N)$.
+
+        Hence, $L(N) = $rev(nosuffix$(L)$) and it is automatic. Moreover from the previous worksheet we know that rev(rev(nosuffix$(L)$)) = nosuffix$(L)$ is also automatic. 
+
+        \newpage 
+        % Let $M=(Q,s,A,\Sigma,\delta)$ be a DFA that recognizes $L$. We can construct an NFA $N$ that is identical to $M$, except that for each state in $Q$ we add a non-deterministic transition that ``skips'' the next symbol. In other words, for every state $q \in Q \text{ and every } a,b\in \Sigma$, we add a transition on $a$ from $q$ to $\delta(\delta(q,a),b)$. To ensure that multiple characters are not skipped, we copy the remaining state space of the DFA once this non-deterministic transition is applied. By Kleene's theorem, as this NFA accepts $dropout(L)$, this is a regular language.
+
+        \item Let $D$ be a DFA that recognize the automatic language $L$, described by the tuple $(Q,s,A,\Sigma, \delta)$. We now construct a new NFA $D' = (Q', S', A', \Sigma', \delta')$ that recognizes the language suffix$(L)$ as follows: 
+        \begin{itemize}
+            \item States $Q': Q$
+            \item Starting states $S': Q$ (every state is a start state)
+            \item Accepting states $A': A$
+            \item Alphabet $\Sigma' : \Sigma$ 
+            \item Transition function $\delta': \delta$ 
+        \end{itemize}
+        We argue that $D'$ accepts a string if and only if it is a suffix of a string $D$ accepts.    
+        
+        $(\implies)$
+        
+        Assume $D'$ accepts $w$. Then $\delta^\star(q, w) \in A$ for some state $q$. But by construction of states and transitions we know that $q$ is a state of the DFA $D$ and there exists a string $x \in \Sigma^\star$ such that $\delta^\star(s,x) = q$. Then, 
+        \[\delta^\star(s, xy)  = \delta^\star(q, y) \in A\] 
+
+        So $xy \in L$ and $y \in $ suffix$(L)$. 
+        
+        
+        $(\impliedby)$
+
+        Assume $D$ accepts $xy$, then $y \in $ suffix$(L)$. Then $\delta^\star(s, xy) \in A$. Let $q = \delta^\star(s, x)$. Then $\delta^\star(q, y) \in A$. By construction we know that $q$ is a strating state in $D'$, and there exists a path $\delta'^\star(q,y) \in A'$.
+        
+        Hence, $y \in L(D')$ and $L(D') = \text{suffix}(L)$. 
+
+        Note since we know that for every NFA there exists an equivalent DFA, suffix$(L)$ is automatic. 
+
+        \newpage 
+        \item Let $D$ be a DFA  that recognize the automatic language $L$, described by the tupe $ (Q, s, A, \Sigma, \delta)$. We now construct an NFA $N$ that recognizes the languag dropout$(L)$ as follows:
+        \begin{itemize}
+            \item $Q_N = Q \times \{0,1\}$.
+            \item Start state: $(s,0)$.
+            \item Accepting states: $A_N = A \times \{1\}$.
+            \item Transitions:
+            \begin{itemize}
+                \item For all $q \in Q$ and $a \in \Sigma$,
+                \[
+                \delta_N((q,0), a) = (\delta(q,a),0).
+                \]
+                \item For all $q \in Q$ and $a \in \Sigma$,
+                \[
+                \delta_N((q,1), a) = (\delta(q,a),1).
+                \]
+                \item For all $q \in Q$, $a \in \Sigma$, and all $q'' \in Q$ such that there exists $q' \in Q$ and $b \in \Sigma$ with $\delta(q,a)=q'$ {and} $\delta(q',b)=q''$ we add a transition
+                \[
+                \delta_N((q,0), a) = (q'',1).
+                \]
+            \end{itemize}
+        \end{itemize}
+
+        The intuition is that we have two modes $`0'$ and $`1'$ where we are in mode $0$ before skipping $y$ and we are in mode $1$ after skipping $y$ (also note that there is no way to go from mode $1$ to mode $0$). We argue that $N$ accepts $w$ if and only if there exist $x,z \in \Sigma^\star$ and $y \in \Sigma$ such that $xyz \in L$ and $w = xz$.
+
+        $(\implies)$
+
+        Assume $N$ accepts $w$. Then there exists some path $\delta^\star_N((s,0), w) \in A_N$. 
+        By construction, an accepting run must use exactly one transition of the form
+        \[
+        (q,0) \to (q'',1),
+        \]
+        since this is the only way to move from mode $0$ to mode $1$, and all accepting states lie in mode $1$.
+        
+        
+        Hence $w$ must be some string $xyz$ where $x$ is the part of the input read before the switch, $y$ is the symbol skipped, and $z$ is the part of the input read after the switch. 
+
+        Since the transition $(q,0) \to (q'',1)$ is only defined when there exists a path in $D$ of the form
+        \[
+        \cdots \xrightarrow{} q \xrightarrow{a} q' \xrightarrow{y} q'' \xrightarrow{b} \cdots
+        \]
+        we have $xyz \in L$, and therefore $w = xz \in \text{dropout}(L)$.
+
+        $(\impliedby)$
+
+        Assume $w = xz$ and there exists $y \in \Sigma$ such that $xyz \in L$. Then $D$ has a path
+        \[
+        s \xrightarrow{x} q \xrightarrow{y} q' \xrightarrow{z} a
+        \]
+        for some $a \in A$.
+        By construction, in $N$ we have $\delta^\star_N((s, 0), x) = (q,0)$, and  $\delta_N^\star((q,0), z) = (a, 1)$. That is, we read $x$ in mode $0$, take the transition that skips $y$ and moves to mode $1$, and read $z$ in mode $1$. Thus $w \in A_N$.
+        
+        Hence dropout$(L) =L(N)$ and we know that for every NFA there exists an equivalent DFA and hence, dropout$(L)$ is automatic.
+    \end{enumerate}
+\end{solution}
+
+
+\end{document}

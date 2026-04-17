@@ -8,7 +8,7 @@
 
 \vspace{.1in}
 
-\textbf{Credit Statement:} \tism
+\textbf{Credit Statement:} \tism \, and Henry Scheible'26
 
 \begin{problem}{1}
     Show that if $h, h': X \to Y$ are homotopic and $k, k': Y\to Z$ are homotopic, then $k \circ h$ and $k' \circ h'$ is are homotopic. 
@@ -24,7 +24,7 @@
     Note that $F$ is the composition of continuous maps and hence is continuous. We verify initial and final points.  
     \[F(x,0) = F_k(F_h(x, 0),0) = F_k(h(x), 0) = k(h(x)) = k \circ h (x)\]
     \[F(x,1) = F_k(F_h(x, 1),1) = F_k(h'(x), 1) = k'(h'(x)) = k' \circ h' (x)\]
-    Therefore there exists a continuous deformation of $k \circ h$ to $k' \circ h'$, and $k \circ h \simeq k' \circ h$. 
+    Therefore there exists a continuous deformation of $k \circ h$ to $k' \circ h'$, and $k \circ h \simeq k' \circ h'$. 
 \end{solution}
 
 \newpage
@@ -32,7 +32,7 @@
 \begin{problem}{2}
     A space $X$ is said to be contractible if the identity map $i_x: X\to X$ is homotopic to a constant map. 
     \begin{enumerate}
-        \item Show that $I$ and $R$ are contractible. 
+        \item Show that $I$ and $\R$ are contractible. 
         \item Show that a contractible space is path connected. 
         \item Show that if $Y$ is contractible, then for any $X$ the set $[X, Y]$ has a single element. 
         \item Show that if $X$ is contractible and $Y$ is path connected, then $[X, Y]$ has a single element. 
@@ -42,9 +42,46 @@
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item 
+        \item Let $i: I \to I, \, i(x) = x$ be the identity map, and wlog let $e_{0}: I \to I, \, e_0(x) = 0$ be the constant map at zero. Then we define a map $H:I \times I \to I$ as follows, 
+        \[H(x,t) = tx\]
+        Note that $H$ is continuous (it is a polynomial) and for all $x, t \in [0,1]$ we have $tx \in [0,1]$. Moreover \[H(x, 0) = 0 = e_0(x) \quad \text{ and } \quad H(x, 1) = x = i(x)\] Hence $e_0 \simeq i$ and $I$ is contractible. 
+
+        \bbni 
+
+        Similarly, let $i: \R \to \R, \, i(x) = x$ be the identity map, and wlog let $e_{0}: \R \to \R, \,  e_0(x) = 0$ be the constant map at zero. Then we define a map $H:\R \times I \to \R$ as follows, 
+        \[H(x,t) = tx\]
+        Note that $H$ is continuous (it is a polynomial), and we have
+        \[H(x, 0) = 0 = e_0(x) \quad \text{ and } \quad H(x, 1) = x = i(x)\]
+        Hence $e_0 \simeq i$ and $\R$ is contractible. 
+
+        \item Let $X$ be a contractible space. Then for any two points $a, b \in X$ we know that $i_x \simeq e_a$ and $i_x \simeq e_b$. By transitivity of homotopy, we have $e_a \simeq e_b$ and there exists a continuous map $H(s,t)$ such that $H(x, 0) = e_a$ and $H(x, 1) = e_b$ for all $x \in X$. 
+        
+        Now fix any point $x_0$ and define the map $\varphi: I \to X$, where $\varphi(t) = H(x_0, t)$. Note that $\varphi$ is continuous because it is a restriction of $H$ and moreover $\varphi(0) = a$ and $\varphi(1) = b$. Since $a, b$ were arbitrary points in $X$ this holds for any two points and hence $X$ is path-connected. 
+        
+        \item Assume $Y$ is contractible. Let $X$ be another topological space, and $f, g: X \to Y$ be continuous maps. Let $c$ be some point in $Y$. Define a map $h: Y \to Y$ where $h(y) = c$, for all $y \in Y$. Note that, 
+        \[h \circ f = h \circ g \implies h \circ f \simeq h \circ g\]
+
+        Since $Y$ is contractible, by definition we have $id_Y \simeq h$. Then, 
+        \[id_Y \circ f \simeq id_Y \circ g \implies f \simeq g\]
+        Since $f,g$ were arbitrary maps this implies that any two continuous maps from $X$ to $Y$ are homotopic. Thus $|[X,Y]| = 1$.
+
+        \item Assume $X$ is contractible and $Y$ is path-connected.  Let $h: X \to X$ such that $h(x) = c$ for some constant point $c \in X$. Also let $f,g: X \to Y$ two continuous functions.
+        \[X \xrightarrow{h} X \underset{g}{\overset{f}{\rightrightarrows}} Y\]
+        Then, consider $g \circ h,\, f \circ h : X \to Y$. This gives us two points in $Y$, say $f(c) = a$ and $g(c) = b$ respectively. Since $Y$ is path connected there exists some function $p: I \to Y$ where $p(0) = a, p(1) =b$. Then we define a homotopy between $g \circ h$ and $f \circ h$ by $H: X \times I \to Y$, 
+        \[H(x, t) = p(t)\]
+        Then $H(x,0)$ gives us, 
+        \[H(x,0) = p(0) = a = f(c)\] 
+        and similarly, 
+        \[H(x,1) = p(1) = b = g(c)\] 
+        Thus,
+        \[g \circ h \simeq f \circ h\]
+        But since $X$ is contractible we have $h \simeq id_X$. So, we have 
+        \[g \circ id_X \simeq f \circ id_X \implies g \simeq f\]
+        Since $f,g$ were arbitrary maps this implies that any two continuous maps from $X$ to $Y$ are homotopic. Thus $|[X,Y]| = 1$.
     \end{enumerate}
 \end{solution}
+
+\newpage
 
 \begin{problem}{3}
     A subset $A$ of $\R^n$ is said to be star convex if for some point $a_0$ of $A$, all the line segments joining $a_0$ to other points of $A$ lie in $A$. 
@@ -55,13 +92,95 @@
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $(x, 0) \cup (0,y) \in \R^2$ is star convex at $(0,0)$ but not convex. 
+        \item Assume $A$ is star convex. Let $a_0$ be a point of $A$ that has line segments joining it to all other points of $A$. Note that by definition $A$ is path-connected. Then we only need to show that $\pi_1(A, a_0) \iso \{0\}$. 
+        
+        Let $p, q$ be loops based at $a_0$. Then we have the map $F$ defined as follows: 
+        \[F(x,t) = (1-t)p(x) + ta_0\]
+        where because $A$ is star convex with center $a_0$ the line segment joining $p(x)$ to $a_0$ lies in $A$, so $F(x,t) \in A$ for all $x,t \in I \times I$. 
+        Now note that $F$ is a path homotopy between $p$ and the constant function $e_{a_0}$ since 
+        \[F(x, 0) = p(x), \quad F(x, 1) = e_{a_0}(x)\] 
+        And 
+        \[F(0,t) = F(1,t) = a_0 \]
+        Similarly, we define the map $F'$, 
+        \[F'(x,t) = (1-t)q(x) + ta_0\]
+        which is a path homotopy between $q$ and the constant function $e_{a_0}$ since 
+        \[F'(x, 0) = q(x), \quad F(x, 1) = e_{a_0}(x)\] 
+        (again, since $A$ is star convex with center $a_0$ the line segment joining $q(x)$ to $a_0$ lies in $A$), and 
+        \[F(0,t) = F(1,t) = a_0 \]
+        By transitivity of path-homotopies we have, 
+        \[p \simeq e_{a_0} \simeq q \implies p \simeq q\]
+        Since $p, q$ were arbitrary loops based at $a_0$ this holds for any two loops and we have $\pi_1(A, a_0) \iso \{0\}$. Hence, a star convex space is simply connected.
+
+        \item From part (2) we know that if $A$ is star convex, it is simply connected. And Lemma 52.3 states that in any simply connected space, two paths having the same initial and final points are path homotopic. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{4}
-    Let $x_0$ and $x_1$ be two given points of the path-connected space $X$. Show that $\pi_1(X, x_0)$ is abelian if and only if for every pair $\alpha$ and $\beta$ of paths from $x_0$ to $x_1$, we have $\hat{\alpha} = \hat{\beta}$. 
+    Let $x_0$ and $x_1$ be two given points of the path-connected space $X$. Show that $\pi_1(X, x_0)$ is abelian if and only if for every pair $\alpha$ and $\beta$ of paths from $x_0$ to $x_1$, we have $\widehat{\alpha} = \widehat{\beta}$. 
 \end{problem}
+
+\begin{solution}
+    \bbni 
+
+    $(\implies)$ 
+
+    Assume $\pi_1(X, x_0)$ is abelian. Note that $[\alpha \star \overline{\beta}] \in \pi_1(X, x_0)$. 
+    For any $[f] \in \pi_1(X, x_0)$ we have
+    \begin{align*}
+        [f] \star [\alpha \star \overline{\beta}] &= [\alpha \star \overline{\beta}] \star [f] \\
+        [f] \star [\alpha] \star [\overline{\beta}] &= [\alpha] \star [\overline{\beta}] \star [f] \\
+        [\overline{\alpha}]\star[f] \star [\alpha] \star [\overline{\beta}]\star [\beta] &= [\overline{\alpha}]\star[\alpha] \star [\overline{\beta}] \star [f] \star [\beta]\\
+        [\overline{\alpha}] \star [f] \star [\alpha] &= [\overline{\beta}] \star [f] \star [\beta]\\
+        \widehat{\alpha}([f]) &=  \widehat{\beta}([f])
+    \end{align*}
+
+    Since $\alpha, \beta$, and $f$ were arbitrary choices this implies that for every pair $\alpha$ and $\beta$ of paths from $x_0$ to $x_1$, we have $\widehat{\alpha} = \widehat{\beta}$. 
+
+    $(\impliedby)$
+
+    Assume for every pair $\alpha, \beta$ of paths from $x_0$ to $x_1$ we have $\widehat{\alpha} = \widehat{\beta}$. In particular when $x_1 = x_0$ this holds for any pair of curves $[\gamma], [\delta]$ based at $x_0$. Then, 
+    \begin{align*}
+        \widehat{\gamma} ([\gamma]) &= \widehat{\delta}([\gamma]) \\
+        [\overline{\gamma}] \star [\gamma] \star [\gamma] &= [\overline{\delta}] \star [\gamma]\star[\delta] \\ 
+        [\delta] \star [\gamma] &= [\gamma] \star [\delta]
+    \end{align*}
+    Hence $\pi_1(X, x_0)$ is abelian. 
+
+    % We prove the contrapositive. Assume $\pi_1(X, x_0)$ is not abelian. Let $\alpha, \beta$ be paths from $x_0$ to $x_1$. Note that $[\alpha \star \overline{\beta}], [\beta] \star [\overline{\alpha}]\in \pi_1(X, x_0)$.
+    % \begin{align*}
+    %     [{\beta}] [\overline{\alpha}][\alpha] [\overline{\beta}]&\neq   [{\alpha}] [\overline{\beta}][\beta] [\overline{\alpha}] \\
+    %     [{\beta}]  [e_{x_0}][\overline{\beta}]&\neq   [{\alpha}] [e_{x_0}][\overline{\alpha}] \\ 
+    %     \widehat{\beta} &\neq \widehat{\alpha}
+    % \end{align*}
+    % Hence there exists a pair $\alpha$ and $\beta$ of paths from $x_0$ to $x_1$ such that $\widehat{\alpha} \neq \widehat{\beta}$. 
+\end{solution}
+
+\newpage
 
 \begin{problem}{5}
     Let $A$ be a subset of $\R^n$ let $h: (A, a_0) \to (Y, y_0)$. Show that if $h$ is extendable to a continuous map of $\R^n$ into $Y$, then $h_\star$ is the zero homomorphism (the trivial homomorphism that maps everything to the identity element). 
 \end{problem}
+
+\begin{solution}
+    \bbni 
+    
+    Let $i: A \hookrightarrow \R^n$. We also know that there exists a continuous map $\widetilde{h} : \R^n \to Y$, such that $\widetilde{h}|_A = h$. Then, 
+    \[h = \widetilde{h} \circ i\]
+    And over fundamental groups this implies, 
+    \[h_\star = \widetilde{h}_\star \circ i_\star \]
+    But from class we know that $\pi_1(\R^n, a_0) \iso \{e\}$. So, $i_\star$  must send every element to the identity. Then for any $[f] \in \pi_1(A, a_0)$
+
+    \[h_\star([f]) = \widetilde{h}_\star(i_\star([f])) = \widetilde{h}_\star(e) = e\]
+    Therefore $h_\star = \widetilde{h}_\star \circ i_\star$ is the trivial homomorphism. 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{6}
     Let $G$ be a topological group with operation $\cdot$ and the identity element $x_0$. Let $\Omega(G, x_0)$ denote the set of all loops in $G$ based at $x_0$. If $f, g \in \Omega(G, x_0)$, let us define a loop $f \otimes g$ by the rule 
@@ -74,9 +193,109 @@
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item Let $f, g \in \Omega(G, x_0)$.
+        \begin{itemize}
+            \item Identity: The constant function $e_{x_0}$ is the identity. 
+            \[(f \otimes e_{x_0})(s) = f(s) \cdot e_{x_0}(s) = f(s) = e_{x_0} (s)\cdot f(s) = (e_{x_0} \otimes f)(s) \]
+
+            \item  Associativity: For $f,g,h \in \Omega(G,x_0)$, $s \in I$, we have
+            \[
+            ((f \otimes g)\otimes h)(s)
+            = (f(s)\cdot g(s))\cdot h(s)
+            = f(s)\cdot (g(s)\cdot h(s))
+            = (f \otimes (g \otimes h))(s),
+            \]
+            where associativity follows from associativity of the group operation in $G$.
+            \item Closure under inverses: for any given loop $f$ we can define it's inverse as
+            \[f^{-1}(x) = (f(x))^{-1}\]
+
+            \item Closure under the operation: since $(f \otimes g)(0) = f(0)\cdot g(0) = x_0$ and $(f \otimes g)(1) = f(1)\cdot g(1) = x_0$ the group is closed under $\otimes$.
+        \end{itemize}
+
+        \item Let $[f], [g] \in \pi_1(G, x_0)$. We only need to show that $\otimes$ is well-defined on homotopy classes, because the other group axioms follow from (1). Let $f \simeq f'$ and $g \simeq g'$. We want to show that $f \otimes g \simeq f' \otimes g'$. 
+        
+        Then we have homotopies $P, Q: I \times I \to G$ where 
+        \[P(x,0) = f(x), \, P(x,1) =f'(x)\]  
+        and \[Q(x,0) = g(x), \, Q(x,1) = g'(x)\]
+
+        Then we define a map $H: I \times I \to G$, 
+        \[H(x, t) = P(x,t) \cdot Q(x,t)\]
+        Note that this is a path homotopy between $f \otimes g $ and $f' \otimes g'$ because the intiial and final points match,
+        \[H(0,t) = H(1, t) = x_0 \cdot x_0 = x_0\] 
+        $H(x,0) = f \otimes g$,  
+        \[H(x, 0) = P(x,0) \cdot Q(x,0) = f(x)\cdot g(x)\] 
+        and $H(x,1) = f' \otimes g'$,
+        \[H(x, 1) = P(x,1) \cdot Q(x,1) = f'(x)\cdot g'(x)\] 
+        Hence, $f \otimes g \simeq f' \otimes g'$, and thus the operation induces a group operation on $\pi_1(G, x_0)$. 
+
+        \item Note that since $f \simeq f \star e_{x_0}$ and $g \simeq e_{x_0} \star g  $ we have, 
+        \begin{align*}
+            f \otimes g = 
+            (f \star e_{x_0})\otimes(e_{x_0}\star g)(s) &=  \begin{cases*}
+                f(2s), & $s \in \left[0, \frac{1}{2}\right]$ \\ 
+                g(2s-1), & $s \in \left[\frac{1}{2}, 1\right]$
+            \end{cases*} 
+            = f \star g
+        \end{align*}
+       
+        \item From (3) we know that $(f \star e_{x_0})\otimes(e_{x_0}\star g)(s) =  f \star g$ and that $g \star f = g \otimes f$. Now observe that, 
+        \[ g \otimes f = (e_{x_0} \star g)\otimes(f \star e_{x_0})(s) =  \begin{cases*}
+                f(2s), & $s \in \left[0, \frac{1}{2}\right]$ \\ 
+                g(2s-1), & $s \in \left[\frac{1}{2}, 1\right]$
+            \end{cases*} 
+            = f \star g\]
+        That is, $f \star g = g \star f$. Since $f,g$ were arbitrary loops in $\pi_1(G, x_0)$, the fundamental group is abelian.
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{7}
-    Show that the map $f: S^1 \to S^1$, defined as $f(z) = z^n$ for $z \in S^1 \subset \C$, is a covering map. Here we think of $S^1$ as $\{z \in \C, \text{ such that } |x| = 1\}$.
+    Show that the map $f: S^1 \to S^1$, defined as $f(z) = z^n$ for $z \in S^1 \subset \C$, is a covering map. Here we think of $S^1$ as $\{z \in \C, \text{ such that } |z| = 1\}$.
 \end{problem}
 
+\begin{solution}
+    \bbni
 
+    Note that $z = e^{i \theta}$ for all $z \in S^1$. Then we have, 
+    \[f(z) = f(e^{i\theta}) = e^{n i \theta}\]
+
+    We will construct an evenly covered neighborhood $U$ for every point $z_0 \in S^1$. Let $z_0  = e^{i\phi}$.  
+
+    Pick $\varepsilon = \pi/n$, and define an open neighborhood of $z_0$
+    \[U := (e^{i(\phi - \varepsilon)}, e^{i(\phi+\varepsilon)})\]
+    
+    Note that $f(e^{i\theta}) \in U$ if and only if $e^{in \theta} = e^\alpha$ for some $\alpha \in  (\phi - \varepsilon, \phi + \varepsilon)$. 
+    But since $e^{i\theta}$ is $2 \pi$ periodic this is equivalent to, 
+    \[f(e^{i\theta}) \in U \iff  n\theta \in  (\phi - \varepsilon + 2\pi k, \phi + \varepsilon + 2 \pi k)\]
+    for some $k \in \Z$. Dividing by $n$ gives us,
+    \[
+    \theta \in \left(\frac{\phi - \varepsilon}{n} + \frac{2\pi k}{n},\;
+    \frac{\phi + \varepsilon}{n} + \frac{2\pi k}{n}\right).
+    \]
+    Because $2\varepsilon < \frac{2\pi}{n}$, these intervals are pairwise disjoint modulo $2\pi$, and there are exactly $n$ distinct choices of $k = 0,1,\dots,n-1$ (Since for $k =n$, we have $\theta + 2\pi k / n \equiv \theta + 2\pi \equiv \theta$).
+    Now for each $k$ we define, 
+    \[
+    V_k := \left\{ e^{i\theta} : \theta \in \left(\frac{\phi - \varepsilon}{n} + \frac{2\pi k}{n},\;
+    \frac{\phi + \varepsilon}{n} + \frac{2\pi k}{n}\right) \right\}.
+    \]
+    where $V_k$ is open in $S^1$, the sets $V_k$ are disjoint, and
+    \[
+    f^{-1}(U) = \bigsqcup_{k=0}^{n-1} V_k.
+    \]
+
+    Now for each $k$ the restriction
+    \[
+    f|_{V_k} : V_k \to U
+    \]
+    is a homeomorphism. Note that it is continuous (because it is the restriction of a continuous function), bijective, and its inverse is given by
+    \[
+    e^{i\alpha} \mapsto e^{i(\alpha + 2\pi k)/n}
+    \]
+    which is continuous on $U$ because $U$ lies in an arc of length less than $2\pi$. 
+    Thus every point $z_0 \in S^1$ has an evenly covered neighborhood, and $f$ is a covering map.
+\end{solution}
 \end{document}
