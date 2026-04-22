@@ -213,9 +213,9 @@
     Let $\alpha$ be a path from $x_0$ to $x_1$, where $x_0, x_1 \in X$. We define a map $\widehat{\alpha}: \pi_1 (X, x_0) \to \pi_1(X, x_1)$ such that 
     \[\widehat{\alpha}([f]) := [\overline{\alpha}] \star [f] \star [\alpha] =[\overline{\alpha}\star f \star \alpha]  \]
 \end{definition}
-\begin{prop}
+\begin{proposition}
     $\widehat{\alpha}$ is well-defined and an isomorphism. 
-\end{prop}
+\end{proposition}
 
 \begin{proof}
     Let $f \simeq_p f'$. We need to check that 
@@ -247,9 +247,9 @@
     Let $h: X \to Y$ be a continuous map such that $h(x_0) = y_0$, $x_0 \in X, y_0 \in Y$. Then define $h_\star: \pi_1(X, x_0) \to \pi_1(Y, y_0)$ by $h_\star([f]) = [h \circ f]$. This is a \textbf{push-forward} map. 
 \end{definition}
 
-\begin{prop}
+\begin{proposition}
     $h_\star$ is a well-defined homomorphism. 
-\end{prop}
+\end{proposition}
 
 \begin{proof}
     Let $f \simeq_p f'$. We need to check that $h \circ f \simeq_p h \circ f'$. 
@@ -492,4 +492,192 @@
 \begin{proof}
     HW1 iirc
 \end{proof}
+
+\begin{theorem}
+    \[\pi_1(\mathbb{R}^2 \setminus \{(0,0)\}, b_0) \cong \mathbb{Z} \cong \pi_1(S^1), \quad b_0 \in S^1.\]
+\end{theorem}
+
+\begin{proof}
+    Let $x_0 \in S^1$. Then the inclusion map
+    \[
+    J : (S^1, b_0) \to (\mathbb{R}^2 \setminus \{(0,0)\}, b_0)
+    \]
+    induces an isomorphism
+    \[
+    J_* : \pi_1(S^1, b_0) \to \pi_1(\mathbb{R}^2 \setminus \{(0,0)\}, b_0).
+    \]
+
+    Consider
+    \[
+    r : \mathbb{R}^2 \to S^1, \quad r(x) = \frac{x}{\|x\|}.
+    \]
+
+    Observe that $r \circ J = \mathrm{id}$, thus
+    \[
+    r_* \circ J_* = \mathrm{id}.
+    \]
+    Thus $J_*$ is injective.
+
+    Choose $[f] \in \pi_1(\mathbb{R}^2 \setminus \{(0,0)\}, b_0)$. Recall that,
+    \[
+    J_* \circ r_*([f])
+    \]
+    is explicitly $J \circ r \circ f$. Let
+    \[
+    g(s) = \frac{f(s)}{\|f(s)\|}.
+    \]
+
+    Next show $g \simeq_p f$. Define
+    \[
+    F : I^2 \to \mathbb{R}^2 \setminus \{(0,0)\}
+    \]
+    such that
+    \[
+    F(s,t) = t \cdot \frac{f(s)}{\|f(s)\|} + (1 - t) f(s).
+    \]
+
+    $F$ is the straight line homotopy and does not cross $0$.
+
+    Since $f(s) \neq 0$ by definition, suppose
+    \[
+    t \cdot \frac{1}{\|f(s)\|} + (1 - t) = 0
+    \]
+    implies $\|f(s)\|$ negative or $t \notin [0,1]$.
+
+    Thus $F$ is well-defined, since $f \simeq_p g$,
+    \[
+    J_* \circ r_*([f]) = [f].
+    \]
+
+    Thus surjection.
+\end{proof}
+
+\newpage 
+
+\section{Retractions}
+
+\begin{definition}
+    If $A$ is a subspace of $X$ s.t. $\exists$ a map
+    \[r : X \to A\]
+    with $r(a) = a$ for all $a \in A$, then we say $A$ is a retract of $X$ and $r$ is a retraction map from $X$ to $A$.
+\end{definition}
+
+\begin{definition}
+     Let $A$ be a subspace of $X$. $A$ is a deformation retract of $X$ if there exists a homotopy
+    \[H : X \times I \to X\]
+    such that
+    \[H(x,0) = x \quad \forall x \in X,\]
+    \[H(x,1) \in A,\]
+    \[H(a,t) = a.\]
+\end{definition}
+
+\begin{theorem}
+    Let $A$ be a deformation retract of $X$. Then $j: (A, x_0) \hookrightarrow (X,x_0)$ induces an isomorphism in $\pi_1(A, x_0)$ to $\pi_1(X,x_0)$. If $A$ in a retract of $X$, then $j$ is injective. 
+\end{theorem}
+
+\begin{proof}
+    \todo{hw}
+\end{proof}
+
+\begin{remark}
+    If $X$ deformation retracts to $A$. then $\pi_1(X) \cong \pi_1(A)$. 
+\end{remark}
+
+\begin{remark}
+    Let $\iota: A \hookrightarrow X$ then $\iota_\star: \pi_1(A) \to \pi_1(X)$ is injective if $X$ only retracts to $A$. \todo{only retracts??}
+\end{remark}
+
+\section{Applications of $\pi_1$-Computations}
+
+\begin{theorem}[Brouwer-Fixed Point Theorem]
+    Every map $h: D^2 \to D^2$ has a fixed point, i.e. $h(x) = x$ for at least one $x \in D^2$. 
+\end{theorem}
+
+\begin{proof}
+    Suppose towards contradiction $h(x) \neq x$ for all $x \in D^2$. Define a function $\gamma: D^2 \to S^1$ as follows: 
+    consider the straight line starting at $h(x)$ and going to $x$. Define $r(x)$ as the intersection of that line with $\delta D^2 = S^1$. Now $r$ is a continuous function, and $r|_{S^1} = Id_{S^1}$. That is, $r$ is a retraction of $D^2$ to $S^1$. 
+    
+    Since for the inclusion $\iota: S^1 \hookrightarrow D^2$ we should have $\pi_1(S^1, (1,0)) \xrightarrow{\iota_\star} \pi_1(D^2, (1,0))$ is an injection which gives a contradiction. 
+\end{proof}
+
+\begin{theorem}[Borsuk-Ulam Theorem]
+    Every map $f: S^2 \to \R^2$ has a pair of anti-podal points ($x$ is an antipode of $-x$, $x \in S^2$) in $S^2$ such that $f(x) = f(-x)$. 
+\end{theorem}
+
+\begin{proof}
+    Suppose that this is false. Then $f(x) \neq f(-x)$ for all $x \in S^2$. We define $g: S^2 \to S^1$ by 
+    \[g(x) = \frac{f(x) - (-x)}{\|f(x) - f(-x)\|}\]
+    Define a loop $\eta$ by the equator that lies in the $X-Y$ plane of $S^2$. 
+    \[\eta(S) = (\cos(2\pi s), \sin(2\pi s), 0), \, s \in [0,1]\]
+    and let $h: I \to S^1$ defined by $h := g \circ \eta$. Note that since $g(x) = -g(-x)$ we have $h(s + \frac{1}{2})  = - h(s)$ for all $s \in \left[0, \frac{1}{2}\right]$. 
+
+    \begin{align*}
+        g(\cos(2\pi (s + 1/2)), \sin(2\pi (s + 1/2)), 0) &= g(-\cos(2 \pi s, - \sin (2 \pi s), 0)) \\ 
+        &= -g(\cos(2 \pi s), \sin (2 \pi s), 0)
+    \end{align*}
+    By path-lifting lemma, we can lift $h$ to a path in $\R$, say $\widetilde{h}$ starting at $0$ such that 
+    \[\widetilde{h} \left(s + \frac{1}{2}\right) = \widetilde{h}(s) + \frac{q(s)}{2}\]
+    for some odd integer values $q(s)$. But now, ${q}(s) = 2(\widetilde{h}\left(s + \frac{1}{2}\right) - \widetilde{h}(s))$ and hence it is also a continuous function. This implies $q(s)$ is a constant map (since the domain of $q$ is conected), i.e. $\widetilde{h} \left(s + \frac{1}{2}\right) = \widetilde{h}(s) + \frac{q}{2}$. 
+
+    \[\widetilde{h}(1) = \widetilde{h}\left(\frac{1}{2}\right) + \frac{q}{2} = \widetilde{h}(0) + q\]
+
+    This implies $\widetilde{h}(1) =q$ and hence $[h] \in \pi_1(S^1, (1,0))$ is not homotopic to the identity. But since $\eta$ is nullhomotopic in $S^2$, $g \circ \eta$ is homotopic to a constant map $[h] = 0 \in \pi_1(S^1, (1,0))$. A contradiction! 
+\end{proof}
+
+\section{Homotopy Equivalences}
+
+\begin{theorem}
+    $\pi_1(X \times Y, x_0 \times y_0) \iso \pi_1(X, x_0) \times \pi_1(Y, y_0)$ for any pair of topological spaces $X$ and $Y$. 
+\end{theorem}
+
+\begin{proof}
+    Let $P_1: X\times Y \to X$ and $P_2: X \times Y \to Y$ be the respective projections. 
+    \[\phi: \pi_1(X \times Y, x_0 \times y_0) \to \pi_1(X, x_0) \times \pi_1(Y, y_0)\]
+    where
+    \[\phi([f]) = (P_1)_\star[f] \times (P_2)_\star[f]\]
+    
+    $\phi$ is surjective: Let $[g] \in \pi_1(X, x_0)$ and $[h] \in \pi_1(Y, y_0)$. Then define $[g] \times [h]: I \to X \times Y$ by $s \mapsto g(s) \times h(s)$. Then $\phi([g\times h]) = [g] \times [h]$. 
+    
+    $\phi$ is injective: Suppose that $[f] \in \pi_1(X \times Y, x_0 \times y_0)$ such that $\phi([f]) = (P_1)_\star([f]) \times (P_2)_\star([f]) = 0$. Then $P_1 \circ f \simeq_p e_{x_0}$ and $P_2 \circ f \simeq_p e_{x_1}$ by homotopies $F_t$ ans $G_t$. 
+
+    Then, $F_t \times G_t: I \to X \times Y$ gives $f \simeq_p e_{x_0 \times y_0} \implies [f] =0$. 
+
+    $\implies \pi_1(S^1 \times S^1) \iso \Z \times \Z$. 
+\end{proof}
+
+\begin{definition}
+    We say $f: X \to Y$ is a homotopy equivalence if there exists a $g: Y \to X$ such that $f \circ g \simeq id_Y$ and $g \circ f \simeq id_X$. Then we say that $X$ is homotopy equivalent to $Y$ and write it as $X \simeq_h Y$.
+\end{definition}
+
+\begin{remark}
+    Homotopy equivalence is an equivalence relation on topological spaces. 
+\end{remark}
+
+\begin{proposition}
+    Suppose that $X$ deformation retracts to $A$. Then $X \simeq_h A$. 
+\end{proposition}
+
+\begin{proof}
+    Let $H_t: X \to A$ be the deformation retraction. Then consider $H_1(X) \subseteq A$, and $H_1|_A = id$. Let us call $r: = H_1$ and let $\iota: A \hookrightarrow X$ be the inclusion map. Then $r \simeq id \implies 
+    \iota \circ r \simeq id$ and $r \circ \iota = id \implies X \simeq_h A$.  
+\end{proof}
+
+\begin{remark}
+    Note not all homotopy equivalence come from deformation retractions. 
+\end{remark}
+
+\begin{remark}
+    $\pi_1$ is not only an invariant of homeomorphism class of a topological space but also an invariant of the homotopy equivalence class of the space. 
+\end{remark}
+
+\begin{theorem}
+    Let $\phi : X\to Y$ be a homotopy equivalence. Then $\phi_\star: \pi_1(X, x_0) \to \pi_1(Y, \phi(x_0))$ is an isomorphism. 
+\end{theorem}
+
+\begin{lemma}
+    If $\phi_t: X\to Y$ be a homotopy and $h$ is the path given by $\phi_t(x_0)$ for a choice of $x_0 \in X$, then we have $(\phi_0)_\star = \widehat{\overline{h}}((\phi_1)_\star)$ on $\phi_1(X, x_0)$.
+\end{lemma}
+
 \end{document}
+
+

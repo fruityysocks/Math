@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} \tism 
+
+\begin{problem} {1}
+    \begin{enumerate}
+        \item [(a)] Let $p: (E, e_0) \to (B, b_0)$ be a covering map. Suppose that $E$ is path-connected. Then show that there is a surjection, 
+        \[\phi: \pi_1(B,b_0) \to p^{-1}(b_0)\]
+        \item [(b)] Moreover, if $E$ is simply connected, then $\phi$ is a bijection. 
+        
+        \textbf{Hint:} Try to modify the computation of $\pi_1(S^1, (1.0))$ for the first and second part.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)]
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{2}
+    Let $P: E \to B$ be a covering map, with $B$ connected. Then if $p^{-1}(b_0)$ has $k$-many elements fr some finite number $k$, $p^{-1}(b)$ also has $k$-many elements for every $b \in B$. 
+\end{problem}
+
+\begin{problem}{3}
+    If $p: E \to B$ is a covering map with $E$ path-connected and $B$ simply-connected. Then $\phi$ is a homeomorphism.
+\end{problem}
+
+\begin{problem}{4}
+     If $p: E \to B$ and $p': E' \to B'$ are covering maps, then so is $p \times p': E \times E' \to B \times B'$, where $p \times p'$ is defined in an obvious manner.
+\end{problem}
+
+\begin{problem}{5}
+    Show that if a subspace $A$ is a deformation retraction of a space $X$, and another subspace $B$ is a deformation retraction of $A$, then $B$ is a deformation retraction of $X$.
+\end{problem}
+
+\begin{problem}{6}
+    If a space retracts onto a subspace $A$, then the homomorphism on the fundamental group inducted by the inclusion $\iota : A \hookrightarrow X$ is injective. If $A$ is a deformation retract of $X$, then $\iota_\star$ is an isomorphism. 
+\end{problem}
+
+\begin{problem}{7}
+    Show that if a space $X$ deformation retracts to a point $x \in X$ , then for each neighborhood $U$ of $x$ in $X$ there exists a neighborhood $V \subset U$ of $x$ such that the inclusion map $V \hookrightarrow U$ is nullhomotopic (nullhomotopic means homotopic to a constant map).
+\end{problem}
+
+\begin{problem}{8}
+    \begin{enumerate}
+        \item [(a)] Let $X$ be the subspace of $\R^2$ consisting of the horizontal segment $[0, 1] \times {0}$ together with all the vertical segments ${r } \times [0, 1 - r ]$ for $r$ a rational number in $[0, 1]$. Show that $X$ deformation retracts to any point in the segment $[0, 1] \times {0}$, but not to any other point. [See the preceding problem.]
+        \item  Let $Y$ be the subspace of $\R^2$ that is the union of an infinite number of copies of $X$ arranged as in the figure below. Show that $Y$ is contractible but does not deformation retract onto any point.
+        \begin{center}
+            \includegraphics[width=5in]{hw2.Q8b.png}
+        \end{center}
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{9}
+    Define $f: S^1\times I \to S^1 \times I$ by  $f (\theta, s) = (\theta + 2\pi s, s)$, so $f$ restricts to the identity on the two boundary circles of $S^1 \times I$. Show that $f$ is homotopic to the identity by a homotopy $f_t$ that is stationary on one of the boundary circles, but not by any homotopy $f_t$ that is stationary on both boundary circles. [Consider what $f$ does to the path $s \mapsto (\theta_0, s)$ for fixed $\theta_0 \in S^1$]. 
+\end{problem}
+\end{document}

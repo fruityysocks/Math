@@ -24,7 +24,7 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{lemmact}[theorem]{Lemmact}
-\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}{Example}[section]
 
@@ -174,15 +174,14 @@
 \renewcommand{\floor}[1]{\oldfloor*{#1}}
 
 
-
-\newcommand{\circled}[1]{
+\newcommand{\circled}[2][]{
   \tikz[baseline=(char.base)]{
-    \node[shape=circle, draw, inner sep=1.5pt] (char) {$#1$};
+    \node[shape=circle, draw, inner sep=1.5pt, #1] (char) {$#2$};
   }
 }
-\newcommand{\dcircled}[1]{
+\newcommand{\dcircled}[2][]{
   \tikz[baseline=(X.base)]{
-    \node[circle, draw, double, double distance=2pt, inner sep=1.5pt] (X) {$#1$};
+    \node[circle, draw, double, double distance=2pt, inner sep=1.5pt, #1] (X) {$#2$};
   }
 }
 

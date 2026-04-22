@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Carson Bates'27, and Kiran Jones'27.
+
+\begin{problem}{1}
+    Find a fooling set of infinite size for each of the following languages, thus showing that all of
+    them are non-regular:
+    \begin{enumerate}
+        \item $L_1 := \{0^m1^n : n \text{ divides } m \text{ and }n, m > 0\}$
+        \item $L_2 := \{ww: w \in \{0,1\}^\star\}$
+        \item $L_3 := \{ww^R: w \in \Sigma^\star\}$ (These are even-length palindromes. A palindrome is a string that reads the same forward and backward.)
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item Define the fooling set as $F := \{0^m \mid m \in \N\}$.  Then for two arbitrary prefixes $0^i, \, 0^j \in F$ with $i < j$, let the distinguishing suffix be $1^j$.  Then we have, 
+        \begin{itemize}
+            \item $0^i1^j \notin L_1$, because $i$ is smaller than $j$ and hence is not divisible. 
+            \item $0^j1^j \in  L_1$, because $j$ divides $j$. 
+        \end{itemize}
+        This implies that $F$ is a fooling set of infinite size, and thus $L_1$ is not regular.
+
+        \item Define the fooling set as $F := \{0^m1 \mid m \in \N\}$.  Then for two arbitrary prefixes $0^i1, \, 0^j1 \in F$ with $i \neq j$, let the distinguishing suffix be $0^j1$.  Then we have, 
+        \begin{itemize}
+            \item $0^i10^j1 \notin L_2$ since $i \neq j$ we can't break the string into two equal substrings. 
+            \item $0^j10^j1 \in L_2$ with $w = 0^j1$. 
+        \end{itemize}
+        This implies that $F$ is a fooling set of infinite size, and thus $L_2$ is not regular.
+
+        \item Define the fooling set as  $F:= \{0^m11 \mid m \in \N\}$, Then for two arbitrary prefixes $0^i11, \, 0^j11 \in F$ with $i \neq j$, let the distinguishing suffix be $0^j$.  Then we have,
+         \begin{itemize}
+            \item $0^i110^j \notin L_3$ since $i \neq j$ we can't break the string into $w$ and $w^R$. 
+            \item $0^j110^j \in  L_3$ with $w = 0^j1$.  
+        \end{itemize}
+        This implies that $F$ is a fooling set of infinite size, and thus $L_3$ is not regular.
+    \end{enumerate}
+\end{solution}
+
+\end{document}
