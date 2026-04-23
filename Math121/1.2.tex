@@ -1,0 +1,416 @@
+\documentclass[Notebook.tex]{subfiles}
+
+\begin{document}
+
+
+\ifSubfilesClassLoaded{
+    \input{title}
+}{}
+
+\begin{center}
+	{Worksheet 1.2: Quotients, Primes, Maximal Ideals}
+\end{center}
+
+\begin{problem}{1} 
+    \textbf{Operations on Ideals.} 
+    
+    Throughout this problem let $I$ and $J$ be ideals in a ring $R$.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+		\item Prove or disprove that $I \cap J$ is an ideal. 
+		\item Prove or disprove that $I \cup J$ is an ideal.
+		\item Prove or disprove that the product of ideals, defined below, is an ideal:
+		\[
+		IJ \coloneqq \left\{ a_1b_1+\cdots+a_tb_t\;\; \big| \;\; a_i\in I\;\; b_i \in J, \; \; \text{for all $t$}\right\}.
+		\]
+		\item Prove or disprove that the sum of ideals, defined below, is an ideal:
+		\[
+		I + J \coloneqq \left\{ a + b \;\; \big| \;\; a \in I\;\; b \in J\right\}.
+		\]
+		\item Prove or disprove that the radical of an ideal, defined below, is an ideal:
+		\[
+		\sqrt{I} \coloneqq \left\{ a \in R \;\; \big| \;\; a^{k} \in I \text{ for some $k\in \Z_{\geq1}$} \right\}.
+		\]
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item $I \cap J$ is an ideal. 
+        
+        Let $a, b \in I \cap J$, $r \in R$.  
+
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item $I \cap J$ is a subgroup because intersection of subgroups is a subgroup. 
+            \item Note that $a, b \in I, J$. Since $I$ and $J$ are closed under addition and inverses, $a - b \in I, J$. Hence $a - b \in I, J$
+            \item $r \cdot a \in I \cap J$ since $ra \in I$ and $ra \in J$. 
+        \end{enumerate}
+
+        Hence $I \cap J$ is an additive subgroup of $R$ and is closed under multiplication from elements of $R$. 
+
+        \item $I \cup J$ is not an ideal. 
+        
+        Consider the ideals $I = \langle 2 \rangle, \, J = \langle 3 \rangle$ in the ring $R = \Z$. Note that $5 \notin I \cup J$ even though $2,3 \in I \cup J$. Hence, $I \cup J$ is not closed under addition and is not an ideal.
+
+        \item $IJ$ is an ideal. 
+        
+        Let $s\in IJ$, $r \in R$.  
+
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item By definition, $IJ$ includes all finite sums of elements in $I, J$. So it contains $0$ and is closed under addition and inverses. Hence it is an additive subgroup. 
+            \item Consider $r \cdot s \in I J$. 
+            \[r \cdot s = r (a_1b_1+\cdots+a_tb_t) = r \cdot a_1b_1+\cdots+ r \cdot a_tb_t\]
+
+            Note that $r \cdot a_i \in I$ for all $i$ and thus $rs \in IJ$ for all $r$.  
+        \end{enumerate}
+        Hence $I J$ is an additive subgroup of $R$ and is closed under multiplication from elements of $R$. 
+
+        \item $I + J$ is an ideal. 
+        
+        Let $p = a_1+b_1, \, q = a_2 + b_2 \in I + J$, $r \in R$.  
+
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item Note that $0 \in I + J$ since $0 \in I, J$. 
+            \item Consider $p - q$. 
+            \[p + q  = a_1+b_1 - (a_2 + b_2 ) = (a_1 - a_2) + (b_1 - b_2)\]
+
+            Note that $(a_1 - a_2) = a$ for some $a\in I$  and $(b_1 - b_2) = b$ for some $b \in I$. Hence, $I + J$ contains zero and is closed under addition and inverses and thus is an additive subgroup. 
+
+            \item Consider $r \cdot p$. 
+            \[r \cdot p = r \cdot (a_1 + b_1) = r a_1 + r b_1\]
+
+            Note that $ra_1 \in I$ and $rb_1 \in J$ by definition of ideals. Hence $rp \in I + J$. 
+        \end{enumerate}
+        Thus $I+J$ is an additive subgroup of $R$ and is closed under multiplication from elements of $R$. 
+
+        \item $\sqrt{I}$ is an ideal. 
+        
+        Let $a^n, b^m \in I$, and $a, b, r \in R$.  
+
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item Note that $0 \in \sqrt{I}$ since $0^1 \in I$. 
+            \item Consider $(a-b)^{nm}$. 
+            \[(a-b)^{nm} = \sum_{i=0}^{nm} \binom{nm}{i}(a)^i(-b)^{nm-i}\]
+
+            \begin{itemize}
+                \item If $i \geq n$, then $a^n \in I \implies  \binom{nm}{i}(a)^i(-b)^{nm-i} \in I$. 
+                \item If $i < n$, then $nm - i > nm -n = n(m-1) = nm - i \geq m$. 
+                And $ b^{m} \in I \implies  \binom{nm}{i}(a)^i(-b)^{nm-i} \in I$. 
+            \end{itemize}
+            Since every term in the sum lies in $I$, the whole sum lies in $I$. So $a-b \in \sqrt{I}$.
+            
+            \item Note that if $a^n \in I$ then $(ra)^n \in I$. Hence $ra \in \sqrt{I}$. 
+        \end{enumerate}
+        Thus $\sqrt{I}$ is an additive subgroup of $R$ and is closed under multiplication from elements of $R$. 
+    \end{enumerate}
+\end{solution}
+	
+\newpage 
+
+\begin{problem}{2}
+    Let $\K$ be a field. The rings $\Z$, $\K[x]$, and $\K[[t]]$ are all principal ideal domains (PIDs) meaning domains where every ideal is generated by a single element. If $I= \langle a \rangle$ and $J = \langle b \rangle$ give, with proof, a careful concrete description of generators for $IJ$, $I\cap J$, $I+J$, and $\sqrt{I}$ in each of these rings.
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+
+    Let $I =  \langle a \rangle, \, J = \langle b \rangle$. Then, we have 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item $\Z$ 
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item $IJ = \langle ab \rangle$ 
+            \item $I \cap J = \langle \text{lcm} (a,b) \rangle$ 
+            \item $I + J = \langle \gcd (a, b) \rangle$ 
+            \item Let $a = p_1^{e_1}\cdots p_k^{e_k}$, then $\sqrt{I} = \langle p_1\cdots p_k \rangle$, where $p_i$ is a prime element. 
+        \end{enumerate}
+        \item $\K[x]$
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item $IJ = \langle ab \rangle$ 
+            \item $I \cap J = \langle \text{lcm} (a,b) \rangle$ 
+            \item $I + J = \langle \gcd (a, b)\rangle$ 
+            \item Let $a = p_1^{e_1}\cdots p_k^{e_k}$, then $\sqrt{I} = \langle p_1\cdots p_k \rangle$, where $p_i$ is an irreducible element. 
+        \end{enumerate}
+        \item $\K[[t]]$
+        Note that elements of $\K[[t]]$ are of two forms: $a \in \K$ or $a \cdot t^n, \, a\in \K$. So all proper ideals are of the form $\langle 0 \rangle$ or $\langle t^n \rangle$. Let $I = \langle t^n \rangle, \, J = \langle t^m \rangle$. 
+        If $I$ is trivial, then $IJ = I \cap J = \sqrt{I} = \langle 0 \rangle$, and $I + J = J$. Assuming neither $I$ nor $J$ are trivial we have,
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+            \item $IJ = \langle t^{n+m}\rangle$ 
+            \item $I \cap J = \langle t^{\max(n,m)} \rangle$ 
+            \item $I + J = \langle t^{\min(n,m)}\rangle$ 
+            \item $\sqrt{I} = \langle t \rangle$. 
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\hrulefill
+
+\textbf{Universal Properties.} Throughout this course we will see numerous constructions and operations (e.g., quotients, tensor products, localizations, completions, etc.) each of these will have an explicit construction where we describe the objects precisely as sets. However, there is an alternative perspective, which is just as useful, describing these objects via their \emph{universal properties}, which roughly asks what makes each object special amongst all other such objects. The standard framework for a universal property is, ``Object X is unique up to isomorphism among all objects having property P.''
+
+\hrulefill
+
+
+\begin{problem}{3}
+    \textbf{Universal Property of Quotients.} 
+    
+    Let $R$ be a ring and $I \subseteq R$ an ideal. Let $\pi\colon R \to R/I$ be the quotient map. Suppose $\varphi \colon R \to S$ is a ring homomorphism such that $I \subseteq \ker(\varphi)$. Define a function
+    \[
+    \widetilde{\varphi} \colon R/I \to S
+    \quad \text{by} \quad
+    \widetilde{\varphi}(r+I)=\varphi(r).
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    	\item Prove that $\widetilde{\varphi}$ is well-defined.
+
+    	\item Prove that $\widetilde{\varphi}$ is a ring homomorphism.
+
+    	\item Prove that $\widetilde{\varphi} \circ \pi = \varphi$.
+
+    	\item Prove that $\widetilde{\varphi}$ is the unique ring homomorphism $R/I \to S$ with the property that
+    	\[
+  	  \widetilde{\varphi}\circ \pi = \varphi.
+    	\]
+    	\item Explain in words what this says about the quotient ring $R/I$.
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Let $r + I = r' +I \in R/I$. Then, $r - r' \in I$. 
+        
+        \[\widetilde{\varphi}(r+I) = \varphi(r) = \varphi(r + (r - r')) = \varphi(r') = \widetilde{\varphi}(r'+I)\]
+        
+        Hence, $\widetilde{\varphi}$ is well-defined.
+
+        \item Let $\overline{a}, \overline{b} \in R/I$, we check if the three conditions hold. 
+        
+        \textbf{Unital:} Since $\varphi$ is a ring homomorphism, we have \[\widetilde{\varphi}(1_{R/I}) = \varphi(1_R) = 1_S\]  
+
+        \textbf{Addition:} Again, since $\varphi$ is a ring homomorphism, we have
+        \[\widetilde{\varphi}(\overline{a}) + \widetilde{\varphi}(\overline{b}) = \varphi(a) + \varphi(b) = \varphi(a+b) = \widetilde{\varphi}(\overline{a+b})\]
+
+
+        \textbf{Multiplication:} Again, $\varphi$ is a ring homomorphism, we have
+        \[\widetilde{\varphi}(\overline{a}) \cdot \widetilde{\varphi}(\overline{b}) = \varphi(a) \cdot \varphi(b) = \varphi(a \cdot b) = \widetilde{\varphi}(\overline{a\cdot b})\]
+
+        Hence, $\widetilde{\varphi}$ is a ring homomorphism. 
+
+        \item Let $a \in R$. Then, 
+        \[\widetilde{\varphi} \circ \pi (a) = \widetilde{\varphi} (\overline{a}) = \varphi(a)\]
+        Since $a$ was an arbitrary element in $R$, this holds for all elements, and hence $\widetilde{\varphi} \circ \pi = \varphi$. 
+
+        \item Assume there exists some other homomorphism $\sigma: R/I \to S$ such that $\sigma \circ \pi = \varphi$. Then for any $\overline{a} \in R/I$,  
+        \[ \sigma (\overline a) = \sigma \circ \pi (a) = \varphi(a) = \widetilde{\varphi}(a)\]
+
+        \item Every homomorphism $\varphi$ such that $I \subseteq \ker(\varphi)$ can be written as $\widetilde{\varphi} \circ \pi$ for some $\widetilde{\varphi}$.   
+    \end{enumerate}    
+\end{solution}
+
+\newpage 
+
+
+\begin{problem}{4}
+In this problem, we wish to consider the evaluation map: 
+    \[
+    \ev_i \colon \Z[x] \to \C,
+    \quad
+    f(x)\mapsto f(i)
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Prove that $\ev_{i}$ is a ring homomorphism.
+
+        \item Show that $\langle x^2+1 \rangle \subset \ker(\ev_i)$.
+
+        \item Use Problem 3 to produce a ring homomorphism
+        \[
+        \widetilde{\ev_i}\colon \Z[x]/\langle x^2+ 1\rangle \to \C.
+        \]
+
+        \item What does $\widetilde{\ev_i}$ do to the class of $x$ in $\Z[x]/\langle x^2 +1\rangle$?
+        
+        \item Prove that $\Z[x]/\langle x^2+1\rangle$ is isomorphic to $\Z[i]$. Is $\langle x^2 +1\rangle$ prime and/or maximal?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Let $f, g \in \Z[x]$, we check if the three conditions hold. 
+        
+        \textbf{Unital:} Let $f_1$ be the constant function $1$. Then, 
+
+        \[\ev_i (f_1 (x)) = f_1(i) = 1\]
+
+        \textbf{Addition:} 
+        Since $\Z[x]$ is a ring under pointwise addition and multiplication, we can write, 
+        \[\ev_i(f(x)) + \ev_i(g(x)) = f(i) + g(i) = (f+g)(i) = \ev_i((f+g)(x))\]
+
+        \textbf{Multiplication:} 
+        Since $\Z[x]$ is a ring under pointwise addition and multiplication, we can write, 
+        \[\ev_i(f(x)) \cdot \ev_i(g(x)) = f(i) \cdot g(i) = (f\cdot g)(i) = \ev_i((f\cdot g)(x))\]
+
+        Hence, $\ev_i$ is a ring homomorphism. 
+
+        \item Note that $\ev_i(x^2 + 1) = i^2 + 1 = - 1 + 1 = 0$. For any $f(x) (x^2+1) \in \langle x^2+ 1\rangle$ we have $\ev_i(f(x) (x^2+1)) = f(i) \cdot 0 = 0 \in \ker(\ev_i)$, Thus the ideal generated by $\langle x^2 + 1 \rangle$ under $\ev_i$ maps to $0$ and hence is a subset of the kernel. 
+        
+        \item From  Q3 we know that if $\langle x^2 + 1 \rangle \subseteq \ker(\ev_i)$ there exists a unique homomorphism,
+         \[\widetilde{\ev_i}: \Z[x]/\langle x^2 +1 \rangle \to \C, \qquad \widetilde {\ev_i}(\overline{f(x)}) = f(i)\] 
+        
+        \item  $\widetilde{\ev_i} (\overline{x}) = x(i) = i$.
+        
+        \item Define a map $\varphi: \Z[x] \to \Z[i], \, \varphi(f(x)) \to f(i)$. We will show that $\ker(\varphi) = \langle x^2 + 1 \rangle$. 
+        
+        $\langle x^2 + 1 \rangle \subseteq \ker(\varphi)$
+        
+        Note,
+        \[\varphi(x^2 + 1) = i^2+ 1 = 0 \in \ker(\varphi)\]
+
+        $\ker(\varphi) \subseteq \langle x^2 + 1 \rangle$
+
+        Let $\varphi(f(x)) \in \ker(\varphi)$. If $f(i)=0$, then $x^2+1 \mid f(x)$ in $\mathbb{Z}[x]$ (since $x^2+1$ is the minimal polynomial of $i$ over $\Q$ and hence is primitive over $\Z$), and we have, 
+
+        \[f(x) \in \langle x^2 + 1 \rangle  \implies \ker(\varphi) \subseteq \langle x^2 + 1 \rangle\]
+
+        Then by the first isomorphism theorem, 
+        \[\Z[x]/\langle x^2 + 1 \rangle \iso \im(\varphi) = \Z[i]\]
+        
+        Since $\Z[x]$ is an integral domain but not a field, $\langle x^2+ 1 \rangle$ is prime but not maximal.
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{5}
+    \textbf{Universal Property of Polynomial Rings.} 
+    
+    The goal of this exercise is to prove the following characterization of polynomial rings. Let $\varphi\colon R \to S$ be a ring homomorphism. For any element $s \in S$ there is a unique ring homomorphism $\psi\colon R[x] \to S$ such that $\psi(x) = s$ and the following diagram commutes:
+    \[
+    \begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+        R \arrow[r, "\varphi"] \arrow[d, hook] & S  \\
+        R[x] \arrow[ur, dashed, swap,"\psi"]
+    \end{tikzcd}.
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+
+        \item Prove there is at most one ring homomorphism $\psi:R[x] \to S$ with the above properties. 
+        \item Construct such a homomorphism explicitly by setting
+        \[
+        \psi\!\left(\sum_{i=0}^n a_i x^i\right)=\sum_{i=0}^n \varphi(a_i)s^i.
+        \]
+        \item Conclude that to give a ring homomorphism $R[x]\to S$ is equivalent to giving:
+        \begin{itemize}
+            \item a ring homomorphism $R\to S$, and
+            \item an element of $S$.
+        \end{itemize}
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Suppose there exists another homomorphism $\sigma: R[x] \to S$ such that $\sigma(x) = \psi(x) = s$. Also, note that sinct the diagram commutes $\psi|_R = \sigma|_R = \varphi$. 
+        
+        Then for any $\sum_{i=0}^n a_ix^i \in R[x]$ we have,
+
+        \begin{align*}
+            \sigma \left(\sum_{i=0}^n a_ix^i\right) &= \sigma(a_1)\cdot\sigma(x) + \cdots + \sigma(a_n)\cdot\sigma(x^n) \\
+            &= \varphi(a_1)\cdot\psi(x) + \cdots + \varphi(a_n)\cdot\psi(x^n) \\
+            &= \psi(a_1)\cdot\psi(x) + \cdots + \psi(a_n)\cdot\psi(x^n) \\
+            &= \psi \left(\sum_{i=0}^n a_ix^i\right)
+        \end{align*}
+        
+        Hence, $\sigma = \psi$. 
+
+        \item Let $\psi: R[x] \to S$ such that 
+        \[ \psi(x) = s, \quad \psi(a) = \varphi(a) \quad \forall a \in R\]
+
+        \item Hence for any ring homomorphism $\sigma: R[x] \to S$ we have 
+        \begin{center}
+            \begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+             R \arrow[r, "\varphi"] \arrow[d, hook] & S  \\
+             R[x] \arrow[ur, swap,"\psi"]
+            \end{tikzcd}
+        \end{center}
+    \end{enumerate}
+\end{solution}
+
+
+\newpage 
+
+\begin{problem}{6} 
+    \textbf{Evaluation maps.} 
+    
+    Let $R$ be a ring and let $a\in R$. Define the evaluation map
+    \[
+    \ev_a \colon R[x]\to R,
+    \quad
+    f(x)\mapsto f(a).
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item Prove that $\ev_a$ is a surjective ring homomorphism.
+
+    \item Prove that $\ker(\ev_a) = \langle x-a\rangle$.
+
+    \item Use Problem 3 to show that $\ev_a$ factors through a ring homomorphism
+    \[
+    R[x]/(x-a)\to R.
+    \]
+    
+    \item Explain what this means if $R$ is a field or $R$ is an integral domain.
+    
+    \item Give an example of a ring $R$ and prime/maximal ideal $I \subset R[x]$ such that $I \neq \ker(\ev_a)$ for all $a \in R$. 
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item For all $r \in R$ consider the constant functions $r$ represented by $f_r \in R[x]$. Then, 
+        \[\ev_a(f_r(x)) = f_r(a) = r\]
+
+        \item $\ker(\ev_a) \subseteq \langle x-a \rangle$. 
+        
+        Note that for any $p(x) \in \ker(\ev_a)$ we have 
+        \[p(x) = (x-a)q(x) + r(x)\]
+        for some $q(x), r(x) \in R[x]$. Evaluating at $\ev_a$ we have, 
+        \[\ev_a(p(x)) = (a-a)q(a) + r(a) = 0 \implies r(a) = 0 \] 
+        That is 
+        \[ p(x) = (x-a)q(x) \implies p(x) \in \langle x -a \rangle\]
+        
+        
+        $\langle x -a \rangle \subseteq  \ker(\ev_a)$. 
+        
+        
+        Let $p \in \langle x - a \rangle$. Since $\langle x -a \rangle$ irreducible we have $p = f(x) (x-a)$, for some $f(x) \in R[x]$,
+        \begin{align*}
+            \ev_a(p) &= \ev_a(f(x)(x-a)) = f(a)(a-a) = 0  \in \ker(\ev_a)
+        \end{align*}
+        Hence, $\ker(\ev_a) = \langle x-a \rangle$. 
+
+        \item Since $\ker(\ev_a) \supseteq \langle x-a \rangle$ from problem 3 we know we have an induced ring homomorphism $\widetilde{\ev_a}$ such that
+        \begin{center}
+        \begin{tikzcd}[row sep=3em, column sep=3em]
+            R [x] \arrow[]{r}{\pi} \arrow[swap]{d}{\ev_a} & R[x]/\langle x-a \rangle  \arrow[] {dl} {\widetilde{\ev_a}} \\
+            R & {}
+        \end{tikzcd}
+      \end{center}
+
+      \item If $R$ is a domain this means $\langle x -a \rangle$ is prime and also that $\widetilde{\ev_a} = \id$. 
+      
+      If $R$ is a field $\langle x- a\rangle$ is maximal and $R \iso R[x] /\langle x-a \rangle$. Also since all domains are fields we have $\widetilde{\ev_a} = \id$
+      
+      \item $R = \C, I = \langle 0 \rangle$. 
+    \end{enumerate}
+\end{solution}
+
+
+
+
+
+\end{document}

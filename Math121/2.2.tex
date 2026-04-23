@@ -1,0 +1,697 @@
+\documentclass[Notebook.tex]{subfiles}
+
+\begin{document}
+
+\ifSubfilesClassLoaded{\input{title}}{}
+
+
+\begin{center}
+    {Worksheet 2.2: Algebraic Sets}
+\end{center}
+
+\begin{theorem}[Hilbert's Nullstellensatz I] If $\K$ is algebraically closed, then every maximal ideal of $\K[x_1,\ldots,x_n]$ is of the form $\langle x_1-a_1,\ldots,x_n-a_n\rangle$ for some point $(a_1,\ldots,a_n) \in \K^n$.
+\end{theorem}  
+ 
+ Note this is just the first of a series of theorems that will go by Hilbert's Nullstellensatz. Recall that a $\K$-algebra is a ring $R$ together with a specified ring homomorphism $\K \to R$. A morphism of $\K$-algebras $\varphi:R\to S$ is a ring homomorphism that preserves scalars, i.e.\ $\varphi(c\cdot 1_R)=c\cdot 1_S$ for every $c\in \K$. In particular, $\K[x_1,\ldots,x_n]$ is a $\K$-algebra, every evaluation map $\ev_p:\K[x_1,\ldots,x_n]\to \K$ is a $\K$-algebra homomorphism, and if $\fm$ is a maximal ideal then $R/\fm$ is naturally a field equipped with a $\K$-algebra structure. When we say below that a residue field is ``isomorphic to $\K$,'' we mean \emph{as a $\K$-algebra}.
+
+ 
+ \hrulefill 
+
+
+\begin{problem}{1}
+    \textbf{Evaluation Maps.} For a point $p=(a_1,\ldots,a_n) \in \K^n$ the \emph{evaluation-at-$p$} map is given by
+\[
+\begin{tikzcd}[row sep =.5em, column sep = 3.5em]
+	\K[x_1,\ldots,x_n] \arrow[r, "\ev_p"] & \K \\
+	f \arrow[r, mapsto] & f(p)
+\end{tikzcd}.
+\]
+\begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+	\item Prove that $\ev_p$ is a ring homomorphism and find generators for $\fm_{p}\coloneqq \ker(\ev_p)$. 
+	\item Prove that there is a bijection, induced by these evaluation maps, between $\K^{n}$ and the subset of $\Spec(\K[x_1,\ldots,x_n])$ consisting of maximal ideals whose residue field is isomorphic to $\K$ as a $\K$-algebra. 
+	\item Find a maximal ideal of $\R[x,y]$ that is not of the form $\fm_p$ for any $p\in \R^{2}$. 
+	\item Restate Hilbert's Nullstellensatz I (above) in terms of $\fm_p$. 
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item To show that $\ev_p$ is a ring homomorphism, we need to show that for all $f_1, f_2 \in \K[x_1, \cdots, x_n]$ the three conditions hold, 
+
+        \textbf{Additivity:} 
+        \[
+            \ev_p(f_1 + f_2) = (f_1+f_2)(p) 
+            = f_1(p) + f_2(p) 
+            = \ev_p(f_1) + \ev_p(f_2)
+        \]
+
+        \textbf{Multiplicativity:}
+
+        \[
+            \ev_p(f_1 \cdot f_2) = (f_1\cdot f_2)(p) 
+            = f_1(p) \cdot f_2(p) 
+            = \ev_p(f_1) \cdot \ev_p(f_2)
+        \]
+        
+        And $\ev_p(1) = 1$ since $1$ is a constant function. 
+
+        \item \todo{}
+        \item \todo{}
+        \item \todo{}
+    \end{enumerate}
+\end{solution}
+
+
+\begin{problem}{2}
+    \textbf{Algebraic Sets.} Let $\cS \subset \K[x_1,\ldots,x_n]$ be a subset. Define the corresponding \emph{algebraic set} in $\K^n$ to be:
+\[
+\V(\cS) \coloneqq \left\{ p \in \K^n \;\; \big|\;\; f(p) = 0 \text{ for all $f \in \cS$}\right\}.
+\]
+\begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+	\item Prove that $\V$ is order-reverse, i.e., if $\cS \subset \cT$ then $\V(\cT) \subset \V(\cS)$. 
+	\item Prove that $\V(\cS) = \V(\langle \cS \rangle) = \V(\sqrt{\langle \cS\rangle})$.
+	\item Describe each of the following algebraic sets, and when possible draw a picture. 
+
+	\begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+		\item $\cS \coloneqq \{x^2 - y\} \subset \R[x,y]$.
+		\item $\cS \coloneqq \{x^2 - xy\} \subset \R[x,y]$.
+		\item $\cS \coloneqq \{x^6 - 3 x^5 y + 3 x^4 y^2 - x^3 y^3\} \subset \R[x,y]$.
+		\item $\cS \coloneqq \{x^4 -2x^{3}y + x^2y^2\} \subset \R[x,y]$.
+		\item $\cS \coloneqq \{x^2 + y^2-1\} \subset \R[x,y]$.
+		\item $\cS \coloneqq \{n(x^2+y^2-z^2) \; | \; n \in \Z_{\geq0} \} \subset \R[x,y,z]$.
+		\item $\cS \coloneqq \{x^2 + 1 \} \subset \R[x]$.
+		\item $\cS \coloneqq \{x^2 + 1\} \subset \CC[x]$.
+		\item $\cS$ is a collection of any linear polynomials in $\K[x_1,\ldots,x_n]$.
+	\end{enumerate}
+	\item Explain why $SL_{n}(\K)$ has the structure of an algebraic set. 
+	\item Explain why the set of $m \times n$ matrices of rank $<t$ is an algebraic set contained in $\K^{m \times n}$. 
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+	\begin{enumerate}[label=(\alph*), ref=\theenumi\alph*]
+        \item Assume $\cS \subset \cT$. Let $p \in \V(\cT)$. 
+        
+        Then, for all $f \in \cT, \, f(p) = 0$. But since $\cS \subset \cT$ this implies $g(p) = 0, \forall g \in \cS$. Hence, $p \in \V(\cS)$. Since $p$ was an arbitrary point in $\V(\cT)$ we conclude that $\V$ is order reversing.
+
+        \item By definition, 
+        \[\cS \subseteq \langle \cS \rangle \subseteq \sqrt{\langle \cS \rangle}.\]
+        And from part (a) we have, 
+        \[\V(\cS) \supseteq \V(\langle \cS \rangle) \supseteq \V\left (\sqrt{\langle \cS \rangle}\right).\]
+
+        To show $\V(\langle S \rangle) \subseteq \V\left (\sqrt{\langle \cS \rangle}\right )$ we let $p \in \V(\langle \cS \rangle)$. That is for all $f \in \langle \cS \rangle \subseteq \sqrt{\langle \cS \rangle}$, $f(p) = 0$, i.e. $p \in \V\left (\sqrt{\langle \cS \rangle}\right ) \implies \V(\langle \cS \rangle) \subseteq \left (\sqrt{\langle \cS \rangle}\right )$. 
+
+        To show that $\V(\cS) \subseteq \V(\langle \cS \rangle)$ we let $p \in \V(\cS)$. That is for all $f \in \cS$, $f(p) = 0$ but since $\langle S \rangle$ is the set of linear combinations of functions that evalute to zero at $p$, they also evaluate to zero at $p$ and $p \in \V(\langle \cS \rangle)$. 
+
+        \item 
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item $\cS \coloneqq \{x^2 - y\} \subset \R[x,y]$.
+            
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y) \in \R^2 \mid x^2 = y\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+                \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel = {$x$},
+                    ylabel = {$y$},
+                    xmin = -2, xmax = 2,
+                    ymin = -0.5, ymax = 4,
+                    xtick = {-2,-1,0,1,2},
+                    ytick = {1,2,3},
+                    samples = 100,
+                    width = 5cm, height = 5cm,
+                ]
+                \addplot[
+                    domain = -2.1:2.1,
+                    thick,
+                    color = red,
+                ] {x^2};
+                \end{axis}
+                \end{tikzpicture}
+            \end{minipage}
+            
+
+            \item $\cS \coloneqq \{x^2 - xy\} \subset \R[x,y]$.
+            
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y) \in \R^2 \mid x = 0, \, x = y\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+                \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel = {$x$},
+                    ylabel = {$y$},
+                    xmin = -3, xmax = 3,
+                    ymin = -3, ymax = 3,
+                    % xtick = {-2,-1,0,1,2},
+                    % ytick = {-2, 1, 0, 1,2},
+                    samples = 100,
+                    width = 5cm, height = 5cm,
+                ]
+                \addplot[
+                    domain = -2.1:2.1,
+                    thick,
+                    color = red,
+                ] {x};
+                \addplot[thick, color=red] coordinates {(0,-3) (0,3)};
+                \end{axis}
+                \end{tikzpicture}
+            \end{minipage}
+
+
+            \item $\cS \coloneqq \{x^6 - 3 x^5 y + 3 x^4 y^2 - x^3 y^3\} \subset \R[x,y]$.
+            
+            \bbni
+            Note that 
+            $x^6 - 3 x^5 y + 3 x^4 y^2 - x^3 y^3 = x^3(x-y)^3$. 
+
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y) \in \R^2 \mid x = 0, \, x = y\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+                \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel = {$x$},
+                    ylabel = {$y$},
+                    xmin = -3, xmax = 3,
+                    ymin = -3, ymax = 3,
+                    % xtick = {-2,-1,0,1,2},
+                    % ytick = {-2, 1, 0, 1,2},
+                    samples = 100,
+                    width = 5cm, height = 5cm,
+                ]
+                \addplot[
+                    domain = -2.1:2.1,
+                    thick,
+                    color = red,
+                ] {x};
+                \addplot[thick, color=red] coordinates {(0,-3) (0,3)};
+                \end{axis}
+                \end{tikzpicture}
+            \end{minipage}
+
+
+            \item $\cS \coloneqq \{x^4 -2x^{3}y + x^2y^2\} \subset \R[x,y]$.
+             
+            \bbni
+            Note that 
+            $x^4 - 2x^3y +x^2y^2 = x^2(x-y)^2$. 
+
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y) \in \R^2 \mid x = 0, \, x = y\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+                \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel = {$x$},
+                    ylabel = {$y$},
+                    xmin = -3, xmax = 3,
+                    ymin = -3, ymax = 3,
+                    % xtick = {-2,-1,0,1,2},
+                    % ytick = {-2, 1, 0, 1,2},
+                    samples = 100,
+                    width = 5cm, height = 5cm,
+                ]
+                \addplot[
+                    domain = -2.1:2.1,
+                    thick,
+                    color = red,
+                ] {x};
+                \addplot[thick, color=red] coordinates {(0,-3) (0,3)};
+                \end{axis}
+                \end{tikzpicture}
+            \end{minipage}
+            
+            \item $\cS \coloneqq \{x^2 + y^2-1\} \subset \R[x,y]$.
+            
+             
+            \bbni
+
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y) \in \R^2 \mid x^2 + y^2  = 1\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+                \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel = {$x$},
+                    ylabel = {$y$},
+                    xmin = -3, xmax = 3,
+                    ymin = -3, ymax = 3,
+                    % xtick = {-2,-1,0,1,2},
+                    % ytick = {-2, 1, 0, 1,2},
+                    samples = 100,
+                    width = 5cm, height = 5cm,
+                ]
+                \addplot[
+                    thick,
+                    color = red,
+                    domain = 0:2*pi,
+                    samples = 100,
+                ] ({cos(deg(x))}, {sin(deg(x))});
+                \end{axis}
+                \end{tikzpicture}
+            \end{minipage}
+
+
+            \item $\cS \coloneqq \{n(x^2+y^2-z^2) \; | \; n \in \Z_{\geq0} \} \subset \R[x,y,z]$.
+            
+            \bbni
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y,z) \in \R^3 \mid x^2 + y^2 = z^2\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+                % \begin{tikzpicture}
+                % \begin{axis}[
+                %     view = {30}{30},
+                %     axis lines = center,
+                %     xlabel = {$x$},
+                %     ylabel = {$y$},
+                %     zlabel = {$z$},
+                %     xmin=-2, xmax=2,
+                %     ymin=-2, ymax=2,
+                %     zmin=-2, zmax=2,
+                %     width = 7cm, height = 7cm,
+                %     colormap/cool,
+                % ]
+                % \addplot3[
+                %     surf,
+                %     opacity = 0.6,
+                %     domain = 0:2*pi,
+                %     y domain = -2:2,
+                %     samples = 60,
+                % ] (
+                %     {abs(y)*cos(deg(x))},
+                %     {abs(y)*sin(deg(x))},
+                %     {y}
+                % );
+                % \end{axis}
+                % \end{tikzpicture}
+            \end{minipage}
+
+
+            \item $\cS \coloneqq \{x^2 + 1 \} \subset \R[x]$.
+            
+            \bbni 
+            $\V(\cS) = \emptyset$ since this equation has no solutions over $\R[x]$
+
+            \item $\cS \coloneqq \{x^2 + 1\} \subset \CC[x]$.
+            
+            \bbni 
+            \begin{minipage}{0.5\textwidth}
+            $\V(\cS) = \{(x,y) \in \R^2 \mid x^2 = y\}$
+            \end{minipage}
+            \begin{minipage}{0.5\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel = {$\mathrm{Re}$},
+                    ylabel = {$\mathrm{Im}$},
+                    xmin = -2, xmax = 2,
+                    ymin = -2, ymax = 2,
+                    xtick = {-1,1},
+                    ytick = {-1,1},
+                    yticklabels = {$-i$, $i$},
+                    width = 5cm, height = 5cm,
+                    axis equal,
+                ]
+                \addplot[
+                    only marks,
+                    mark = *,
+                    color = violet,
+                    mark size = 3pt,
+                ] coordinates {(0,1) (0,-1)};
+                \end{axis}
+                \end{tikzpicture}
+            \end{minipage}
+
+            \item $\cS$ is a collection of any linear polynomials in $\K[x_1,\ldots,x_n]$.
+            
+            $\V(\cS) = \ker(A)$, where $A$ is a $m\times n$ matrix where the $i$-th row is $(a_{i_1}, \cdots, a_{i_n})$
+
+    	\end{enumerate}
+        
+        \item $SL_n(\K)$ is the set of $n\times n$ matrices with determinant $1$, and the determinant is a polynomial function on $\K^{n\times n}$. Therefore we can define the polynomial
+        \[f = \det(A) - 1 \in \K[x_1, \cdots, x_{n\times n}]\]
+        where $A$ is a $n\times n$ matrix, 
+        and $SL_n(\K) = \V(\{f\})$. 
+
+        \item \todo{}
+    \end{enumerate}
+\end{solution}
+
+\newpage
+ 
+\begin{problem}{3}
+    \textbf{Defining Ideal of an Algebraic Set.} Let $V \subset \K^n$ be an algebraic set. The \emph{defining ideal} of $V$ is the ideal in $\K[x_1,\ldots,x_n]$ given by 
+ \[
+ \I(V) \coloneqq \left\{ f \in \K[x_1,\ldots,x_n] \;\; \big| \;\; f(p) = 0 \text{ for all $p \in V$} \right\}.
+ \]
+ \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+ 	\item Prove that $\I(V)$ is in fact an ideal. 
+	\item Prove that $\I(V)$ is radical. 
+	\item If $V = \V(\cS)$ for some subset $\cS \subset \K[x_1,\ldots,x_n]$, show that $\langle \cS \rangle \subset \sqrt{\langle \cS \rangle} \subset \I(V)$. 
+	\item\label{ex-pt:big-obstruction} Let $\K=\R$. Give an example to show that the inclusion $\sqrt{\langle \cS \rangle } \subset \I(V)$ can be proper. 
+	\item If $V = \V(\cS)$ for some subset $\cS \subset \K[x_1,\ldots,x_n]$, show that $\V(\cS) = \V(\I(V))$. 
+ \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Let $g \in \K[x_1, \cdots, x_n]$ and $f_1, f_2 \in \I(V)$. That is, $f_1(p) = f_2(p) = 0$. 
+        
+        \textbf{Subgroup Under Addition:} Note that, \[(f_1 + f_2)(p) = f_1(p) + f_2(p) = 0\] The  zero polynomial $0(p) = 0$ acts as the identity, and \[f_1(p) + (-f_1)(p) = 0(p) = 0\] gives us the additive inverse.  
+
+        \textbf{Closed Under Multiplication:} Notice, 
+        \[(g \cdot f)(p) = g(p) \cdot f_1(p) = g(p) \cdot 0 = 0\]
+        Thus $g \cdot f \in \I(V)$ and $\I(V)$ is an ideal. 
+
+        \item We want to show that $\I(V) = \sqrt{\I(V)}$. 
+
+        Note that the containment $\I(V) \subseteq \sqrt{\I(V)}$ is obvious. To show the opposite containment take $f \in \sqrt{\I(V)}$. Then for some $n$ we have, 
+        \[f^n(p) = (f(p))^n = 0\]
+        But since $\K$ is a domain, this implies that $f(p) = 0$. Hence $f \in \I(V)$, $\I(V) \supseteq \sqrt{\I(V)}$, and $\I(V) = \sqrt{\I(V)}$.
+
+        \item Let $V = \V(\cS)$. We know that $\langle \cS \rangle \subseteq \sqrt{\langle \cS \rangle}$. So showing that $\sqrt{\langle \cS \rangle} \subset \I(V)$ suffices. Note that 
+        $\I(V) = \I(\V(\cS))$ which is the set of all functions that evaluate to $0$ at $p$, for all $p \in \V(\cS)$. And $\V(\cS)$ is the set of all points $p$ such that all functions $f \in \cS$ evaluate to $0$ at $p$. Let $f \in \sqrt{\langle \cS \rangle}$. Then by definition for some $n$, $f^n in \S$. We can then write, 
+        \[f^n = \sum_ih_i(p)g_i(p), \quad h_i \in \K[x_1, \cdots, x_n], g_i \in \cS\]
+        But then, 
+        \[f^n(p) = \sum_ih_i(p)g_i(p) = \sum_ih_i(p)\cdot 0 = 0\]
+        Moreover since $\K$ is a domain, $f^n(p) = 0 \implies f(p) = 0 \implies f$ is a function that evaluates to $0$ at $p$, hence $f \in \I(V)$. 
+
+        \item Consider the set $\cS = \{x^2+ 1\}$. We have, 
+        \[\sqrt{\langle \cS \rangle} = \sqrt{\langle x^2 + 1 \rangle}\]
+        And, because the polynomial has no solutions over $\R$, we have $V = \V(\cS) = \emptyset$. But $\I(\V(\cS)) = \R[x]$. Also note that since $\langle \cS \rangle$ is a prime ideal ($x^2 +1$ is irreducible), we have $ {\langle x^2 + 1 \rangle} = \sqrt{\langle x^2 + 1 \rangle} \subset \R[x]$. Hence, the containment $\sqrt{\langle \cS \rangle} \subset \I(V)$ can be proper. 
+
+        \item Let $V =\V(\cS)$. 
+        
+        $\V(\cS) \subseteq \V(\I(\V(\cS)))$
+
+        This containment is obvious by construction. $\I(\V(\cS))$ is the set of all functions that vanish at all points in $\V(\cS)$. And $\V(\I(\V(\cS)))$ is the set of all points that all functions in $\I(\V(\cS))$ vanish at. So, $\V(\cS) \subseteq \V(\I(V))$. 
+
+        \phantom{A}
+
+        $\V(\cS) \supseteq \V(\I(\V(\cS)))$
+
+        Note that by definition $\cS \subseteq \I(\V(\cS))$. Then by 2(a) $\V(\I(\V(\cS))) \subseteq \V(\cS)$.
+        
+        Hence, $\V(\cS) = \V(\I(\V(\cS)))$.
+    \end{enumerate}    
+\end{solution}
+
+\newpage
+
+\hrulefill
+ 
+So far you have built two order-reversing operations:
+\[
+\cS \longmapsto \V(\cS)
+\quad\text{and}\quad
+V \longmapsto \I(V).
+\]
+You have shown that passing from equations to a zero set only remembers the radical of the ideal they generate, and Question~\ref{ex-pt:big-obstruction} shows that over a non-algebraically closed field this can lose information. The next theorem says that over an algebraically closed field this is the only ambiguity.
+ 
+\begin{theorem}[Hilbert's Nullstellensatz II] If $\K$ is algebraically closed and $V = \V(\cS) \subset \K^n$ is an algebraic set, for some subset $\cS \subset \K[x_1,\ldots,x_n]$, then $\I(V) = \sqrt{\langle \cS \rangle}$. 
+\end{theorem}  
+
+At this point the basic affine dictionary is taking shape; Question~(4) asks you to make the correspondence between algebraic sets and radical ideals completely explicit. After that we turn to coordinate rings, which package an algebraic set $V$ into algebra and will let us recover from $\K[V]$ its points, its topology, and ultimately its morphisms.
+
+\hrulefill
+
+\begin{problem}{4}
+     Let $\K$ be algebraically closed. Use Hilbert's Nullstellensatz II (above) to give an explicit inclusion-reversing bijection between algebraic sets in $\K^n$ and radical ideals. 
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    Let $\cS \subset \K[x_1, \cdots, x_n]$. 
+
+    $\V(\cS) \overset{\I}{\to} \sqrt{\langle \cS \rangle}$
+
+    $\V(\cS) \overset{\V}{\ot} \sqrt{\langle \cS \rangle}$
+
+\todo{Diagram.}
+\end{solution}
+
+\newpage
+ 
+\begin{problem}{5}
+    \textbf{Coordinate Rings.} 
+    
+    Let $V \subset \K^n$ be an algebraic set and $\cR = \Hom_{\text{Set}}(V,\K)$ be the ring of all (set) functions from $V$ to $\K$. In this question we study the restriction map from $\K[x_1,\ldots,x_n]$ to $\cR$ given by:
+    \[
+    \begin{tikzcd}[column sep = 3.5em, row sep = .5em]
+    \K[x_1,\ldots,x_n] \arrow[r, "\rho"] & \cR\\
+    f \arrow[r, mapsto] & f|_{V}
+    \end{tikzcd}.
+    \]
+    Here we are viewing $f \in \K[x_1,\ldots,x_n]$ as defining a function $\K^n \to \K$ given by $p \mapsto f(p)$. We call the image of $\rho$ the \emph{coordinate ring} of $V$ and denote it $\K[V]$. 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Prove that $\rho$ is in fact a ring homomorphism. 
+        \item Verify that each of the following functions lies in the coordinate ring of the given algebraic set. 
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item Let $V = \V(x^2+y^2-1) \subset \R^2$ and consider the function $V \to \R$ given by $(x,y)\mapsto e^{x^2+y^2}$.
+            \item Let $V = \V(xy-1) \subset \K^{2}$ and consider the function $V\to \K$ given by $(x,y) \mapsto \frac{1}{x}$. 
+        \end{enumerate}
+        \item\label{ex-pt:cord-ring-as-quot} Identify the kernel of $\rho$ and use it to give an explicit presentation for $\K[V]$ as a $\K$-algebra.
+        \item The $i$-th coordinate of $\K^n$ is the linear functional $e_i^\vee: \K^n \to \K$ sending $(a_1,\ldots,a_n) \mapsto a_i$. Explain why $e_i^{\vee} \in \K[\K^n]$, and under the presentation given in part (c),  which polynomial corresponds to $e_i^{\vee}$. 
+        \item Explain why $\K[V]$ is called the coordinate ring of $V$. Hint: Think about the previous part.
+        \item Describe the coordinate ring for the following algebraic sets:
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item $\V(y-x^2) \subset \K^2$.
+            \item $\V(y^2, xy, x^{17}) \subset \K^2$.
+            \item $\V(x^6 - 3 x^5 y + 3 x^4 y^2 - x^3 y^3) \subset \K^2$.
+            \item The set of $3\times 3$ matrices over $\F_5$ of determinant $1$ and trace $0$. (Hint/Warning: There will likely be 9 more polynomials in the defining ideal than you expect, coming from the fact that finite fields have a special automorphism. This highlights another way we might get a counterexample for Question~\ref{ex-pt:big-obstruction}.)
+        \end{enumerate}
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Let $f_1, f_2 \in \K[x_1, \cdots, x_n]$. Note that addition and multiplication is defined pointwise in $R$. To see if $\rho$ is a ring homomorphism, we check if the three properties hold: 
+
+        \textbf{Addition: }
+        \[\rho(f_1) + \rho(f_2)(p) = f_1|_V(p) + f_2|_V(p) = (f_1+f_2)|_V(p) = \rho(f_1+f_2)(p)\]
+
+
+        \textbf{Multiplication: }
+        \[\rho(f_1) \cdot \rho(f_2)(p) = f_1|_V(p) \cdot f_2|_V(p) = (f_1\cdot f_2)|_V(p) = \rho(f_1\cdot f_2)(p)\]
+
+        \textbf{Unital:}
+        \[\rho(1)(p) = 1|_V(p) = 1\]
+
+	    \item 
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item Let $f: (x,y) \mapsto e^{x^2 + y^2}$. Note that on $V$, $x^2 + y^2 = 1$ then, $f|_V = e^{x^2+y^2} = e^1$. Which behaves like the constant polynomial function $g(x,y) = e$ and hence lies in the ring of coordinates of $V$. 
+            \item Let $f: (x,y) \mapsto \frac{1}{x}$. Note that on $V$, $\frac{1}{x}= y$, and $x \neq 0$ because $\K$ is a domain. Then, $f|_V = \frac{1}{x} = y$. Which behaves like the polynomial function $g(x,y) = y$ and hence lies in the ring of coordinates of $V$. 
+        \end{enumerate}
+
+        \item The kernel of $\rho$ is $\I(V)$. 
+        \[\K[V] \iso \K[x_1, \cdots, x_n] / \I(V)\]
+
+        \item The coordinate ring of $\K^n$, $\K[\K^n]$ is the ring of all set functions $\K^n \to \K$. 
+        \[e_i^\vee (x_1, \cdots, x_n) = x_i\]
+        which corresponds to the polynomial function $g(x_1, \cdots, x_n) = x_i$. Hence, $e_i^\vee \in \K[\K^n]$. 
+
+        Under the presentation given in part (c) we have, 
+        \[\K[\K^n] \iso \K[x_1, \cdots, x_n] / \I(\K^n) = \K[x_1, \cdots, x_n] / \{0\} = \K[x_1, \cdots, x_n] \]
+        So, $e_i^\vee$ corresponds to the coset $[x_i] = x_i$. 
+
+        \item $\K[V]$ is the coordinate ring of $V$ because every polynomial is a combination of coordinate functions restricted to $V$. And $\K[V]$ is generated by these functions on $V$. 
+        \[\K[V] = \K[e_1^\vee|_V, \cdots, e_n^\vee |_V]\]
+        
+        \item 
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item Let $V = \V(y-x^2)$. 
+            
+            \[\K[V] \iso \K[x,y]/\I(y - x^2) = \K[x, x^2] = \K[x]\]
+
+            \item Let $V = \V(y^2, xy, x^{17})$. 
+            
+            Note that $\I(V) = \sqrt{\langle y^2, xy, x^{17} \rangle }$. 
+            
+            Since $\K$ is a field, if $(a, b) \in V$ then
+            
+            \[a^{17} = 0 \implies a = 0\]
+            and 
+            \[b^2 = 0 \implies b = 0\]
+
+            Then, $V = \{(0, 0)\}$. And $I(V) = I (\{(0,0)\}) = \langle x, y \rangle$. 
+
+
+            \[\K[V] \iso \K[x,y]/\I(\V(y^2, xy, x^{17})) = \K[x,y] / \langle x, y \rangle = \K\]
+
+            \item Let $V = \V(x^6 - 3x^5y + 3x^4y^2 + x^3y^3) = \V(x^3(x-y)^3)$. 
+            
+            Then if $(a, b) \in V$, either $a^3 = 0 \implies a = 0$ or $(x-y)^3 = 0 \implies x = y$. 
+            
+            Then $V = \{(0, a), (a, a) \, | \, a \in \K\} = \V(x) \cup \V(x-y)$. 
+            \[\I(V) = \I(\V(x) \cup \V(x-y)) = \I(\V(x)) \cap \I(\V(x-y)) = \langle x \rangle \cap \langle x-y \rangle = \langle x(x-y) \rangle \]
+            And 
+            \[\K[V] \iso \K[x,y]/\langle x(x-y) \rangle \]
+            
+            \item Let $A = (x_{ij}) \in SL_3(\F_5)$, and $V = \V(\det(A) - 1, \, tr(A))$. Note that the trace formula is $x_{11} + x_{22} + x_{33}$, and we use fermat's little theorem to enforce staying in $\F_5$. Then the coordinate ring is, 
+            \[\K[V] = \F_5[x_{11} , \cdots, x_{33}] / \langle \det(A) - 1, x_{11} + x_{22} + x_{33}, x_{ij}^5 - x_{ij} \rangle\]
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\hrulefill
+
+You should now think of $\K[V]$ as the algebraic avatar of $V$: its elements are precisely the polynomial functions on $V$, and the coordinate functions on $\K^n$ descend to generators of $\K[V]$. The next step is to recognize points of $V$ purely algebraically, either as $\K$-algebra maps $\K[V]\to \K$ or as maximal ideals whose residue fields are isomorphic to $\K$ as $\K$-algebras.
+
+\hrulefill
+
+\begin{problem}{6}
+    Let $R$ be a finitely generated $\K$-algebra. Fix a presentation $R \cong \K[x_1,\ldots,x_n]/I$. Describe a natural bijection between the following three sets:
+	\begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+ 	\item points in $\V(I) \subset \K^n$, 
+	\item maximal ideals in $R$ with residue field isomorphic to $\K$ as a $\K$-algebra, and 
+	\item elements of $\Hom_{\K-\alg}(R,\K)$, the set of morphisms from $R$ to $\K$ in the category of $\K$-algebras. 
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Let $\K$ be algebraically closed. 
+
+    \textbf{Claim:} Let $\pi: \K[x_1, \cdots, x_n] \to \K[x_1, \cdots, x_n]/I = R$, and let $J \subset R$ be maximal. We claim that $\pi^{-1}(J)$ is maximal in $\K[x_1, \cdots, x_n]$. 
+
+    \begin{proof}
+        We know that $\pi^{-1}(J)$ is an ideal. Let $M$ be a maximal ideal containing $\pi^{-1}(J)$. Since $\pi$ is surjective, we know that $\pi(M)$ is an ideal (worksheet $1.1, Q4.4$), and $J \subseteq \pi(M)$. Then, since $J$ is maximal, either $\pi(M) = J$ or $\pi(M)$ is the whole ring. $\pi(M) \neq R$ since ring homomorphisms are unital and $1 \notin M$. Hence, $M = \pi^{-1}(J)$ or $\pi^{-1}(J)$ is maximal. 
+    \end{proof}
+
+    
+    $(i) \iff (ii)$
+
+    Recall that $\V(I)$ contains points $p = (a_1, \cdots, a_n)$ such that $f(p) = 0$ for all $f \in I$. Also, 
+    \[\ev_p: \K^n \to \K\]
+
+    By Hilbert's Nullstellensatz I, we know that maximal ideals of $\K[x_1, \cdots, x_n]$ are of the form $\langle x_1 - a_1, \cdots, x_n -a_n \rangle$, for some point $(a_1, \cdots, a_n)$. 
+\end{solution}
+
+\begin{problem}{7}
+    \textbf{Zariski Topology on Algebraic Sets.} Let $V \subseteq \K^n$ be an algebraic set. Define the \emph{Zariski topology} on $V$ by declaring the closed sets to be the subsets of $V$ of the form $\V(I)$ for some ideal $I \subset \K[x_1,\ldots,x_n]$. In other words, the closed sets are precisely the \emph{algebraic subsets} of $V$.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Verify that this definition indeed determines a topology on $V$.
+
+        \item For $f \in \K[V]$, define
+        \[
+        D(f) = \left\{p \in V \;\; \big| \;\;  f(p) \neq 0\right \}.
+        \]
+        Show that $\{D(f)\}$ form a basis for the Zariski topology on $V$.
+
+        \item For each point $p \in V$, let
+        \[
+        \fm_p = \left\{f \in \K[V] \;\; \big| \;\;  f(p)=0 \right\}
+        \]
+        be the corresponding maximal ideal. Show that the map
+        \[
+        \begin{tikzcd}[row sep = .5em, column sep = 3.5em]
+        V \arrow[r] & \Spec(\K[V]) \\
+        p \arrow[r,mapsto] & \fm_p
+        \end{tikzcd}
+        \]
+        is a homeomorphism onto its image, which consists of those maximal ideals whose residue field is isomorphic to $\K$ as a $\K$-algebra.
+        \item If $\K$ is algebraically closed how can the preceding part be rephrased in terms of $\mSpec(\K[V])$?
+        \item Is the Zariski topology on $V$ Hausdorff in general? If not, when is it? 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item $V = \V(I)$ for some $I \subset \K[x_1, \cdots, x_n]$. The closed sets of $V$ are of the form $\V(J)$, where $I \subset J \subset \K[x_1, \cdots, x_n]$. We need to check the following: 
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+        \item $\emptyset$ and $V$ are closed. 
+        
+        Note $\V(I) = V$, and $\V(\K[x_1, \cdots, x_n]) = \emptyset$ is closed. 
+
+        \item Finite union of closed sets is closed.
+        
+        Let $\V(J), \V(K) \subseteq V$ be subsets. Then, $\V(I) \cup \V(J)$ is the set of points in $\K^n$ such that for all $p \in \V(I) \cup \V(J)$ either $f(p) = 0$ or $g(p) = 0$. 
+        \item Arbitrary intersection of closed sets is closed. 
+    \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\hrulefill
+
+By now you have recovered from $\K[V]$ not just the points of $V$, but also its Zariski topology. The next goal is to understand maps in the same way: a morphism of algebraic sets should be encoded contravariantly by a $\K$-algebra homomorphism of coordinate rings.
+
+\hrulefill
+
+\begin{problem}{8}
+    \textbf{Morphisms of Algebraic Sets.} A \emph{polynomial map} from $\K^n$ to $\K^m$ is a function of the form: 
+    \[
+    \Phi: \K^n \longrightarrow \K^m \quad p \mapsto (f_1(p), \dots, f_{m}(p)).
+    \]
+    where  $f_1, \dots, f_m \in \K[x_1,\dots,x_n]$.  A \emph{morphism of algebraic sets} $V \to W$ is defined to be the restriction of such a polynomial map $\Phi$ with $\Phi(V) \subset W$. Fix a polynomial map $\Phi$ as above. 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+	\item Show that there is an induced $\K$-algebra homomorphism
+	\[
+	\phi: \K[\K^{m}] \longrightarrow \K[\K^{n}] \quad \text{given by} \quad  g \mapsto g \circ \Phi.
+	\]
+	Describe $\phi$ explicitly in terms of the coordinate function generators of $\K[\K^{m}]$.
+	\item Let $V \subset \K^n$ and $W \subset \K^m$ be algebraic sets. Show that $\Phi(V) \subset W$ if and only if $\phi(\I(W)) \subset \I(V)$.
+	\item Deduce that $\Phi$ restricts to a morphism of algebraic sets $\Phi|_V : V \longrightarrow W$ if and only if the composition
+	\[
+	\begin{tikzcd}[row sep = .3em, column sep = 3.5em]
+	\K[\K^m] \arrow[r, "\phi"] & \K[\K^n] \arrow[r, "\rho"] &\K[V]
+	\end{tikzcd}
+	\]
+	factors through $\K[W]$. Here $\rho$ is the restriction map.
+	\item For each of the given maps of coordinate rings, describe the corresponding map of algebraic sets. When possible draw pictures. Compare to the corresponding maps on spectra.
+	\begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+		\item $\CC[x,y] \rightarrow \CC[t]$ given by $x\mapsto t$ and $y\mapsto t$.
+		\item $\CC[t] \rightarrow \CC[x,y]$ given by $t \mapsto x$.
+		\item $\CC[t] \rightarrow \CC[x,y,t]/\langle xy-t \rangle$ given by $t \mapsto t$. 
+	\end{enumerate}
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{9}
+    Prove that a morphism of algebraic sets is continuous with respect to the Zariski topology.
+\end{problem}
+
+\begin{problem}{10}
+    Show that the image of $\K \to \K^3$ sending $t \to (t,t^2,t^3)$ is an algebraic set defined by two polynomials. Verify your answer by constructing the corresponding ring map in \textit{Macaualy2}. 
+\end{problem}
+
+\begin{problem}{11}
+    Prove or disprove: The image of every polynomial map $\K^n \to \K^m$ is an algebraic set. (Warning: this might be field dependent. As a hint, if $\K$ is finite, which subsets of $\K^n$ are algebraic sets?)
+\end{problem}
+
+
+\hrulefill
+
+You now have the main algebra-geometry dictionary in hand. Over any field $\K$, every algebraic set $V \subset \K^n$ has a coordinate ring $\K[V]$, points of $V$ are the same as $\K$-algebra maps $\K[V]\to \K$, and morphisms $V \to W$ correspond contravariantly to $\K$-algebra homomorphisms $\K[W]\to \K[V]$. Thus the assignment
+\[
+V \longmapsto \K[V]
+\]
+always gives a contravariant bridge from geometry to algebra. When $\K$ is algebraically closed, Hilbert's Nullstellensatz says that every finitely generated reduced $\K$-algebra comes from an algebraic set, so this bridge becomes an anti-equivalence of categories.
+
+\hrulefill
+\begin{problem}{12}
+    \textbf{Putting It All Together.} Assume that $\K$ is algebraically closed. Use the previous parts together with Hilbert's Nullstellensatz II to show that every finitely generated reduced $\K$-algebra is isomorphic to $\K[V]$ for some algebraic set $V$.  Conclude that the assignment $V\mapsto \K[V]$ defines a  (anti-) equivalence from the category of algebraic sets over $\K$ to the category of finitely generated reduced $\K$-algebras. 
+\end{problem}
+
+
+
+
+\end{document}

@@ -1,0 +1,416 @@
+\documentclass[Notebook.tex]{subfiles}
+
+\begin{document}
+
+\ifSubfilesClassLoaded{\input{title}}{}
+
+\begin{center}
+    {Worksheet 3.2: The Nullstellensatz}
+\end{center}
+
+
+Throughout this course, ``ring'' means \textit{commutative} ring with unity. In this worksheet $\K$ will denote a field. In the previous worksheet you built the order-reversing maps
+\[
+I \longmapsto \V(I)
+\qquad\text{and}\qquad
+V \longmapsto \I(V)
+\]
+connecting ideals in $\K[x_1,\ldots,x_n]$ with algebraic sets in $\K^n$. Our goal now is to prove that over an algebraically closed field these constructions \emph{almost} recover each other exactly. The only restriction being that since $\I(V)$ is always a radical ideal, these functions are only bijections when restricted to the set of radical ideals in $\K[x_1,\ldots,x_n]$. More precisely, our goal is to prove the first two versions of  Hilbert's Nullstellensatz under the condition that $\K$ is uncountable (i.e. $\C)$. Although our work will also show the second version follows from the first for any algebraically closed field. 
+
+\begin{theorem}[Hilbert's Nullstellensatz I] If $\K$ is algebraically closed, then every maximal ideal of $\K[x_1,\ldots,x_n]$ is of the form $\langle x_1-a_1,\ldots,x_n-a_n\rangle$ for some point $(a_1,\ldots,a_n) \in \K^n$.
+\end{theorem}  
+
+ \begin{theorem}[Hilbert's Nullstellensatz II] If $\K$ is algebraically closed and $V = \V(\cS) \subset \K^n$ is an algebraic set, for some subset $\cS \subset \K[x_1,\ldots,x_n]$, then $\I(V) = \sqrt{\langle \cS \rangle}$. 
+\end{theorem}  
+
+For a point $p=(a_1,\ldots,a_n)\in \K^n$, we will often write $\fm_p$ for the ideal $\langle x_1-a_1,\ldots,x_n-a_n\rangle \subset \K[x_1,\ldots,x_n]$, which by the previous worksheet is the kernel of the evaluation-at-$p$ map $\ev_{p}:\K[x_1,\ldots,x_{n}] \to \K$.  An alternative statement of Hilbert's Nullstellensatz I is to say there is a bijection between $\K^n$ and maximal ideals in $\K[x_1,\ldots,x_n]$ given by $p\mapsto \fm_p$. We say that this statement can fail when $\K$ is not algebraically closed, e.g., $\langle x^2+1 \rangle \subset \R[x]$. 
+
+Since points are themselves algebraic sets, the second version of Hilbert's Nullstellensatz can be thought of as a generalization of the first. In particular Nullstellensatz II can be thought of as saying that $\V$ and $\I$ are mutual inverses giving bijections
+\[
+\begin{tikzcd}[row sep = .5 em, column sep = 8em]
+\left\{ \begin{matrix} 
+\text{algebraic sets} \\
+\text{in $\K^n$}
+\end{matrix} \right\} \arrow[r, bend left=20, "\I"] & \arrow[l,bend left=20,"\V"]
+\left\{ \begin{matrix} 
+\text{radical ideals} \\
+\text{in $\K[x_1,\ldots,x_n]$}
+\end{matrix} \right\} 
+\end{tikzcd}
+\]
+Somewhat amazingly, the entire difficulty of this theorem comes down to only one of the four inclusions needed. In particular, last week we showed that $\V(\I(V))=V$ for any algebraic subset $V\subset \K^n$, regardless of the field. Similarly, we also proved that the inclusion $\sqrt{I}\subseteq \I(\V(I))$ holds over an arbitrary field. Thus, the hard part of the proof of Hilbert's Nullstellensatz II is to show that
+\[
+\I(\V(I))\subseteq \sqrt{I}
+\]
+for every ideal $I\subseteq \K[x_1,\ldots,x_n]$. This can fail over non-algebraically closed fields, as the example $I=\langle x^2+1\rangle \subset \R[x]$ shows.
+
+The strategy of this worksheet is to isolate that difficulty: first review the geometry--algebra dictionary, and then prove the point Hilbert's Nullstellensatz I for uncountable fields using field theory and a clever cardinality argument. We will then deduce what some call the weak Nullstellensatz:
+
+ \begin{theorem}[Hilbert's Weak Nullstellensatz] If $\K$ is algebraically closed and $I\subset \K[x_1,\ldots,x_n]$ is an ideal then $\V(I)=\varnothing$ if and only if $I = \langle 1 \rangle$.
+\end{theorem}
+
+Note the difficult direction of the weak Nullstellensatz is the forward direction, the reverse is immediate. Intuitively this is saying that a system of polynomial equations has no solution over $\K$ if and only if the ``obvious'' obstruction -- namely you can write $1$ in terms of your polynomials -- occurs.  Finally we will  use Rabinowitsch's trick to obtain the full statement. Along the way we will also pause to recall some field theory language, since the key obstruction is the difference between algebraic and transcendental field extensions.
+
+\hrulefill
+
+\begin{problem}{1}
+    \textbf{Warm-Up: Recalling the Correspondence.} 
+    
+    Recall the two order-reversing maps
+    \[
+    I \longmapsto \V(I)
+    \qquad\text{and}\qquad
+    V \longmapsto \I(V).
+    \]
+    Before we move to proving the main theorems let us warm up with a few examples.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item Give the definitions of $\V(I)$ and $\I(V)$.
+    \item  If $V=\{p\} \subset \K^n$ for $p=(a_1,\ldots,a_n)$, describe $\I(V)$ both intrinsically and by giving generators.
+    \item The ideals $\langle 0\rangle$ and $\langle 1\rangle$ are the extreme cases. Describe $\V(\langle 0\rangle)$ and $\V(\langle 1\rangle)$ as subsets of $\K^n$.
+    \item Over $\R$, describe $\V(\langle x,y\rangle)$ and $\V(\langle x^2+y^2\rangle) \subseteq \R^2$.
+    \item Over $\F_p$, describe $\V(\langle 0\rangle)$ and $\V(\langle x^p-x,xy^p-x^py\rangle) \subseteq \F_p^2$.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{2}
+    \textbf{A Parameterized Example.} 
+    
+    Consider the map
+    \[
+    \phi:\overline{\F}_{17}^{\,2} \longrightarrow \overline{\F}_{17}^{\,3},
+    \qquad
+    (u,v) \longmapsto (u^2,uv,v^2).
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item Show that every point in the image of $\phi$ satisfies the equation $xz-y^2=0$.
+    \item Let $(a,b,c)\in \overline{\F}_{17}^{3}$ satisfy $ac=b^2$. Show that if $a\neq 0$, then $(a,b,c)$ lies in the image of $\phi$. Handle the case $a=0$ separately.
+    \item Deduce that the image of $\phi$ is equal to $\V(xz-y^2)\subseteq \overline{\F}_{17}^{3}$.
+
+    \item Show that $xz-y^2$ is irreducible in $\overline{\F}_{17}[x,y,z]$ and conclude that the corresponding radical ideal is $\langle xz-y^2\rangle$.
+    \end{enumerate}
+\end{problem}
+
+
+\begin{problem}{3}
+    \textbf{Reduction to the Core Difficulty.} 
+    
+    Recall what you proved last time about the interaction of $\V$ and $\I$ over an arbitrary field.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item Show that if $V\subseteq \K^n$ is algebraic, then $\V(\I(V))=V$.
+    \item\label{ex-pt:easy-inclusion} Show that for every ideal $I \subseteq \K[x_1,\ldots,x_n]$ one has $I \subseteq \sqrt{I} \subseteq \I(\V(I))$.
+    \item Show via an example -- other than $\langle x^2+1\rangle \subset \R[x]$ -- that the inclusion in \ref{ex-pt:easy-inclusion} can be proper when $\K$ is not algebraically closed 
+    \item Explain why proving Hilbert's Nullstellensatz II reduces to showing that when $\K$ is algebraically closed, $\I(\V(I)) \subset \sqrt{I}$ for every ideal $I \subset \K[x_1,\ldots,x_n]$.
+    \end{enumerate}
+\end{problem}
+
+\hrulefill
+
+Before the next question, recall some field theory language. If $\K$ is a field and $\E$ is a field containing $\K$, we call $\E/\K$ a \emph{field extension}. In this situation $\E$ is naturally a vector space over $\K$, and we write $[\E:\K]\coloneqq \dim_\K \E$ for its dimension, called the \emph{degree} of the extension. If $[\E:\K]$ is finite we say the extension is \emph{finite}. 
+
+Fixing a field extension $\E/\K$, we say an element $\zeta \in \E$ is \emph{algebraic} over $\K$ if there exists a nonzero polynomial $f\in \K[x]$ with $f(\zeta)=0$; otherwise $\zeta$ is \emph{transcendental} over $\K$. The extension $\E/\K$ is called \emph{algebraic} if every element of $\E$ is algebraic over $\K$. Every finite extension is algebraic: if $[\E:\K]=d$, then for any $\zeta \in \E$ the $d+1$ elements $\zeta^{0}, \zeta,\ldots, \zeta^d$ are $\K$-linearly dependent, giving a polynomial relation for $\zeta$ over $\K$.
+
+More generally, elements $\zeta_1,\ldots,\zeta_r\in \E$ are \emph{algebraically independent} over $\K$ if no nonzero polynomial $f\in \K[x_1,\ldots,x_r]$ satisfies $f(\zeta_1,\ldots,\zeta_r)=0$. In particular, a single element $\zeta$ is transcendental over $\K$ exactly when $\{\zeta\}$ is algebraically independent over $\K$. One helpful characterization of transcendental elements can be phrased in terms of our trusty friend evaluation maps. 
+
+\begin{lemma}
+Let $\E/\K$ be a field extension. An element $\zeta \in \E$ is transcendental over $\K$ if and only if the evaluation-at-$\zeta$ homomorphism below is injective:
+\[
+\begin{tikzcd}[row sep = .5em, column sep = 3.5em]
+\K[x] \arrow[r, "\ev_{\zeta}"] & \E \\
+f \arrow[r,mapsto] &  f(\zeta)
+\end{tikzcd}.
+\]
+\end{lemma}
+A useful consequence of this lemma is that if $\zeta\in \E$ is transcendental over $\K$, then the map $\ev_\zeta$ identifies $\K[x]$ with the subring $\K[\zeta]\subseteq \E$. Passing to fields of fractions then identifies the rational function field $\K(x)$ with the subfield $\K(\zeta)\subseteq \E$. You will prove the converse in the exercises as well.
+
+A field  $\K$ is \emph{algebraically closed} if every nonconstant polynomial in $\K[x]$ has a root in $\K$. An equivalent formulation is that  $\K$ has no nontrivial algebraic extensions. That is, if $\E/\K$ is algebraic, then $\E=\K$. The field $\C$ of complex numbers is the prototypical example.
+
+A \emph{$\K$-algebra} is a ring $R$ equipped with a ring homomorphism $\alpha: \K \to R$. Given such a map, $R$ becomes a
+$\K$-vector space by defining $\lambda\cdot a \coloneqq \alpha(\lambda)a$ for $\lambda\in\K$ and $a\in R$. This scalar multiplication is compatible with the ring multiplication in the sense that
+\[
+\lambda\cdot(ab) = (\lambda\cdot a)b = a(\lambda\cdot b)
+\]
+for all $a,b\in R$ and $\lambda \in \K$. Conversely, any ring $R$ that is simultaneously a $\K$-vector space satisfying the above compatibility condition is a $\K$-algebra; the structure map is $\alpha(\lambda)=\lambda\cdot 1_R$. A \emph{homomorphism of $\K$-algebras} $\phi: R\to S$ is a
+ring homomorphism that also respects the $\K$-action, i.e. $\phi(\lambda \cdot_{R} a) = \lambda \cdot_{S} \phi(a)$ for all $\lambda \in \K$ and $a\in R$. Equivalently, the diagram
+\[
+\begin{tikzcd}
+& \K \arrow[dl,"\alpha_R"'] \arrow[dr,"\alpha_S"] & \\
+R \arrow[rr,"\phi"'] & & S
+\end{tikzcd}
+\]
+commutes, where $\alpha_S$ and $\alpha_R$ are the respective structure maps. In other words, $\phi$ is a ring homomorphism that is also $\K$-linear.  For example, $R=\K[x_1,\ldots,x_n]$ is a $\K$-algebra via the inclusion of constants, and any quotient $R/I$ inherits a $\K$-algebra structure from the surjection $\pi:R\twoheadrightarrow R/I$. If $I\subseteq \K[x_1,\ldots,x_n]$ is an ideal, the quotient $\K[x_1,\ldots,x_n]/I$ is a $\K$-algebra. It is a field if and only if $I$ is maximal. In that case, the quotient map $\pi$ gives a field extension:
+\[
+\begin{tikzcd}[row sep = .5em, column sep = 3.5em]
+\K \arrow[r] & \K[x_1,\ldots,x_n] \arrow[r,"\pi"]  & \K[x_1,\ldots,x_n]/I
+\end{tikzcd}
+\]
+ gives a field extension of $\K$. Every element of this quotient is a $\K$-linear combination of the images of monomials $x_1^{a_1}\cdots x_n^{a_n}$, so properties of this extension (such as its dimension over $\K$) are controlled by the combinatorics of monomials together with the relations imposed by $I$.
+
+The problem below uses all of these ideas to prove a beautiful dictionary between algebra and geometry: when $\K$ is both uncountable and algebraically closed (e.g.\ $\K=\C$), the maximal ideals of $\K[x_1,\ldots,x_n]$ are in natural bijection with the points of $\K^n$.
+
+\hrulefill
+
+\begin{problem}{4}
+    \textbf{Hilbert's Nullstellensatz I ($\K$ uncountable).} 
+    
+    Let $R \coloneqq \K[x_1,\ldots,x_n]$ and $\fm \subset R$ be a maximal ideal. Write $L\coloneqq R/\fm$ for the residue field, which contains $\K$ via the natural quotient map. The goal is to show that if $\K$ is uncountable and algebraically closed, then in fact $L\cong \K$.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item Show that the monomials in $R$ form a countable $\K$-basis of $R$.
+    \item Deduce that $L$ has at most countable dimension as a vector space over $\K$.
+    \item Let $\E/\K$ be a field extension and let $\zeta \in \E$. Explain why the following are equivalent:
+
+    \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+    \item $\zeta$ is transcendental over $\K$;
+    \item $\{\zeta\}$ is algebraically independent over $\K$;
+    \item the evaluation map $\K[x]\to \E$ sending $f(x)$ to $f(\zeta)$ is injective.
+    \end{enumerate}
+    In particular, if a field extension of $\K$ is not algebraic, then it contains a transcendental element.
+    \item\label{ex-part:family} Let $\K$ be any infinite field, and let $\zeta \in \E$ be transcendental over $\K$ for some field extension $\E/\K$. Prove that the set of elements in $\E$:
+    \[
+    \left\{\frac{1}{\zeta-\lambda} \;\; \big| \;\; \lambda \in \K \right\} \subseteq \E
+    \]
+    is linearly independent over $\K$. (Hint: Suppose $\sum_{i=1}^m \frac{c_i}{\zeta-\lambda_i}=0$ for distinct $\lambda_1,\dots,\lambda_m\in \K$ and coefficients $c_1,\dots,c_m\in \K$. Multiply both sides by $\prod_{j=1}^m (\zeta-\lambda_j)$ to obtain $\sum_{i=1}^m c_i \prod_{j\neq i} (\zeta-\lambda_j)=0$. Now define $P(x)=\sum_{i=1}^m c_i \prod_{j\neq i} (x-\lambda_j)\in \K[x]$. Then $P(\zeta)=0$. Since $\zeta$ is transcendental over $\K$, conclude that $P(x)$ must be the zero polynomial. Evaluate $P(x)$ at $x=\lambda_k$ for each $k$ to show that $c_k=0$.)
+
+    \item Now assume that $\K$ is uncountable. Using part \ref{ex-part:family}, show that if a field extension $\E/\K$ contains a transcendental element, then $[\E:\K]$ is uncountable.
+    \item Assume $\K$ is uncountable. Show if $\fm \subseteq R$ is a maximal ideal, then the extension $\K \hookrightarrow R/\fm\coloneqq L$ is algebraic.
+    \item\label{ex-pt:trivial-ext} Now assume that $\K$ is both uncountable and algebraically closed. Show that every algebraic extension of $\K$ is trivial, so $L\cong \K$ as $\K$-algebras.
+    \item With the notation from part \ref{ex-pt:trivial-ext} let $\psi:R \to \K$ be the ring map given by the composition
+    \[
+    \begin{tikzcd}[row sep = .5em, column sep = 3.5em]
+    R \arrow[r,"\pi"] & R/\fm = L \arrow[r,"\sim"] & \K
+    \end{tikzcd}
+    \]
+    where $\pi$ is the quotient map and the second map is the identification of $L$ with $\K$ from part \ref{ex-pt:trivial-ext}.  Note $\ker(\psi)= \fm$. Define $a_i\coloneqq \psi(x_i) \in \K$ for $i=1,\ldots,n$. Prove that $\fm=\langle x_1-a_1,\ldots,x_n-a_n\rangle$.
+
+    \item Deduce that when $\K$ is uncountable and algebraically closed, the assignment $p\mapsto \fm_p$ gives a bijection between points of $\K^n$ and maximal ideals of $\K[x_1,\ldots,x_n]$.
+    \end{enumerate}
+\end{problem}
+
+
+\hrulefill
+
+We have now proven Hilbert's Nullstellensatz I under the additional assumption that $\K$ is uncountable, using virtually only field theory! Note this applies to $\C$ and $\C_{p}$ as these are both algebraically closed and uncountable, but does not apply to $\overline{\Q}$ and $\overline{\F_{p}}$ which while algebraically closed are countable. 
+
+In what follows we will \emph{only} assume $\K$ is algebraically closed, and will use Hilbert's Nullstellensatz I to deduce the weak Nullstellensatz. After that we will use what has come to be known as \emph{Rabinowitsch's trick} to upgrade the weak Nullstellensatz to the full statement of Hilbert's Nullstellensatz II. 
+
+\hrulefill
+
+\begin{problem}{5}
+     \textbf{Weak Nullstellensatz.} Let $\K$ be algebraically closed and let $I \subseteq \K[x_1,\ldots,x_n]$ be an ideal.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item Show that if $I$ is proper, then $I$ is contained in some maximal ideal $\fm$. (Hint: Use Zorn's Lemma.) 
+    \item Assuming Hilbert's Nullstellensatz I, show that if  $I$ is proper then $\V(I) \neq \varnothing$. (Hint: $\V(\fm) \subset \V(I)$.)
+    \item Conclude that $\V(I) = \varnothing$ if and only if $I = \langle 1 \rangle$.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{6}
+    \textbf{Hilbert's Nullstellensatz II. (Rabinowitsch's Trick)}  
+    
+    Let $\K$ be algebraically closed  and  $R\coloneqq \K[x_1,\ldots,x_n]$. Let $I=\langle f_1,\ldots,f_t\rangle \subset R$ be an ideal. Choose any element $g \in \I(\V(I))$, we will show that some power of $g$ lies in $I$. Note if $g=0$ there is nothing to prove as $0\in I$. Thus, we assume $g$ is non-zero. 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item In the larger polynomial ring $R[z]$, define $J\coloneqq \langle f_1,\ldots,f_t,1-gz\rangle$. Show that $\V(J)=\varnothing$ without appealing to the weak Nullstellensatz. (Hint: If $(a_1,\ldots,a_{n+1}) \in \V(J)$ then what do we know about $g(a_1,\ldots,a_n)$ since $g\in \I(\V(I))$.)
+    \item Use Question~\ref{ex:weak-null} to conclude that $J=\langle 1\rangle \subset R[z]$. Deduce there exist polynomials $h_1,\ldots,h_t,h_{t+1} \in R[z]$ such that the following relation holds. 
+    \[
+    1=h_1f_1+\cdots+h_tf_t+h_{t+1}(1-gz) \in R[z].
+    \]
+    \item Consider the ring $R[1/g]$ consisting of expressions of the form $p/g^k$ where $p\in R$ and $k\geq 0$, in other words, we enlarge $R$ by formally allowing division by powers of $g$. Consider the map of $\K$-algebras:
+    \[
+    \begin{tikzcd}[row sep = .5em, column sep = 3.5em]
+    R[z]\arrow[r, "\psi"] & R\left[\frac{1}{g}\right] \\
+    z \arrow[r, mapsto] & \frac{1}{g}
+    \end{tikzcd}
+    \]
+    Explain why $\psi$ is a well-defined $\K$-algebra homomorphism. (Hint: What does it take to define a $\K$-algebra map out of a polynomial ring $R[z]$?)
+    \item\label{eq-pt:psi-exp} Prove that $\psi(1-gz)=0$ and deduce that $1=\psi(h_1)f_1+\cdots+\psi(h_t)f_t$ in $R[1/g]$.
+    \item Explain why there exists $k\in \N$ such that $g^k\psi(h_i)\in R$ for every $i=1,\ldots,t$. Multiply the equation in part \ref{eq-pt:psi-exp} by $g^k$ to conclude that $g^k\in I$. (Hint: Each $\psi(h_i)$ is an element of $R[1/g]$, so it can be written as $p_i/g^{k_i}$ for some $p_i\in R$ and $k_i\geq 0$.)
+    \item Conclude that $g\in \sqrt{I}$, and hence $\I(\V(I))\subseteq \sqrt{I}$.
+    \item Combine this with Question~\ref{ex:null-reduction} to finish the proof of Hilbert's Nullstellensatz II assuming Hilbert's Nullstellensatz I. (The latter we have proven over every uncountable algebraically closed field, in particular over $\C$.)
+    \end{enumerate}
+\end{problem}
+\hrulefill
+
+You have now proved Hilbert's Nullstellensatz for every \emph{uncountable} algebraically closed field, including $\C$. The only remaining gap in the proof over an arbitrary algebraically closed field is the point case: one still needs to show that every maximal ideal is of the form $\fm_p$ without assuming uncountability. We will return to that later, after developing more tools.
+
+For the remainder of the worksheet, assume Hilbert's Nullstellensatz I and II over all algebraically closed fields and use them freely. The point now is to unpack what the theorem says about coordinate rings, closed subsets, irreducibility, and functoriality. In particular, we would like a version of the Nullstellensatz that describes algebraic subsets not of just $\K^n$, but of any algebraic set $V \subset \K^n$. Towards this we will define and study relative versions of the $\I$ and $\V$ operators. In particular, for an algebraic subset $W \subset V$ and an ideal $J \subset \K[V]$ define
+\[
+\I_V(W)\coloneqq \left \{\phi \in \K[V] \;\; \big| \;\; \phi(p)=0 \text{ for all }p\in W\right\}
+\] 
+and 
+\[
+\V_V(J)\coloneqq \left\{p\in V \;\; \big| \;\;  \phi(p)=0 \text{ for all }\phi\in J\right\}.
+\]
+Using these we how to prove the following relative version of the Nullstellensatz connecting algebraic subsets of $V$ and radical ideals in $\K[V]$. 
+
+\begin{theorem}[Hilbert's Nullstellensatz III] Let $\K$ be an algebraically closed field. If $V \subset \K^n$ is an algebraic subset then the maps $\I_V$ and $\V_V$ induce inverse, inclusion-reversing bijections:
+ \[
+\begin{tikzcd}[row sep = .5 em, column sep = 8em]
+\left\{ \begin{matrix} 
+\text{algebraic subsets} \\
+\text{in $V$}
+\end{matrix} \right\} \arrow[r, bend left=10, "\I_V"] & \arrow[l,bend left=10,"\V_V"]
+\left\{ \begin{matrix} 
+\text{radical ideals} \\
+\text{in $\K[V]$}
+\end{matrix} \right\} 
+\end{tikzcd}
+\]
+\end{theorem}
+
+Note that since the coordinate ring of $\K^n$ is canonically isomorphic to $\K[x_1,\ldots,x_n]$ we could view Hilbert's Nullstellensatz II as a special case of this third version. However, the real difficulty in proving the third version boils down to applying the second. As you will see many of the following exercises boil down to the same ideas and arguments we used for $\I$ and $\V$, at times almost verbatim. 
+
+\hrulefill
+
+
+%\item \textbf{Closed Subsets via Quotients of the Coordinate Ring.} Assume $\K$ is algebraically closed, and let $V \subset \K^n$ be an algebraic set with coordinate ring $\K[V]$. The goal of this problem is deduce the following bijection:
+%\[
+%\begin{tikzcd}[row sep = .5em, column sep = 6.5em]
+%\left\{ \begin{matrix} \text{algebraic subsets} \\ \text{ of $V$} \end{matrix} \right\} \arrow[r,leftrightarrow] & \left\{ \begin{matrix} \text{reduced $\K$-algebras of the form $\img(\psi)$} \\ \text{where $\psi:\K[V]\to R$ some $\K$-alg. hom.} \\ \text{for some $\K$-alg. $R$} \end{matrix} \right\}\\
+%W \arrow[r, mapsto] &\img\left(\K[V] \xrightarrow{\rho} \K[W] \right)
+%\end{tikzcd}
+%\]
+%where the map $\rho:\K[V] \to \K[W]$ is given by taking a function $\phi:V \to \K$ and restricting it to $W$ to get a function $\phi|_{W}:W\to \K$. (If we wanted to feel fancy we could say $\phi|_{W}$ is the composition of $\phi:V\to \K$ with the inclusion $\iota:W\to V$, but at in this setting that is needlessly complex.)
+%
+%\begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+%\item Let $\psi:R \to S$ be a morphism of $\K$-algebras show that $\img(\psi)$ is a reduced $\K$-algebra (i.e. no nonzero nilpotents) if and only if $\ker(\psi)$ is a radical ideal. (Hint: Use the first isomorphism theorem.)
+%\item If $W\subset V$ is an algebraic subset, show that the restriction map $\rho:\K[V] \to \K[W]$ is a surjective and the kernel is a radical ideal of $\K[V]$. 
+%\item If $\psi:\K[V] \to R$ is a morphism of $\K$-algebras define:
+%\[
+%\WW(\psi) \coloneqq \left\{ p \in V \;\; \big| \;\; \text{$f(p) = 0$ for all $f\in \ker(\psi)$}\right\} \subset V \subset \K^n.
+%\]
+%Show $\WW(\psi)$ is an algebraic subset of $V$ by finding a subset $\cS\subset \K[x_1,\ldots,x_n]$ such that $\WW(\psi) = \V(\cS)$. 
+%\item Prove that the assignments
+%\[
+%  W \longmapsto \ker\!\bigl(\K[V] \to \K[W]\bigr)
+%  \qquad\text{and}\qquad
+%  J \longmapsto \WW(J)
+%\]
+%define inverse, inclusion-reversing bijections between algebraic subsets of $V$
+%and radical ideals of $\K[V]$.
+%\emph{(Hint: One direction uses the Nullstellensatz applied in $\K[V]$.)}
+%\item Rephrase part (d) as an inclusion-reversing bijection between algebraic subsets of $V$ and reduced homomorphic images of $\K[V]$.
+%\end{enumerate}
+
+\begin{problem}{7}
+    \textbf{Properties of $\I_V$.}
+    
+    Assume $\K$ is algebraically closed, let $V\subseteq \K^n$ be an algebraic set with coordinate ring $\K[V]$. Let $W\subseteq V$ be an algebraic subset and $\rho_{W}: \K[V] \to \K[W]$ be the restriction homomorphism taking a function $\phi:V \to \K$ and restricting it to $W$ to get a function $\phi|_{W}:W\to \K$. (If we wanted to feel fancy we could say $\phi|_{W}$ is the composition of $\phi:V\to \K$ with the inclusion $\iota:W\to V$, but in this setting that is needlessly complex.) 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Show that $\I_V(W)$ is an ideal of $\K[V]$, and if $Z \subset W \subset V$ then $\I_{V}(W) \subset \I_{V}(W)$.
+        \item Since $V$ is  an algebraic subset of itself, as a reality check what is $\I_{V}(V)$?
+        \item Prove that $\rho_{W}$ is a surjective $\K$-algebra homomorphism with kernel $\I_V(W)$. 
+        \item Prove that $\rho_W$ induces an $\K$-algebra isomorphism $\K[V]/\I_{V}(W) \cong \K[W]$. 
+        \item Show that if $W \subset V$ is an algebraic subset then the following diagram commutes:
+        \[
+            \begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+            \K[x_1,\ldots,x_n] \arrow[r, "\rho"]  \arrow[dr,"\rho'"]& \K[V] \arrow[d, "\rho_W"]\\
+            & \K[W]
+            \end{tikzcd}
+        \]
+        where $\rho':\K[x_1,\ldots,x_n] \to \K[W]$ is the restriction of functions map defining $\K[W]$. Deduce that $\I_{V}(W) = \I(W)/\I(V)$. 
+        \item Conclude that if $W \subset V$ is an algebraic subset then $\I_V(W)$ is a radical ideal of $\K[V]$.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{8}
+    \textbf{Properties of $\V_V$.} 
+    
+    Let $\K$ be an algebraically closed field, and let $V\subseteq \K^n$ be an algebraic set with coordinate ring $\K[V]$.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item  Let $J \subset \K[V]$ be an ideal.  Show that $\V_V(J)$ is an algebraic subset of $V$ by showing that $\V_V(J)=\V(\rho^{-1}(J))\subseteq \K^n$. (Hint: Since $\ker(\rho)=\I(V)\subseteq \rho^{-1}(J)$, every point of $\V(\rho^{-1}(J))$ already lies in $V$.)
+        \item Again exploring the extremes what algebraic subsets of $V$ are $\V_{V}(\langle 1 \rangle)$ and $\V_{V}(\langle 0\rangle)$?
+        \item Show that if $I \subset J$ are ideals in $\K[V]$ then $\V_{V}(J) \subset \V_{V}(I)$. 
+    \end{enumerate}
+\end{problem}
+
+
+\begin{problem}{9}
+    \textbf{Proving Hilbert's Nullstellensatz III.} 
+    
+    Assume $\K$ is algebraically closed, let $V\subseteq \K^n$ be an algebraic set with coordinate ring $\K[V]$.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Use Hilbert's Nullstellensatz in $\K[x_1,\ldots,x_n]$ to prove that $\I_V\left(\V_V(J )\right)=\sqrt{J}$ (Hint: First identify $\I_V(\V_V(J))$ with $\I(\V(\rho^{-1}(J)))/\I(V)$, then use $\I(\V(-))=\sqrt{-}$.)
+
+        \item Show that if $W\subseteq V$ is an algebraic subset, then $\V_V\left(\I_V(W)\right)=W$.
+
+        \item Conclude that the assignments $W\longmapsto \I_V(W)$ and $J\mapsto \V_V(J)$ induce inverse, inclusion-reversing bijections between algebraic subsets of $V$ and radical ideals in $\K[V]$. 
+
+        \item Prove that under the bijections in the previous parts the maximal ideals of $\K[V]$ correspond to the points of $V$, thought of as algebraic subsets. Explain why we should think of this as a relative version of Hilbert's Nullstellensatz I.  
+    \end{enumerate}
+\end{problem}
+
+
+\begin{problem}{10}
+    \textbf{Irreducibility and Prime Ideals.} 
+    
+    An algebraic set $V \subset \K^n$ is \emph{irreducible} if there do not exist two proper algebraic subsets $W_1,W_2 \subsetneq V$ such that $V=W_1\cup W_2$. Equivalently, $V$ is not the union of two proper algebraic subsets. An algebraic set that is not irreducible is said to be \emph{reducible}.
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item  Which of the following algebraic sets in $\K^n$ (with $\K$ algebraically closed) do you think are irreducible. Draw pictures when possible. 
+        \begin{multicols}{2}
+        \begin{enumerate}[label=(\roman*),ref=\theenumi\roman*]
+        \item $V=\V(x^2-y^2)\subset \C^2$.
+        \item $V=\V(y-x^3)\subset \C^2$.
+        \item $V=\V(xz,yz)\subset \C^3$.
+        \item $V=\V(x^2+y^2-1)\subset \C^2$.
+        \item $V=\V(xy-z^2)\subset \C^3$.
+        \item $V=\V(3x^2-2xy) \subset \C^2$.
+        \end{enumerate}
+        \end{multicols}
+    \item Assume $\I(V)$ is a prime ideal. Show that $V$ is irreducible. (Hint: Suppose for contradiction that $V=W_1\cup W_2$ with $W_1,W_2\subsetneq V$. Since $W_i\subsetneq V$, there exist $f_i\in \I(W_i)\setminus \I(V)$. What can you say about the product $f_1f_2$?)
+    \item\label{ex-pt:prd} Show that if $fg\in \I(V)$, then $V \subseteq \V(g) \cup \V(f)$. (Hint: Use that $\V$ is inclusion reversing, together with some facts you proved when checking the Zariski topology is a topology.)
+    \item Prove that if $V$ is irreducible then $\I(V)$ is prime. (Hint: Given $fg \in \I(V)$ we must show that $f\in \I(V)$ or $g \in \I(V)$. By \ref{ex-pt:prd} if $fg\in \I(V)$ then $V \subset \V(f)\cup \V(g)$ what does $V$ being irreducible imply here?)
+    \item Conclude that an algebraic set $V$ is irreducible if and only if $\I(V)$ is prime. State a bijection between irreducible algebraic sets and prime ideals. Why do we not need to say radical?
+    \end{enumerate}
+\end{problem}
+
+
+\begin{problem}{11}
+    \textbf{Algebraic Sets and Spec.} 
+    
+    Continue to assume that $\K$ is an algebraically closed field and that $V \subset \K^n$ is an algebraic subset with coordinate ring $\K[V]$. In this question we will prove an inclusion-reversing bijection between $\Spec(\K[V])$ and the irreducible algebraic subsets of $V$. Keep the notation from the previous problem, and use the Hilbert's Nullstellensatz III from Questions~\ref{ex:hilb3-1}-\ref{ex:hilb3-3}.
+
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item If $W_1,W_2\subseteq V$ are algebraic, show that $\I_V(W_1\cup W_2)=\I_V(W_1)\cap \I_V(W_2)$. (Note: You proved the same holds of $\I$ when you checked the Zariski topology on algebraic sets is well-defined.)
+
+        \item Let $W\subseteq V$ be an algebraic subset. Show that if $\I_V(W)$ is prime, then $W$ is irreducible.
+
+        \item Let $W\subseteq V$ be an algebraic subset. Prove that given $f,g\in \K[V]$, if $fg\in \I_V(W)$, then $W\subseteq \V_V(f)\cup \V_V(g)$. (This should feel very familiar to Question~\ref{ex:irred}, except that now we are working with $\V_V$ instead of $\V$.)
+
+        \item Prove that if $W$ is irreducible, then $\I_V(W)$ is a prime ideal of $\K[V]$.
+
+        \item\label{ex-pt:alg-set-spec}  Deduce that the assignment $[P] \mapsto \V_V(P)$ induces an inclusion reversing bijection between $\Spec(\K[V])$ and the set of irreducible algebraic subsets of $V$.
+
+        \item Show that the correspondence in the previous part induces a homeomorphism between $\mSpec(\K[V])$, with the subspace Zariski topology inherited from $\Spec(\K[V])$, and $V$ with its Zariski topology.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{12}
+    \textbf{Functor-of-Points Viewpoint.} Let $\K$ be an arbitrary field, and let $I \subset \K[x_1,\ldots,x_n]$ be an ideal. For a field extension $\E/\K$ define:
+    \[
+    \cV_{I}(\E) \coloneqq\left\{ (a_1,\ldots,a_n) \in\E^n \;\; \big| \;\; \text{$f(a_1,\ldots,a_n) = 0$ for all $f\in I$}\right\} \subset \E^n
+    \]
+    where we are viewing the elements of $I$ as elements of $\E[x_1,\ldots,x_n]$ via the natural inclusion, $\K[x_1,\ldots,x_n] \subset \E[x_1,\ldots,x_n]$. Extend $\cV_{I}$ to a function of sets by defining
+    \[
+    \begin{tikzcd}[row sep = .5em, column sep = 4em]
+    \left\{ \begin{matrix} \text{field extensions} \\ \text{of $\K$} \end{matrix} \right\} \arrow[r, "\cV_{I}"] & \Set \\
+    \E \arrow[r, mapsto] & \cV_{I}(\E).
+    \end{tikzcd}
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+    \item\label{ex-pt:fop-ex} For the ideal $I=\langle x^2+y^2\rangle \subseteq \Q[x,y]$, describe the sets $\cV_I(\Q)$, $\cV_I(\R)$, and $\cV_I(\C)$.
+    \item For the ideal $J=\langle x^2+1\rangle \subseteq \Q[x]$, describe the sets $\cV_J(\Q)$, $\cV_J(\R)$, and $\cV_J(\C)$.
+    \item Let $\iota:\E\hookrightarrow \F$ be a $\K$-embedding of field extensions, i.e., a field homomorphism that fixes $\K$ pointwise. Show that $\iota$ induces a well-defined map of sets
+    \[
+    \iota_*:\cV_I(\E)\longrightarrow \cV_I(\F),\qquad (a_1,\ldots,a_n)\longmapsto (\iota(a_1),\ldots,\iota(a_n)).
+    \]
+    (Hint: If $f\in \K[x_1,\ldots,x_n]$ and $f(a_1,\ldots,a_n)=0$, why is $f(\iota(a_1),\ldots,\iota(a_n))=0$? Use the fact that $\iota$ fixes the coefficients of $f$.)
+    \item Show that $\cV_I$ is a \emph{functor} from the category of field extensions of $\K$ (with $\K$-embeddings as morphisms) to the category of sets.
+    \item Revisit part \ref{ex-pt:fop-ex}; the inclusion $\R\hookrightarrow \C$ gives a map $\cV_I(\R)\to \cV_I(\C)$. Describe this map explicitly. Is it injective? Is it surjective?
+    \item Generalize the map $\cV_I$ by enlarging the source from the category of field extensions to the category of $\K$-algebras, $\cV_{I}: \K\text{-alg} \to \Set$. Prove that your generalization remains a functor.  
+    \end{enumerate}
+\end{problem}
+
+\hrulefill
+
+The ideas presented in Question 12 is one standard description of the affine scheme of finite type cut out by $I$. If these words do not mean anything to you, imagine a geometric space similar to algebraic set $\V(I)$, but somehow remembering the ideal $I$ itself not just $\sqrt{I}$. This viewpoint is often called the \emph{functor of points} because we think of $I$ as remembering not only its $\K$-valued solutions, but also its solutions in every test $\K$-algebra. That functorial viewpoint is what survives even when $\K$ is not algebraically closed, and it is one of the main bridges from classical algebraic sets to affine schemes. However, much of this jump from algebraic sets to schemes is beyond the scope of this course. 
+
+\end{document}

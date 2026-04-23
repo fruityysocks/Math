@@ -185,6 +185,8 @@
     Note that $\star$ operation on the set of path-homotopy equivalence classes of paths in the space $X$ forms a groupoid structure.
 \end{remark}
 
+\newpage
+
 \section{The Fundamental Group}
 
 \begin{definition}
@@ -587,6 +589,8 @@
     Let $\iota: A \hookrightarrow X$ then $\iota_\star: \pi_1(A) \to \pi_1(X)$ is injective if $X$ only retracts to $A$. \todo{only retracts??}
 \end{remark}
 
+\newpage 
+
 \section{Applications of $\pi_1$-Computations}
 
 \begin{theorem}[Brouwer-Fixed Point Theorem]
@@ -623,6 +627,8 @@
 
     This implies $\widetilde{h}(1) =q$ and hence $[h] \in \pi_1(S^1, (1,0))$ is not homotopic to the identity. But since $\eta$ is nullhomotopic in $S^2$, $g \circ \eta$ is homotopic to a constant map $[h] = 0 \in \pi_1(S^1, (1,0))$. A contradiction! 
 \end{proof}
+
+\newpage 
 
 \section{Homotopy Equivalences}
 
@@ -675,9 +681,76 @@
 \end{theorem}
 
 \begin{lemma}
-    If $\phi_t: X\to Y$ be a homotopy and $h$ is the path given by $\phi_t(x_0)$ for a choice of $x_0 \in X$, then we have $(\phi_0)_\star = \widehat{\overline{h}}((\phi_1)_\star)$ on $\phi_1(X, x_0)$.
+    If $\phi_t: X\to Y$ be a homotopy and $h$ is the path given by $\phi_t(x_0)$ for a choice of $x_0 \in X$, then we have $(\phi_0)_\star = \widehat{\overline{h}}((\phi_1)_\star)$ on $\pi_1(X, x_0)$. That is, 
+    \begin{center}
+        \begin{tikzcd}
+            \pi_1(X,x_0) \arrow[dr, "(\phi_0)_\star", swap] \arrow[r, "(\phi_1)_\star"] & \pi_1(Y, \phi_1(x_0)) \arrow[d, "\widehat{\overline{h}}"]\\ 
+            {} & \pi_1(Y, \phi_0(x_0)) 
+        \end{tikzcd}
+    \end{center}
 \end{lemma}
 
+\begin{proof}
+    Let $[f] \in \pi_1(X, x_0)$. Let $h_t$ be a reparameterization of the path $h$ such that \\ $h_t(s) := h(st)$. In particular, $h_t$ is a path from $\phi_0(x_0)$ to $\phi_t(x_0)$. Now the composition, $h_t \star \phi_t \circ f \star \overline{h}_t$ gives a path homotopy between 
+    \[h_0 \star \phi_0 \circ f \star \overline{h}_0 = e_{x_0}\star \phi_0 \circ f \star \overline{e}_{x_0} \simeq \phi_0 \circ f\]
+    and  
+    \[h_1 \star \phi_1 \circ f \star \overline{h}_1 = h \star \phi_0 \circ f \star \overline{h} \implies (\phi_0)_\star = \widehat{\overline{h}}((\phi_1)_\star)\]
+\end{proof}
+
+\begin{theorem}
+    Let $\phi: X \to Y$ be a homotopy equivalence. Then $\phi_\star: \pi_1(X, x_0) \to \pi_1(Y, \phi(x_0))$ is an isomorphism. 
+\end{theorem}
+
+\begin{proof}
+    Since $\phi$ is a homotopic equivalence, there exists a $\psi: Y \to X$ such that $\phi \circ \psi \simeq \id_Y$ and $\psi \circ \phi \simeq \id_X$. Consider, 
+    \[\pi_1(X, x_0) \xrightarrow{\phi_\star} \pi_1(Y, \phi(x_0)) \xrightarrow{\psi_\star} \pi_1(X, \psi(\phi(x_0))) \xrightarrow{\phi_\star} \pi_1(Y, \phi(\psi(\phi(x_0))))\]
+    Note that $\psi_\star \circ \phi_\star = (\psi \circ \phi)_\star = \widehat{\overline{h}}\circ (\id_X)_\star$ for some path $h$ in $X$ (by the previous lemma). Tha implies  $ \psi_\star \circ \phi_\star = \widehat{\overline{h}} \implies \psi_\star$ is surjective since $\widehat{\overline{h}}$ is an isomorphism. 
+
+    $\psi_\star$ is injective because 
+    \[\phi_\star \circ \psi_\star = \widehat{\overline{h'}} \circ (\id_Y)_\star\] 
+    for some path $h'$ in $Y$ (by the previous lemma). 
+
+    Hence, $\phi_\star = (\psi_\star)^{-1} \circ \widehat{\overline{h}}$ which is an isomorphism. 
+\end{proof}
+
+\newpage 
+\section{$\pi_1(S_n)$}
+
+\begin{lemma}
+    If a space $X$ is the union of a collection of path-connected open sets $A_\alpha$ each containing the base point $x_0 \in X$. Let $A_\alpha \cap A_\beta$ be path connected for any $\alpha, \beta$, then every loop in $X$ based at $x_0$ is path homotopic to a composition of loops each contained in a single $A_\alpha$ for some $\alpha$ and based at $x_0$. 
+\end{lemma}
+
+\begin{proof}
+    Let $[f] \in \pi_1(X, x_0)$. Suppose that $0 = S_0 < S_1 < \ldots < S_m = 1$ is a subdivision of $[0,1]$ such that $f\mid_{[S_{i-1}, S_i]}$ is contained in a single $A_\alpha$ for all $i$ and some $\alpha$ dependening on $i$. Let us denote that $A_\alpha$ by $A_i$. 
+
+    Note $f(0) = x_0$. Define $g_i$ to be the path from $x_0$ to $f(S_i) \in A_i \cap A_{i+1}$. 
+    
+    % Now consider a path $g_1$ connecting $x_0$ to $f(S_1)$. Note that $f\mid_{[S_1, S_2]}$ lies in $A_2$, and $x_0$ and $f(S_1)$ both lie in $A_1$ and $x_0$ and $f(S_2)$ both lie in $A_2$ and $A_3$. Now, let $g_2$ be a path in $A_2 \cap A_3$, from $x_0$ to $f(S_2)$.
+    
+    Consider, 
+    \[(f \star \overline{g_1}) \star (g_1 \star f \star \overline{g_2}) \star (g_2 \star f \star \overline{g_3}) \star \cdots \star (g_{m-1} \star f) \simeq_p f\]
+    while each of them are loops based at $x_0$ in $A_i$s as $i$ varies. 
+\end{proof}
+
+\begin{theorem}
+    $\pi_1 (S^n, x_0) \cong \{0\}$ if $n \geq 2$. 
+\end{theorem}
+
+\begin{proof}
+    On $S^2$ consider two open sets $A_1 = S^2 \setminus$\{north pole\} and $A_2 = S^2\setminus$\{south pole\}. Let $[f] \in \pi_1 (S^2, x_0)$. Then by the lemma $f \simeq_p g_1 \star g_2$ where $[g_1] \in \pi_1(A_1, x_0)$ and  $[g_2] \in \pi_1(A_2, x_0)$ for some $g_1$ and $g_2$ loops based at $x_0$. Then, 
+    \[[f] = 0 \in \pi_1(S^2, x_0) \implies \pi_1(S^2, x_0) = 0\]
+\end{proof}
+
+\begin{remark}[Stereographic Projection]
+    $S^n \setminus \{$ some pt $\}$ is homeomorphic to $\R^n$. 
+\end{remark}
+
+\section{Covering Spaces (again)} 
+
+\begin{definition}
+    \todo{}
+    $\R P^n := S^n/\{x \sim -x\}$ (quotinent space)
+\end{definition}
 \end{document}
 
 

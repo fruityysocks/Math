@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{amsart}
 
 \include{../style}
 \usepackage{tikz-cd}
@@ -263,6 +263,11 @@
             \end{tikzcd}
         \end{center}
 \end{lemmact}
+
+\begin{definition}
+    A \emph{valuation ring} of a field $\K$ is a subring $R \subset \K$ with the property that for all $x \in \K^{\times}$ either $x \in R$ or $x^{-1} \in R$. 
+\end{definition}
+
 \section{Gr\"{o}bner basis}
 \begin{remark}
     Ideal Membership Problem: Suppose $I \subseteq R[x_1, \cdots, x_n]$ an ideal. How can we algorithmcally determine if $f \in I$?
@@ -286,4 +291,36 @@
     If $R$ is a Noetherian ring, then $R[x]$ is also Noetherian. 
 \end{theorem}
 
+\section{Nullstellensatz}
+
+\begin{theorem}[Hilbert's Nullstellensatz I] If $\K$ is algebraically closed, then every maximal ideal of $\K[x_1,\ldots,x_n]$ is of the form $\langle x_1-a_1,\ldots,x_n-a_n\rangle$ for some point $(a_1,\ldots,a_n) \in \K^n$.
+\end{theorem}  
+
+\begin{theorem}[Hilbert's Nullstellensatz II] If $\K$ is algebraically closed and $V = \V(\cS) \subset \K^n$ is an algebraic set, for some subset $\cS \subset \K[x_1,\ldots,x_n]$, then $\I(V) = \sqrt{\langle \cS \rangle}$. 
+\end{theorem}  
+
+\begin{theorem}[Hilbert's Weak Nullstellensatz] If $\K$ is algebraically closed and $I\subset \K[x_1,\ldots,x_n]$ is an ideal then $\V(I)=\varnothing$ if and only if $I = \langle 1 \rangle$.
+\end{theorem}
+
+\begin{theorem}[Hilbert's Nullstellensatz III] Let $\K$ be an algebraically closed field. If $V \subset \K^n$ is an algebraic subset then the maps $\I_V$ and $\V_V$ induce inverse, inclusion-reversing bijections:
+ \[
+\begin{tikzcd}[row sep = .5 em, column sep = 8em]
+\left\{ \begin{matrix} 
+\text{algebraic subsets} \\
+\text{in $V$}
+\end{matrix} \right\} \arrow[r, bend left=10, "\I_V"] & \arrow[l,bend left=10,"\V_V"]
+\left\{ \begin{matrix} 
+\text{radical ideals} \\
+\text{in $\K[V]$}
+\end{matrix} \right\} 
+\end{tikzcd}
+\]
+\end{theorem}
+
+\begin{remark}
+    $\I$ and $\V$ properties: 
+    \begin{enumerate}
+        \item If $fg \in \I(V)$ then $V \subseteq \V(g) \cap \V(f)$.
+    \end{enumerate}
+\end{remark}
 \end{document}

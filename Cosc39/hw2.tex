@@ -6,6 +6,8 @@
 
 \input{title}
 
+\textbf{Credit Statement:} Talked to Sair Shaikh'26
+
 \begin{problem}{1. Binary addition}
         
     Let's leave the theory land and apply our knowledge in finite automata to some real problems.
@@ -28,8 +30,116 @@
 
 \begin{solution}
     \bbni
+    
+    We can prove this by construction:
 
+    1. \textbf{Pre-processing (get rid of leading zeroes)} — For any binary string, the number of leading $0s$ does not change the integer value.
+
+    \[
+    \langle w \rangle_2 = \langle 0^* w \rangle_2\
+    \]
+    
+    Thus, we can replace the languages $L$ and $L'$ with the languages 
+
+    \[
+    L_p = \{ w \in L \mid w = \epsilon \text{ or } w \text{ starts with } 1 \}
+    \]
+    \[
+    L'_p = \{ w \in L' \mid w = \epsilon \text{ or } w \text{ starts with } 1 \}
+    \]
+
+    This will not change the language $L''$ since for any word $x \in L$ there exists a word $x_p \in L_p$ such that     $\langle x \rangle_2 = \langle x_p \rangle_2$. This also applies to $L'_p$. $L_p$ and $L'_p$ are both automatic. If we take their DFA's, we can simply remove the $0$ transition from the start state, redirecting it into a fail trap.
+
+    2. \textbf{Reverse the DFAs} — As we have proven in class, for any automatic language, its reversal is also automatic. Thus, let $D_r$ and $D'_r$ be the DFAs representing the languages of the reversed binary strings in $L_p$ and $L'_p$ respectively.
+    \begin{itemize}
+        \item reverse all edges in $L_p$ and $L'_p$
+        \item swap the starting and accepting states
+        \item convert the NFA to a DFA
+    \end{itemize}
+An accepting path in $D_r$ and $D'_r$ now reads the bits of a word $x \in L_p$ and $y \in L'_p$ respectively from the least significant to most significant bit.
+
+
+    3. \textbf{Incrementally construct the NFA} — construct an NFA $N$ with states being tuples $(p, q, cb)$ where the state of $D_r$ is $p$, the state of $D'_r$ is $q$, and the carry bit is $cb \in \{0, 1\}$. The start state is $(p_0, q_0, 0)$ where $p_0$ and $q_0$ are the start states of $D_r$ and $D'_r$ respectively. 
+
+    We can construct the transitions by following the rules of binary addition. For every transition $p\rightarrow_r p'$ in $D_r$ and every transition $q\rightarrow_{r'} q'$ in $D_r$, make two transitions for each carry state.
+
+    \[
+        (p, q, 0) \rightarrow (p', q', cb')
+    \]
+       \[
+        (p, q, 1) \rightarrow (p', q', cb')
+    \]
+
+    This way, we can simulate memory by doubling our states to account for every possible carry bit value. However, we need to calculate the value of the edge and the value of the carry bit in the following state. To do this, we use basic binary addition rules. 
+
+    Let $r$ be the value of the edge $p\rightarrow p'$ and $r'$ be the value of the edge $q\rightarrow q'$. Let $cb$ be the value of the carry bit. Determine the edge value $v$ and $cb'$ by following these rules:
+
+    \[
+    for\ carry\ bit\ 0:
+    \]
+    \[
+    (r = 0) + (r'=0) \Rightarrow (v=0) + (cb'=0)
+    \]
+    \[
+    (r = 1) + (r'=0) \Rightarrow (v=1) + (cb'=0)
+    \]
+    \[
+    (r = 0) + (r'=1) \Rightarrow (v=1) + (cb'=0)
+    \]
+    \[
+    (r = 1) + (r'=1) \Rightarrow (v=0) + (cb'=1)
+    \]
+    \[
+    for\ carry\ bit\ 1:
+    \]
+    \[
+    (r = 0) + (r'=0) \Rightarrow (v=1) + (cb'=0)
+    \]
+    \[
+    (r = 1) + (r'=0) \Rightarrow (v=0) + (cb'=1)
+    \]
+    \[
+    (r = 0) + (r'=1) \Rightarrow (v=0) + (cb'=1)
+    \]
+    \[
+    (r = 1) + (r'=1) \Rightarrow (v=1) + (cb'=1)
+    \]
+
+After constructing the NFA $N$, define the accepting states to be the states $(p, q, cb)$ where both $p$ and $q$ are accepting in $D_r$ and $D'_r$ respectively and $cb = 0$. This is because the NFA $N$ has to be composed of two binary strings valid in both $L_p$ and $L'_p$. Additionally, the carry bit must be $0$ as it indicates there is no more arithmetic needed.
+
+For all the states $(p, q, cb)$ where both $p$ and $q$ are accepting in $D_r$ and $D'_r$ respectively and $cb = 1$, create a transition with edge value of $1$ to a \textbf{new} accepting state, effectively using up the carry bit and incorporating it into the NFA.
+
+\medskip
+4. \textbf{Reverse again and convert to DFA} — right now, our NFA N is reading bits from least significant to most significant. We need to reverse this to read from most significant to least significant. Repeat these steps again:
+    \begin{itemize}
+        \item reverse all edges in N
+        \item swap the starting and accepting states
+        \item convert the NFA to a DFA
+    \end{itemize}
+
+Now, we have a final DFA $D_f$ that reads bits of $w$ from most significant bit to the least significant bit.
+
+\medskip
+\textbf{Proof}
+
+We argue both directions of the equality $L(D_f) = L''$.
+
+\medskip
+($\subseteq$) case: Suppose $w \in L(D_f)$. By construction of $D_f$ as the
+DFA obtained from reversing the NFA $N$, there is an accepting path in $N$ of the reverse of $w$—the bits read from least significant to most significant. By the definition of transitions of N, each step satisfies binary addition rules described above. Iterating through all these steps, starting from least significant bit, is binary addition. The acceptance state represents a tuple $(p_n, q_n, 0)$ where $p_n$ and $q_n$ are acceptance states in the DFAs $L_p$ and $L'_q$ respectively. Thus, by following the $p$ and $q$ states, we generate an accepting sequence of states in their respective DFAs, proving there exists some word $x \in L_p$ and some $y \in L'_p$ where $\langle w \rangle_2 = \langle x \rangle_2 + \langle y \rangle_2$. Thus, $w \in L''$.
+
+
+($\supseteq$) Suppose $w \in L''$. There exist $x \in L$ and $y \in L'$ with
+$\langle x \rangle_2 + \langle y \rangle_2 = \langle w \rangle_2$.
+After pre-processing, there exist $x' \in L'_p$ and
+$y' \in L'_p$ with the same values. Thus $x'$ follows an accepting path inside $D_r$ and $y'$ follows an accepting path inside $D'_r$. The transition function of $N$ traces a
+path $(p_0, q_0, 0) \to \cdots \to (p_n, q_n, cb_n)$. Since $\langle x' \rangle_2 + \langle y' \rangle_2 = \langle w \rangle_2$, the final carry bit must be 0 and$(p_n, q_n)$ are accepting states in $D_r$ and $D'_r$ respectively. Thereby, the path is accepting in $N$, so the reverse of $w \in L(N)$ and $w \in L(D_f)$.
+
+Thus, $L(D) = L''$, and $L''$ is automatic.
+    
 \end{solution}
+
+\newpage 
 
 \begin{problem}{2. When does an NFA accept everything?}
 
@@ -107,7 +217,6 @@
 \end{problem}
 
 
-
 \begin{solution}
     \bbni 
     \begin{enumerate}
@@ -118,54 +227,101 @@
         Thus, if all words of length $2^n -1$ are accepted, then no words are rejected and $L(N) = \Sigma^\star$. Therefore, 
         \[f(n) \leq 2^n - 1 \leq 2^n\]
 
+        \item [(b)] Our NFA $N$ is the union of the following components. Each component is designed to accept if there is a violation of the structure of $s_n$. 
 
-        \item[(b)] 
-        \begin{center}
+        \begin{enumerate}
+            \item [(i)] checks if every chunk has length $n$.
+            
             \begin{tikzcd}
-                \phantom{1} \arrow[r] & \circled[color=red]{\phantom{1}} \arrow[r, "\#"] & \circled{\phantom{1}}\arrow[out=55, in=125, loop, swap, "\#"] \arrow[r, "\begin{bmatrix}1\\0\end{bmatrix}"] \arrow[d, "{\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}1\\1\end{bmatrix}}", swap] & \dcircled{\phantom{1}} \\ 
-                {} & {} & \dcircled{\phantom{1}} \arrow[out=-55, in=-125, loop, "{\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}1\\1\end{bmatrix}}"] \arrow[r, "\begin{bmatrix}0\\1\end{bmatrix}", swap]& \dcircled{\phantom{1}}  \arrow[out=-55, in=-125, loop, "{\begin{bmatrix}1\\0\end{bmatrix}}"] \arrow[ul, "\#"] \arrow[u, "{\Sigma - \begin{bmatrix}1\\0\end{bmatrix}}", swap] 
+                {} & {} & \dcircled{\phantom{1}} \\
+                \phantom{1} \arrow[r]  & 
+                \dcircled[color=red]{\phantom{1}} \arrow[ur, "\Sigma - \{\#\}"] \arrow[r, "\#"]  & 
+                \circled{\phantom{1}} \arrow[u, "\#"] \arrow[r, "\Sigma"] & \dcircled{q_1}  \arrow[r, "\Sigma"]\arrow[ul, "\#"]& \cdots  \arrow[r, "\Sigma"] & \dcircled{q_{n-1}}  \arrow[ulll, swap, "\#"] \arrow[r, "\Sigma"] & \dcircled{q_n} \arrow[llll, bend left=30, "\#"] \arrow[llllu, bend right=50, "\Sigma - \{\#\}"]
             \end{tikzcd}
-        \end{center}
+            \vspace{2in}
+            \item[(ii)] check if the two (top and bottom) counts within a chunk differ by one.
+            
+            \begin{tikzcd}
+                \phantom{1} \arrow[r] & \circled[color=red]{\phantom{1}} \arrow[r, "\#"] & \circled{\phantom{1}}\arrow[out=55, in=125, loop, swap, "\#"] \arrow[ddr, bend left=5, "\begin{bmatrix}0\\1\end{bmatrix}"] \arrow[r, "\begin{bmatrix}1\\0\end{bmatrix}"] \arrow[dd, "{\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}1\\1\end{bmatrix}}", swap] & \dcircled{\phantom{1}} \\ 
+                {} & {} \\ 
+                {} & {} & \dcircled{\phantom{1}} \arrow[out=-55, in=-125, loop, "{\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}1\\1\end{bmatrix}}"] \arrow[r, "\begin{bmatrix}0\\1\end{bmatrix}", swap]& \dcircled{\phantom{1}}  \arrow[out=-55, in=-125, loop, "{\begin{bmatrix}1\\0\end{bmatrix}}"] \arrow[uul, bend left=10, "\#"] \arrow[uu, "{\Sigma - \begin{bmatrix}1\\0\end{bmatrix}}", swap] 
+            \end{tikzcd}
 
-        \begin{center}
+            \vspace{.5in}
+            \item[(iii)] checks starting syntax.
+            
             \begin{tikzcd}
                 \phantom{1} \arrow[r] & 
-                \circled{\phantom{1}} \arrow[r, "\#"] & 
+                {\circled[color=red]{\phantom{1}}} \arrow[r, "\#"] & 
                 \dcircled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\begin{bmatrix}0\\0\end{bmatrix}"] \arrow[r, "\begin{bmatrix}0\\1\end{bmatrix}"]  \arrow[d, "{\Sigma - \left \{\begin{bmatrix}0\\1\end{bmatrix},\begin{bmatrix}0\\0\end{bmatrix} \right \} }", swap]  & 
                 \dcircled{\phantom{1}} \arrow[r, "\#"] \arrow[dl, "{\Sigma - \{\#\}}"]& 
                 \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\Sigma"] 
                 \\ 
                 {} & {} & \dcircled{\phantom{1}} \arrow[out=-55, in=-125, loop, "\Sigma"] 
             \end{tikzcd}
-        \end{center}
-
-        \begin{center}
+            
+            \vspace{2in}
+            
+            \item[(iv)] checks ending syntax.
+            
             \begin{tikzcd}
                 \phantom{1} \arrow[r]  & 
-                \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\Sigma"] \arrow[r, "\#"]  & 
-                \dcircled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\begin{bmatrix} 1\\1 \end{bmatrix}"] \arrow[r, "\begin{bmatrix} 0\\1 \end{bmatrix}"] \arrow[d, "{\Sigma - \left \{\begin{bmatrix}1\\1\end{bmatrix},\begin{bmatrix}0\\1\end{bmatrix} \right \} }", swap] & 
-                \dcircled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\Sigma"] \arrow[r, "\#"] \arrow[dl, "{\Sigma - \{\#\}}"]& 
-                \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\Sigma"]
+                \circled[color=red]{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\Sigma"] \arrow[r, "\#"]  & 
+                \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\begin{bmatrix} 1\\1 \end{bmatrix}"] \arrow[r, "\begin{bmatrix} 0\\1 \end{bmatrix}"] \arrow[dd, "{\Sigma - \left \{\begin{bmatrix}1\\1\end{bmatrix},\begin{bmatrix}0\\1\end{bmatrix}, \, \# \right \} }", swap] \arrow[ddr, "\#"{yshift=0.2in, xshift=-.1in}, swap]& 
+                \dcircled{\phantom{1}} \arrow[r, "\#", swap] \arrow[ddl, "{\Sigma - \{\#\}}"{yshift=0.2in, xshift=.15in}]& 
+                \circled{\phantom{1}} 
                 \\ 
-                {} & {} & \dcircled{\phantom{1}} 
+                {} & {} \\
+                {} & {} & \dcircled{\phantom{1}} \arrow[out=-55, in=-125, loop, swap, "{\Sigma -\{\#\}}", swap] \arrow[r, "\#"] & \dcircled{\phantom{1}}
             \end{tikzcd}
-        \end{center}
 
-        \begin{center}
+            %  \begin{tikzcd}
+            %     \phantom{1} \arrow[r]  & 
+            %     \circled[color=red]{\phantom{1}} \arrow[out=55, in=125, loop, swap, "{\Sigma-\{\#\}}"] \arrow[r, "\#"]  & 
+            %     \dcircled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\begin{bmatrix} 1\\1 \end{bmatrix}"] \arrow[r, "\begin{bmatrix} 0\\1 \end{bmatrix}"] \arrow[d, "{\Sigma - \left \{\begin{bmatrix}1\\1\end{bmatrix},\begin{bmatrix}0\\1\end{bmatrix} \right \} }", swap] & 
+            %     \dcircled{\phantom{1}}  \arrow[r, "\#"] \arrow[dl, "{\Sigma - \{\#\}}"]& 
+            %     \circled{\phantom{1}} 
+            %     \\ 
+            %     {} & {} & \dcircled{\phantom{1}} 
+            % \end{tikzcd}
+            
+            
+            \item [(v)] compares characters that are $n$ characters apart and thus checks if the bottom count in a chunk is consistent with the top count in the next chunk. 
+            
             \begin{tikzcd}
-                {} & {} & \dcircled{\phantom{1}} \\
                 \phantom{1} \arrow[r]  & 
-                \dcircled{\phantom{1}} \arrow[ur, "\Sigma - \{\#\}"] \arrow[r, "\#"]  & 
-                \circled{\phantom{1}} \arrow[u, "\#"] \arrow[r, "\Sigma"] & \dcircled{q_1}  \arrow[r, "\Sigma"]\arrow[ul, "\#"]& \cdots  \arrow[r, "\Sigma"] & \dcircled{q_{n-1}}  \arrow[ulll, swap, "\#"] \arrow[r, "\Sigma"] & \dcircled{q_n} \arrow[llll, bend left=30, "\#"]
+                \circled[color=red]{\phantom{1}} \arrow[r, "\#"] \arrow[out=55, in=125, loop, swap, "\Sigma"] \arrow[dddl, "{\begin{bmatrix}1\\1\end{bmatrix},\begin{bmatrix}0\\1\end{bmatrix}}", swap] \arrow[dd, swap, "{\begin{bmatrix}1\\0\end{bmatrix},\begin{bmatrix}0\\0\end{bmatrix}}", swap] & \circled{p_1}  \arrow[r, "\Sigma"] & \cdots \arrow[r, "\Sigma"] & \circled{p_n}  \arrow[r, "\#"] & \circled{\phantom{1}} \arrow[dd, "\Sigma - \{\#\}"]\\ 
+                {} & {} \\
+                {} & \circled{q_1}  \arrow[r, swap, "\Sigma"] & \cdots \arrow[r, swap, "\Sigma"] & \circled{q_n}  \arrow[rr, bend left = 30, "{\Sigma - \left \{\begin{bmatrix}0\\1\end{bmatrix},\begin{bmatrix}0\\0\end{bmatrix}\right\} }"] \arrow[r, swap, "{\begin{bmatrix}0\\1\end{bmatrix},\begin{bmatrix}0\\0\end{bmatrix}}"] & \circled{\phantom{1}} & \dcircled{\phantom{1}} 
+                \\
+                \circled{r_1}  \arrow[r, "\Sigma"] & \cdots \arrow[r, "\Sigma"] & \circled{r_n}  \arrow[r, "{\begin{bmatrix}1\\1\end{bmatrix},\begin{bmatrix}1\\0\end{bmatrix}}"]  \arrow[rrru, bend left = -30, "{\Sigma - \left \{\begin{bmatrix}1\\1\end{bmatrix},\begin{bmatrix}1\\0\end{bmatrix}\right\}}", swap] & \circled{\phantom{1}}  
             \end{tikzcd}
-        \end{center}
-
-        % \begin{center}
-        %     \begin{tikzcd}
-        %         \phantom{1} \arrow[r]  & 
-        %         \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "\Sigma"]
-        %     \end{tikzcd}
-        % \end{center}
         \end{enumerate}
+        Note that the red states are starting states. 
+
+        Let $w$ be a string that is not accepted by $N$, then it must be rejected by all of the components. That is, the string has the following properties: 
+        \begin{enumerate}
+            \item It is not accepted by component (i), so every chunk has length exactly $n$. 
+            \item It is not accepted by component (ii), so the bottom number equals the top number $+1$ for all chunks.
+            \item It is not accepted by component (iii), so it starts with a $\#$ has a series of $\begin{bmatrix}
+                0\\0
+            \end{bmatrix}$ followed by a single $\begin{bmatrix}
+                0\\1
+            \end{bmatrix}$ and a $\#$. That is, the first chunk encodes $0$ in the top row and $1$ in the bottom row.
+            \item It is not accepted by component (iv), so it ends with $\#$ followed by a series of $\begin{bmatrix}
+                1\\1
+            \end{bmatrix}$ followed by a single $\begin{bmatrix}
+                0\\1
+            \end{bmatrix}$ and a $\#$. That is, the last chunk encodes $2^n - 2$ in the top row and $2^n-1$ in the bottom row. It will also fail for strings that don't include $\#$ or have a final incomplete closure of $\#$, but that is irrelevant as our other gadgets will accept these strings in these cases. This gadget only checks that the final $\#$ enclosure follows our defined format.
+            \item It is not accepted by component (v), then for character $a$ we have the following: 
+            \begin{itemize}
+                \item If $a = \#$ then we have another $\#$ after $n$ characters, or we terminate early.
+                \item If the bottom entry of $a$ is $0$ the top entry of the character after $n$ characters is $0$, or we terminate early. 
+                \item If the bottom entry of $a$ is $1$ the top entry of the character after $n$ characters is $1$, or we terminate early. 
+            \end{itemize}
+            That is the bottom chunk equals the top of the next chunk for every chunk. 
+        \end{enumerate}
+        These conditions uniquely determine the string $s_n$. Therefore, the only string not accepted by $N$ is $s_n$, and hence $L(N) = \Sigma ^\star - \{s_n\}.$
+    \end{enumerate}
 \end{solution}
 \end{document}

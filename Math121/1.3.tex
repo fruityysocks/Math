@@ -1,0 +1,333 @@
+\documentclass[Notebook.tex]{subfiles}
+
+\begin{document}
+
+
+\ifSubfilesClassLoaded{
+    \input{title}
+}{}
+
+\begin{center}
+    {Worksheet 1.3: Gr\"{o}bner Bases Pt. I}
+\end{center}
+
+ \textbf{Polynomial Division.} Recall the following classical theorem: 
+
+
+\begin{theorem}\label{thm:division-alg}
+Let $g \in \K[x]$ be a non-zero polynomial. Every polynomial $f\in \K[x]$ can be written uniquely as $f=qg+r$ where $q,r \in \K[x]$, and either $r=0$ or $\deg(r) < \deg(g)$. 
+\end{theorem}
+
+While this theorem might seem innocuous when first learned as a teenager, it turns out to be very powerful when studying ideals and polynomials in $\K[x]$. The proof of this theorem also provides an algorithm for computing $q$ and $r$, which when presented in pseudocode looks something like
+
+\begin{algorithm}
+\caption{Division Algorithm}
+\begin{algorithmic}
+\Require $g, f$
+\Ensure $q, r$
+\State $q \gets 0$; $r \gets f$
+\While{$r \neq 0$ \textbf{and} $\LT(g)$ divides $\LT(r)$}
+    \State $q \gets q + \LT(r)/\LT(g)$
+    \State $r \gets r - (\LT(r)/\LT(g))g$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+The goal of this worksheet is to begin exploring how we might extend this theorem to polynomial rings in more variables. Along the way we will see how these explorations will lead to both computational tools for studying the commutative algebra of polynomial rings over fields, but also gives us useful tools for proving theorems in this setting as well. 
+
+\newpage 
+
+\begin{problem}{1}
+Use Theorem 1 to prove the following:
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item If $f\in \K[x]$ is a non-zero polynomial then $f$ has at most $\deg(f)$ roots in $\K$.
+        \item If $g\in \K[x]$ is a non-zero polynomial then $f \in \langle g \rangle$ if and only if $r=0$. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Assume for the sake of contradiction that $f$ has more than $n = \deg (f)$ roots, say $m$ roots: $a_1, \cdots a_m$. Then by Theorem 1, dividing by $(x-a_i)$ for all $ 1 \leq i \leq m$ we get $f = c(x- a_1) \cdots (x-a_m)$, for some constant $c$ and $r =0$. But then we have $m$ $x$ terms, i.e., $x^m$ is in $f$, but since $\deg(f) < m$ this is not possible. Hence a contradiction. 
+        
+        \item $(\implies)$ 
+        
+        Assume $f \in \langle g \rangle$. Then there exists some $q \in \K[x]$ such that $f = qg$. Then, 
+        \[f = qg + r \implies f - qg = r = 0\]
+
+        $(\impliedby)$ 
+
+        Assume $r = 0$. Then by Theorem 1 we have, 
+        \[f = qg + 0 = qg\]
+        That is there exists some $q \in \K[x]$ such that $f = qg$ and by definition of an ideal, $f \in \langle g \rangle$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+Implement the algorithm above in Macaulay2, and use your code to compute $q$ and $r$ for the following polynomials.
+\begin{multicols}{2}
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item $f = x^3 + x + 1$, \quad $g = x + 1$.
+        \item $f = x^5 - 1$, \quad $g = x - 1$.
+        \item $f = x^2 + 1$, \quad $g = x^3 + x$.
+        \item $f = x^{100} - 1$, \quad $g = x^2 - 1$.
+        \item $f = x^{1000} - 1$, \quad $g = x - 1$.
+        \item $f = \sum_{i=0}^{500} x^i$, \quad $g = x^2 + x + 1$.
+    \end{enumerate}
+\end{multicols}
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{multicols}{2}
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+            \item $(x^2-x+2, - 1)$
+            \item $(x^4 + x^3 + x^2 + 1, 0)$
+            \item $(0, x^2 + 1)$
+            \item $\left(\sum_{k=0}^{49} x^{2k}, 0\right)$
+            \item $\left(\sum_{k=0}^{99} x^k, 0\right)$
+            \item $\left( \sum_{k=0}^{166} x^{3k}, 0 \right)$
+        \end{enumerate}
+    \end{multicols}
+\end{solution}
+
+\newpage
+
+\begin{definition}
+    A monomial ordering on $\K[x_1,\ldots,x_n]$ is a relation $<$ on $\Z^{n}_{\geq0}$ satisfying the following:
+    \begin{enumerate}
+        \item[(i)] $<$ is a total ordering on $\Z^{n}_{\geq0}$,
+        \item[(ii)] if $\alpha < \beta$ and $\gamma \in \Z^{n}_{\geq0}$ then $\alpha+\gamma < \beta + \gamma$, and
+        \item[(iii)] $<$ is a well-ordering on $\Z^{n}_{\geq0}$.
+    \end{enumerate}
+\end{definition}
+
+Recall that a \emph{total ordering} means that of any two elements $\alpha,\beta \in \Z^{n}_{\geq0}$ exactly one of the following statements is true: $\alpha < \beta$, $\alpha = \beta$, or $\beta < \alpha$. That $<$ is a well-ordering on $\Z^{n}_{\geq0}$  means that every non-empty subset of $\Z^{n}_{\geq0}$ has a smallest element with respect to $<$.
+
+Once a monomial ordering has been fixed, every non-zero polynomial acquires a distinguished piece of data: its leading monomial, leading coefficient, and leading term. These are the ingredients that drive the multivariable division process just as degree and leading coefficient drive ordinary polynomial division.
+
+\vspace{.5in} 
+
+\begin{problem}{3}
+    Prove that a monomial ordering $<$ on $\mathbb{Z}_{\geq 0}^n$ is equivalent to a relation $<$ on the set of monomials in $K[x_1, \dots, x_n]$ satisfying analogous conditions to (i), (ii), and (iii). Explain why this justifies the moniker “monomial ordering”.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    There exists a bijection 
+    \[\Z^n_{\geq 0} \ni \{\alpha = (a_1, \cdots a_n)\} \leftrightarrow \{x^\alpha = x_1^{a_1} \cdots x_n^{a_n}\} \in K[x_1, \cdots, x_n]\]
+    that satisfies all the conditions because addition of vectors corresponds to addition of exponents during multiplication. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{4}
+    Prove or disprove that the following are monomial orderings:
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Lexicographic (Lex) Order: Given $\alpha = (\alpha_1, \dots, \alpha_n)$ and $\beta = (\beta_1, \dots, \beta_n)$ in $\mathbb{Z}_{\geq 0}^n$, we say $\beta <_{\text{lex}} \alpha$ if and only if the left-most non-zero entry of $\alpha - \beta$ is positive.
+        
+        \item Graded Lex Order: $\beta <_{\text{grlex}} \alpha$ if and only if
+        \[
+        |\beta| = \sum_{i=1}^n \beta_i < |\alpha| = \sum_{i=1}^n \alpha_i
+        \]
+        or $|\beta| = |\alpha|$ and $\beta <_{\text{lex}} \alpha$.
+
+        \item Reverse Lex (RevLex) Order: $\beta <_{\text{revlex}} \alpha$ if and only if the right-most non-zero entry of $\alpha - \beta$ is negative.
+
+        \item Graded RevLex Order: $\beta <_{\text{grevlex}} \alpha$ if and only if
+        \[
+        |\beta| = \sum_{i=1}^n \beta_i < |\alpha| = \sum_{i=1}^n \alpha_i
+        \]
+        or $|\beta| = |\alpha|$ and $\beta <_{\text{revlex}} \alpha$.
+
+        \item Weight Order: Fix $w = (w_1, \dots, w_n) \in \mathbb{Z}^n$. Define $\beta <_w \alpha$ if and only if
+        \[
+        \beta \cdot w = \sum_{i=1}^n \beta_i w_i < \alpha \cdot w = \sum_{i=1}^n \alpha_i w_i.
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item It is a monomial ordering. 
+        Let $\alpha = (\alpha_1, \cdots, \alpha_n), \, \beta = (\beta_1, \cdots, \beta_n) \in \Z_{\geq 0}^n$. 
+        \begin{enumerate}
+            \item [(i)] Total Ordering: 
+            
+            If $\alpha = \beta$ we're done. Otherwise, $\alpha - \beta$ has a leftmost non-zero entry. If this entry is positive, $\beta <_{\text{lex}} \alpha$, else $\alpha <_{\text{lex}} \beta$. 
+
+            \item [(ii)] Let $\alpha <_\text{lex} \beta$, that is the leftmost non-zero entry of $\alpha - \beta$ is negative. Then for all $\gamma \in \Z_{\geq 0}^n$ we have, 
+            \[(\alpha + \gamma) - (\beta + \gamma) = \alpha + \beta\]
+            That is the leftmost non-zero entry remains unchanged and hence $(\alpha + \gamma) <_\text{lex} (\beta + \gamma)$. 
+
+            \item [(iii)] Let $S \subseteq \Z_{\geq 0}^n$ be non-empty. Since $\Z_{\geq 0}$ is well-ordered we let $m_1 = \min \{\alpha_1 \mid \alpha \in S\}$. Then, among the elements with first coordinate $m_1$ we let $m_2 = \min \{\alpha_2 \mid \alpha \in S\}$ and so on for all $n$ coordinates. This gives us, 
+            \[ m = (m_1, \cdots, m_n) \in S\]
+            which is the lex-minimal element. 
+        \end{enumerate}
+
+        \item It is a monomial ordering. 
+        Let $\alpha = (\alpha_1, \cdots, \alpha_n), \, \beta = (\beta_1, \cdots, \beta_n) \in \Z_{\geq 0}^n$. 
+        \begin{enumerate}
+            \item [(i)] Total Ordering: 
+            
+            If $\alpha = \beta$ we're done. 
+            Else if $|\alpha| = |\beta|$, by part (a) we have an ordering. 
+            Otherwise, $|\alpha| \neq |\beta|$ has a leftmost non-zero entry. If $|\alpha| > |\beta|$, $\beta <_{\text{grlex}} \alpha$, else $\alpha <_{\text{grlex}} \beta$. 
+
+            \item [(ii)] Let $\alpha <_\text{grlex} \beta$, and $\gamma \in \Z_{\geq 0}^n$. 
+            
+            \begin{itemize}
+                \item If $|\alpha |  < |\beta|$, we have
+                \begin{align*}
+                  |\alpha| + |\gamma|  < |\beta| + |\gamma| \implies   |\alpha +\gamma |  < |\beta +\gamma| 
+                \end{align*}
+                
+                \item If $|\alpha | = |\beta|$ and $\alpha <_\text{lex} \beta$ we have an ordering by part (a). 
+            \end{itemize}
+            
+            \item [(iii)] Let $S \subseteq \Z_{\geq 0}^n$ be non-empty. Since all entries are non-negative there exists $m = \min\{|\alpha| \mid \alpha \in S\}$. Then, we take the lex-minimal element in the subset $H \subseteq S$, $H = \{|\alpha| = m \mid \alpha \in S\}$. This is the grlex-minimal element.  
+        \end{enumerate}
+
+        \item It is a monomial ordering. 
+        Let $\alpha = (\alpha_1, \cdots, \alpha_n), \, \beta = (\beta_1, \cdots, \beta_n) \in \Z_{\geq 0}^n$. 
+        \begin{enumerate}
+            \item [(i)] Total Ordering: 
+            
+            If $\alpha = \beta$ we're done. Otherwise, $\alpha - \beta$ has a rightmost non-zero entry. If this entry is negative, $\beta <_{\text{revlex}} \alpha$, else $\alpha <_{\text{revlex}} \beta$. 
+
+            \item [(ii)] Let $\alpha <_\text{revlex} \beta$, that is the leftmost non-zero entry of $\alpha - \beta$ is positive. Then for all $\gamma \in \Z_{\geq 0}^n$ we have, 
+            \[(\alpha + \gamma) - (\beta + \gamma) = \alpha + \beta\]
+            That is the rightmost non-zero entry remains unchanged and hence $(\alpha + \gamma) <_\text{revlex} (\beta + \gamma)$. 
+
+            \item [(iii)] Let $S \subseteq \Z_{\geq 0}^n$ be non-empty. Since $\Z_{\geq 0}$ is well-ordered we let $m_n = \min \{\alpha_n \mid \alpha \in S\}$. Then, among the elements with first coordinate $m_n$ we let $m_{n-1} = \min \{\alpha_{n-1} \mid \alpha \in S\}$ and so on for all $n$ coordinates. This gives us, 
+            \[ m = (m_1, \cdots, m_n) \in S\]
+            which is the revlex-minimal element. 
+        \end{enumerate}
+
+        \item It is a monomial ordering by (b) and (c). 
+        
+        \item Not a monomial ordering. For instance, if $w = (1,1), \, \alpha = (0,2), \, \beta = (2,0)$ we have $\beta \cdot w = \alpha \cdot w$ but $\alpha \neq \beta$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{5} \textbf{Leading Terms.} 
+    
+    Fix a monomial ordering $<$ on $\mathbb{Z}_{\geq 0}^n$. Let $f = \sum_\alpha c_\alpha x^\alpha \in K[x_1, \dots, x_n]$ be a non-zero polynomial. Define the leading monomial $\mathrm{LM}(f)$, leading coefficient $\mathrm{LC}(f)$, and leading term $\mathrm{LT}(f)$.
+
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Compute $\mathrm{LM}(f)$, $\mathrm{LC}(f)$, and $\mathrm{LT}(f)$ for
+        \[
+        f = x^3 + 3x^2 y + 5xy^3 - 7z^2 \in K[x,y,z]
+        \]
+        with respect to Lex, Graded Lex, and Graded RevLex (assume $x > y > z$).
+        
+        \item Prove that if $f, g \in K[x_1, \dots, x_n]$ are non-zero, then
+        \[
+        \mathrm{LM}(fg) = \mathrm{LM}(f)\mathrm{LM}(g), \quad \mathrm{LT}(fg) = \mathrm{LT}(f)\mathrm{LT}(g).
+        \]
+        
+        \item Explain which property of a monomial ordering is used in part (b).
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item 
+        \begin{itemize}
+            \item Lex: \[\LM(f) = x^3, \quad \LC(f) = 1, \quad \LT(f) = x^3\]
+            \item Graded Lex: \[\LM(f) = xy^3, \quad \LC(f) = 5, \quad \LT(f) = 5xy^3\]
+            \item Graded RevLex: \[\LM(f) = xy^3, \quad \LC(f) = 5, \quad \LT(f) = 5xy^3\]
+        \end{itemize}
+
+        \item Let $f = \LT(f) + \sum_{\alpha < \LM(f)} c_\alpha x^\alpha, \, g = \LT(g) + \sum_{\beta < \LM(g)} d_\beta x^\beta \in K[x_1, \cdots, x_n]$ be non-zero. Then the product $fg$ is, 
+        \[fg = \sum_{\alpha, \beta} c_\alpha d_\beta x^{\alpha+\beta}\]
+        Note that $\LT(f)\LT(g) = c_0d_0 x^{\alpha_0 + \beta_0}$ appears in $fg$. We know for all $\alpha$s and $\beta$s, $\alpha < \alpha_0$ and $\beta < \beta_0$ so
+        \[\alpha + \beta < \alpha_0 + \beta_0\]
+        Hence $x^{\alpha + \beta} < x^{\alpha_0 + \beta_0}$, and $x^{\alpha+\beta} = \LM(f) \LM(g) =  \LM(fg)$. Moreover $\LT(fg) = \LC(fg) \LM(fg)$, where $\LC(fg) = \LC(f) \LC(g)$ by definition, and we showed $\LM(fg) =  \LM(f) \LM(g)$. Hence $\LT(fg) = \LT(f) \LT(g)$. 
+
+        \item (ii) property is used. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{6}
+    Let $G = (g_1, \dots, g_s)$ be an ordered list of non-zero polynomials in $K[x_1, \dots, x_n]$.
+
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Write pseudocode for a division algorithm which takes as input $f$ and $G$ and returns polynomials $q_1, \dots, q_s, r$ such that
+        \[
+        f = q_1 g_1 + \cdots + q_s g_s + r,
+        \]
+        where no monomial in $r$ is divisible by any $\mathrm{LM}(g_1), \dots, \mathrm{LM}(g_s)$.
+        \item In the algorithm above, what should happen if the leading monomial of the current polynomial is not divisible by any $\mathrm{LM}(g_i)$?
+        \item Prove that your algorithm terminates. What plays the role of “degree” in the proof?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item 
+        % \begin{algorithm}[H]
+        % \caption{Division by an ordered list $G=(g_1,\ldots,g_s)$}
+        \begin{algorithmic}
+        \Require $f, g_1,\ldots,g_s$
+        \Ensure $q_1,\ldots,q_s,r$
+        \State $q_1,\ldots,q_s \gets 0$; $r\gets 0$; $p\gets f$
+        \While{$p\neq 0$}
+            \State $\mathrm{divides}\gets 0$
+            \For{$i=1,\ldots,s$}
+                \If{$\LT(g_i)$ divides $\LT(p)$}
+                    \State $q_i\gets q_i+\LT(p)/\LT(g_i)$
+                    \State $p\gets p-(\LT(p)/\LT(g_i))g_i$
+                    \State $\mathrm{divides}\gets 1$
+                    \State \textbf{break}
+                \EndIf
+            \EndFor
+            \If{$\mathrm{divides}=0$}
+                \State $r\gets r+\LT(p)$
+                \State $p\gets p-\LT(p)$
+            \EndIf
+        \EndWhile
+        \end{algorithmic}
+        % \end{algorithm}
+
+        \item We add it to the remainder term $r$, and continue. 
+        
+        \item $\LM(f)$ plays the role of degree. At every step, we update either $p \rightarrow p - \LT(p)$ (if no $g_i$ divides $\LM(p)$) or $p \rightarrow \LT(p)/\LT(g_i) \cdot g_i$ (for some $g_i$ dividing $\LM(p)$). So the leading term strictly decreases. Hence, the program must terminate.  
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{7}
+    Work in $K[x,y]$ with Lex order and $x > y$. Let $f = xy^2 - x$, $g_1 = xy - 1$, and $g_2 = y^2 - 1$.
+
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Divide $f$ by the ordered list $(g_1, g_2)$. 
+        \item Divide $f$ by the ordered list $(g_2, g_1)$.
+        \item Show directly that $f \in \langle g_1, g_2 \rangle$.
+        \item What do your computations show about division in several variables? In particular, is the remainder uniquely determined by the ideal $\langle g_1, g_2 \rangle$?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item $q_1 = y, \, q_2 = 0 \, r = -x + y$
+        \item $q_1 = 0, \, q_2 = x, \, r = 0$
+        \item $x \in K[x,y]$ and $f = g_2 \cdot x$, hence $f \in \langle g_2 \rangle \subseteq \langle g_1, g_2 \rangle$. 
+        \item Remainders are not unique. 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

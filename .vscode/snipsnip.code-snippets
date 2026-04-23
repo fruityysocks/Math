@@ -35,5 +35,25 @@
 			"\\end{document}"
 		],
 		"description": "Setup a basic LaTeX document"
+	}, 
+
+	"Setup Subfiles": {
+		"scope": "latex",
+		"prefix": "sf",
+		"body": [
+			"\\documentclass[Notebook.tex]{subfiles}",
+			"",
+			"\\begin{document}",
+			"",
+			"\\ifSubfilesClassLoaded{\\input{title}}{}",
+			"",
+			"$1",
+			"",
+			"",
+			"",
+			"",
+			"\\end{document}"
+		],
+		"description": "Setup a basic LaTeX document"
 	}
 }
