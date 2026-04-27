@@ -64,29 +64,31 @@
 
 
 \begin{problem}{2}
-    \textbf{Algebraic Sets.} Let $\cS \subset \K[x_1,\ldots,x_n]$ be a subset. Define the corresponding \emph{algebraic set} in $\K^n$ to be:
-\[
-\V(\cS) \coloneqq \left\{ p \in \K^n \;\; \big|\;\; f(p) = 0 \text{ for all $f \in \cS$}\right\}.
-\]
-\begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-	\item Prove that $\V$ is order-reverse, i.e., if $\cS \subset \cT$ then $\V(\cT) \subset \V(\cS)$. 
-	\item Prove that $\V(\cS) = \V(\langle \cS \rangle) = \V(\sqrt{\langle \cS\rangle})$.
-	\item Describe each of the following algebraic sets, and when possible draw a picture. 
+    \textbf{Algebraic Sets.} 
+    
+    Let $\cS \subset \K[x_1,\ldots,x_n]$ be a subset. Define the corresponding \emph{algebraic set} in $\K^n$ to be:
+    \[
+    \V(\cS) \coloneqq \left\{ p \in \K^n \;\; \big|\;\; f(p) = 0 \text{ for all $f \in \cS$}\right\}.
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Prove that $\V$ is order-reverse, i.e., if $\cS \subset \cT$ then $\V(\cT) \subset \V(\cS)$. 
+        \item Prove that $\V(\cS) = \V(\langle \cS \rangle) = \V(\sqrt{\langle \cS\rangle})$.
+        \item Describe each of the following algebraic sets, and when possible draw a picture. 
 
-	\begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
-		\item $\cS \coloneqq \{x^2 - y\} \subset \R[x,y]$.
-		\item $\cS \coloneqq \{x^2 - xy\} \subset \R[x,y]$.
-		\item $\cS \coloneqq \{x^6 - 3 x^5 y + 3 x^4 y^2 - x^3 y^3\} \subset \R[x,y]$.
-		\item $\cS \coloneqq \{x^4 -2x^{3}y + x^2y^2\} \subset \R[x,y]$.
-		\item $\cS \coloneqq \{x^2 + y^2-1\} \subset \R[x,y]$.
-		\item $\cS \coloneqq \{n(x^2+y^2-z^2) \; | \; n \in \Z_{\geq0} \} \subset \R[x,y,z]$.
-		\item $\cS \coloneqq \{x^2 + 1 \} \subset \R[x]$.
-		\item $\cS \coloneqq \{x^2 + 1\} \subset \CC[x]$.
-		\item $\cS$ is a collection of any linear polynomials in $\K[x_1,\ldots,x_n]$.
-	\end{enumerate}
-	\item Explain why $SL_{n}(\K)$ has the structure of an algebraic set. 
-	\item Explain why the set of $m \times n$ matrices of rank $<t$ is an algebraic set contained in $\K^{m \times n}$. 
-\end{enumerate}
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item $\cS \coloneqq \{x^2 - y\} \subset \R[x,y]$.
+            \item $\cS \coloneqq \{x^2 - xy\} \subset \R[x,y]$.
+            \item $\cS \coloneqq \{x^6 - 3 x^5 y + 3 x^4 y^2 - x^3 y^3\} \subset \R[x,y]$.
+            \item $\cS \coloneqq \{x^4 -2x^{3}y + x^2y^2\} \subset \R[x,y]$.
+            \item $\cS \coloneqq \{x^2 + y^2-1\} \subset \R[x,y]$.
+            \item $\cS \coloneqq \{n(x^2+y^2-z^2) \; | \; n \in \Z_{\geq0} \} \subset \R[x,y,z]$.
+            \item $\cS \coloneqq \{x^2 + 1 \} \subset \R[x]$.
+            \item $\cS \coloneqq \{x^2 + 1\} \subset \CC[x]$.
+            \item $\cS$ is a collection of any linear polynomials in $\K[x_1,\ldots,x_n]$.
+        \end{enumerate}
+        \item Explain why $SL_{n}(\K)$ has the structure of an algebraic set. 
+        \item Explain why the set of $m \times n$ matrices of rank $<t$ is an algebraic set contained in $\K^{m \times n}$. 
+    \end{enumerate}
 \end{problem}
 
 \begin{solution}
@@ -350,17 +352,19 @@
 \newpage
  
 \begin{problem}{3}
-    \textbf{Defining Ideal of an Algebraic Set.} Let $V \subset \K^n$ be an algebraic set. The \emph{defining ideal} of $V$ is the ideal in $\K[x_1,\ldots,x_n]$ given by 
- \[
- \I(V) \coloneqq \left\{ f \in \K[x_1,\ldots,x_n] \;\; \big| \;\; f(p) = 0 \text{ for all $p \in V$} \right\}.
- \]
- \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
- 	\item Prove that $\I(V)$ is in fact an ideal. 
-	\item Prove that $\I(V)$ is radical. 
-	\item If $V = \V(\cS)$ for some subset $\cS \subset \K[x_1,\ldots,x_n]$, show that $\langle \cS \rangle \subset \sqrt{\langle \cS \rangle} \subset \I(V)$. 
-	\item\label{ex-pt:big-obstruction} Let $\K=\R$. Give an example to show that the inclusion $\sqrt{\langle \cS \rangle } \subset \I(V)$ can be proper. 
-	\item If $V = \V(\cS)$ for some subset $\cS \subset \K[x_1,\ldots,x_n]$, show that $\V(\cS) = \V(\I(V))$. 
- \end{enumerate}
+    \textbf{Defining Ideal of an Algebraic Set.} 
+    
+    Let $V \subset \K^n$ be an algebraic set. The \emph{defining ideal} of $V$ is the ideal in $\K[x_1,\ldots,x_n]$ given by 
+    \[
+    \I(V) \coloneqq \left\{ f \in \K[x_1,\ldots,x_n] \;\; \big| \;\; f(p) = 0 \text{ for all $p \in V$} \right\}.
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Prove that $\I(V)$ is in fact an ideal. 
+        \item Prove that $\I(V)$ is radical. 
+        \item If $V = \V(\cS)$ for some subset $\cS \subset \K[x_1,\ldots,x_n]$, show that $\langle \cS \rangle \subset \sqrt{\langle \cS \rangle} \subset \I(V)$. 
+        \item\label{ex-pt:big-obstruction} Let $\K=\R$. Give an example to show that the inclusion $\sqrt{\langle \cS \rangle } \subset \I(V)$ can be proper. 
+        \item If $V = \V(\cS)$ for some subset $\cS \subset \K[x_1,\ldots,x_n]$, show that $\V(\cS) = \V(\I(V))$. 
+    \end{enumerate}
 \end{problem}
 
 

@@ -320,7 +320,189 @@
 \begin{remark}
     $\I$ and $\V$ properties: 
     \begin{enumerate}
+        \item If $\cS \subset \cT$ then $\V(\cT) \subset \V(\cS)$
+        \item \[\V(\cS) = \V(\langle \cS \rangle)\ = \V(\sqrt{\langle \cS \rangle})\]
+        \item $\I(V)$ is radical. 
+        \item $\langle \cS \rangle \subset \sqrt{\langle \cS \rangle} \subset \I(\V(\cS))$
+        \item $\V(\cS) = \V(\I(\V(\cS)))$
         \item If $fg \in \I(V)$ then $V \subseteq \V(g) \cap \V(f)$.
     \end{enumerate}
 \end{remark}
+
+\section{Localization}
+
+\begin{definition}
+    A subset $U \subset R$ is \textbf{multiplicatively closed} if and only if \begin{enumerate}
+        \item $1_R \in U$ 
+        \item and if $s, u \in U$ then $su \in U$.
+    \end{enumerate}
+
+    \begin{example}
+    \bbni
+       \begin{enumerate}
+        \item  $R = \Z$, $U = \{1, 3, 9, \ldots\}$  is multiplicatively closed. 
+        \item $R = \Z$, $U= \{1, 3, 9\}$ is not multiplicatively closed. 
+        \item $R = \R[x,y]$, $U = \{f \in R \mid f (1,0) \neq 0\}$ is multiplicatively closed. 
+        \item $R = \R[x,y]$, $U = \{f \in R \mid f (1,1) \neq 0, \text{ or } f(0,0) \neq 0\}$ is not multiplicatively closed. 
+       \end{enumerate}
+    \end{example}
+\end{definition}
+
+\begin{definition}
+    Let $R$ be a ring and $U \subseteq R$ be a multiplicative closed set. The \textbf{localization} of $R$ at $U$ is a ring $U^{-1}R$ together with a ring map $\eta: R \to U^{-1}R$ that is universal in the following sense: 
+    \begin{enumerate}
+        \item Given a ring map $\psi: R \to T$ such that $\psi(U)\subseteq T^\times$ there exists a unique ring map $\widetilde{\psi}: U^{-1}R \to T$ such that 
+        \begin{center}
+            \begin{tikzcd}
+                R \arrow[r, "\eta"] \arrow[dr, "\psi", swap] & U^{-1}R  \arrow[dashed, d, "\widetilde{\psi}"]\\
+                {} & T
+            \end{tikzcd}
+        \end{center}
+    \end{enumerate}
+\end{definition}
+
+\textbf{Construction of $U^{-1}R$:}
+
+Consider $R \times U$ as a set $(r_1, u_1)$ where $r_1 \in R, u_1 \in U \, ``='' \frac{r_1}{u_1}$. Define an equivalence relation 
+\[(r_1, u_1) \sim (r_2, u_2) \iff t(u_2r_1 - u_1r_2) = 0, \qquad t \in U\]
+
+Note if $R$ is a domain $t = 1_R$.
+
+Define $\frac{r}{u}$ to be the equivalence class of $(r,u)$ in $R \times U / \sim$. 
+
+Set $U^{-1}R = R \times U / \sim = \left\{ \frac{r}{u} \mid r \in R, \, u \in U\right\} / \sim$
+
+Make $U^{-1}R$ a ring with 
+\[\fr{r_1}{u_1}\fr{r_2}{u_2} = \frac{r_1r_2}{u_1u_2}, \qquad \frac{r_1}{u_1} + \frac{r_2}{u_2} = \frac{r_1u_2 + r_2u_1}{u_1u_2}\]
+
+\textbf{Additive Identity:} $0/1$, 
+\textbf{Multiplicative Identity:} $1/1$
+
+\[\eta: R \to U^{-1}R\]
+
+Then 
+\begin{align*}
+    \ker(\eta) &= \{r \in R \mid \eta(r) =0\} \\
+    &= \{r \in R \mid \frac{r}{1} = \frac{0}{1}\} \\
+    &= \{r \in R \mid t(r \cdot 1 - 1 \cdot 0) =0, \, t \in U\} \\
+    &= \{r \in R \mid tr  =0, \, t \in U\} 
+\end{align*}
+
+If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective, unless $0 \in U$. 
+
+\begin{example} \todo{}
+    Let $R$ be any ring and $U = \{0,1\}$. Then 
+    \[U^{-1}R = \left\{\frac{r}{0} \mid r \in R\right\} \cup \left\{\frac{r}{1} \mid r \in R\right\} \]
+
+    Let $\frac{r}{1} \overset{?}{=} \frac{0}{1} \iff t(r - 0) = 0$  $\iff tr = 0$ for some $t \in U$. We can take $t = 0$ and make this always true (same argument $\frac{r}{0} = \frac{0}{1}$). Hence $U^{-1}R$ is the zero ring. 
+\end{example}
+
+\begin{lemma}
+    Let $U \subseteq R$ be multiplicatively closed. If $U$ contains a nilpotent then $U^{-1}R$ is the zero ring. 
+\end{lemma}
+
+\begin{definition}
+    If $P \subseteq R$ is a prime ideal then $U = R \setminus P$ is multiplicatively closed. Here we write $U^{-1}R = R_P$ and say $R$ \textbf{localized at $P$}. 
+\end{definition}
+
+\begin{lemma}
+    \[PR_p =\left\{\frac{r}{u} \mid r \in P, \, u \in R \setminus P\right\} \subseteq R_P\] is a maximal ideal.  
+\end{lemma}
+
+\begin{proof}
+    Let $PR_P \subsetneq I \subseteq R_p$. Then for $r \in I$ $\frac{r}{u}$ with $r \notin P \implies \frac{r}{u}$ with $r, u \in R\setminus P \implies \frac{u}{r} \in R_p \implies \frac{r}{u}$ is a unit in $R_p \implies I = R_p$. \todo{} 
+\end{proof}
+
+\begin{proposition}
+    $R_P$ is a local ring (i.e., $PR_P$ is the unique maximal ideal in $R_P$). 
+\end{proposition}
+
+\begin{proof}
+    If $I \subseteq R_p$ is a maximal ideal, then $I \cap R \setminus P \neq \emptyset$, that is $I$ contains a unit, and hence $I = R_p$. 
+\end{proof}
+
+\begin{example}
+    Let $ f \in R$, and $U =\{1, f, f^2, \ldots\}$, then 
+    \[U^{-1}R = R \left[\frac{1}{f}\right] = \left\{ \frac{r}{u} \mid r \in R, \, u \in U\right\} = \left\{ \frac{r}{f^k} \mid r \in R, \, k \in \Z_{\geq 0}\right\} \] that is $U^{-1}R$ is the ring of polynomials in $1/f$ with coefficients in $R$. 
+\end{example}
+
+\begin{lemma}
+    \[R\left[\frac{1}{f}\right] \iso \frac{R[x]}{\langle xf - 1 \rangle}\]
+\end{lemma}
+\begin{proof}
+    $R[x] \to R\left[\frac{1}{f}\right]$, $x \mapsto \frac{1}{f}$ and $1 \mapsto \frac{1}{1}$. This is surjective because for every $rx^k \in U^{-1}R$ we have $rx^k \mapsto \frac{r}{f^k}$. To show injectivity we must show that $\ker(\varphi) \supseteq \langle xf -1 \rangle$ is trivial \todo{}. 
+\end{proof}
+
+\begin{theorem}
+    There is an inclusion preserving bijection
+
+    \[
+        \left\{\, \text{prime ideals of } U^{-1}R \,\right\}
+        \;\xleftrightarrow{\;1:1\;}\;
+        \left\{\, \text{prime ideals } P \subseteq R \text{ such that } P \cap U = \emptyset \,\right\}
+    \]
+    \[P \mapsto \eta(P)\]
+
+    Let $Q \subseteq R$ be a prime ideal such that $Q\cap U \neq \emptyset$. Consider $\eta(Q) \cdot U^{-1}R = \langle \eta(Q) \rangle$. Let $r \in Q \cap U$, $\eta(r) \in \eta(Q) \subseteq \eta(Q) \cdot U^{-1}R$. Since $r \in U$, $\eta(r)$ is a unit in $U^{-1}R$, which implies 
+    \[\eta(Q)\cdot U^{-1}R = U^{-1}R\]
+    i.e. it's not prime. \todo{}
+\end{theorem}
+
+\begin{theorem}
+    \[
+        \left\{\, \Spec (U^{-1}R) \,\right\}
+        \;\xleftrightarrow{\;1:1\;}\;
+        \left\{\, \P \in \Spec(R) \mid P \cap U = \emptyset \,\right\} \subseteq \Spec(R)
+    \]
+
+    \[P \mapsto \eta^{-1}(P)\]
+\end{theorem}
+
+\begin{definition}
+    Let $R$ be a ring, then a basic open subset of $\Spec(R)$ is of the form $D(f) = \{P \in \Spec(R) \mid f \notin P\}$ for $f \in R$.  
+
+    And, 
+    \[D(f) = \Spec(R)\setminus\V(I) = \Spec(R) \setminus \V(\langle f \rangle)\]
+
+    The intersection of basic open sets $D(f) \cap D(g)$ is 
+    \[D(f) \cap D(g) = \{P \in \Spec(R) \mid f \notin P, g \notin P\} =\{P \in \Spec(R) \mid fg \notin P\} = D(fg)  \]
+\end{definition}
+
+\begin{remark}
+    We know that there is a bijection, 
+    \[\Spec\left(R\left[\frac{1}{f}\right]\right) \leftrightarrow \{P \in \Spec(R) \mid \{1, f, f^2, \cdots\} \cap P \neq 0 \} = \{P \in \Spec(R) \mid f \notin P\} = D(f)\]
+    Hence there is a bijection, 
+    \[\Spec\left(R\left[\frac{1}{f}\right]\right) \leftrightarrow  D(f)\]
+\end{remark}
+
+\begin{theorem}
+    Let $f \in R$ and $\eta: R \to R\left[\frac{1}{f}\right]$ be a localization map. The induced map 
+    \[\Spec\left(R\left[\frac{1}{f}\right]\right) \xrightarrow{\eta \#} \Spec(R)\]
+    is a homeomorphism onto $D(f)$. 
+\end{theorem}
+
+\begin{definition}
+    The nilradical of $R$ is the set of nilpotents 
+    \[\mathfrak{N}(R) = \{f \in R \mid f^k = 0, \, \text{for some } k\} = \sqrt{\langle 0 \rangle}\]
+\end{definition}
+
+\begin{proposition}
+    $\Spec(R) \iso \Spec(R/\mathfrak{N}(R))$ induced by the quotinent map 
+    \[R \xrightarrow{\pi} R/\mathfrak{N}(R)\] such that 
+    \[\Spec(R/\mathfrak{N}(R)) \xrightarrow{\pi^\#} \Spec(R)\]
+\end{proposition}
+
+\begin{proposition}
+    $\mathfrak{N}(R) = \underset{P \in \Spec(R)}{\bigcap}{P}$
+\end{proposition}
+
+\begin{proof}
+    $(\implies$)
+
+    Let $f \in \mathfrak{N}(R)$ so $f^n = 0$. Pick any prime ideal $P \subseteq R$, $f^n = 0 \in P \implies f \in P$ since $P$ is prime. 
+
+    $(\impliedby)$ 
+
+    We show given $f \notin \mathfrak{N}(R)$ there exists a prime $P \subseteq R$ with $f \notin P$(i.e. $D(f) \neq \emptyset$). 
+\end{proof}
 \end{document}

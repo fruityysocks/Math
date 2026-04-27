@@ -6,6 +6,8 @@
 
 \input{title}
 
+\textbf{Credit Statement:} Talked to Carson Bates'27
+
 \begin{problem}{1}
     Describle a Turing machine that achieves the following task. For this worksheet and this worksheet alone, high-level pseudocodes are not allowed unless the instructions can directly be mapped into transition functions between states in a Turing machine, and the programs are well-commented.
 
@@ -18,7 +20,57 @@
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item 
+        \item The Turing machine works by reading and erasing the leftmost symbol, sweeping to the right to find the rightmost unmatched symbol, checking if it matches, if it does we erase it and sweep back. (Note that this diagram shows the $i$-th branch of the DFA, for each $a_i \in \Sigma$ there is a separate branch of the DFA with $a_i$ replaced with the character.) We use $\square$ to denote the empty cell. Define $\Gamma = \Sigma + \{\square\}$. 
+        \begin{center}
+            \begin{tikzcd}
+                \phantom{1} \arrow[dr] \\ 
+                \dcircled[]{\phantom{1}} & \circled[]{s} \arrow[l, "\square", swap]  \arrow[r, bend left =0, "{a_i \to \square, \, R}"] & \circled[]{\phantom{1}} \arrow[out = -60, in =-110,loop, "{\Sigma \to R}"] \arrow[r, "{\square \to L}"] & \circled[]{\phantom{1}} \arrow[r, "{a_i \to \square, \, L}"] & \circled[]{\phantom{1}} \arrow[out = -60, in =-110,loop, "{\Sigma \to L}"] \arrow[lll, bend left = -80, "{\square \to R}", swap]
+            \end{tikzcd}
+        \end{center}
+
+        \newpage 
+        \begin{lstlisting}[mathescape]
+On input string $w$: 
+    0. If first character is $\square$, accept. 
+    1. Else if first character is $a_i$ for some $a_i \in \Sigma$, replace it with $\square$ 
+       and move right (branch on $a_i$). 
+    2. Sweep right, stopping at the first $\square$. 
+    3. Move one cell left and read the next character. 
+    4. If this character isn't $a_i$, reject. 
+    5. If this character is $a_i$, replace it with $\square$ and move left. 
+    6. Sweep left, stopping at the first $\square$.
+    7. Move one cell right, and go to step 0. 
+        \end{lstlisting}
+    
+
+    \item The Turing machine works by counting $n$ zeros for $n$ ones. If they match up, we accept, if we lack zeros we reject. We use $\square$ to denote the empty cell. We define $\Sigma =\{0, \, 1, \, x, \, y \}$ and $\Gamma = \Sigma + \{\square\}$. We also assume that the tape is infinite in both directions, that is, there is a $\square$ on both sides of the input. 
+    \begin{center}
+            \begin{tikzcd}
+                {}  & {} &
+                \circled[]{\phantom{1}} \arrow[out = 60, in =110,loop, "{\Sigma\setminus \{x,\,0\} \to L}", swap]  \arrow [out = 120, in = 170, swap, loop, "{x \to 1, \, L}"] \arrow[rd, bend left =-10, swap, "{0 \to R}"{yshift=.1in, xshift= -.1in}] \arrow[r, "{\varphi \to R}"] & \dcircled[]{\phantom{1}}\\ 
+                \phantom{1} \arrow[r] & \circled[]{s}  \arrow[r, bend left =0, swap, "{\Sigma \to L}"] & \circled{\phantom{1}} \arrow[r, swap, "{\square \to \varphi\, , R}"] &  
+                \circled[]{\phantom{1}} \arrow[u, "{\varphi \to R}"{yshift=.2in}, out = 70, in = -20, swap] \arrow[out = -60, in =-110,loop, "{\Sigma\setminus \{1\} \to R}"] \arrow[r, swap, "{1 \to x,\, L}"] \arrow[lu, bend left = -10, swap, "{\square \to \#, \, L}"] & 
+                \circled[]{\phantom{1}}\arrow[out = -60, in =-110,loop, "{\Sigma\setminus \{0\} \to L}"] \arrow[l, bend left= -40, swap, "{0 \to \, y, \, L}"] \arrow[r, "{\square, \, \varphi \to R}"] & \circled[]{fail}
+            \end{tikzcd}
+        \end{center}
+
+         \begin{lstlisting}[mathescape]
+On input string $w$:
+    0. Move left one cell, mark the start with $\varphi$, move right one cell.
+    1. If first character is $\square$, reject.
+    2. Sweep right over $\Sigma\setminus\{1\}$.
+       If we hit $1$: replace with $x$, move left one cell, go to step $3$.
+       If we hit $\square$ (right boundary): write $\#$ here, move left, 
+       go to step $4$.
+    3. Sweep left over $\Sigma\setminus\{0\}$.
+       If we hit $0$: replace with $y$, move left one cell, go to step $2$.
+       If we hit $\varphi$: reject (zeros exhausted and  $n \nmid m$).
+    4. Sweep left, replacing $x\to 1$ over $\Sigma \setminus \{0\}$.
+       If we hit $0$: move right one cell, go to step $2$.
+       If we hit $\varphi$: move right one cell, accept (all 0s matched evenly).
+        \end{lstlisting}
+    
     \end{enumerate}
 \end{solution}
+
 \end{document}

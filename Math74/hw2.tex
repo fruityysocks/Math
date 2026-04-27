@@ -6,7 +6,7 @@
 
 \input{title}
 
-\textbf{Credit Statement:} \tism 
+\textbf{Credit Statement:} \tism, and Math Stack Exchange
 
 
 \begin{problem} {1}
@@ -22,45 +22,351 @@
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item [(a)]
+        \item [(a)] For $[\gamma] \in \pi_1(B, b_0)$, let $\gamma' : I \to E$ be the unique lift of $\gamma$ starting at $e_0$. Define
+        \[
+            \phi: \pi_1(B, b_0) \to p^{-1}(b_0), \quad \phi([\gamma])
+            = \gamma'(1).
+        \]
+        Note $\gamma'(1) \in p^{-1}(b_0)$ since $p(\gamma'(1)) = \gamma(1)
+        = b_0$, so $\phi$ is well-defined.
+
+        
+        % Moreover, if $\gamma \simeq \delta$ rel $\{0,1\}$, then by the
+        % homotopy lifting lemma their lifts satisfy $\gamma' \simeq \delta'$
+        % rel $\{0,1\}$, so $\gamma'(1) = \delta'(1)$ and $\phi$ is
+        % independent of representative.
+
+        To see surjectivity, let $e_\alpha \in p^{-1}(b_0)$. Since $E$ is path-connected, there exists a path $\sigma_\alpha: I \to E$ such that $\sigma_\alpha(0) = e_0$ and $\sigma_\alpha(1) = e_\alpha$. 
+        
+        Then $\gamma = p \circ \sigma_\alpha$ is a loop in $B$ based at $b_0$, since 
+        \[\gamma(0) = (p \circ \sigma_\alpha) (0) = p(e_0) = b_0 \quad \text{ and } \quad \gamma(1) = (p \circ \sigma_\alpha) (1) = p(e_\alpha) = b_0\]
+       
+        By uniqueness of lifts, $\sigma_\alpha$ is the unique lift of $\gamma$ starting at $e_0$, so $\phi([\gamma]) = \sigma_\alpha(1) = e_\alpha$. We can similarly define a unique lift for each $e_\alpha$ and thus $\phi$ is surjective.
+        
+        \item [(b)] 
+        By part (a) we already know that $\phi$ is surjective. To see that $\phi$ is injective, let $[f], [g] \in \pi_1(B, b_0)$ such that $\phi([f]) = \phi([g]) = e_\alpha$ for some $e_\alpha \in p^{-1}(b_0)$, and let $f', g'$ be the lifts of $f, g$ starting at $e_0$. 
+         
+        Then $f'(0) = g'(0) = e_0$ and $f'(1) = g'(1)= e_\alpha$. Since $E$ is simply connected, $\pi_1(E, e_0) \cong \{e\}$, i.e. any two paths with the same initial and final points in $E$ are path-homotopic. Thus, $[f'] = [g']$, let $F'$ be the homotopy between $f'$ and $g'$. Then we have
+        \[
+            F'(s,0) = f'(s) \quad \text{and} \quad F'(s,1) = g'(s).
+        \]
+        Applying $p$ to both sides,
+        \[
+            (p \circ F')(s,0) = p(f'(s)) = f(s) \implies p (f') = f
+        \]
+        \[
+            (p \circ F')(s,1) = p(g'(s)) = g(s)\implies p (g') = g
+        \]
+        Therefore $p \circ F' : I \times I \to B$ is a homotopy between $f$
+        and $g$.
+        Hence, $[f] = [g]$, $\phi$ is injective, and thus bijective.
     \end{enumerate}
 \end{solution}
 
+\newpage 
+
 \begin{problem}{2}
-    Let $P: E \to B$ be a covering map, with $B$ connected. Then if $p^{-1}(b_0)$ has $k$-many elements fr some finite number $k$, $p^{-1}(b)$ also has $k$-many elements for every $b \in B$. 
+    Let $p: E \to B$ be a covering map, with $B$ connected. Then if $p^{-1}(b_0)$ has $k$-many elements for some finite number $k$, $p^{-1}(b)$ also has $k$-many elements for every $b \in B$. 
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    Assume $p^{-1}(b_0)$ has $k$ elements, and let $U$ be an evenly covered neighborhood of $b_0$, so that
+    \[
+        p^{-1}(U) = \bigsqcup_{i=1}^{k} V_i
+    \]
+    where each $V_i$ maps homeomorphically onto $U$. For any $b \in U$,
+    the preimage $p^{-1}(b)$ contains exactly one point from each $V_i$, hence has exactly $k$ elements.
+    
+   
+
+    Now let $S = \{b \in B : |p^{-1}(b)| = k\}$ and $T = \{b \in B :
+    |p^{-1}(b)| \neq k\}$, so $B = S \sqcup T$. We know that every
+    point in $S$ has an evenly covered neighborhood contained entirely
+    in $S$, so $S$ is open. Similarly, every point in $T$ has an evenly covered neighborhood contained entirely in $T$, so $T$ is open. Since $B$ is connected and $S$ is nonempty (as $b_0 \in S$), we must have $T = \emptyset$, i.e. $S = B$. Therefore $|p^{-1}(b)| = k$ for all $b \in B$. 
+\end{solution}
+
+\newpage 
 
 \begin{problem}{3}
-    If $p: E \to B$ is a covering map with $E$ path-connected and $B$ simply-connected. Then $\phi$ is a homeomorphism.
+    If $p: E \to B$ is a covering map with $E$ path-connected and $B$ simply-connected. Then $p$ is a homeomorphism.
 \end{problem}
 
+\begin{solution}
+    \bbni
+    
+    Let $p: E\to B$ be a covering map, where $E$ is path-connected and $B$ is simply-connected. 
+    \begin{itemize}
+        \item \textbf{Surjectivity:} Covering maps are surjective by definition. 
+        \item \textbf{Injectivity:} Since $B$ is simply-connected, $\pi_1(B, b_0) = \{e\}$ is trivial. By Problem 1(a), the map 
+        \[
+            \phi: \pi_1(B, b_0) \to p^{-1}(b_0), \quad [\gamma] \mapsto
+            \widetilde{\gamma}(1)
+        \] 
+        is surjective. Since the domain has exactly one element, $p^{-1}(b_0)$ has exactly one element. By Problem 2, this means that we have a $1$-fold cover for $B$, i.e.,  $|p^{-1}(b)| = 1$ for all $b \in B$. Thus $p$ is injective. 
+        
+        \item \textbf{Continuity of $p^{-1}$:}  
+        Let $V \subseteq E$ be an open set. For each $e \in V$, let $U_e$ be an evenly covered neighborhood of $p(e)$ in $B$. Since $p$ is a $1$-fold covering, $p^{-1}(U_e) = S_e$ is the unique disjoint set covering $U_e$, and
+        \[
+            p|_{S_e} : S_e \to U_e
+        \]
+        is a homeomorphism. 
+        Then $p(V \cap S_e) = p|_{S_e}(V \cap S_e)$ is open in $U_e \subseteq B$, and contains $p(e)$. Then,
+        \[
+            p(V) = \bigcup_{e \in V} p(V \cap S_e)
+        \]
+        is a union of open sets, hence open. Therefore $p^{-1}$ is continuous.
+    \end{itemize}
+
+    Hence $p$ is a continuous bijective map with a continuous inverse and thus a homeomorphism. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{4}
-     If $p: E \to B$ and $p': E' \to B'$ are covering maps, then so is $p \times p': E \times E' \to B \times B'$, where $p \times p'$ is defined in an obvious manner.
+     Show that if $p: E \to B$ and $p': E' \to B'$ are covering maps, then so is $p \times p': E \times E' \to B \times B'$, where $p \times p'$ is defined in an obvious manner.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    We define $p \times p' : E \times E' \to B \times B'$ by
+    \[
+        (p \times p')(e, e') = (p(e), p'(e')).
+    \]
+    This is continuous since each component is continuous.
+
+    \textbf{Surjectivity.} Given any $(b, b') \in B \times B'$, since $p$
+    and $p'$ are surjective there exist $e \in E$ and $e' \in E'$ with
+    $p(e) = b$ and $p'(e') = b'$, so $(p \times p')(e,e') = (b,b')$.
+
+    \textbf{Evenly covered.} Let $(b, b') \in B \times B'$. Since $p$ is a
+    covering map, there exists an open neighborhood $U$ of $b$ in $B$ that
+    is evenly covered, with
+    \[
+        p^{-1}(U) = \bigsqcup_{\alpha} V_\alpha,
+    \]
+    where each $V_\alpha$ is open in $E$ and $p|_{V_\alpha} : V_\alpha
+    \to U$ is a homeomorphism. Since $p'$ is a covering map, there exists
+    an open neighborhood $U'$ of $b'$ in $B'$ that is evenly covered, with
+    \[
+        p'^{-1}(U') = \bigsqcup_{\beta} V'_\beta,
+    \]
+    where each $V'_\beta$ is open in $E'$ and $p'|_{V'_\beta} : V'_\beta \to U'$ is a homeomorphism. Then $U \times U'$ is an open neighborhood of $(b,b')$ in $B \times B'$, and
+    \[
+        (p \times p')^{-1}(U \times U')
+        = p^{-1}(U) \times p'^{-1}(U')
+        = \left(\bigsqcup_\alpha V_\alpha\right) \times
+          \left(\bigsqcup_\beta V'_\beta\right)
+        = \bigsqcup_{\alpha,\beta} (V_\alpha \times V'_\beta).
+    \]
+    Each $V_\alpha \times V'_\beta$ is open in $E \times E'$, and the restriction
+    \[
+        (p \times p')|_{U_\alpha \times U'_\beta}
+        = p|_{U_\alpha} \times p'|_{U'_\beta}
+        : U_\alpha \times U'_\beta \to U \times U'
+    \]
+    is a product of homeomorphisms, hence a homeomorphism. Hence $U \times U'$ is evenly covered, and $p \times p'$ is a covering map.
+\end{solution}
+
+\newpage 
 
 \begin{problem}{5}
     Show that if a subspace $A$ is a deformation retraction of a space $X$, and another subspace $B$ is a deformation retraction of $A$, then $B$ is a deformation retraction of $X$.
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    Let $H: X \times I \to X$ be the deformation retraction to $A$, so that $H(x,0) = x$, $H(x,1) \in A$, and $H(a,t) = a$ for all $x \in X$, $a \in A$, $t \in I$. Let $G: A \times I \to A$ be the deformation retraction to $B$, so that $G(a,0) = a$, $G(a,1) \in B$, and $G(b,t) = b$ for all $a \in A$, $b \in B$, $t \in I$.
+   
+    Note that since $H(x,1) \in A$ for all $x \in X$, the expression $G(H(x,1), t)$ is well-defined for all $t \in I$. Now, we define the deformation retraction $P: X \times I \to X$ (from $X$ to $B$) by, 
+    \[P(x,t) = \begin{cases}
+                H(x, 2t) & t \in \left[0, \frac{1}{2}\right] \\
+        G(H(x, 1), 2t-1) & t \in \left[\frac{1}{2}, 1\right] 
+    \end{cases}\]
+
+
+    At $t = \tfrac{1}{2}$ we have $H(x, 1)$ and $G(H(x,1), 0) = H(x,1)$ respectively, so $P$ is well-defined. Moreover, since both $H$ and $G$ are continuous, $P$ is continuous by the pasting lemma. 
+
+    We verify the three conditions for a deformation retraction to $B$:
+    \begin{itemize}
+        \item \textbf{Starts as identity:} $P(x, 0) = H(x, 0) = x$.
+        \item \textbf{Ends in $B$:} $P(x, 1) = G(H(x,1),\, 1) \in B$.
+        \item \textbf{$B$ is fixed throughout:} Let $b \in B \subseteq A$.
+        For $t \in \left[0, \frac{1}{2}\right]$, $P(b,t) = H(b, 2t) = b$ since
+        $b \in A$. For $t \in \left[\frac{1}{2},1\right]$, $P(b,t) = G(H(b,1),
+        2t-1) = G(b,\, 2t-1) = b$ since $b \in B$.
+    \end{itemize}
+    Hence, $P$ is a deformation retraction from $X$ to $B$. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{6}
-    If a space retracts onto a subspace $A$, then the homomorphism on the fundamental group inducted by the inclusion $\iota : A \hookrightarrow X$ is injective. If $A$ is a deformation retract of $X$, then $\iota_\star$ is an isomorphism. 
+    \begin{enumerate}
+        \item [(a)]  Show that if a space retracts onto a subspace $A$, then the homomorphism on the fundamental group inducted by the inclusion $\iota : A \hookrightarrow X$ is injective. 
+        \item [(b)] Also show that if $A$ is a deformation retract of $X$, then $\iota_\star$ is an isomorphism.
+    \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni 
+
+    \begin{enumerate}
+        \item[(a)] Let $r$ be the map that retracts $X$ to $A$, and $r(x_0) = a_0$ in $A$. Note that the composition $r \circ \iota$ is the identity on $A$. Now consider the homomorphism $(r \circ \iota)_\star$. We have, 
+        \[(r \circ \iota)_\star = r_\star \circ \iota_\star = (\id_A)_\star = \id_{\pi_1(A, a_0)}\]
+
+        Let $\iota_\star([f]) = \iota_\star([g])$. Then,
+        \begin{align*}
+            &r_\star(\iota_\star([f])) = r_\star(\iota_\star[g]) \\ 
+            \implies & (\id_A)_\star([f]) = (\id_A)_\star([g]) \\ 
+            \implies & [f] = [g]
+        \end{align*}
+        Hence $\iota_\star$ is injective. 
+
+        \item [(b)] Let $H$ be the deformation retraction of $X$ to $A$, and $H(x_0, 1) = a_0$ in $A$. From part (a) we know that $\iota_\star$ is injective. So we only need to show that $\iota_\star$ is surjective. 
+        
+        We define the continuous map $r = H(x, 1)$. Consider the map $\iota \circ r$ which maps $X \to A \to X$.  This map is homotopic to the identity map by $H$ (by definition),
+        \[\iota \circ r \simeq \id_X\] 
+        Then $(\iota \circ r)_\star = \iota_\star \circ r_\star \simeq (\id_X)_\star = \id_{\pi_1(X, x_0)}$ (Lemma 58.1). Since $\im(r_\star) = \pi_1(A, a_0)$, $\iota_\star$ is surjective.
+        Thus, we have an isomorphism $\pi_1(A, a_0) \cong \pi_1(X, x_0)$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{7}
     Show that if a space $X$ deformation retracts to a point $x \in X$ , then for each neighborhood $U$ of $x$ in $X$ there exists a neighborhood $V \subset U$ of $x$ such that the inclusion map $V \hookrightarrow U$ is nullhomotopic (nullhomotopic means homotopic to a constant map).
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    Let $H : X \times I \to X$ be the deformation retraction from $X$ to $\{x\}$ such that $\forall x' \in X$, 
+    \[H(x',0) = x', \quad H(x', 1) = x, \text{ and } H(x, t) = x\]
+    and let $U \subseteq \im(H) = H$ be an open set containing $x$. Note that the preimage $H^{-1}(U)$ is open in $X \times I$ and contains $\{x\} \times I$ (since $x \in U$). 
+    
+    We claim there exists an open neighborhood $V$ of $x$ in $X$ such that $V \times I \subseteq H^{-1}(U)$. 
+    
+    For each $t \in I$, continuity of $H$ at $(x, t)$ gives a open set $V_t \times W_t$ containing $(x,t)$ with $H(V_t \times W_t) \subseteq U$. The sets $\{W_t\}_{t \in I}$ form an open cover of $I$. Since $I$ is compact, there is a finite subcover $W_{t_1}, \ldots, W_{t_n}$. 
+    Let $V = V_{t_1} \cap \cdots \cap V_{t_n}$  (finite intersection of open sets containing $x$ is an open set containing $x$). Note that for any $(y, t) \in V \times I$, we have $t \in W_{t_k}$ for some $k$ and $y \in V \subseteq V_{t_k}$, so $H(y,t) \in U$.
+    
+    Hence there exists some open set $V \times I \subseteq H^{-1}(U)$  and the restriction $H|_{V\times I} : V \times I \to U$ is a homotopy from the inclusion $\iota : V \hookrightarrow U$ (at $t=0$) to the constant map at $x$ (at $t=1$) so $\iota \simeq e_x$. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{8}
     \begin{enumerate}
         \item [(a)] Let $X$ be the subspace of $\R^2$ consisting of the horizontal segment $[0, 1] \times {0}$ together with all the vertical segments ${r } \times [0, 1 - r ]$ for $r$ a rational number in $[0, 1]$. Show that $X$ deformation retracts to any point in the segment $[0, 1] \times {0}$, but not to any other point. [See the preceding problem.]
-        \item  Let $Y$ be the subspace of $\R^2$ that is the union of an infinite number of copies of $X$ arranged as in the figure below. Show that $Y$ is contractible but does not deformation retract onto any point.
+        \item [(b)] Let $Y$ be the subspace of $\R^2$ that is the union of an infinite number of copies of $X$ arranged as in the figure below. Show that $Y$ is contractible but does not deformation retract onto any point.
         \begin{center}
             \includegraphics[width=5in]{hw2.Q8b.png}
         \end{center}
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] 
+        Let $a = (x_0, 0)$ be an arbitrary point in $[0,1] \times \{0\}$. It suffices to show that $X$ deformation retracts to the subspace $B = [0,1] \times \{0\}$, since $B$ is convex and hence deformation retracts to any of its points via the straight-line homotopy, and by Problem 5 the composition of deformation retracts is a deformation retract. We define $H: X \times I \to X$ as follows: 
+        \[H((x,y), t) = (1-t)(x,y)+ t(x,0)\]
+        Note that
+        \[H((x,y), 0) = (x,y) \in X, \quad H((x,y), 1) = (x,0) \in B\] 
+        And  
+        \[H((x,0), t) = (1-t)(x,0)+ t(x,0)  = (x,0) \in B\]
+       
+        So $H$ is a deformation retraction from $X$ to $B$. Since $B \cong I$
+        is convex, it deformation retracts to $a$ via
+        \[
+            G((x,0), t) = ((1-t)x + tx_0,\, 0).
+        \]
+        By Problem 5, $X$ deformation retracts to $\{a\}$. 
+
+
+        We show that $X$ does not deformation retract to any point $a = (r, h), \, h > 0$ by showing the contrapositive of the condition in Problem 7. That is there exists some neighborhood $U \subseteq X$ of $x$ such that for all neighborhoods $V \subset U$ of $x$, the inclusion map is not nullhomotopic then $X$ does not deformation retract to $a \in X$. 
+
+        Define $0 < \varepsilon < \min(h, 1-r)$ and let $U$ be the $\varepsilon$-ball centered at $a$ in $X$, 
+        \[U = B_\varepsilon(a) \cap X\]
+        That is, $U$ does not intersect the $x$-axis and hence is composed of infinitely many disjoint line segments (one for each rational $x$ with $|x - r| < \varepsilon$.)
+        \[U = \bigsqcup_{\substack{r \in \mathbb{Q} \\ |x - r| < \varepsilon}} \left(\{r\} \times (h - \varepsilon,\, h+ \varepsilon)\right) \cap X.\]
+
+        Now let $V \subseteq U$ be any sub-neighborhood of $a$. Then $V$ is also composed of infinitely many disjoint line segments.
+        
+        We claim the inclusion $\iota: V \hookrightarrow U$ is not nullhomotopic. If it were, there would exist a homotopy 
+        \[H: V \times I \to U\]
+
+         with $H(v, 0) = v$ and $H(v, 1) = u_0$ for some fixed $u_0 \in U$. 
+         
+        In particular, for each $v \in V$, there must be some path connecting $v$ to $u_0$ inside $U$. But $v$ and $u_0$ may lie in different path components of $U$, making this impossible. Hence there exists a $U$ such that for all $V \subset U$ the inclusion map is not nullhomotopic and thus $X$ does not deformation retract to $a \in X$. 
+
+        \item[(b)] 
+        
+        \todo{contractible}
+
+        
+        
+        We show that $Y$ does not deformation retract to any point. By
+        part (a), within each copy of $X$, the only candidates for a deformation retract are points on the base $x$-axis. The only points that qualify are those that are on the corner of two adjacent copies of $X$, since they lie on the base of both $X$s. So it suffices to show that $Y$ does not deformation retract to any such $a$.
+        
+        For the sake of contradiction assume it retracts to a point $a = (x_0, y_0)$. WLOG let $a = (0,1)$.
+        Define $\varepsilon > 0$ and let $U$ be the $\varepsilon$-ball centered at $a$ in $Y$, 
+        \[U = B_\varepsilon(a) \cap Y\]
+        That is, $U$ is composed of infinitely many disjoint line segments. Now let $V \subseteq U$ be any sub-neighborhood of $a$. Then $V$ contains an open ball $B_\delta(a)$ for some $\delta > 0$. Consider the sequence of points
+        \[
+            a_n = \left(\frac{1}{n},\, 1 - \frac{1}{n}\right).
+        \]
+        Each $a_n$ lies in $Y$ since $1/n$ is rational, and each $a_n$ is the tip of a distinct vertical segment, hence lies in a distinct path component of $U$. Since $\lim_{n \to \infty} a_n \to a$, the tail of the sequence eventually lies in $B_\delta(a) \subseteq V$.
+        
+        Suppose $\iota: V \hookrightarrow U$ were nullhomotopic. Then
+        there would be a homotopy $H: V \times I \to U$ with $H(v, 0) = v$
+        and $H(v, 1) = u_0$ for some fixed $u_0 \in U$ and all $v \in V$. In particular, for each $v \in V$, there must be some path 
+        connects $v$ to $u_0$ inside $U$. But for large enough $n$, $a_n\in V$ lies in a different path component of $U$ than $u_0$, so no such path can exist. This is a contradiction, so no such $V$ exists satisfying the conclusion of Problem 7. Therefore $Y$ does not deformation retract to $a$.
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
 \begin{problem}{9}
     Define $f: S^1\times I \to S^1 \times I$ by  $f (\theta, s) = (\theta + 2\pi s, s)$, so $f$ restricts to the identity on the two boundary circles of $S^1 \times I$. Show that $f$ is homotopic to the identity by a homotopy $f_t$ that is stationary on one of the boundary circles, but not by any homotopy $f_t$ that is stationary on both boundary circles. [Consider what $f$ does to the path $s \mapsto (\theta_0, s)$ for fixed $\theta_0 \in S^1$]. 
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    To show that $f$ is homotopic to the identity, we define $f_t: S^1\times I \to S^1 \times I$ as follows: 
+    \[f_t(\theta, s) = (\theta + 2\pi s(1-t), s)\] 
+    We check, 
+    \[f_0(\theta, s) = (\theta + 2\pi s, s) = f, \quad f_1(\theta, s) = (\theta, s) = \id, \quad f_t(\theta, 0) = (\theta, 0) = \id \mid_{S^1 \times \{0\}}\]
+    Hence, $f$ is homotopic to the identity by a homotopy $f_t$ that is stationary on one of the boundary circles. 
+
+    \bbni 
+   
+
+    Now suppose for contradiction that there exists a homotopy $f_t: S^1 \times
+    I \to S^1 \times I$ between $f$ and the identity that is stationary on both boundary circles. Let $\theta_0$ be some point in $S^1$ and consider the vertical path
+    \[
+        \gamma: I \to S^1 \times I, \quad \gamma(s) = (\theta_0, s).
+    \]
+    Since $f_t$ is stationary on both boundary circles, we have $f_t(\theta_0, 0) = (\theta_0, 0)$ and $f_t(\theta_0, 1) = (\theta_0, 1)$ for all $t$.
+    Therefore $f_t \circ \gamma$ is a homotopy between $\gamma$ and $f \circ \gamma$, where
+    \[
+        (f \circ \gamma)(s) = (\theta_0 + 2\pi s,\, s).
+    \]
+    Now let $\pi: S^1 \times I \to S^1$ be the projection $\pi(\theta, s) =
+    \theta$. Applying $\pi$, we get a homotopy in $S^1$ between
+    \[
+        \pi \circ \gamma \equiv \theta_0 \quad \text{(the constant path)}
+    \]
+    and
+    \[
+        \pi \circ f \circ \gamma: s \mapsto \theta_0 + 2\pi s
+        \quad \text{(a loop winding once around } S^1\text{)}.
+    \]
+    But these two loops represent different elements of $\pi_1(S^1, \theta_0) \cong \mathbb{Z}$ ($0$ and $1$ respectively). Since homotopic loops represent the same element of $\pi_1$ this is a
+    contradiction! Hence, no such homotopy $f_t$ exists. 
+\end{solution}
 \end{document}
