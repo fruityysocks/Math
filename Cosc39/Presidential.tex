@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+\usepackage{libertine}
+\usepackage{newtxmath} % or libertine math alternatives
+
+% Set 1-inch margins
+\usepackage[margin=1in]{geometry}
+
+% Double spacing
+\usepackage{setspace}
+\doublespacing
+
+% Standard font (optional, LaTeX default is fine, but this ensures it)
+\usepackage{lmodern}
+\usepackage[authordate, backend=biber]{biblatex-chicago}
+\addbibresource{references.bib}
+
+% Encoding (good practice)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\let\path\relax
+
+\include{../style}
+
+\newcommand{\CCC}{CC_\text{cat}}
+
+
+\begin{document}
+\textbf{Title:} The Computational Power of Catalytic Comparator Circuits
+
+\textbf{Research Abstract:}
+
+    This project investigates the computational power of catalytic comparator circuits, a theoretical model at the intersection of two active areas of computer science research. Comparator circuits are a restricted model of computation in which the only permitted operation is sorting pairs of bits, and the class of problems they can solve sits in a poorly understood region between two well-studied complexity classes. On the other hand, catalytic computation augments a machine with memory that is already full, like a hard drive containing someone else's data, and allows it to use that memory freely during computation as long as it is restored to its original state at the end. Surprisingly, this obligation to return the memory does not make it useless, and catalytic augmentation has been shown to meaningfully expand what machines can compute in other settings. Prior work introduced a formal framework for combining these two models but left the central question open: does catalytic memory actually make comparator circuits more powerful, or do the two models turn out to be equivalent? This project approaches that question using a combination of theoretical proof techniques and computational simulation, drawing on tools from linear programming and complexity theory. The approach combines theoretical proof techniques with computational simulation to build intuition and guide the analytical work. The goal is to develop a rigorous characterization of what catalytic comparator circuits can and cannot compute, with implications for our broader understanding of how memory constraints shape the limits of computation.
+\end{document}

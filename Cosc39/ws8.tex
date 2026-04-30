@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Carson Bates'27, and Kiran Jones'27
+
+\begin{problem}{1}
+    Argue that each of the following Turing machine models are equivalent in power to the standard Turing machine with a single two-way infinite tape. (Or multiple tapes. Or many piece of papers. It doesn’t matter as long as you have shown them to be equivalent.)
+    \begin{enumerate}
+        \item Turing machine with multiple heads, where all heads are allowed to read, write, and move at a single step.
+        \item  Turing machine with no empty cell symbol ($\square$) and only binary alphabet ($0$ and $1$). (Assume that all tape cells are initialized with $0$.)
+        \item Turing machine with two stacks.
+    \end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $M'$ be a $k$-head Turing machine; our goal is to construct a standard Turing machine $M$ with a single two-way tape that simulates $M'$. Let the heads be labelled by the natural numbers.
+
+        \textbf{Data Representation:} 
+
+        For the initial set-up, we copy the data on the $T'$ of $M'$ onto $T$ of $M$. Now, for each index $i$ of $T'$, we replace the value $T[i] = a$ with the marked symbol $a^{s}$, where $s \subseteq \{1, 2, 3, ... k\}$. $s$ represents the labels of the heads currently pointing to $T'[i]$, and the empty subset corresponds to no heads pointing to $T'[i]$. 
+
+
+        \textbf{Transition Simulation:} 
+        
+        At each transition, $M'$ takes input from a state $p'$, and the $k$ symbols read by the $k$ heads, and output the following: 
+        \begin{enumerate}
+            \item the next state $q'$
+            \item the $k$ symbols to be written by the $k$ heads 
+            \item and $k$ movements of the $k$ heads. 
+        \end{enumerate}
+
+        In $M$, to transition from corresponding state $p$ to $q$, we will run a subroutine that completes each head's read/write/move. The subroutine includes sweeping the tape from left to right collecting all $k$ symbols. We read these $k$ symbols and store it in a global constant-size register (or just in the states). Once we have all the symbols, we perform a corresponding transition to the next state by sweeping the tape, finding each head and replacing the relavent symbols (marked to unmarked and vice versa) depending on the movement of the head in $M'$. We go in sequential order, and if a head is overwritten by another then the behaviour is undefined. 
+
+       \item Let $M'$ be a turning machine with no empty-cell symbol and only binary alphabet $\Gamma' = \Sigma'$. We first show that the alphabets are equivalent: 
+       
+       Let $\Gamma = \Sigma + \{\square\}$ be an arbitrary alphabet. Without loss of generality, we can assume that $\Sigma =\{0,1\}$ because any given alphabet $\overline{\Sigma}$ of size $n$ can be encoded using binary strings of length $\ceil{\log n}$. We use the following encoding to translate between $\Gamma'$ and $\Gamma$. Let $x \in \Gamma$,
+       \[\text{en}(x) = \begin{cases}
+        00, &x = \square \\ 
+        01, &x = 0 \\ 
+        11, &x = 1
+       \end{cases}\]
+        
+       At each transition, $M$ takes input from a state $p$, and the a symbol $a$, and outputs the following: 
+        \begin{enumerate}
+            \item the next state $q$
+            \item the symbol $a'$ to be written by the head
+            \item and the left/right movement
+        \end{enumerate}
+
+       Since each symbol in $\Gamma$ is encoded using a fixed-length binary string of length 2, the head of $M'$ reads the current block by scanning the two consecutive tape cells. It reads the first bit, moves right, reads the second bit, and then returns to the leftmost cell of the block. Then it over-writes this block with the output block that corresponds to $a'$ and moves right twice to the next block in the sequence. 
+
+        \item Let $M'$ be a Turing machine implemented with $2$ stacks; our goal is to demonstrate its read/write/move ability and data representation is the same as standard Turing machine $M$ with a single two-way infite tape.
+
+
+        \textbf{Data Representation:} Assume we have two stacks, stack $A$ and stack $B$, of arbitrary size (we assume that each entry on the stack is a single character). We can encode the information on the stack onto our tape $T$ as follows:
+
+        \begin{enumerate}
+        \item We copy the character on the top of Stack $A$ to the starting head position (if $c$ is at the top of the stack then we copy $c$ here). 
+        \item We copy the rest of Stack $A$ to the left of this sequentially (if $b$ is under $c$ on the stack then $b$ is to the left of $c$). 
+        \item We copy all of Stack $B$ to the right of stack $A$. (if $c$ is the top of Stack $A$ and $z$ is the top of Stack $B$ followed by $y$ and $z$ then we would have $\cdots, c,z,y,x, \cdots$ on the tape.)
+        \begin{center}
+                \includegraphics[width=0.5\linewidth]{assests/ws8.jpeg}
+        \end{center}
+        
+    \end{enumerate}
+
+    \textbf{Transition Simulation:} 
+     Now, at each transition $M'$ takes input from a state $p'$ and the symbol at the top of Stack $A$, and outputs the following: 
+       \begin{enumerate}
+            \item the next state $q'$, and either 
+            \item pops $c$ from Stack $A$ and pushes some character $s$ onto Stack $B$ (this corresponds to moving left on the tape $T$)
+            \item pops $c$ from Stack $A$, pushes some character $s$ onto Stack $A$, pops $z$ from Stack $B$ and pushes $z$ onto Stack $A$ (this corresponds to moving right on the tape $T$)
+       \end{enumerate}
+
+    In machine $M$, we can write subroutines for these movements and hence we can imagine transitions with our stacks from state $p$ to $q$, as taking place on a two-way tape.
+\end{enumerate}
+
+\end{solution}
+
+\end{document}

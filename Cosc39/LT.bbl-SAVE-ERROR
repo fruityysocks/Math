@@ -1,0 +1,359 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{cms/global//global/global/global}
+    \entry{Aaronson2014}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9709fc1390d4ac82cbad7750d99484bf}{%
+           family={Aaronson},
+           familyi={A\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{fullhash}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{fullhashraw}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{bibnamehash}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{authorbibnamehash}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{authornamehash}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{authorfullhash}{9709fc1390d4ac82cbad7750d99484bf}
+      \strng{authorfullhashraw}{9709fc1390d4ac82cbad7750d99484bf}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Shtetl-Optimized (blog), \url{https://scottaaronson.blog/?p=1902}}
+      \field{note}{Accessed 2025}
+      \field{title}{The Power of the {Digi-Comp II}}
+      \field{year}{2014}
+    \endentry
+    \entry{BuhrmanEtAl2014}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=943aa2819943e83c2f2d4f4a65384244}{%
+           family={Buhrman},
+           familyi={B\bibinitperiod},
+           given={Harry},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bcc1d99f54046308388d253fdacfe211}{%
+           family={Cleve},
+           familyi={C\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c0342c6f7e82c16f84a302ae234a9108}{%
+           family={Koucký},
+           familyi={K\bibinitperiod},
+           given={Michal},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7409546c80d3dc7afe00a9f152350ded}{%
+           family={Loff},
+           familyi={L\bibinitperiod},
+           given={Bruno},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1dc4ddbdf664879e0a477b72d095c4bb}{%
+           family={Speelman},
+           familyi={S\bibinitperiod},
+           given={Florian},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{77b40f21d1c99e06e25952965e97c805}
+      \strng{fullhash}{296acac4f035752daf8a8f992a000f42}
+      \strng{fullhashraw}{296acac4f035752daf8a8f992a000f42}
+      \strng{bibnamehash}{296acac4f035752daf8a8f992a000f42}
+      \strng{authorbibnamehash}{296acac4f035752daf8a8f992a000f42}
+      \strng{authornamehash}{77b40f21d1c99e06e25952965e97c805}
+      \strng{authorfullhash}{296acac4f035752daf8a8f992a000f42}
+      \strng{authorfullhashraw}{296acac4f035752daf8a8f992a000f42}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 46th Annual ACM Symposium on Theory of Computing (STOC)}
+      \field{title}{Computing with a Full Memory: Catalytic Space}
+      \field{year}{2014}
+      \field{pages}{857\bibrangedash 866}
+      \range{pages}{10}
+    \endentry
+    \entry{CookMertz2024}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=6a9082bf3ceb2db6675a6117f728b71c}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=80e5804478bd5e287165ad06e2665e05}{%
+           family={Mertz},
+           familyi={M\bibinitperiod},
+           given={Ian},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{fullhash}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{fullhashraw}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{bibnamehash}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{authorbibnamehash}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{authornamehash}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{authorfullhash}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \strng{authorfullhashraw}{548a8bfcabbc9c0fd41de1a7e299564d}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 56th Annual ACM Symposium on Theory of Computing (STOC)}
+      \field{title}{Tree Evaluation Is in Space $O(\log n \cdot \log \log n)$}
+      \field{year}{2024}
+      \field{pages}{1268\bibrangedash 1278}
+      \range{pages}{11}
+    \endentry
+    \entry{CookFilmusLe2014}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=609a39905dc0e988c3b294dceecdb1e4}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Stephen\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d17afe1e9da17015d39be5b9922c9b5b}{%
+           family={Filmus},
+           familyi={F\bibinitperiod},
+           given={Yuval},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b659a754626d54cb8d5d5e16a73e5e31}{%
+           family={Lê},
+           familyi={L\bibinitperiod},
+           given={Dai\bibnamedelimb Tri\bibnamedelima Man},
+           giveni={D\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{48077695b3f3cba4ed87f896942c674b}
+      \strng{fullhash}{48077695b3f3cba4ed87f896942c674b}
+      \strng{fullhashraw}{48077695b3f3cba4ed87f896942c674b}
+      \strng{bibnamehash}{48077695b3f3cba4ed87f896942c674b}
+      \strng{authorbibnamehash}{48077695b3f3cba4ed87f896942c674b}
+      \strng{authornamehash}{48077695b3f3cba4ed87f896942c674b}
+      \strng{authorfullhash}{48077695b3f3cba4ed87f896942c674b}
+      \strng{authorfullhashraw}{48077695b3f3cba4ed87f896942c674b}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{ACM Transactions on Computation Theory}
+      \field{number}{4}
+      \field{title}{The Complexity of the Comparator Circuit Value Problem}
+      \field{volume}{6}
+      \field{year}{2014}
+      \field{pages}{1\bibrangedash 44}
+      \range{pages}{44}
+    \endentry
+    \entry{MayrSubramanian1992}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=6191001c704a15f11454348698fc2663}{%
+           family={Mayr},
+           familyi={M\bibinitperiod},
+           given={Ernst\bibnamedelima W.},
+           giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=07c3f3c034a5aa0200f987bcb37b377e}{%
+           family={Subramanian},
+           familyi={S\bibinitperiod},
+           given={Ashok},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d07f397b1aa81e3846212784b59f6170}
+      \strng{fullhash}{d07f397b1aa81e3846212784b59f6170}
+      \strng{fullhashraw}{d07f397b1aa81e3846212784b59f6170}
+      \strng{bibnamehash}{d07f397b1aa81e3846212784b59f6170}
+      \strng{authorbibnamehash}{d07f397b1aa81e3846212784b59f6170}
+      \strng{authornamehash}{d07f397b1aa81e3846212784b59f6170}
+      \strng{authorfullhash}{d07f397b1aa81e3846212784b59f6170}
+      \strng{authorfullhashraw}{d07f397b1aa81e3846212784b59f6170}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Journal of Computer and System Sciences}
+      \field{number}{2}
+      \field{title}{The Complexity of Circuit Value and Network Stability}
+      \field{volume}{44}
+      \field{year}{1992}
+      \field{pages}{302\bibrangedash 323}
+      \range{pages}{22}
+    \endentry
+    \entry{Razborov1992}{incollection}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4550d4a99de50813fcf0569ccadc4923}{%
+           family={Razborov},
+           familyi={R\bibinitperiod},
+           given={Alexander\bibnamedelima A.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=ad71e8eff91bc5466e41bba8d8daf72c}{%
+           family={Paterson},
+           familyi={P\bibinitperiod},
+           given={Mike\bibnamedelima S.},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{fullhash}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{fullhashraw}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{bibnamehash}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{authorbibnamehash}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{authornamehash}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{authorfullhash}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{authorfullhashraw}{4550d4a99de50813fcf0569ccadc4923}
+      \strng{editorbibnamehash}{ad71e8eff91bc5466e41bba8d8daf72c}
+      \strng{editornamehash}{ad71e8eff91bc5466e41bba8d8daf72c}
+      \strng{editorfullhash}{ad71e8eff91bc5466e41bba8d8daf72c}
+      \strng{editorfullhashraw}{ad71e8eff91bc5466e41bba8d8daf72c}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Boolean Function Complexity}
+      \field{series}{London Mathematical Society Lecture Note Series}
+      \field{title}{On Submodular Complexity Measures}
+      \field{volume}{169}
+      \field{year}{1992}
+      \field{pages}{76\bibrangedash 83}
+      \range{pages}{8}
+    \endentry
+    \entry{RobreZuiddam2021}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=1ad68bb7343187561ae581c20892ee42}{%
+           family={Robere},
+           familyi={R\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9da7757e17bbb1219b89a19825f45525}{%
+           family={Zuiddam},
+           familyi={Z\bibinitperiod},
+           given={Jeroen},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{fullhash}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{fullhashraw}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{bibnamehash}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{authorbibnamehash}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{authornamehash}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{authorfullhash}{6ace1adbd987b7c4ef23f75228ef0863}
+      \strng{authorfullhashraw}{6ace1adbd987b7c4ef23f75228ef0863}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 62nd IEEE Annual Symposium on Foundations of Computer Science (FOCS)}
+      \field{title}{Amortized Circuit Complexity, Formal Complexity Measures, and Catalytic Algorithms}
+      \field{year}{2021}
+      \field{pages}{759\bibrangedash 769}
+      \range{pages}{11}
+    \endentry
+    \entry{Subramanian1990}{thesis}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=07c3f3c034a5aa0200f987bcb37b377e}{%
+           family={Subramanian},
+           familyi={S\bibinitperiod},
+           given={Ashok},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Stanford University}%
+      }
+      \strng{namehash}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{fullhash}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{fullhashraw}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{bibnamehash}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{authorbibnamehash}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{authornamehash}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{authorfullhash}{07c3f3c034a5aa0200f987bcb37b377e}
+      \strng{authorfullhashraw}{07c3f3c034a5aa0200f987bcb37b377e}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Technical Report STAN-CS-90-1339}
+      \field{title}{The Computational Complexity of the Circuit Value and Network Stability Problems}
+      \field{type}{phdthesis}
+      \field{year}{1990}
+    \endentry
+    \entry{Williams2025}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=fae3fd8ed553265acb8288519a5a1f55}{%
+           family={Williams},
+           familyi={W\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{fullhash}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{fullhashraw}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{bibnamehash}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{authorbibnamehash}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{authornamehash}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{authorfullhash}{fae3fd8ed553265acb8288519a5a1f55}
+      \strng{authorfullhashraw}{fae3fd8ed553265acb8288519a5a1f55}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 57th Annual ACM Symposium on Theory of Computing (STOC)}
+      \field{title}{Simulating Time With Square-Root Space}
+      \field{year}{2025}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
