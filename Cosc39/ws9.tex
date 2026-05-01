@@ -1,0 +1,72 @@
+
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Carson Bates'27. 
+
+\begin{problem}{1}
+Prove that there is no Turing machine that decides the language:
+\begin{enumerate}
+    \item $
+\text{REJECTSELF} := \{\langle M \rangle \mid M \text{ is a Turing machine which rejects } \langle M \rangle\}.$
+    \item $\text{NOTACCEPTSELF} := \{\langle M \rangle \mid M \text{ is a Turing machine that does not accept } \langle M \rangle\}.$
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Assume for contradiction that some Turing machine $M_R$ decides
+            \[
+            \text{REJECTSELF} := \{\langle M \rangle \mid M \text{ is a Turing machine which rejects } \langle M \rangle\}.
+            \]
+            
+            Construct a wrapper machine $\text{REJECTOR}$ around $M_R$ as follows: on input $\langle M \rangle$, $\text{REJECTOR}$ runs $M_R$ on $\langle M \rangle$.
+            
+            \begin{itemize}
+                \item If $M_R$ accepts $\langle M \rangle$, then $\text{REJECTOR}$ accepts and halts.
+                \item If $M_R$ rejects $\langle M \rangle$, then $\text{REJECTOR}$ rejects and halts.
+            \end{itemize}
+            
+            To derive a contradiction, feed the encoding $\langle \text{REJECTOR} \rangle$ into $\text{REJECTOR}$ itself.
+            
+            \begin{itemize}
+                \item If $\text{REJECTOR}$ accepts and halts $\langle \text{REJECTOR} \rangle$, then $M_R$ must have accepted $\langle \text{REJECTOR} \rangle$. Since $M_R$ decides $\text{REJECTSELF}$, this implies that $\text{REJECTSELF}$ rejects $\langle \text{REJECTION} \rangle$, a contradiction.
+            
+                \item If $\text{REJECTOR}$ rejects and halts on input $\langle \text{REJECTOR} \rangle$, then $M_R$ must have rejected $\langle \text{REJECTOR} \rangle$. Since $M_R$ decides $\text{REJECTSELF}$, this implies that $\text{REJECTOR}$ accepts $\langle \text{REJECTOR} \rangle$, a contradiction.
+            \end{itemize}
+            
+            In both cases we obtain a contradiction. Therefore, no such Turing machine $M_R$ exists, and $\text{REJECTSELF}$ is undecidable.
+
+            \item Assume for contradiction that some Turing machine $M_N$ decides
+            \[
+            \text{NOTACCEPTSELF} := \{\langle M \rangle \mid M \text{ is a Turing machine that does not accept } \langle M \rangle\}.
+            \]
+            
+            Construct a wrapper machine $\text{NOT}$ around $M_N$ as follows: on input $\langle M \rangle$, $\text{NOT}$ runs $M_N$ on $\langle M \rangle$.
+            
+            \begin{itemize}
+                \item If $M_N$ accepts $\langle M \rangle$, then $\text{NOT}$ accepts and halts.
+                \item If $M_N$ rejects $\langle M \rangle$, then $\text{NOT}$ rejects and halts.
+            \end{itemize}
+            
+            To derive a contradiction, feed the encoding $\langle \text{NOT} \rangle$ into $\text{NOT}$ itself.
+            
+            \begin{itemize}
+                \item If $\text{NOT}$ accepts and halts $\langle \text{NOT} \rangle$, then $M_N$ must have accepted $\langle \text{NOT} \rangle$. Since $M_N$ decides $\text{NOTACCEPTSELF}$, this implies that $\text{NOT}$ rejects $\langle \text{NOT} \rangle$, a contradiction.
+            
+                \item If $\text{NOT}$ rejects and halts on input $\langle \text{NOT} \rangle$, then $M_N$ must have rejected $\langle \text{NOT} \rangle$. Since $M_N$ decides $\text{NOTACCEPTSELF}$, this implies that $\text{NOT}$ accepts $\langle \text{NOT} \rangle$, a contradiction.
+            \end{itemize}
+            
+            In both cases we obtain a contradiction. Therefore, no such Turing machine $M_N$ exists, and $\text{NOTACCEPTSELF}$ is undecidable.
+    \end{enumerate}
+\end{solution}
+
+
+
+\end{document}
