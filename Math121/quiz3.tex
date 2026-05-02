@@ -8,15 +8,36 @@
 
 \begin{problem}{1 (5 points)}
 Let $\varphi : R \to S$ be a ring homomorphism. Carefully prove that the induced map on spectra
-\[
-\varphi^\# : \operatorname{Spec}(S) \to \operatorname{Spec}(R)
-\]
+\[\varphi^\# : \operatorname{Spec}(S) \to \operatorname{Spec}(R)\]
 is continuous in the Zariski topology.
 \end{problem}
 
 \begin{solution}
     \bbni
+
+    Define 
+    \[\varphi^\# : \operatorname{Spec}(S) \to \operatorname{Spec}(R)\]
+    \[\varphi^\# (q) \mapsto \varphi^{-1}(q)\]
+
+    To show that $\varphi^{\#}$ is continuous, we must show that the preimage of a closed set $V \in \Spec(R)$ is closed in $\Spec(S)$. 
+    
+
+    Closed sets in $\Spec(R)$ are of the form 
+    \[\V(\cS) = \{[p] \in \Spec(R) \mid \cS \subseteq p\}\]
+    Consider $(\varphi^\#)^{-1}(\V(\cS))$, 
+    \begin{align*}
+        (\varphi^\#)^{-1}(\V(\cS)) &= \{[q] \in \Spec(S) \mid \varphi^{\#}([q]) \in \V(\cS)\} \\ 
+        &= \{[q] \in \Spec(S) \mid \cS \subseteq \varphi^{\#}([q])\} 
+    \end{align*}
+    Since the pre-image of a prime ideal is a prime ideal we have,
+    \begin{align*}
+        (\varphi^\#)^{-1}(\V(\cS)) &= \{[q] \in \Spec(S) \mid \varphi(\cS) \subseteq [q]\} \\
+        &= \V(\varphi(\cS))
+    \end{align*}
+    Which is a closed set in $\Spec(S)$, and hence the map $\varphi^{\#}$ is continuous. 
 \end{solution}
+
+\newpage
 
 \begin{problem}{2 (5 points)}
 Let $R$ be a ring and let $f_1, f_2, \dots, f_t \in R$ be non-zero elements such that $\{D(f_i)\}_{i=1}^t$ form
@@ -25,6 +46,38 @@ an open cover of $\operatorname{Spec}(R)$. Carefully prove that $R$ is reduced i
 
 \begin{solution}
     \bbni
+
+    $(\implies)$ 
+
+    Assume $R$ is reduced. That is $\Nil(R) = \langle 0 \rangle$. And by definition for $f_i \neq 0$, \[R \left[ \frac{1}{f_i}\right] = \left\{\frac{r}{f_i^n} \mid r \in R, \, n \geq 0\right\}\]
+    Now assume $\left(r / f_i^n\right)^m = 0$ for some $m > 0$. Then, we have 
+    \begin{align*}
+        \left(r / f_i^n\right)^m &= \frac{0}{1} \\ 
+        f_i^k (r^m \cdot 1 - 0 \cdot f_i^{nm}) &= 0 \\ 
+        f_i^k r^m &= 0 \\ 
+        \implies (f_i^k)^{m-1}(f_i^k r^m) = (f_i^kr)^m &= 0
+    \end{align*}
+    But since $R$ is reduced, this implies that $f^k_ir = 0$, and thus $r/f_i^n = 0 \in R\left[\frac{1}{f_i}\right]$. Hence $ R\left[\frac{1}{f_i}\right]$ has no non-zero nilpotents and is reduced.
+
+    \bbni
+
+    $(\impliedby)$
+
+    Assume $R \left[\frac{1}{f_i}\right]$ is reduced for all $i$. 
+    Let $r \in R$ such that $r \neq 0, \, r^m = 0$. Then, in each $R\left[\frac{1}{f_i}\right]$ we have, 
+    \[\fr{r}{1}^m = \fr{0}{1}\]
+   
+    But since each $R\left[\frac{1}{f_i}\right]$ is reduced this implies that $\frac{r}{1} = 0 \in  R\left[\frac{1}{f_i}\right]$. Then, there exists $f_i^{k_i}$ for each $i$ such that, 
+    \begin{align*}
+        f_i^{k_i} (r - 0 \cdot 1) &= 0 \\ 
+        f_i^{k_i} r &= 0  \in R
+    \end{align*} 
+    Now we consider $\Ann(r)$. For all $i$, $f_i^{k_i} \in \Ann(r)$. 
+    We claim that $\Ann(r)$ is not contained in any prime ideal in $R$. 
+    
+    Suppose that it were, then $\Ann(r) \subseteq P$ for some prime ideal $P$ and since prime ideals are radical this implies that $f_i \in P$ for all $i$. But since by assumption $\{D(f_i)\}_{i=1}^t$ form an open cover of $\Spec(R)$ at least one $f_i \notin P$. This leads to a contradiction and hence $\Ann(r) \notin \Spec(R)$. 
+    
+    But since every proper ideal is contained in some maximal ideal (and thus some prime ideal) this implies that $\Ann(r)$ is not proper. Then we must have $\Ann(r) = R$, i.e. $1 \in \Ann(r)$ and hence $r = 0$. Thus, $R$ is reudced. 
 \end{solution}
 
 \end{document}

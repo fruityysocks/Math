@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+
+     Imagine we want to describe a deck of Poker cards using regular expressions. Here a Poker deck may have card repetition and more than 52 cards. We assume that \textit{there are no Jokers}; every card is of one of the four suits: spades $\spadesuit$, hearts $\heartsuit$, diamonds $\diamondsuit$, and clubs $\clubsuit$. We say that spades and clubs are of the color \textit{black}, while hearts and diamonds are \textit{red}.
+    
+    Design a regular expression for the following collection of decks, as a language over alphabet $\Sigma = \{\spadesuit, \heartsuit, \diamondsuit, \clubsuit\}$:
+    
+    \begin{itemize}
+        \item The collection of all Poker decks where no three cards of the same color occur consecutively.
+    \end{itemize}
+    
+    (No formal proofs required, but explanation of your construction in a few English sentences would be helpful.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \[(\varepsilon + (\heartsuit + \diamondsuit) + (\heartsuit + \diamondsuit)^2)(((\spadesuit + \clubsuit) + (\spadesuit + \clubsuit)^2) ((\heartsuit + \diamondsuit) + (\heartsuit + \diamondsuit)^2))^\star (\varepsilon + (\spadesuit + \clubsuit) + (\spadesuit + \clubsuit)^2)\]
+\end{solution}
+
+\begin{problem}{2}
+    
+    Construct a deterministic finite automata (DFA) for the language in Problem $1$.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{center}
+        \begin{tikzcd}
+            {} & {} & \dcircled[]{\phantom{1}} \arrow[r, "{\spadesuit, \clubsuit}"] \arrow[dd, bend left = 10, "{\heartsuit, \diamondsuit}"]& \dcircled[]{\phantom{1}} \arrow[r, "{\spadesuit, \clubsuit}"] \arrow[ddl, "{\heartsuit, \diamondsuit}"{yshift = .4in, xshift = .2in}]& \circled[]{fail} \\ 
+            {} \arrow[r] & \dcircled[]{\phantom{1}} \arrow[ur, "{\spadesuit, \clubsuit}"] \arrow[dr, "{\heartsuit, \diamondsuit}", swap]\\ 
+            {} & {} & \dcircled[]{\phantom{1}} \arrow[r, swap, "{\heartsuit, \diamondsuit}"] \arrow[uu, bend left =10, "{\spadesuit, \clubsuit}"] & \dcircled[]{\phantom{1}} \arrow[r, swap, "{\heartsuit, \diamondsuit}"] \arrow[uul, "{\spadesuit, \clubsuit}"{yshift=-.3in, xshift=.15in}, swap] & \circled[]{fail} \\ 
+        \end{tikzcd}
+    \end{center}
+\end{solution}
+
+\begin{problem}{3}
+
+    Let $\Sigma$ be the alphabet $\{0, 1, [, ]\}$. Define $L$ to be the set of strings over $\Sigma$ that start with $[$ and end with $]$. Notice that we allow extra $[$ and $]$ showing up within the string. For example, $[10][01]$ and $[]]$ are valid strings in $L$, while $[010]00$ and $][]$ are not in $L$. Design an NFA to recognize language $L$. 
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{center}
+        \begin{tikzcd}
+            {} \arrow[r] 
+            & \circled{\phantom{1}} 
+            \arrow[r, "{[}"] 
+            & \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "{\Sigma \setminus \left \{{]} \right \}}"]
+            \arrow[r, bend left = 10, "{]}"]  
+            & \dcircled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "{]}"] \arrow[l, bend left = 10, "{\Sigma \setminus \left \{{]} \right \}}"]
+        \end{tikzcd}
+    \end{center}
+\end{solution}
+
+\begin{problem}{4}
+
+    Let $L$ be an automatic language. Construct an NFA that recognize the following language.
+    \[L' : = \{w \in \Sigma^\star : \text{ no proper prefix of $w$ is in $L$}\}\]
+    
+    (If we use the language $L$ from Question 1, then $L'$ is the set of strings that start with $[$ and end with the first $]$. Your construction should work for general $L$.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $D$ be a DFA that recognize the automatic language $L$, described by the tuple $(Q,s,A,\Sigma, \delta)$. We now construct a new $\varepsilon$-DFA $N$ that recognizes the language noprefix$(L)$ as follows: 
+        \begin{itemize}
+            \item $Q_N = Q$.        
+            \item Starting State: $S' = \{s\}$
+            \item $A_N = A$.  
+            \item For every transition $\delta_D(q, a) = q'$ in $D$ we add a transition $\delta_N (q', a) = q$ in $N$. And we remove every transition from $p$ to other states $q$ (even if $p = q$) if $p$ is an accepting state in $D$. That is, 
+            \[\delta(p, a) = \emptyset\] 
+            for every $p \in A$ and $a \in \Sigma$. 
+        \end{itemize}
+    
+\end{solution}
+
+\begin{problem}{5}
+
+    Define
+    \[L^{\geq}:= \{1^k y : y \in \{0, 1\}^\star \text{ and  $y$ contains at least $k$ $1$s for any $k \geq 1$}\}\]
+
+    Draw a DFA recognizing $L^\geq$ with minimum number of states, and prove that it is indeed minimum by constructing a fooling set of same number of prefixes. (No need to provide distinguishing suffixes that certify the fooling set.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    \begin{center}
+        \begin{tikzcd}
+            {} \arrow[r] 
+            & \circled{\phantom{1}} 
+            \arrow[r, "{1}"] 
+            & \circled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "{0}"]
+            \arrow[r, bend left = 0, "{1}"]  
+            & \dcircled{\phantom{1}} \arrow[out=55, in=125, loop, swap, "{\Sigma}"] 
+        \end{tikzcd}
+    \end{center}
+
+    Define a fooling set $F:= \{\varepsilon, 0, 1\}$ with the distinguishing suffix $1$. 
+\end{solution}
+
+\begin{problem}{6}
+
+    Define
+    \[L^{\leq}:= \{1^k y : y \in \{0, 1\}^\star \text{ and  $y$ contains at most $k$ $1$s for any $k \geq 1$}\}\]
+
+    Prove that $L^\leq $ is not regular by constructing a fooling set of infinite size. (You need to prove that it is indeed a fooling set.)
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Define the fooling set as $F := \{1^m0 \mid m \in \N\}$.  Then for two arbitrary prefixes $1^i0, \, 1^j0 \in F$ with $i < j$, let the distinguishing suffix be $1^j$.  Then we have, 
+    \begin{itemize}
+        \item $1^i01^j \notin L$, because $i$ is smaller than $j$ and hence $y$ has more than $i$ $1$s. 
+        \item $1^j01^j \in  L$, because $y$ has $j$ $1$s. 
+    \end{itemize}
+    This implies that $F$ is a fooling set of infinite size, and thus $L$ is not regular.
+\end{solution}
+
+\begin{problem}{7}
+
+    Describe a Turing machine that achieves the following task.
+    \begin{itemize}
+        \item On input $1^n$, leave $\#^{2^n}$ somewhere on the tape.
+    \end{itemize}
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+\end{solution}
+
+\begin{problem}{8}
+
+    Argue that the following Turing machine model is equivalent in power to the standard Turing machine with a single tape:
+    \begin{itemize}
+        \item A Turing machine that never moves its cursor to the left $3$ times in a row.
+    \end{itemize}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+\end{solution}
+
+
+\end{document}

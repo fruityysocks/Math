@@ -1,0 +1,23 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1} \textbf{Punched-tape machine}
+
+    Punched-tape machine is a Turing machine equipped with an infinite two-way single-row tape, where each cell can be either punched or unpunched. Furthermore, once a cell is punched, it can never be unpunched. Alternatively, a punched-tape machine is just a Turing machine with unary alphabet consisting of a single symbol $\blacksquare$ (together with the empty cell symbol $\square$), where any symbol $\blacksquare$  written on the tape can never be erased. Prove that the punched-tape machine is equivalent in power to the standard Turing machine. In other words, the languages accepted by the punched-tape machines are exactly all the computable languages.
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Let $M$ be a punched-tape machine; our goal is to show that $M$ can simulate a standard Turning machine $M'$ with a two-way infinite tape and the binary alphabet. 
+
+    $\square \blacksquare \blacksquare \blacksquare \blacksquare \blacksquare$
+\end{solution}
+
+
+\end{document}
