@@ -43,7 +43,7 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 			\item $R = \Z$ and $U = \{1, 3, 9, 27, \ldots\}$.
 			\item $R = \Z$ and $U = \{1, 2, 3\}$.
 			\item $R=\Z$ and $U=\Z \setminus\langle 2 \rangle$.
-			\item $R=\Z$ and $U=\{n \in \Z_{\geq 1}\}$.
+			\item $R=\Z$ and $U=\{n {\geq 1}\}$.
 			\item $R=\R[x,y]$ and $U=R\setminus\langle x,y\rangle$.
 			\item $R=\R[x,y]$ and $U = \{f \in R \mid f(1,0) \neq 0\}$.
 			\item $R=\R[x,y]/\langle y^2-x^3+x\rangle$ and $U=R\setminus\langle \overline{x}, \overline{y} \rangle$.
@@ -55,8 +55,42 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item \begin{enumerate}
+			\item $U$ is multiplicatively closed. 
+			\item $U$ is not multiplicatively closed; $2, 3 \in U$ but $2 \cdot 3 \notin U$. 
+			\item $U$ is multiplicatively closed. 
+			\item $U$ is multiplicatively closed. 
+			\item $U = \R$ and hence is multiplicatively closed. 
+			\item $U$ is multiplicatively closed. 
+			\item $U$ is multiplicatively closed. 
+			\item $U$ is multiplicatively closed. 
+		\end{enumerate}
+		\item Let $I \subset R$ ideal. 
+		
+		$(\implies)$ 
+		
+		Assume $U = R \setminus I$ is multiplicatively closed. Assume $a, b \notin I$. Then $a, b \in U$. Since $U$ is multiplicatively closed, $ab \in U$, hence $ab \notin I$. That is if $a, b\notin I$ then $ab \notin I$. Thus, $I$ is prime.  
+
+
+		$(\impliedby)$ 
+
+		Assume $I$ is prime. Then, we know that if $a, b \notin I$, $ab \notin I$. Thus, $a,b, ab \in U$, and $U$ is multiplicatively closed. 
+
+		\item Let $U \subset R$ be multiplicatively closed. Let $\phi: R \to S$ be a ring homomorphism. Then for any $r, s \in U$ we have, 
+		\[\phi(r) \cdot \phi(s) = \phi(rs) \in \phi(U)\]
+		Hence, $\phi(U) \subset S$ is multiplicatively closed. 
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{2}
-	\textbf{First Examples.} Despite not having formally verified that our construction is well-defined, discuss ways to explicitly understand $U^{-1}R$ in each of the following cases. 
+	\textbf{First Examples.} 
+	
+	Despite not having formally verified that our construction is well-defined, discuss ways to explicitly understand $U^{-1}R$ in each of the following cases. 
 	\begin{enumerate}
 		\item $R=\Z$ and $U=\Z\setminus\{0\}$.
 		\item $R=\Z$ and $U=\{2^{n}\;\;|\;\; n\in \Z_{\geq0}\}$.
@@ -70,8 +104,29 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item $U^{-1}R = \Q$ 
+		\item $U^{-1}R = \{m/2^n \mid m \in \Z\}$. These are the dyadic integers. 
+		\item $U^{-1}R = \{m/n \mid m \in \Z, n \text{ odd}\}$
+		\item $U^{-1}R = \K(x)$
+		\item $U^{-1}R = \K[x, x^{-1}]$
+		\item $U^{-1}R = \Z/3\Z$
+		\item $U^{-1}R = \Z/4\Z$
+		\item $U^{-1}R = \Z\left[\frac{1}{n}\right] = R$ 
+		\item If $u \in U$ is nilpotent, then for some $k \geq 1$ $u^k = 0 \in U$. Then for any two arbitrary fractions $a/b, \, c/d \in U$, pick $w = 0$. Then we have
+		\[w(ad - cd) = 0 (ad - cd) = 0\]
+		that is, all fractions are equivalent and $U^{-1}R = \{0\}$. 
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{3}
-	\textbf{Constructing $U^{-1}R$.} Let $R$ be a ring and $U \subset R$ a multiplicatively closed set. Define a relation on $R\times U$ by saying $(r_{1},u_{1}) \sim (r_{2},u_{2})$ if and only if $t(r_1u_{2}-r_{2}u_{1})=0$ in $R$ for some $t\in U$. 
+	\textbf{Constructing $U^{-1}R$.} 
+	
+	Let $R$ be a ring and $U \subset R$ a multiplicatively closed set. Define a relation on $R\times U$ by saying $(r_{1},u_{1}) \sim (r_{2},u_{2})$ if and only if $t(r_1u_{2}-r_{2}u_{1})=0$ in $R$ for some $t\in U$. 
 	\begin{enumerate}
 		\item Prove that $\sim$ is an equivalence relation on $R\times U$. 
 		\item Let $\frac{r}{u}$ denote the equivalence class of a pair $(r,u)$ under the equivalence relation $\sim$ defined in the previous part. Prove that the operations:
@@ -86,8 +141,74 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem} 
 
+\begin{solution}
+	\bbni
+
+	\begin{enumerate}
+		\item Let $(r_1, u_1) \sim (r_2, u_2) \sim (r_3, u_3) \in R \times U$. 
+		
+		\begin{enumerate}
+			\item \textbf{Reflexivity:} $(r_1, u_1) \sim (r_1, u_1)$ since $1(r_1u_1 - r_1u_1) = 0$. 
+			\item \textbf{Symmetry:} If $(r_1, u_1) \sim (r_2, u_2)$ then there exists a $t \in U$ such that 
+			\[t(r_1u_2 - r_2u_1) = 0 \implies tr_1u_2 = tr_2u_1 \implies t(r_2u_1 - r_1u_2) = 0\]
+			Hence, $(r_2, u_2) \sim (r_1, u_1)$.  
+
+			\item \textbf{Transitivity:} If $(r_1, u_1) \sim (r_2, u_2)$ and $(r_2, u_2) \sim (r_3, u_3)$ then there exist $s, t$ such that 
+			\[s(r_1u_2 - r_2u_1) = 0, \quad t(r_2u_3 - r_3u_2) = 0\]
+			Note that 
+			\[stu_3(r_1u_2 - r_2u_1) = 0, \quad stu_1(r_2u_3 - r_3u_2) = 0\]
+			Adding, 
+			\[0 = st(r_1u_2u_3 - r_2u_1u_3 + r_2u_3u_1 - r_3u_2u_1) = stu_2(r_1u_3 - r_3u_1)\]
+			Since $stu_2 \in U$ we have $(r_1, u_1) \sim (r_3, u_3)$.  
+		\end{enumerate}
+		Thus, $\sim$ is an equivalence relation on $R \times U$. 
+
+		\item Let $(r, u) \sim (r', u')$ and $(s, t) \sim (s', t')$. Then there exist $p, q \in U$ such that 
+		\[p(ru' - r'u) = 0, \quad q(st' - s't) = 0\]
+		Multiplying, 
+		\[pqst'(ru' - r'u) = 0, \quad pqr'u(st' - s't) = 0\]
+		Adding, 
+		\[pq(st'ru' - st'r'u + r'ust' - r'us't)  = pq ( rsu't' - r's'ut)= 0\]
+		That is, 
+		\begin{align*}
+			\fr{r}{u} \fr{s}{t} = \frac{rs}{ut} \sim \frac{r's'}{u't'} = \fr{r'}{u'}\fr{s'}{t'} 
+		\end{align*}
+
+		\bbni 
+
+		\todo{}
+
+		\item Note that associativity, commutativity, and distributivity  are inherited from $R$. 
+		\begin{enumerate}
+			\item \textbf{Additive Identity:} 
+			\[\frac{r}{u} + \frac{0}{1} = \frac{r + 0}{u} = \frac{r}{u}\]
+			\item \textbf{Additive Inverses:}
+			\[\frac{r}{u} + \frac{-r}{u} = \frac{ru - ru}{u} = \frac{0}{1}\]
+			\item \textbf{Multiplicative Identity:}
+			\[\frac{r}{u} \cdot \frac{1}{1} = \frac{r \cdot 1}{u \cdot 1} = \frac{r}{u}\]
+		\end{enumerate}
+		Hence, $U^{-1}R$ is a ring. 
+
+		\item Let $\eta: R \to U^{-1}R$, where $r \mapsto \frac{r}{1}$. 
+		\begin{itemize}
+			\item $\eta(r) + \eta(s) = \frac{r}{1} + \frac{s}{1} = \frac{r + s}{1} = \eta(r+s)$
+			\item $\eta(r) \cdot \eta(s) = \frac{r}{1} \cdot \frac{s}{1} = \frac{rs}{1} = \eta(rs)$
+		\end{itemize}
+		Hence, $\eta$ is a ring homomorphism. 
+
+		\item For any $u \in U$ we have, 
+		\[\eta(u) \cdot \frac{1}{u} = \frac{u}{1} \cdot \frac{1}{u} = \frac{u}{u} \sim \frac{1}{1}\]
+
+		\item In proving transitivity and verifying that the operations are well-defined. 
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{4}
-	\textbf{First Properties of Localization.} Let $R$ be a ring and $U \subset R$ a multiplicatively closed set. 
+	\textbf{First Properties of Localization.} 
+	
+	Let $R$ be a ring and $U \subset R$ a multiplicatively closed set. 
 	\begin{enumerate}
 		\item Prove that if $0 \in U$ then $U^{-1}R$ is the zero ring. 
 		\item Prove that if $R$ is an integral domain and $0\not\in U$ then $\frac{r_1}{u_1}=\frac{r_2}{u_2}$ in $U^{-1}R$ if and only if $r_1u_2=r_2u_1$.
@@ -96,8 +217,43 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item If $0 \in U$. Then for any two arbitrary fractions $a/b, \, c/d \in U$, pick $w = 0$. And we have
+		\[w(ad - cd) = 0 (ad - cd) = 0\]
+		that is, all fractions are equivalent and $U^{-1}R = \{0\}$. 
+
+		\item Assume $R$ be an integral domain, and $0 \notin U$.
+		
+		$(\implies)$ 
+
+		Assume $\frac{r_1}{u_1}=\frac{r_2}{u_2}$ in $U^{-1}R$. Then there exists a $t \neq 0 \in U$ such that 
+		\[t(r_1u_2 - u_1r_2) = 0\]
+		Since $R$ is an integral domain this implies that 
+		\[r_1u_2 - u_1r_2 = 0 \implies r_1u_2 = u_1r_2  \]
+
+
+		$(\impliedby)$ 
+
+		Assume $r_1u_2=r_2u_1$. 
+		Then with $w =1 \in U$, 
+		\[r_1u_2 - r_2u_1 =0 \implies \frac{r_1}{u_1} = \frac{r_2}{u_2}\]
+
+		Hence proved. 
+
+		\item Let $\frac{r}{u} \nsim \frac{0}{1}\in U^{-1}R$. From (2) we know that $r \neq 0$. Then $\frac{u}{r} \in U^{-1}R$ and hence, $U^{-1}R$ is a field. 
+		
+		\item Let $R = \Z/6\Z$. Then, we have $\frac{1}{2}, \frac{1}{3} \nsim \frac{0}{1} \in (R \setminus \{0\})^{-1}R$. But $\frac{1}{2} \cdot \frac{1}{3} = \frac{1}{6} \sim \frac{1}{0}$ which is not defined.  
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{5}
-	\textbf{The Kernel of the Localization Map.} Let $R$ be a ring, $U\subset R$ be a multiplicatively closed set, and $\eta:R \to U^{-1}R$ the localization map as described in Problem~3.
+	\textbf{The Kernel of the Localization Map.} 
+	
+	Let $R$ be a ring, $U\subset R$ be a multiplicatively closed set, and $\eta:R \to U^{-1}R$ the localization map as described in Problem~3.
 	\begin{enumerate}
 		\item Prove that $\eta$ is injective if and only if every $u\in U$ is a nonzerodivisor on $R$, i.e. $ur=0$ implies $r=0$ for all $r\in R$.	
 		\item Let $I=\{r \in R \;\; | \;\; ur = 0 \text{ for some $u \in U$}\}$. Prove that $I$ is an ideal. 
@@ -160,7 +316,7 @@ The guiding feature of $R_{\fp}$ is that all elements outside of $\fp$ become in
 \]
 A ring with a unique maximal ideal is called a \emph{local ring}. We often denote a local ring by $(R,\fm)$, where $\fm$ is its unique maximal ideal. Local rings are algebraic analogues of rings of germs near a point.
 
-Turning towards the second important example, fix a non-zero element $f \in R$ and consider the set $U = \{1, f, f^2, f^3, \ldots\}$. Note we should assume $f$ is not a nilpotent element, since otherwise as we saw in Question~\ref{ex-pt:localize-nilpotent}, the localization $U^{-1}R$ will be the zero ring. The localization $U^{-1}R$ consists of fractions of the form $\frac{r}{f^n}$ with $r \in R$ and $n \geq 0$. Every such fraction can be rewritten as $r \cdot \frac{1}{f^n} = r \cdot \left(\frac{1}{f}\right)^n$, so every element of $U^{-1}R$ is a polynomial expression in $\frac{1}{f}$ with coefficients in $R$. In other words, $U^{-1}R$ is generated, as a ring, by the image of $R$ and the single new inverse $\frac{1}{f}$. We therefore write:
+Turning towards the second important example, fix a non-zero element $f \in R$ and consider the set $U = \{1, f, f^2, f^3, \ldots\}$. Note we should assume $f$ is not a nilpotent element, since otherwise as we saw in Question 2, the localization $U^{-1}R$ will be the zero ring. The localization $U^{-1}R$ consists of fractions of the form $\frac{r}{f^n}$ with $r \in R$ and $n \geq 0$. Every such fraction can be rewritten as $r \cdot \frac{1}{f^n} = r \cdot \left(\frac{1}{f}\right)^n$, so every element of $U^{-1}R$ is a polynomial expression in $\frac{1}{f}$ with coefficients in $R$. In other words, $U^{-1}R$ is generated, as a ring, by the image of $R$ and the single new inverse $\frac{1}{f}$. We therefore write:
 \[
 R\left[\tfrac{1}{f}\right] \coloneqq \left\{1, f, f^2, \ldots\right\}^{-1}R = \left\{ \frac{r}{f^n} \;\;\big|\;\; r \in R,\; n \geq 0 \right\}.
 \]
