@@ -269,17 +269,88 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item $(\implies)$
+		
+		Assume $\eta$ is injective. Suppose $ur = 0$ for some $u \in U$. Then, 
+		\[\eta(r) = \frac{r}{1} = \frac{ur}{u} = \frac{0}{u} \sim \frac{0}{1}\]
+		Since $\ker(\eta) = \{0\}$, this implies that either $r = 0$. 
+		
+		(We cannot have $u = 0$ since that would make $U^{-1}R$ into the zero ring, and $\eta$ is injective.) Hence, $U$ contains no zero-divisors on $R$.
+
+
+		$(\impliedby)$
+
+		Assume $U$ has no zero-divisors in $R$. An element $r$ is in $\ker(\eta)$ iff $\eta(r) \sim \frac{0}{1}$. That is there exists $u \in U$ such that, 
+		\[u(r - 0) = 0 \]
+		But by assumption, $u$ is not a zero-divisor and hence $r$ must be $0$. Since $r$ was an arbitrary element, this implies that $\ker(\eta) =\{0\}$ and $\eta$ is injective. 
+
+		\item Since $I \subseteq R$ we only need to show that $I$ is closed under addition and multiplication (from $R$). 
+		\begin{enumerate}
+			\item \textbf{Addition:} Let $r, s \in I$. Then there exist $u, v$ such that $ru = 0, \, sv = 0$. Since $U$ is multiplicatively closed, $uv \in U$. Then we have,
+			\[(r+s)uv = (ru)v + (sv)u = 0\]
+			Hence, $r + s \in I$. 
+
+			\item Let $r \in R$ and $s \in I$. Then there exist some $u \in U$ such that $su = 0$. Consider $rs$, 
+			\[(rs)u = r(su) = 0\]
+			Hence, $rs \in I$. 
+		\end{enumerate}
+
+		Thus $I$ is an ideal. 
+
+		\item Define $\phi: R/I \to U^{-1}R$, where $\overline{r} \mapsto \frac{r}{1}$. Now we check for the following: 
+		\begin{enumerate}
+			\item \textbf{Well-Definedness:} Let $\overline{r} = \overline{s}$. Then, $\overline{r} - \overline{s} \in I \implies \exists \, u \in U$ such that 
+			\[u(r-s) = 0 \implies u(r \cdot 1 - s \cdot 1) \implies \frac{r}{1} \sim \frac{s}{1}\]
+			
+			\item \textbf{Ring Homomorphism:} 
+			\begin{itemize}
+				\item $\phi(\overline{r} + \overline{s}) = \frac{r+s}{1} = \frac{r}{1} + \frac{s}{1} = \phi(\overline{r}) + \phi(\overline{s})$
+				\item $\phi(\overline{r} \cdot \overline{s}) = \frac{r\cdot s}{1} = \frac{r}{1} \cdot \frac{s}{1} = \phi(\overline{r}) \cdot \phi(\overline{s})$
+			\end{itemize}
+			\item \textbf{Injectivity:} Let $\overline{r} \in \ker(\phi)$. Then $\phi(\overline{r}) = \frac{r}{1} \sim \frac{0}{1}$. That is, there exists $u \in U$ such that $u(r) = 0$. Then $\overline{r} \in I$ and hence $\overline{r} = 0 \in R/I$. 
+			\item \textbf{Commutes:} Let $r \in R$. Then we have, 
+			\[\eta(r) = \frac{r}{1}, \quad \phi(\pi(r)) = \phi(\overline{r}) = \frac{r}{1}\]
+		\end{enumerate}
+		Hence, there exists an injective ring homomorphism $R/I \to U^{-1}R$
+
+		\item $\ker(\eta ) = \ker(\phi \circ \pi) = \pi^{-1}(\ker(\phi)) = \pi^{-1}(\langle 0 \rangle) = I$. 
+		
+		\item $\eta$ is injective for subparts 1, 2, 3, 4, 5, 8. 
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{6}
-	\textbf{Field of Fractions.} Let $R$ be an integral domain. The \emph{field of fractions} of $R$ is the ring $U^{-1}R$ where $U=R\setminus\{0\}$. We denote the field of fractions of $R$ by $\Frac(R)$.
+	\textbf{Field of Fractions.} 
+	
+	Let $R$ be an integral domain. The \emph{field of fractions} of $R$ is the ring $U^{-1}R$ where $U=R\setminus\{0\}$. We denote the field of fractions of $R$ by $\Frac(R)$.
 	\begin{enumerate}
 		\item Show that $\Frac(R)$ is a field containing $R$.
 		\item Describe $\Frac(R)$ when $R=\Z$ and $R=\K[x]$.
-		\item If $R$ is an integral domain and $U \subset R$ is any multiplicatively closed set not containing zero, explain how we can view $U^{-1}R$ as a subring of $\Frac(R)$. 
+		\item If $R$ is an integral domain and $V \subset R$ is any multiplicatively closed set not containing zero, explain how we can view $V^{-1}R$ as a subring of $\Frac(R)$. 
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item From Question 4.3 we know that $\Frac(R)$ is a field, and contains $R$ since $\eta(r) = \frac{r}{1} \in \Frac(R)$ for all $r \in R$. 
+		\item $\Frac(\Z) = \Q$, and $\Frac(\K[x]) = \K(x)$. 
+		\item Note that $V \subseteq U$.
+		Then every element $a = \frac{r}{v} \in V^{-1}R$, is also an element of $\Frac(R)$.  Then we can define an embedding $\iota: V^{-1}R \to U^{-1}R$ where $\iota\fr{r}{v} = \fr{r}{v}$, showing that $V^{-1}R$ is a subring of $U^{-1}R = \Frac(R)$.  
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{7}
-	\textbf{Universal Property of Localization.} In this exercise we shall show that $U^{-1}R$ and $\eta$ as constructed in Problem~3 satisfy the universal property of localization. Let $R$ be a ring and $U \subset R$ a multiplicatively closed subset. Let $\phi:R \to T$ be a ring homomorphism such that $\phi(U) \subset T^{\times}$.
+	\textbf{Universal Property of Localization.} 
+	
+	In this exercise we shall show that $U^{-1}R$ and $\eta$ as constructed in Problem~3 satisfy the universal property of localization. Let $R$ be a ring and $U \subset R$ a multiplicatively closed subset. Let $\phi:R \to T$ be a ring homomorphism such that $\phi(U) \subset T^{\times}$.
 	\begin{enumerate}
 		\item Define a function $\tilde{\phi}:U^{-1}R \to T$ by $\frac{r}{u}\mapsto \phi(r)\phi(u)^{-1}$. Explain why $\tilde{\phi}$ is well-defined and prove it is a ring homomorphism. 
 		\item Show that $\tilde{\phi}$ makes the following diagram commute:
@@ -293,8 +364,52 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni 
+	\begin{enumerate}
+		\item Let $\frac{r}{u} \sim \frac{s}{v} \in U^{-1}R$, we want to show that $\phi(r) \phi(u)^{-1} = \phi(s)\phi(v)^{-1}$. Then there exists some $t \in U$ such that $t(rv - su) = 0$. Applying ${\phi}$,
+		\[\phi(t)(\phi(r) \phi(v) - \phi(s) \phi(u)) = \phi(0) = 0\]
+		Since $\phi(t) \in \phi(U) \subseteq T^\times$ we can multiply both sides by $\phi(t)^{-1}$, 
+		\[\phi(r) \phi(v) = \phi(s) \phi(u) \implies \phi(r) \phi(u)^{-1} = \phi(s) \phi(v)^{-1} \]
+		Hence $\widetilde{\phi}$ is well-defined. 
+
+		Ring homomorphism: 
+		\begin{itemize}
+			\item \textbf{Addition:}
+			\begin{align*}
+				\widetilde{\phi}\left (\frac{r}{u}+\frac{s}{v} \right ) &= \widetilde{\phi}\fr{rv + su}{uv} \\
+				&= \phi(rv + su) \phi(uv)^{-1} \\
+				&= \phi(r)\phi(v)\phi(u)^{-1}\phi(v)^{-1}+\phi(s)\phi(u)\phi(u)^{-1}\phi(v)^{-1} \\ 
+				&= \phi(r)\phi(u)^{-1}  + \phi(s) \phi(v)^{-1} \\
+				&= \widetilde{\phi}\fr{r}{u} + \widetilde{\phi} \fr{s}{v}
+			\end{align*}  
+			\item \textbf{Multiplication:}
+			\begin{align*}
+				\widetilde{\phi}\left (\frac{r}{u} \cdot \frac{s}{v} \right ) &= \widetilde{\phi}\fr{rs}{uv} \\
+				&= \phi(rs) \phi(uv)^{-1} \\
+				&= \phi(r)\phi(s)\phi(u)^{-1}\phi(v)^{-1} \\
+				&= \phi(r)\phi(u)^{-1}  \cdot  \phi(s) \phi(v)^{-1} \\
+				&= \widetilde{\phi}\fr{r}{u} \cdot \widetilde{\phi} \fr{s}{v}
+			\end{align*}  
+		\end{itemize}
+		Hence $\widetilde{\phi}$ is a well-defined ring homomorphism. 
+
+		\item Let $r \in R$. Then we have, 
+		\[\widetilde{\phi}(\eta(r)) = \widetilde{\phi}\fr{r}{1} = \phi(r) \phi(1)^{-1} = \phi(r)\]
+
+		\item Let $\psi: U^{-1}R \to T$ be a ring homomorphism that commutes with the given diagram. Then since $\phi(u) = \psi(\eta(u)) = \psi\fr{u}{1}$, and $\psi(u) \psi(u^{-1})= 1$ we must have $\psi\fr{u}{1} \cdot \psi\fr{1}{u} = \phi(u) \cdot \phi(u)^{-1}$. 
+		
+		That is for an arbitrary element $\frac{r}{u} \in U^{-1}R$ we have, 
+		\[\psi\fr{r}{u} = \psi \left( \frac{r}{1} \cdot \frac{1}{u}\right) = \psi\fr{r}{1} \cdot \psi \fr{1}{u} = \phi(r) \phi(u)^{-1} = \widetilde{\phi} \fr{r}{u}\]
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{8}
-	\textbf{Applications of the Universal Property of Localization.} Let $R$ be a ring and $U \subset R$ a multiplicatively closed subset. 
+	\textbf{Applications of the Universal Property of Localization.} 
+	
+	Let $R$ be a ring and $U \subset R$ a multiplicatively closed subset. 
 	\begin{enumerate}
 		\item Use the universal property of localization to show that $U^{-1}R$ and $\eta$ are unique up to unique isomorphism.
 		\item Suppose every element of $U$ is already a unit in $R$. Prove that the localization map $\eta:R\to U^{-1}R$ is an isomorphism.
@@ -303,6 +418,36 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item\todo{}
+
+		\item If every element of $U$ is a unit in $R$ then there exist natural maps $\eta: R \to U^{-1}R$ and $\widetilde{\phi}: U^{-1}R \to R$. We then have the following diagram, 
+		\[
+		\begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+		R \arrow[r, "\eta"] \arrow[d, swap, "\phi"] & U^{-1}R \arrow[dl, "\tilde{\phi}"] \\
+		R  & 
+		\end{tikzcd}.
+		\]
+		This forces $\phi = \id_R$ hence showing that the composition $ \widetilde{\phi} \circ \eta = \id_R$. Now consider the maps $\eta \circ \widetilde{\phi}, \, \id_{U^{-1}R}:U^{-1}R \to U^{-1}R$. They agree on composition with $\eta$, and hence by uniqueness of the map from $U^{-1}R \to T$, they must be the same map.  
+
+		\[(\eta \circ \widetilde{\phi}) \circ \eta = \eta \circ (\widetilde{\phi} \circ \eta) = \eta \circ \id_R = \eta = \id_{U^{-1}R} \circ \eta\]
+		
+		Hence $R \iso U^{-1}R$. 
+
+		\item If $U \subset V$, then every element in $U$ is a unit in $V^{-1}R$, then by the universal property, there exists a map $\widetilde{\phi}: U^{-1}R \to V^{-1}R$.  
+		
+		\item Assume $\phi$ is surjective. Then for all $s \in S$ there exists some $r \in R$ such that $\phi(r) = s$. Then, 
+		\[\widetilde{\phi}(\eta(r)) = \widetilde{\phi}\fr{r}{1} = \phi(r) = s\]
+		Thus $\widetilde{\phi}$ must be surjective. 
+		
+		Assume $\phi$ is injective. Suppose $\widetilde{\phi}\fr{r}{1} = 0$, then $\widetilde{\phi}\fr{r}{1} = \phi(r)\phi(1)^{-1}  = \phi(r) = 0$. But since $\phi$ is injective, this implies that $r = 0$. Thus, $\widetilde{\phi}$ is injective. 
+		
+	\end{enumerate}
+\end{solution}
+
+\newpage
 
 \hrulefill
 
@@ -322,11 +467,14 @@ R\left[\tfrac{1}{f}\right] \coloneqq \left\{1, f, f^2, \ldots\right\}^{-1}R = \l
 \]
 We will see shortly that we can make the idea that $R[\frac{1}{f}]$ is  ``polynomials in $\frac{1}{f}$ with coefficients in $R$'' precise by showing $R[\frac{1}{f}]$ is isomorphic to $R[x]/\langle xf-1\rangle$. Intuitively this makes sense since quotienting by $\langle xf-1\rangle$ means setting $xf=1$, i.e., let the formal variable $x$ equal the inverse of $f$. (Note we saw something similar to this when we used the Rabinowitsch trick on the Nullstellensatz worksheet.)
 
-
 \hrulefill
 
+\newpage
+
 \begin{problem}{9}
-	\textbf{Localization at a Prime Ideal.} Let $R$ be a ring and $\fp \subset R$ be a prime ideal.
+	\textbf{Localization at a Prime Ideal.} 
+	
+	Let $R$ be a ring and $\fp \subset R$ be a prime ideal.
 	\begin{enumerate}
 		\item Prove that an element $\frac{r}{u} \in R_{\fp}$ is a unit if and only if $r \not \in \fp$.
 		\item Deduce that the non-units of $R_{\fp}$ are precisely the elements
@@ -342,8 +490,52 @@ We will see shortly that we can make the idea that $R[\frac{1}{f}]$ is  ``polyno
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item $(\implies)$ 
+		
+		Assume $\frac{r}{u} \in R_{\fp}$ is a unit. Assume for contradiction that $r \in \fp$, and let $\frac{s}{v}$ be the inverse of $\frac{r}{u}$. Then $\exists \, t \in U$ such that
+		\[t(rs - vu) = 0  \implies trs = tvu \implies tvu \in \fp\]
+		But $t, v, u \notin \fp$ by assumption and since $\fp$ is prime $tvu \notin \fp$, thus a contradiction. 
+		
+		Hence $r \notin \fp$. 
+
+		$(\impliedby)$ 
+
+		Assume $r \notin \fp$. Then $r \in (R \setminus \fp)$. That is there exists $\frac{u}{r} \in R_{\fp}$ and thus $\frac{r}{u}$ is a unit. 
+
+		\item Then we can conclude that the non-units of $R_{\fp}$ are the precisely elements $r \in \fp$, which is the definition of $\fp R_{\fp}$.
+		
+		\item To show that $\fp R_\{\fp\}$ is an ideal we need to show that it is closed under addition and closed under multiplication from $R_{\fp}$. Let $\frac{r}{u}, \frac{s}{u} \in \fp R_{\fp}$, and $\frac{a}{v} \in R_{\fp}$, with $u, v \in R \setminus \fp$. 
+		\begin{itemize}
+			\item $\frac{r}{u} + \frac{s}{u} = \frac{r + s}{u} \in \fp R_{\fp}$ since $\fp$ is closed under addition. 
+			\item $\frac{r}{u} \cdot \frac{a}{v} = \frac{ra}{uv} \in \fp R_{\fp}$ since both $R \setminus \fp$ and $\fp$ are closed under multiplication. 
+		\end{itemize}
+
+		\item Assume for contradiction that there exists a maximal ideal $M$ such that $\fp R_{\fp} \subset M \subset R_{\fp}$. Then there exists some element $\frac{a}{u} \in M$ that is not in $\fp R_{\fp}$. But from part (2) we know that if $\frac{a}{u} \in R_{\fp}$ but not in $\fp R_{\fp}$ it is a unit. So there exists some element $\frac{b}{v} \in R_{\fp}$ such that $\frac{a}{u} \frac{b}{v} = 1 \in M$ contradicting our assumption that $M$ is a proper ideal. 
+		
+		Hence, $\fp R_{\fp}$ is maximal.
+		
+		\item From part (2) we know that all elements not in $\fp R_{\fp}$ are units. Then by the argument in (4) is any ideal $I \subset R_{\fp}$ such that $I \neq \fp R_{\fp}$ contains $1$ and hence is the whole ring. Hence, $(R_{\fp}, \fp R_{\fp})$ is a local ring. 
+		
+		\item So far we have shown that if the set of non-units is an ideal then $R$ is a local ring, so we only need to show the opposite direction. 
+		
+		Assume $R$ is a local ring with maximal ideal $M$. Let $J$ be the set of non-units in $R$. The containment $M \subseteq J$ is obvious (because if not, we have $1 \in M$). To show the reverse containment, let $j \in J$. Consider the ideal $\langle j \rangle$. Then there must exist some maximal ideal in $R$ containing $\langle j \rangle$. Since $R$ is a local ring we must have $\langle j \rangle \subseteq M$. Since $j$ was an arbitrary element in $J$, this implies that $J \subseteq M$. Thus, the set of non-units in $R$ is an ideal. 
+
+		\item The maximal ideal (and the set of units) of $\Z_{\langle p \rangle}$ is $p \Z_{\langle p \rangle} := \left\{\frac{q}{u} \mid q \in \langle p \rangle, \, u \in \Z \setminus \langle p \rangle \right\}$. 
+		
+		\item All rational functions in $\C(x)$ that don't have $f$ in the denominator lie in $R_{\fm}$ where $f \in \langle x - a \rangle$. The ones that don't have $f$ in the numerator are units. 
+	\end{enumerate}
+\end{solution}
+
+
+\newpage
+
 \begin{problem}{10}
-	\textbf{Inverting an Element.} Let $R$ be a ring and let $f\in R$ be a nonzero, non-nilpotent element. Recall the ring $R\left [\frac{1}{f} \right ]$ is defined to be the localization of $R$ at $U=\{1,f,f^2,f^3,\ldots\}$. 
+	\textbf{Inverting an Element.} 
+	
+	Let $R$ be a ring and let $f\in R$ be a nonzero, non-nilpotent element. Recall the ring $R\left [\frac{1}{f} \right ]$ is defined to be the localization of $R$ at $U=\{1,f,f^2,f^3,\ldots\}$. 
 	\begin{enumerate}
 		\item Show that the $R$-algebra homomorphism $\phi:R[x] \to R[\frac{1}{f}]$ determined by $\phi(r)=\frac{r}{1}$ for $r\in R$ and $\phi(x)=\frac{1}{f}$ is well-defined.
 		\item Prove that $\phi$ is surjective by explicitly finding an element that maps to $\frac{r}{f^{k}}$ for $r\in R$ and $k\in \Z_{\geq0}$. 
@@ -357,6 +549,81 @@ We will see shortly that we can make the idea that $R[\frac{1}{f}]$ is  ``polyno
 		\]
 	\end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\bbni 
+	\begin{enumerate}
+		\item \todo{}
+		\item For any element $\frac{r}{f^k} \in R\left [\frac{1}{f} \right ]$ we have 
+		\[\phi(rx^k) =\phi(r) \cdot \phi(x^k) = \frac{r}{1} \cdot \frac{1}{f^k} = \frac{r}{f^k}\] 
+		Thus $\phi$ is surjective. 
+
+		\item $\ker(\phi) \subseteq \langle fx -1 \rangle$
+		
+		Assume $a(x) \in \ker(\phi)$ non-zero polynomial. Then $a(x) = q(x)(fx-1) +r(x)$ for some $q(x), r(x) \in R[x]$. We know that $\phi(a(x)) = 0 = \phi(q(x)(fx-1) + r(x))$. Then, 
+		\begin{align*}
+			\phi(q(x)(fx-1) + r(x)) &= 0 \\
+			\phi(q(x)) (\phi(fx)- \phi(1)) + \phi(r(x)) &= 0 \\ 
+			\phi(q(x)) \left (\frac{f}{1} \cdot \frac{1}{f}- 1\right ) + \phi(r(x)) &= 0 \\ 
+			0 + \phi(r(x)) &= 0 
+		\end{align*}
+		Thus $\phi(r(x)) = 0$. But since we were dividing by a degree one polynomial, $\deg(r(x)) = 0$, i.e. $r$ is a constant, that forces $r = 0$.  Hence, $a(x) \in \langle fx - 1\rangle$. 
+
+		\bbni 
+		
+		$\langle fx -1 \rangle \subseteq \ker(\phi)$
+
+		Let $a \in \langle fx -1 \rangle$. Then $a = g(fx-1)$ for some $g \in R$. Consider $\phi(a)$. 
+
+		\[\phi(a) = \phi(g(fx -1)) = \phi(gfx) - \phi(g) = \frac{gf}{f} - \frac{g}{1} = 0\]
+		Since $a$ was an arbitrary element, we have $\langle fx -1 \rangle \subseteq \ker(\phi)$.
+		
+		\item Then by the first isomorphism theorem we have,
+		\[R\left[\frac{1}{f}\right] \iso R[x] / \ker(\phi) = R[x] / \langle fx - 1\rangle\]
+
+		\item We have $U = \{1, f, f^2, \ldots\}$, and $\widetilde{\phi}$ exists because $\phi(U) \subset (R[x]/\langle xf -1 \rangle)^\times$ since $f$ maps to a unit in that ring $\left(x \mapsto \frac{1}{f}\right)$. 
+		\[
+		\begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+		R \arrow[r, "\eta"] \arrow[d, swap, "\phi"] & U^{-1}R[x] = R\left[\frac{1}{f}\right]  \arrow[dl, dashed, "\tilde{\phi}"] \\
+		R[x]/\langle xf -1 \rangle  & 
+		\end{tikzcd}.
+		\]
+		
+		Now, since $\langle xf - 1\rangle = \ker(\eta)$ by the universal property of quotients we have the map $\widetilde{\eta}$, 
+
+		\[
+		\begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+		R \arrow[r, "\pi"] \arrow[d, swap, "\eta"] & R[x]/\langle fx-1\rangle \arrow[dl, dashed, "\tilde{\eta}"] \\
+		R\left[\frac{1}{f}\right] & {}
+		\end{tikzcd}
+		\]
+
+		Consider the following compositions:
+		\begin{itemize}
+			\item $\widetilde{\eta} \circ \widetilde{\phi}\left(\frac{r}{f^k}\right) = \widetilde{\eta}(rx^k) = \frac{r}{f^k}$  
+			\item $\widetilde{\phi} \circ \widetilde{\eta}(rx^k) = \widetilde{\phi}\left(\frac{r}{f^k}\right) = rx^k$. 
+		\end{itemize} 
+
+		Thus $R\left[\frac{1}{f}\right] \iso R[x]/\langle fx-1\rangle$. 
+
+
+		\item If $f$ is nilpotent, from Question 4(1) we know that $R\left[\frac{1}{f}\right] = \{0\}$. By part (4), this implies that $ R[x] / \langle fx - 1\rangle = \{0\}$. 
+		
+		\item First consider the composition $R \to R[1/f] \to (R[1/f])[1/g]$. 
+		
+		In $(R[1/f])[1/g]$, both $f$ and $g$ are units, so $fg$ is a unit. Then by the universal property of localization (on $R[1/fg]$), there exists a unique map $\widetilde{\phi}: R[1/fg] \to (R[1/f])[1/g]$.
+
+		Now, note that in $R[1/fg]$, $fg$ is a unit, so both $f$ and $g$ are units 
+		\[f \cdot \frac{g}{fg} = 1, \qquad g \cdot \frac{f}{fg} = 1\]
+		
+		Then by the universal property of localization (on $(R[1/f])[1/g]$), there exists a unique map $\widetilde{\psi}: (R[1/f])[1/g] \to R[1/fg]$. Both compositions $\widetilde{\phi} \circ \widetilde{\psi}$ and $\widetilde{\psi} \circ \widetilde{\phi}$ are the identity by uniqueness in the universal property, hence:
+		\[
+		\left(R\left[\tfrac{1}{f}\right]\right)\left[\tfrac{1}{g}\right] \cong R\left[\tfrac{1}{fg}\right] 
+		\]
+	\end{enumerate}
+\end{solution}
+
+\newpage 
 
 \hrulefill
 
@@ -373,10 +640,15 @@ Conversely, if $J\subseteq S$ is an ideal, its \emph{contraction} is the preimag
 \]
 which is always an ideal of $R$. Note there are numerous different notations for extension and contraction of ideals: some (namely Atiyah--MacDonald) write $I^{e}$ and $J^{c}$ for the extension and contraction respectively, others write $IS$ and $J\cap R$ (as a nod to what occurs when $\phi$ is an injection). We generally avoid these notations to emphasize that contraction and extension are dependent on the homomorphism $\phi$.
 
+\hrulefill
+
+\newpage
 
 
 \begin{problem}{11}
-	\textbf{Extension and Contraction of Ideals.} Let $\phi:R \to S$ be a homomorphism of rings. Let $I \subset R$ and $J \subset S$ be ideals.
+	\textbf{Extension and Contraction of Ideals.} 
+	
+	Let $\phi:R \to S$ be a homomorphism of rings. Let $I \subset R$ and $J \subset S$ be ideals.
 	\begin{enumerate}
 		\item Prove that $\phi^{-1}(J)$ is an ideal of $R$. 
 		\item Give an explicit example showing that $\phi(I) \subset S$ need not be an ideal. 
@@ -393,34 +665,66 @@ which is always an ideal of $R$. Note there are numerous different notations for
 		\]
 	\end{enumerate}
 \end{problem}
-\hrulefill
+
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item We showed this in Worksheet 1.1 Question 4.1. 
+		
+		\item Let $R = \Z/4\Z$, $S = \Z$, $I = \langle 2 \rangle$ and $\phi$ be the inclusion map. Then we can see that $\phi(I) = \{0, 2\} \in S$ is not an ideal. 
+		
+		\item Let $a \in I$. Note that $\phi(a) \in \phi(I) \subseteq \phi(I)S$. Then we have, 
+		\[\phi^{-1}(\phi(a)) = a \in \phi^{-1}(\phi(I)) \subseteq \phi^{-1}(\phi(I)S)\]
+		Since $a$ was an arbitrary element, this implies that $I \subseteq \phi^{-1}(\phi(I)S)$. 
+
+		\item We have $J = \phi(I)(\Z/\langle 6 \rangle) = \{\overline{0}\}$, and $\phi^{-1}(J) = \langle 6 \rangle$. Thus, there is a strict inclusion $I = \langle 0 \rangle \subsetneq \langle 6 \rangle = \phi^{-1}(J)$. 
+		
+		\item Let $I = \phi^{-1}(J)$, and let $a \in \phi(I)S$. Note that $s = \sum_i \phi(r_i)s_i$ where $r_i \in I$ and $s_i \in S$. Then $\phi(r_i) \in J$ and by definition of ideals, we have $s \in J$.  
+		
+		\item We have $I = \phi^{-1}J = \{r \in R \mid \phi(r) \in \langle x \rangle\} = \{0\}$, and $\phi(I)\Z[x] = \{0\}\Z[x] = \{0\}$. Thus, there is a strict inclusion $\phi(I)\Z[x] \subsetneq J$. 
+		
+		\item Let $ab \in \phi^{-1}(J)$. Then $J$ is prime either $\phi(a) \in J$ or $\phi(b) \in J$. That is, either $a \in \phi^{-1}(J)$ or $b \in \phi^{-1}(J)$. Thus, $\phi^{-1}(J)$ is prime. 
+		
+		\item Let $R = \Z, \, S = \Q, \, J = \langle 0 \rangle$, and $\phi$ be the inclusion map. Then $\phi^{-1}(J) = \langle 0 \rangle$ which is not maximal in $\Z$. 
+		
+		\item Let $R = \Z, \, S = \Z/4Z, \, I = \langle 0 \rangle$, and $\phi$ be the quotinent map. Then $\phi(I)S = \langle 0 \rangle$ is not prime in $\Z/4\Z$ since $2 \times 2 = 0$. 
+		
+		\item Since $\phi$ is injective, $R$ is isomorphic to a subring of $S$. Then $\phi^{-1}(J) =\{r \in R \mid r \in J\} = J \cap R$. Again since $\phi$ is injective $\phi(I) = I$ as a subset of $S$. So, $\phi(I)S = IS$.   
+	\end{enumerate}
+\end{solution}
+
+\newpage
 
 \hrulefill
 
- As we saw in the previous exercise, in general, extension and contraction are far from being inverse operations: $\phi^{-1}(\phi(I)S)$ may strictly contain $I$, and $\phi(\phi^{-1}(J))S$ may be strictly smaller than $J$. In the case of localization, extension and contraction along the canonical localization map $\eta:R\to U^{-1}R$ sending $r\mapsto r/1$ have very nice forms. For an ideal $I \subset R$ the extension along $\eta$ is
- \[
-\eta(I)\left(U^{-1}R\right)= U^{-1}I\coloneqq \left\{\frac{r}{u}\;\; \big|\;\; r\in I,\; u\in U\right\}\subset U^{-1}R.
-\]
-For an ideal $J \subset U^{-1}R$ the contraction along $\eta$ is:
-\[
-\eta^{-1}(J) = \left\{r\in R\;\; \big|\;\; \frac{r}{1} \in J\right\}.
-\]
+	As we saw in the previous exercise, in general, extension and contraction are far from being inverse operations: $\phi^{-1}(\phi(I)S)$ may strictly contain $I$, and $\phi(\phi^{-1}(J))S$ may be strictly smaller than $J$. In the case of localization, extension and contraction along the canonical localization map $\eta:R\to U^{-1}R$ sending $r\mapsto r/1$ have very nice forms. For an ideal $I \subset R$ the extension along $\eta$ is
+	\[
+	\eta(I)\left(U^{-1}R\right)= U^{-1}I\coloneqq \left\{\frac{r}{u}\;\; \big|\;\; r\in I,\; u\in U\right\}\subset U^{-1}R.
+	\]
+	For an ideal $J \subset U^{-1}R$ the contraction along $\eta$ is:
+	\[
+	\eta^{-1}(J) = \left\{r\in R\;\; \big|\;\; \frac{r}{1} \in J\right\}.
+	\]
 
-Although the extension--contraction correspondence remains lossy for arbitrary ideals, it becomes perfectly behaved for prime ideals. If $\fq \subset U^{-1}R$ is a proper ideal, then no element of $U$ can lie in its contraction. (This is because $\frac{u}{1}$ is a unit in $U^{-1}R$ for every $u\in U$.) Thus every prime ideal of $U^{-1}R$ contracts to a prime ideal of $R$ which is disjoint from $U$. Conversely, if $\fp\subset R$ is a prime ideal disjoint from $U$, then its extension
-\[
-U^{-1}\fp=\left\{\frac{r}{u}\;\; \big|\;\; r\in \fp,\; u\in U\right\}
-\]
-is a prime ideal of $U^{-1}R$. In fact, extension and contraction give an order-preserving bijection
-\[
-\left\{\text{prime ideals of }U^{-1}R\right\}
-\longleftrightarrow
-\left\{\fp\in \Spec(R)\;\; \big|\;\; \fp\cap U=\emptyset\right\}.
-\]
-Under this correspondence, a prime ideal $\mathfrak{q}\subset U^{-1}R$ is sent to its contraction $\eta^{-1}(\mathfrak{q})$, and a prime ideal $\fp\subset R$ disjoint from $U$ is sent to its extension $U^{-1}\fp$.
+	Although the extension--contraction correspondence remains lossy for arbitrary ideals, it becomes perfectly behaved for prime ideals. If $\fq \subset U^{-1}R$ is a proper ideal, then no element of $U$ can lie in its contraction. (This is because $\frac{u}{1}$ is a unit in $U^{-1}R$ for every $u\in U$.) Thus every prime ideal of $U^{-1}R$ contracts to a prime ideal of $R$ which is disjoint from $U$. Conversely, if $\fp\subset R$ is a prime ideal disjoint from $U$, then its extension
+	\[
+	U^{-1}\fp=\left\{\frac{r}{u}\;\; \big|\;\; r\in \fp,\; u\in U\right\}
+	\]
+	is a prime ideal of $U^{-1}R$. In fact, extension and contraction give an order-preserving bijection
+	\[
+	\left\{\text{prime ideals of }U^{-1}R\right\}
+	\longleftrightarrow
+	\left\{\fp\in \Spec(R)\;\; \big|\;\; \fp\cap U=\emptyset\right\}.
+	\]
+	Under this correspondence, a prime ideal $\mathfrak{q}\subset U^{-1}R$ is sent to its contraction $\eta^{-1}(\mathfrak{q})$, and a prime ideal $\fp\subset R$ disjoint from $U$ is sent to its extension $U^{-1}\fp$.
 
-This is especially important in the two basic examples above. If $U=R\setminus \fp$, then the prime ideals of $R_{\fp}$ correspond exactly to the prime ideals of $R$ contained in $\fp$. If $U=\{1,f,f^2,\ldots\}$, then the prime ideals of $R[\frac{1}{f}]$ correspond exactly to the prime ideals of $R$ which do not contain $f$.
+	This is especially important in the two basic examples above. If $U=R\setminus \fp$, then the prime ideals of $R_{\fp}$ correspond exactly to the prime ideals of $R$ contained in $\fp$. If $U=\{1,f,f^2,\ldots\}$, then the prime ideals of $R[\frac{1}{f}]$ correspond exactly to the prime ideals of $R$ which do not contain $f$.
 
 \hrulefill
+
+\newpage 
+
+
 \begin{problem}{12}
 	\textbf{Ideals and Localization.} 
 	
@@ -439,6 +743,13 @@ This is especially important in the two basic examples above. If $U=R\setminus \
 		\item Let $R=\K[x,y]$ and $U=\{1,x,x^2,\ldots\}$. For each of the ideals $\langle x\rangle$, $\langle y\rangle$, and $\langle x,y\rangle$, describe its extension to $R[\frac{1}{x}]$. Which of these ideals become the whole ring after localization?
 	\end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item 
+	\end{enumerate}
+\end{solution}
 
 \begin{problem}{13}
 	\textbf{Prime Ideal Correspondence for Localization.} Let $R$ be a ring, let $U\subset R$ be a multiplicatively closed set, and let $\eta:R\to U^{-1}R$ be the localization map.

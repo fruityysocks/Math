@@ -235,7 +235,7 @@
 
     Let $[f], [g] \in \pi_1(X, x_0)$. 
     \begin{align*}
-        \widehat{\alpha}([f]) \star \widehat{\alpha} ([g]) &= [\overline{\alpha}] \star [f] \star [\alpha] \star  [\overline{\alpha}] \star [f] \star [\alpha] \\ 
+        \widehat{\alpha}([f]) \star \widehat{\alpha} ([g]) &= [\overline{\alpha}] \star [f] \star [\alpha] \star  [\overline{\alpha}] \star [g] \star [\alpha] \\ 
         &=  [\overline{\alpha}] \star [f] \star [e_{x_0}] \star [g] \star [\alpha] \\
         &=  [\overline{\alpha}] \star [f] \star [g] \star [\alpha] \\ 
         &= \widehat{\alpha}([f] \star [g])
@@ -830,6 +830,137 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
     \end{cases}\]
     Then $g$ will be the extension we want ... 
 \end{proof}
+
+\todo{05/04 notes}
+
+\section{Classification of Covering Space} 
+
+\begin{definition}
+    We say that a covering space $\widetilde{X}$ of $X$ is a \textbf{}{universal cover} if $\pi_1(\widetilde{X}) = 0$. 
+
+    \begin{example}
+        \bbni
+        \begin{enumerate}
+            \item $\R$ is a universal cover of $S^1$. 
+            \item Every simply connected space is a universal cover of itself. 
+            \item $\C \to \C$ where $z \mapsto z^2$. 
+            \item $S^n$ is a universal cover of $\R P^n$ for $n \geq 2$
+        \end{enumerate}
+    \end{example}
+\end{definition}
+
+\begin{remark}
+    An object with property $x$ is universal if any other object with property $x$ factors through the first object. 
+\end{remark}
+
+\begin{theorem}
+    Suppose that $\widetilde{X}$ is a universal cover of $X$, then if $X$ is path-connected and locally-connected, any other path-connected cover $X_1$ of $X$, $\widetilde{X}$ covers $X_1$. Moreover the following diagram commutes. 
+
+    \begin{center}
+        \begin{tikzcd}
+            \widetilde{X} \arrow[dashed, r, "p_1"] \arrow[rr, bend left = -30, "p", swap] & X_1 \arrow[r, "p_2"] & X
+        \end{tikzcd}
+    \end{center}
+\end{theorem}
+
+\begin{proof}
+    The proof follows from the following two lemmas. 
+\end{proof}
+    
+\begin{lemma}
+    Suppose that $X, X_1, \widetilde{X}$ are all path-connected such that $X_1 \xrightarrow{p_1} X$, $\widetilde{X} \xrightarrow{p} X$ are covers with $\pi_1(\widetilde{X}) = 0$ then $\exists \, p_2: \widetilde{X} \to X_1$ such that $p_1 \circ p_2 = p$. 
+\end{lemma}
+
+\begin{proof}
+    Follows from the general lifting proposition. 
+\end{proof}
+
+\begin{lemma}
+    Let $X, X_1, \widetilde{X}, p, p_1, p_2$ be defined as before, then $p_2$ is a covering map.  
+\end{lemma}
+
+\begin{proof}
+    Let $x_1 \in X_1$ be a point, $U$ be a neighborhood of $p_1(x_1) \in X$ that is evenly covered by both $p_1$ and $p$. Now let $p^{-1}(U) = \sqcup_\alpha U_\alpha$ and $p_1^{-1}(U) = \sqcup_{\alpha'} V_{\alpha'}$. Moreover assume that $V$ is in the slice of $p_1^{-1}(U)$ where $x_1$ lies. 
+    Claim: $V$ is evenly covered by $p_2$. 
+    Proof: Consider the $U_\alpha$'s in $\widetilde{X}$ that are mapped to $V$. Lets say that collection is $\{U_\beta\}$. Then $p_2^{-1}(V) = \sqcup_\beta U_\beta$ and $p_2 |_{U_\beta}$ is a homeomorphism since it is a composition of $p|_{U_\beta}$ and $(p_1 |_V)^{-1}$ which are both homeomorphisms 
+\end{proof}
+
+\begin{theorem}
+    Let $\widetilde{X}$ be a universal cover of $X$, then $\widetilde{X}$ is unique upto homeomorphism. 
+\end{theorem}
+
+\begin{proof}
+    Hint: Lifts are unique if we fix a base point of the lift. 
+
+
+    Let $\widetilde{X}$ and $\overline{X}$ be two universal covers of $X$. Then, 
+
+    \[
+		\begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+		{} & (\overline{X}, \overline{x_0}) \arrow[d, "p_2"] \\
+        (\widetilde{X}, \widetilde{x_0}) \arrow[ur, "f"] \arrow[r, "p_1"] & (X, x_0) 
+		\end{tikzcd}.
+	\]
+    \[
+		\begin{tikzcd}[row sep = 3.5em, column sep = 3.5em]
+		{} & (\widetilde{X}, \widetilde{x_0}) \arrow[d, "p_1"] \\
+        (\overline{X}, \overline{x_0}) \arrow[ur, "g"] \arrow[r, "p_2"] & (X, x_0) 
+		\end{tikzcd}.
+	\]
+    \[p_1 = p_2 \circ f, \qquad p_2 = p_1 \circ g\]
+    That is, 
+    \[p_1 = p_1 \circ g \circ f\]
+    Moreover, $g \circ f(\widetilde{x_0}) = \widetilde{x_0}$. Hence, $g \circ f$ is a lift of $p_1$ to $\widetilde{X}$ by $p_1$. Identity is also such a lift, then $g \circ f = \id$ (by uniqueness of lift homotopy). 
+\end{proof}
+
+\todo{ Read this proof ??  For any sub space of $\pi_1(X) \leftrightarrow$ cover $X_1$ of $X$ with $p_\star(\pi_1(X_1)) \iso$ that subspace.} 
+
+\begin{remark}
+    Any collection of homomorphisms $\phi_\alpha: G_\alpha \to H$ extends uniquely to $\phi: \star_\alpha G_\alpha \to H$ such that $\phi(g_1 \cdots g_n) \mapsto \phi_{\alpha_1}(g_1)\phi_{\alpha_2}(g_2)\ldots \phi_{\alpha_n}(g_n)$. 
+
+    where $G_\alpha$ is a free group, $H$ is a group, and $\star_\alpha G_\alpha$ consists of all words of arbitrary length where each letter belongs to a $G_{\alpha_i}$ and consequetive letters are from different $G_{\alpha_i}$. 
+
+    Now suppose that $X$ is decomposed as a union of path-connected spaces $\{A_\alpha\}$ each of which contains the base point $x_0 \in X$. Then inclusion $A_\alpha \hookrightarrow X \implies j_\alpha: \pi_1(A_\alpha) \to \pi_1(X)$ induce $\Phi: \star_\alpha \pi_1(A_\alpha)  \to \pi_1(X)$. 
+
+    Let $(\iota_{\alpha\beta})_\star: \pi_1(A_\alpha \cap A_\beta) \to \pi_1(A_\alpha)$ be induced from inclusion. Hence, 
+    \[(j_\alpha)_\star \circ (\iota_{\alpha \beta})_\star = (j_\beta)_\star \circ (\iota_{\beta\alpha})_\star: \pi_1(A_\alpha \cap A_\beta) \to \pi_1(X)\]
+    If $w \in \pi_1(A_\alpha \cap A_\beta)$ then $(\iota_{\alpha\beta})_\star (w) \left((\iota_{\beta\alpha})_\star (w)\right)^{-1}$ is in the kernel of $\Phi$. 
+
+    Let $N$ denote the normal subgroup of $\star_\alpha \pi_1(A_\alpha)$ generated by such elements. Then $\ker(\Phi) = N$ (under assumptions). 
+\end{remark}
+
+\begin{theorem}[Seifert-Van Kampen Theorem]
+
+    If $X$ is a union of path-connected open sets $A_\alpha$ such that $x_0 \in X$, and $x_0 \in A_\alpha$ for all $\alpha$, and $A_\alpha \cap A_\beta$ is path-connected, and $A_\alpha \cap A_\beta \cap A_\gamma$ is also path-connected for all $\alpha, \beta, \gamma$. Then $\Phi$ induces an isomorphism
+    \[\pi_1(X) \iso \star_\alpha \pi_1(A_\alpha) / N\]
+\end{theorem}
+
+\begin{proof}
+    We have shown before that $\Phi$ is surjective. Now we will show that $\ker(\Phi) = N$. Define a factorization of an element $[f] \in \pi_1(X)$ as the product $[f_1] \ldots [f_k]$ such that each $[f_i] \in \pi_1(A_\alpha)$ for some $A_\alpha$ and $f \sim_p f_1 \star f_2 \star \cdots \star f_k$. 
+    A factorization of $f$ is thus a word in $\star_\alpha \pi_1(A_\alpha)$. We will say that any two such factorizations are equivalent if they are related by the following two moves or their inverses: 
+    \begin{enumerate}
+        \item Combine adjacent terms $[f_i][f_{i+1}]$ into a single term if $[f_i][f_{i+1}]$ are in the same group. 
+        \item If $f_i \in A_\alpha \cap A_\beta$ we may regard $[f_i] \in \pi_1(A_\alpha)$ as $[f_i] \in \pi_1(A_\beta)$. 
+    \end{enumerate}
+    The first move does not change the factorization. The second move does not the element in $\star_\alpha \pi_1(A_\alpha)/N$. 
+\end{proof}
+
+\begin{example}
+    \bbni
+    \begin{enumerate}
+        \item $\pi_1( \infty, x_0)$ ($\infty$ denotes the figure 8 space).
+        
+        \includegraphics[width=0.4\linewidth]{assests/van.png}
+
+        Then, $\pi_1(\infty, x_0) \iso (\pi(A_1) \times \pi_1(A_2))/N = (\Z \times \Z ) /N$. 
+        Since $N = A_1 \cap A_2$ deformation retracts to a point this is $\Z \times \Z$. 
+        \item $\pi_1(S^1 \wedge S^2) \iso \Z$
+        
+        $X_1 \wedge X_2 := (X_1 \sqcup X_2)/(x_1 \sim x_2)$ for some $x_1 \in X_1, \, x_2 \in X_2$. 
+
+        \item $\pi_1(\R^3 \setminus S^1)$ \todo{}
+    \end{enumerate}
+\end{example}
 \end{document}
 
 
