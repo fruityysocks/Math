@@ -164,19 +164,35 @@ A few warnings: when $R$ is not a domain localization can behave somewhat strang
 		Thus, $\sim$ is an equivalence relation on $R \times U$. 
 
 		\item Let $(r, u) \sim (r', u')$ and $(s, t) \sim (s', t')$. Then there exist $p, q \in U$ such that 
-		\[p(ru' - r'u) = 0, \quad q(st' - s't) = 0\]
-		Multiplying, 
-		\[pqst'(ru' - r'u) = 0, \quad pqr'u(st' - s't) = 0\]
-		Adding, 
-		\[pq(st'ru' - st'r'u + r'ust' - r'us't)  = pq ( rsu't' - r's'ut)= 0\]
-		That is, 
-		\begin{align*}
-			\fr{r}{u} \fr{s}{t} = \frac{rs}{ut} \sim \frac{r's'}{u't'} = \fr{r'}{u'}\fr{s'}{t'} 
-		\end{align*}
+		
+		\begin{enumerate}
+			\item We show that $\frac{rs}{ut} \sim \frac{r's'}{u't'}$: 
 
-		\bbni 
+			\[p(ru' - r'u) = 0, \quad q(st' - s't) = 0\]
+			Multiplying, 
+			\[pqst'(ru' - r'u) = 0, \quad pqr'u(st' - s't) = 0\]
+			Adding, 
+			\[pq(st'ru' - st'r'u + r'ust' - r'us't)  = pq ( rsu't' - r's'ut)= 0\]
+			That is, 
+			\begin{align*}
+				\fr{r}{u} \fr{s}{t} = \frac{rs}{ut} \sim \frac{r's'}{u't'} = \fr{r'}{u'}\fr{s'}{t'} 
+			\end{align*}
 
-		\todo{}
+
+
+
+			\item We show that $\frac{rs}{ut} \sim \frac{r's'}{u't'}$
+		
+			\begin{align*}
+				&pq\left((rt + su)(u't') - (r't' + s'u')(ut)\right) \\
+				= &\ pq\left(rtu't' + suu't' - r't'ut - s'u'ut\right) \\
+				= &\ pq\left(t't(ru' - r'u) + uu'(st' - s't)\right) \\
+				= &\ qt't \cdot p(ru' - r'u) + pu u' \cdot q(st' - s't) \\
+				= &\ qt't \cdot 0 + puu' \cdot 0 = 0
+			\end{align*}
+
+		\end{enumerate}
+
 
 		\item Note that associativity, commutativity, and distributivity  are inherited from $R$. 
 		\begin{enumerate}
@@ -747,12 +763,75 @@ which is always an ideal of $R$. Note there are numerous different notations for
 \begin{solution}
 	\bbni
 	\begin{enumerate}
+		\item $U^{-1}I$ is a subset of $U^{-1}R$ so we only need to show closure under addition and closure under multiplication from $U^{-1}R$ to prove that it is an ideal. Let $\frac{r}{u}, \frac{r}{v} \in U^{-1}I$ and $\frac{a}{w} \in U^{-1}R$. 
+		\begin{itemize}
+			\item $\frac{r}{u} + \frac{s}{v} = \frac{rv + su}{uv} \in U^{-1}I$ since $I$ is an ideal. 
+			\item $\frac{r}{u} \cdot \frac{a}{w} = \frac{ra}{vw} \in U^{-1}I$ since $I$ is an ideal.  
+		\end{itemize}
+		Hence, $U^{-1}I$ is an ideal. 
+
+		\item $\eta(I) U^{-1}R = \left\{\sum_{i=1}^{n} \frac{r_i}{u_i} \cdot \frac{a_i}{v_i} \mid r_i \in R,\,  u_i, v_i \in U, \, a_i \in I, \, n\geq 0 \right\}$. But since $I$ is an ideal and $U$ is multiplicatively closed we have $r_i a_i = s_i \in I$ and $u_i v_i = w_i \in U$ for all $i$, giving us, 
+		
+		\[\eta(I) U^{-1}R = \left\{\sum_{i=1}^{n} \frac{s_i}{w_i} \mid w_i \in U, \, s_i \in I, \, n\geq 0 \right\}\]
+		
+		which is the definition of $U^{-1}I$. 
+
+		\item $(\implies)$ 
+		
+		Assume $U^{-1}I = U^{-1}R$. Then $\eta(I)$ must have a unit, i.e. $I \cap U \neq \emptyset$.  
+
+
+		$(\impliedby)$
+
+		Assume $I \cap U \neq \emptyset$. Let $a \in I \cap U$. $\eta(a)$ is a unit in $U^{-1}R$. That is $\frac{a}{a} = \frac{1}{1} \in U^{-1}I$ and thus $U^{-1}I = U^{-1}R$.
+		
+
+		\item $(\implies)$ 
+		
+		Assume $\frac{r}{u} \in U^{-1}I$. Then, $\frac{r \cdot u}{u \cdot 1} = \frac{r}{1} \in U^{-1}I$, since this is the image of $\eta(r)$, we must have $r \in I$, with $t =1$. 
+
+		$(\impliedby)$
+
+		Assume $tr \in I$ for some $t \in U$. Since $U$ is multiplicatively closed $ut \in U$, and we have $\frac{tr}{ut} = \frac{r}{u} \in U^{-1}R$. 
+
+		\item Therefore we can conclude that the contraction of $U^{-1}I$ is 
+		\[
+		\eta^{-1}(U^{-1}I)=\left\{r\in R\;\; \big|\;\; tr\in I \text{ for some } t\in U\right\}.
+		\]
+
+		\item $U^{-1}I = \langle 6 \rangle U^{-1}\Z = \left\{ \frac{3n}{2^k} \mid n \in \Z, \, k \geq 0\right\}$
+		
+		And $\eta^{-1}(U^{-1}I) = \{r \in \Z \mid \exists 2^k \in U \text{ such that } 2^kr \in \langle 6 \rangle\}$. Then $2^k r = 6n$ for some $n$. Then, we have $r = \frac{3n}{2^{k-1}}$ and thus $3 \mid r \implies r \in \langle 3 \rangle = \eta^{-1}(U^{-1}I)$. 
+
+		Now note that $3 \in \langle 3 \rangle$ but not in $\langle 6 \rangle$. 
+
+		\item $U^{-1}I = \langle 6 \rangle U^{-1}\Z = \left\{ \frac{6n}{k} \mid n \in \Z, \, k  \text{ odd}\right\} = \langle 2 \rangle U^{-1}\Z$ since $3$ is invertible. 
+		
+		And $\eta^{-1}(U^{-1}I) = \{r \in \Z \mid \exists k \in U \text{ such that } kr \in \langle 6 \rangle\}$. This means that $2 \mid r$, then we have $\langle 2 \rangle = \eta^{-1}(U^{-1}I)$. 
+
 		\item 
+		\begin{itemize}
+			\item $\langle x \rangle \cap U \neq \emptyset$. 
+			
+			Then by part (3) $\langle x \rangle (U^{-1}R) = U^{-1}R = R \left[\frac{1}{x}\right]$
+
+			\item $\langle y \rangle \cap U = \emptyset$. 
+			
+			$U^{-1}\langle y \rangle = \{\frac{r}{u} \mid r \in \langle y \rangle, \, u \in U\} =\{\frac{ay}{x^n} \mid ay \in \langle y \rangle, n \geq 0 \} = y \cdot R\left[\frac{1}{x}\right]$.
+
+			\item $\langle x, y\rangle \cap U \neq \emptyset$. 
+			
+			Then by part (3) $\langle x,y \rangle (U^{-1}R) = U^{-1}R = R \left[\frac{1}{x}\right]$
+		\end{itemize} 
 	\end{enumerate}
 \end{solution}
 
+\newpage 
+
 \begin{problem}{13}
-	\textbf{Prime Ideal Correspondence for Localization.} Let $R$ be a ring, let $U\subset R$ be a multiplicatively closed set, and let $\eta:R\to U^{-1}R$ be the localization map.
+	\textbf{Prime Ideal Correspondence for Localization.} 
+	
+	Let $R$ be a ring, let $U\subset R$ be a multiplicatively closed set, and let $\eta:R\to U^{-1}R$ be the localization map.
 	\begin{enumerate}
 		\item Let $\mathfrak{q}\subset U^{-1}R$ be a prime ideal. Prove that $\eta^{-1}(\mathfrak{q})$ is a prime ideal of $R$ and that $\eta^{-1}(\mathfrak{q})\cap U=\varnothing$.
 		\item Let $\fp\subset R$ be a prime ideal such that $\fp\cap U=\emptyset$. Prove that $U^{-1}\fp$ is a proper prime ideal of $U^{-1}R$. Hint: Use the criterion from the previous exercise for when a fraction belongs to $U^{-1}\fp$.
@@ -773,6 +852,56 @@ which is always an ideal of $R$. Note there are numerous different notations for
 		\item Describe the prime ideals of $\Z_{\langle p\rangle}$ for a prime number $p$.
 	\end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item We already showed that pre-image of a prime ideal is prime. So we only need to show that $\eta^{-1}(\fq) \cap U = \emptyset$. Suppose not, then the image $\fq$ has a unit, contradicting our assumption that $\fq$ is a prime ideal. Thus, $\fq \cap U$ must be trivial. 
+		
+		\item Let $\fp \cap U = \emptyset$ for $\fp$ prime, then we have, 
+		\[U^{-1}\fp = \left\{ \frac{r}{u} \mid r \in \fp , \, u \in U\right\}\]
+		Assume $\frac{r \cdot s}{u\cdot v} \in U^{-1}\fp$, then by definition either $r \in \fp$ or $s \in \fp$. That is either $\frac{r}{u} \in U^{-1}\fp$ or $\frac{s}{v} \in U^{-1}\fp$. Thus, $U^{-1}\fp$ is a prime ideal in $U$. 
+
+		\item Let $\fp \cap U = \emptyset$ for $\fp$ prime. Consider $\eta^{-1}(U^{-1}\fp)$. From Problem 12.5 we know that this is the set, 
+		\[\eta^{-1}(U^{-1}\fp) = \{r \in R \mid tr \in \fp \text{ for some } t \in U\}\]
+		But since $\fp \cap U = \emptyset$ by assumption and $\fp$ is prime this is just the set, 
+		\[\eta^{-1}(U^{-1}\fp) = \{r \in R \mid r \in \fp \} = \fp\]
+
+		\item $\fq \subseteq U^{-1}\eta^{-1}(\fq)$ 
+		
+		Let $\frac{r}{u} \in \fq$. Then $\frac{r}{1} \in \fq \implies r \in \eta^{-1}(\fq)$. Hence, $\frac{r}{u} \in U^{-1}\eta^{-1} (\fq)$. 
+
+		$\fq \supseteq U^{-1}\eta^{-1}(\fq)$ 
+		
+		Let $\frac{r}{u} \in U^{-1}\eta^{-1}(\fq)$. Then $r \in \eta^{-1}(\fq) \implies \frac{r}{1} \in \fq$. 
+
+
+		\item Thus we can conclude that prime ideals in $U^{-1}R$ are in direct correspondce with prime ideals in $R$ that have trivial intersection with $U$. Giving us an order preserving bijection: 
+		\[
+		\Spec(U^{-1}R)
+		\longleftrightarrow
+		\left\{\fp\in \Spec(R)\;\; \big|\;\; \fp\cap U=\emptyset\right\}.
+		\]	
+
+		\item In the case $U = R \setminus \fp$, the only ideals that have non-trivial intersection with $U$ are inside $\fp$. Thus our bijection becomes, 
+		\[
+		\Spec(R_{\fp})
+		\longleftrightarrow
+		\left\{\fq\in \Spec(R)\;\; \big|\;\; \fq \subseteq \fp \right\}.
+		\]	
+
+		\item In the case $U = \{1, f, f^2, \ldots\}$, the ideals that have non-trivial intersection with $U$ are ideals that do not contain $f$. Thus our bijection becomes, 
+		\[
+		\Spec\left(R\left[\frac{1}{f}\right]\right)
+		\longleftrightarrow
+		\left\{\fp\in \Spec(R)\;\; \big|\;\; f \notin \fp \right\}.
+		\]	
+		
+		\item From (6)  $\Spec(\Z_{\langle p \rangle}) = \left\{[0], [\fp]\right\}$. 
+	\end{enumerate}
+\end{solution}
+
+\newpage 
 
 
 \hrulefill
@@ -810,8 +939,12 @@ N &
 
 \hrulefill
 
+\newpage 
+
 \begin{problem}{14}
-	\textbf{Constructing $U^{-1}M$.} Let $R$ be a ring, $U \subset R$ a multiplicatively closed set, and $M$ be an $R$-module. Define a relation on $M\times U$ by $(m_{1},u_{1}) \sim (m_{2},u_{2})$ if and only if $t(m_1u_{2}-m_{2}u_{1})=0$ in $M$ for some $t\in U$. 
+	\textbf{Constructing $U^{-1}M$.} 
+	
+	Let $R$ be a ring, $U \subset R$ a multiplicatively closed set, and $M$ be an $R$-module. Define a relation on $M\times U$ by $(m_{1},u_{1}) \sim (m_{2},u_{2})$ if and only if $t(m_1u_{2}-m_{2}u_{1})=0$ in $M$ for some $t\in U$. 
 	\begin{enumerate}
 		\item Prove that $\sim$ is an equivalence relation on $M\times U$. 
 		\item Let $\frac{m}{u}$ denote the equivalence class of a pair $(m,u)$ under the equivalence relation $\sim$ defined in the previous part. Prove that the operation:
@@ -829,9 +962,110 @@ N &
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni 
+	\begin{enumerate}
+		\item  Let $(m_1, u_1) \sim (m_2, u_2) \sim (m_3, u_3) \in M \times U$. 
+		
+		\begin{enumerate}
+			\item \textbf{Reflexivity:} $(m_1, u_1) \sim (m_1, u_1)$ since $1(m_1u_1 - m_1u_1) = 0$. 
+			\item \textbf{Symmetry:} If $(m_1, u_1) \sim (m_2, u_2)$ then there exists a $t \in U$ such that 
+			\[t(m_1u_2 - m_2u_1) = 0 \implies tm_1u_2 = tm_2u_1 \implies t(m_2u_1 - m_1u_2) = 0\]
+			Hence, $(m_2, u_2) \sim (m_1, u_1)$.  
+
+			\item \textbf{Transitivity:} If $(m_1, u_1) \sim (m_2, u_2)$ and $(m_2, u_2) \sim (m_3, u_3)$ then there exist $s, t$ such that 
+			\[s(m_1u_2 - m_2u_1) = 0, \quad t(m_2u_3 - m_3u_2) = 0\]
+			Note that 
+			\[stu_3(m_1u_2 - m_2u_1) = 0, \quad stu_1(m_2u_3 - m_3u_2) = 0\]
+			Adding, 
+			\[0 = st(m_1u_2u_3 - m_2u_1u_3 + m_2u_3u_1 - m_3u_2u_1) = stu_2(m_1u_3 - m_3u_1)\]
+			Since $stu_2 \in U$ we have $(m_1, u_1) \sim (m_3, u_3)$.  
+		\end{enumerate}
+		Thus, $\sim$ is an equivalence relation on $R \times U$. 
+
+		\item \textbf{Well-definedness:}
+		
+		Let $(m_1, u_1) \sim (m_1', u_1')$ and $(m_2, u_2) \sim (m_2', u_2')$. Then there exist $s$ and $t$ such that, 
+		
+		\[s(m_1u_1' - m_1'u_1) = 0, \quad t(m_2u_2' - m_2'u_2) = 0\]
+		
+		We show that $\frac{m_1u_2 + m_2u_1}{u_1u_2} \sim \frac{m_1'u_2' + m_2'u_1'}{u_1'u_2'}$: 
+		\begin{align*}
+			&st\left((m_1u_2 + m_2u_1)(u_1'u_2') - (m_1'u_2' + m_2'u_1')(u_1u_2)\right) \\
+			= &\ st\left(m_1u_2u_1'u_2' + m_2u_1u_1'u_2' - m_1'u_2'u_1u_2 - m_2'u_1'u_1u_2\right) \\
+			= &\ st\left(u_2u_2'(m_1u_1' - m_1'u_1) + u_1u_1'(m_2u_2' - m_2'u_2)\right) \\
+			= &\ tu_2u_2' \cdot s(m_1u_1' - m_1'u_1) + su_1u_1' \cdot t(m_2u_2' - m_2'u_2) \\
+			= &\ tu_2u_2' \cdot 0 + su_1u_1' \cdot 0 = 0
+		\end{align*}
+		\textbf{Identity:} 
+			\[\frac{m}{u} + \frac{0}{1} = \frac{m + 0}{u} = \frac{m}{u}\]
+
+		And note that associativity, commutativity, and distributivity  are inherited from $R$. 
+		
+		Thus $U^{-1}M$ is an abelian group. 
+
+		\item Let $(m, u) \sim (m', u')$. Then there exist $s \in U$ such that 
+		\[s(mu' - m'u) = 0\]
+		Then, 
+		\[s(rmu' - rm'u) = sr(mu' - m'u) = 0\]
+		Thus $U^{-1}M$ has the structure of a $R$-module. 
+
+		Let $(m, u) \sim (m', u')$. Then there exist $s \in U$ such that 
+		\[s(mu' - m'u) = 0\]
+		Then, 
+		\[s(rmu' - rm'u) = sr(mu' - m'u) = 0\]
+		Thus $U^{-1}M$ has the structure of a $R$-module. 
+
+
+		\bbni 
+		
+		Let $m_1, m_2 \in M, \, u_1, u_2 \in U, \, r, r' \in R$. 
+
+		First assume $\frac{m}{u_2} \sim \frac{m'}{u_2'}$, so $\exists\, t \in U$ with $t(mu_2' - m'u_2) = 0$. We have:
+		\[
+		t(rmu_1u_2' - rm'u_1u_2) = u_1t(rmu_2' - rm'u_2) = ru_1t(mu_2' - m'u_2) = 0 
+		\]
+
+		Now assume $\frac{r}{u_1} \sim \frac{r'}{u_1'}$, so $\exists\, s \in U$ with $s(ru_1' - r'u_1) = 0$. We have:
+		\[
+		s(rmu_1'u_2 - r'mu_1u_2) = mu_2 \cdot s(ru_1' - r'u_1) = 0 
+		\]
+		Thus $U^{-1}M$ has the structure of a $U^{-1}R$-module. 
+
+		\item Let $m,n \in M$ and $r \in R$. 
+		
+		\begin{itemize}
+			\item $\eta_M(m n) = \frac{mn}{1} = \frac{m}{1} \cdot \frac{n}{1} = \eta_M(m) \eta_M(n)$
+			\item $\eta_M(m+n) = \frac{m+n}{1} = \frac{m}{1} + \frac{n}{1} = \eta_M(m) + \eta_M(n)$
+			\item $r\eta_M(m) = r \cdot \frac{m}{1} = \frac{rm}{1} = \eta_M(rm)$
+		\end{itemize}
+
+		Thus $\eta_M$ is a $R$-module homomorphism. 
+
+		\item ($\implies$)
+		
+		Assume $\eta_M(m) = 0$. Then we have, 
+		
+		$\eta_M(m) = \frac{m}{1} \sim \frac{0}{1} \implies \exists u \in U$ such that  $u(m - 0) = 0 \implies u m = 0$
+
+		$(\impliedby)$
+
+		Assume $um = 0$ for some $u \in U$. Then $\eta_M(m) = \frac{m}{1},$ we want to show that $ \eta_M(um) \sim \frac{0}{1}$. But we have, 
+		\[u(m-0) = um - 0 = 0\]
+		Thus $\eta_M(m) = 0$. 
+
+
+		Thus, $\eta_M$ is injective if and only if no element of $U$ acts as a zero-divisor on $M$. 
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{15}
-	\textbf{Examples of Localizing Modules.} Discuss ways to explicitly understand $U^{-1}M$ in each of the following cases. Describe the natural map $M\to U^{-1}M$ and determine whether it is injective.
-	\begin{multicols}{2}
+	\textbf{Examples of Localizing Modules.} 
+	
+	Discuss ways to explicitly understand $U^{-1}M$ in each of the following cases. Describe the natural map $M\to U^{-1}M$ and determine whether it is injective.
+
 	\begin{enumerate}
 		\item $R=\Z$, $U=\Z\setminus\{0\}$, and $M=\Z$.
 		\item $R=\Z$, $U=\{1,2,4,8,\ldots\}$, and $M=\Z$.
@@ -842,11 +1076,28 @@ N &
 		\item $R=\K[x,y]$, $U=\{1,y,y^2,\ldots\}$, and $M=R/\langle xy\rangle$.
 		\item $R$ is an arbitrary ring, $M$ is an $R$-module, and $U$ contains an element $u$ such that $uM=0$.
 	\end{enumerate}
-	\end{multicols}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item $U^{-1}M = U^{-1}R = \Q$, and $\eta_M$ is injective. 
+		\item $U^{-1}M = U^{-1}R = \left\{\frac{r}{2^k} \mid r \in \Z, k \geq 0\right\}$, and $\eta_M$ is injective. 
+		\item $U^{-1}M  \iso \Z/2\Z$, and $\eta_M$ not injective since $2 \in U$. 
+		\item $U^{-1}M  \iso \Z/3\Z$, and $\eta_M$ not injective since $3 \in U$. 
+		\item $U^{-1}M = \left\{0\right\}$, and $\eta_M$ not injective since $x, x^2, x^3 \in U$. 
+		\item $U^{-1}M = M$, and $\eta_M$ is injective. 
+		\item $U^{-1}M = \K[x, y]$, and $\eta_M$  \todo{}
+		\item $U^{-1}M = \left\{0\right\}$, and $\eta_M$ not injective.
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{16}
-	\textbf{Universal Property of $U^{-1}M$.} Let $R$ be a ring, let $U\subset R$ be a multiplicatively closed set, and let $M$ be an $R$-module. Let $N$ be a $U^{-1}R$-module, which we view as an $R$-module via the localization map $\eta:R\to U^{-1}R$. Let $\psi:M\to N$ be an $R$-module homomorphism.
+	\textbf{Universal Property of $U^{-1}M$.} 
+	
+	Let $R$ be a ring, let $U\subset R$ be a multiplicatively closed set, and let $M$ be an $R$-module. Let $N$ be a $U^{-1}R$-module, which we view as an $R$-module via the localization map $\eta:R\to U^{-1}R$. Let $\psi:M\to N$ be an $R$-module homomorphism.
 	\begin{enumerate}
 		\item Define a function $\tilde{\psi}:U^{-1}M\to N$ by $\tilde{\psi}(\frac{m}{u})=\frac{1}{u}\psi(m)$. Prove that $\tilde{\psi}$ is well-defined.
 		\item Prove that $\tilde{\psi}$ is a homomorphism of $U^{-1}R$-modules.
@@ -862,8 +1113,47 @@ N &
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\bbni
+	\begin{enumerate}
+		\item Let $\frac{m}{u} \sim \frac{n}{s}$. Then there exists a $t \in U$ such that $t(ms - nu) = 0$. Then we have, 
+		\begin{align*}
+			\psi(t(ms - nu)) = t(\psi(m)s - \psi(n)u) = 0
+		\end{align*}
+		Multiplyng by $\frac{1}{tsu}$ gives us, 
+		\begin{align*}
+			 \frac{1}{u}\psi(m) - \frac{1}{s}\psi(n) = 0 \implies \widetilde{\psi}(m) = \widetilde{\psi}(n)
+		\end{align*}
+
+
+		\item Let $\frac{m}{u}, \frac{n}{u} \in U^{-1}M$ and $\frac{r}{t} \in U^{-1}R$. 
+		
+		\begin{itemize}
+			\item $\widetilde{\psi}(\frac{mn}{su}) = \frac{1}{su}\psi(mn) = \frac{1}{u} \psi(m) \frac{1}{s} \psi(n)$
+			\item $\widetilde{\psi}(\frac{ms + nu}{su}) = \frac{1}{su}\psi(ms + nu) = \frac{1}{u} \psi(m) + \frac{1}{s} \psi(n) = \widetilde{\psi}\fr{m}{u} + \widetilde{\psi}\fr{n}{s}$
+			\item $\frac{r}{t}\widetilde{\psi} \fr{m}{u} = \frac{r}{t} \cdot \frac{1}{u}  \psi{(m)} = \frac{r}{tu}  \psi{(m)} = \frac{1}{tu} \psi(m) =\widetilde{\psi}\fr{rm}{tu}$
+		\end{itemize}
+
+		Thus $\widetilde{\psi}$ is a $U^{-1}R$-module homomorphism. 
+
+		\item We need to show that $\widetilde{\psi} \circ \eta_M = \psi$. Let $m \in M$. Then, 
+		\begin{align*}
+			(\widetilde{\psi} \circ \eta_M) (m) = \widetilde{\psi} ( \eta_M(m))  = \widetilde{\psi}\fr{m}{1} = \frac{1}{1}\psi(m) = \psi(m)
+		\end{align*}
+		Thus the diagram commutes. 
+
+		\item Assume another $U^{-1}R$-module homomorphism exists such that $\phi \circ \eta_M = \psi$. Then, under it we must have $\phi(\frac{m}{1}) = \psi(m)$, and since it is a $U^{-1}R$-module homomorphism $\phi(\frac{m}{u}) = \phi(\frac{1}{u} \cdot \frac{m}{1}) = \frac{1}{u}\psi(m)$. So $\phi = \widetilde{\psi}$, proving uniqueness.
+		
+		\item \todo{}
+	\end{enumerate}
+\end{solution}
+
+\newpage 
+
 \begin{problem}{17}
-	\textbf{$U^{-1}M$ as a Tensor Product.} Let $R$ be a ring, $U\subset R$ be a multiplicatively closed set, and let $M$ be an $R$-module. We view $U^{-1}R$ as an $R$-module via the localization map $\eta:R\to U^{-1}R$.
+	\textbf{$U^{-1}M$ as a Tensor Product.} 
+	
+	Let $R$ be a ring, $U\subset R$ be a multiplicatively closed set, and let $M$ be an $R$-module. We view $U^{-1}R$ as an $R$-module via the localization map $\eta:R\to U^{-1}R$.
 	\begin{enumerate}
 		\item Show that the function given below is a well-defined bilinear map of $R$-modules:
 		\[
@@ -885,4 +1175,56 @@ N &
 		\item If $f:M\to N$ is an $R$-module homomorphism, define a natural $U^{-1}R$-module homomorphism $U^{-1}f:U^{-1}M\to U^{-1}N$. What is its formula on fractions?
 	\end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\bbni 
+	\begin{enumerate}
+		\item Suppose $\frac{r}{u} \sim \frac{s}{v}$. Then there exists $t \in U$ such that $t(rv - su) = 0$. Then, 
+		\[\overline{\alpha}\left(\frac{r}{u},m\right) = \frac{rm}{u}, \text{ and } \, \overline{\alpha}\left(\frac{s}{v},m\right) = \frac{sm}{v}\]
+		And we have, 
+		\[t(rmv - smu) = mt(rv - su) = m \cdot 0 = 0\]
+		Thus $\frac{rm}{u} \sim  \frac{sm}{v}$, and the map is well-defined. 
+
+		Now we show bilinearity: 
+		\begin{itemize}
+			\item $\frac{s}{v} \overline{\alpha}\left(\frac{r}{u},m\right) = \frac{s}{v} \cdot \frac{rm}{u} = \frac{srm}{vu} =\overline{\alpha}\left(\frac{s}{v}\frac{r}{u},m\right)$
+			\item $\overline{\alpha}\left(\frac{s}{v} + \frac{r}{u},m\right) = \left(\frac{s}{v} + \frac{r}{u}\right)\frac{m}{1} = \frac{sm}{v} + \frac{rm}{u} = \overline{\alpha}\left(\frac{s}{v},m\right) + \overline{\alpha}\left(\frac{r}{u},m\right)$
+			\item $n \cdot \overline{\alpha}\left(\frac{r}{u},m\right) = n\cdot \frac{rm}{u} = \frac{nrm}{u} = \overline{\alpha}\left(\frac{r}{u},nm\right)$
+			\item $\overline{\alpha}\left(\frac{r}{u},n + m\right) = \frac{r}{u} \fr{n+m}{1} = \frac{rn}{u} + \frac{rm}{u} = \overline{\alpha}\left(\frac{r}{u},n\right) + \overline{\alpha}\left(\frac{r}{u},m\right)$
+		\end{itemize}
+		Thus $\overline{\alpha}$ is a well-defined bilinear map of $R$-modules. 
+
+		\item By the universal property of tensors for $U^{-1}R \times M$ there exists a map $\alpha: U^{-1}R\otimes_R M \to U^{-1}M$ where $\alpha \left(\frac{r}{u} \otimes m\right) = \frac{rm}{u}$. 
+			\[
+			\begin{tikzcd}
+			U^{-1}R\times M \arrow[rr,"\tau"] \arrow[dr,"\overline{\alpha}"'] & & U^{-1}R\otimes_R M \arrow[dl,dashed,"\alpha"] \\
+			& U^{-1}M &
+			\end{tikzcd}
+			\]
+
+		\item \begin{itemize}
+			\item Suppose $\frac{m}{u} \sim \frac{n}{v}$. Then there exists $t \in U$ such that $t(mv - nu) = 0$. Then, 
+			\[\beta\fr{m}{u} = \frac{1}{u} \otimes_R m, \text{ and } \beta\fr{n}{v} = \frac{1}{v} \otimes_R n\]
+			Then, 
+			\[ \frac{1}{u} \otimes_R m =  \frac{tv}{utv} \otimes_R m =  \frac{1}{utv} \otimes_R tmv =  \frac{1}{utv} \otimes_R ntu = \frac{tu}{utv} \otimes_R n = \frac{1}{v} \otimes_R n\]
+			Hence the map is well-defined. 
+			\item $r \cdot \beta\fr{m}{u} = r \left(\frac{1}{u} \otimes_R m\right)  = \frac{1}{u} \otimes_R rm = \beta\fr{rm}{u}$ 
+			\item $\beta\left(\frac{m}{u} + \frac{n}{v}\right) = \beta\left(\frac{mv+ nu}{uv}\right)  = \frac{1}{uv} \otimes_R mv + nu = \frac{1}{uv} \otimes_R mv + \frac{1}{uv} \otimes_R nu  = \beta\left(\frac{m}{u}\right) + \beta\left(\frac{n}{v}\right)$
+		\end{itemize}
+		Thus $\beta$ is a well-defined $R$-module homomorphism. 
+
+		\item \begin{itemize}
+			\item $(\alpha \circ \beta) \fr{m}{u} = \alpha(\frac{1}{u} \otimes_R m) = \frac{m}{u} = \id\fr{m}{u}$
+			\item $(\beta \circ \alpha) (\frac{r}{u} \otimes_R m) = \beta\fr{rm}{u} = \frac{r}{u} \otimes_R m = \id \left(\frac{r}{u} \otimes_R m\right)$
+		\end{itemize}
+		Thus $\alpha$ and $\beta$ are inverses of each other and we have a $R$-module isomorphism $U^{-1}M \iso U^{-1}R \otimes_RM$. 
+
+		\item Let $M = R^n$. Then from part 4 we have $U^{-1}(R^n) \iso U^{-1}R \otimes_R R^n$. And from Worksheet 4.1 Problem 15 we have, 
+		\[U^{-1}R \otimes_R R^n = (U^{-1}R \otimes_R R)^n = (U^{-1}R)^n\]
+		So, 
+		\[U^{-1}(R^n) \iso  (U^{-1}R)^n\]
+
+		\item We define $U^{-1}f:U^{-1}M\to U^{-1}N$ as $U^{-1}f\fr{m}{u} = \frac{f(m)}{u}$. 
+	\end{enumerate}
+\end{solution}
 \end{document}

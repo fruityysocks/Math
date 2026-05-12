@@ -943,6 +943,25 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
         \item If $f_i \in A_\alpha \cap A_\beta$ we may regard $[f_i] \in \pi_1(A_\alpha)$ as $[f_i] \in \pi_1(A_\beta)$. 
     \end{enumerate}
     The first move does not change the factorization. The second move does not the element in $\star_\alpha \pi_1(A_\alpha)/N$. 
+
+
+    Let us assume that $[f_1]\ldots[f_k]$ and $[f_1']\ldots[f_l']$ are two factorizations of $[f] \in \pi_1(X)$. We will show that they are equivalent. 
+    We have, 
+    \[f_1 \star \cdots \star f_k \iso f_1' \star \cdots \star f_l'\]
+    That is, there exists a path-homotopy $F: I \times I \to X$. Now choose a partition of $I \times I$ by 
+    \[0 = s_0 < \cdots < s_m = 1 \text{ and } 0 = t_0 < \cdots < t_n = 1\]
+    such that each rectangle $R_{ij} = [s_{i-1}, s_i] \times [t_{j-1}, t_j]$ is mapped to a single $A_\alpha$ by $F$. We label this $A_\alpha$ by $A_{ij}$. 
+    
+    Now we will modify the partition in two ways: 
+    \begin{enumerate}
+        \item Add subdivisions to the top ($[t_{n-1}, t_n]$) and bottom row ($[t_0 - t_1]$) such that for each end point in the partition there exists a corresponding $s_i$. 
+        \item Have at least 3 rows. 
+        \item Every point in $I \times I$ must lie in at most 3 (smaller) rectangles 
+        \item Rename the smaller rectangles (left to right, bottom to top) using $R_i$.
+    \end{enumerate}
+    Define $\gamma_r$ as the path from the left to the right edge of $I \times I$, and it separates rectangles $R_1, \ldots R_r$ from the rest of the rectangles.
+    
+    Note that $F_{\gamma_r}$ is a loop based at $x_0$. And all $F_{\gamma_r}$ are path homotopic. Then $F|_{\gamma_r}$ has a factorization. If $F(v) \neq x_0$, then we have a path from $x_0 \to F(v) = F |_{\gamma_1}$ 
 \end{proof}
 
 \begin{example}
@@ -961,6 +980,12 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
         \item $\pi_1(\R^3 \setminus S^1)$ \todo{}
     \end{enumerate}
 \end{example}
+
+\section{Cell Complexes}
+
+\begin{definition}
+    We start with a discrete space whose points are regarded as $0$-cells. Now, we inductively define the $n$-skeleton $X^n$ from $X^{n-1}$ by attaching $n$-cells $e_\alpha^n$ via maps $\phi_\alpha: S^{n-1} \to X^{n-1}$ where $e^n_\alpha$s are $D^n_\alpha$. Hence, $X^n = X^{n-1} \sqcup D^n_\alpha / (x \sim \phi_\alpha(x) \text{ if } \alpha, \forall x \in S^{n-1})$. We say a topological space $X$ has a CW/CX structure if $X = \cup_n X^n$.
+\end{definition}
 \end{document}
 
 

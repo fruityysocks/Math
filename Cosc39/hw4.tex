@@ -1,0 +1,124 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement: }Talked to Sair Shaikh'26.
+
+\begin{problem}{1}
+    \textbf{Redundant code detector.} 
+    
+    Imagine there is a way to automatically check if some of your codes are redundant, as in that there are no inputs that will ever lead to certain part of the code being run. How convenient is that!
+    
+    Alas, life is not that simple. We can intuitively view a single-line instruction / code as a state in the Turing machine. Call a state $q$ in a Turing machine useless if no input string would ever lead to the TM entering $q$.
+    
+    Prove that the following language is undecidable.
+    \[\text{USELESS?} := \{\langle M \rangle \mid \text{Turing machine M has a useless state}\}\]
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    Assume for contradiction that some Turing machine $M_{U}$ decides USELESS. We will reduce the un-computable problem,
+    
+    \[
+    \textsc{Acccept} := \{(\langle M \rangle, w) \mid \textsc{Turing machine } M \textsc{ accepts w }\}
+    \]
+    
+    to USELESS. Construct a wrapper function WRAP around $M_{U}$ such that given an input $(\langle M \rangle, w)$, WRAP behaves as follows:
+    
+    Modify the code $\langle M \rangle$ into code $\langle M' \rangle$, which has added state $q^*$ and behaves as follows:
+    
+    \begin{tcolorbox}[
+        % colback=blue!5!white,
+        colframe=blue!30!black, 
+        arc=0mm,
+        boxrule=1pt
+    ]
+    On input string $x$:
+    \begin{enumerate}
+        \item simulate $M$ on $w$. 
+        \item If $M$ accepts $w$, go to defined state $q^*$ and accept
+        \item If $M$ doesn't accept $w$, reject
+    \end{enumerate}
+    Where $q^*$ is a new defined state that is only entered upon the condition in step 2. $M's$ states, which are used to simulate $M$, are reachable because the simulator (which has states like a UTM) runs no matter what on every input to simulate M. M's states are just recorded on the tape, so even if M has an unreachable state, its not a state in $M'$. Also note that $M'$ ignores its input $x$ and only simulates $M$ on the $w$, i.e. the reachability of $q^*$ is uniform across all inputs. 
+    \end{tcolorbox}
+    
+    Notably, we never execute $M'$ in WRAP; we only construct the code $\langle M' \rangle$. We then feed $\langle M' \rangle$ as the input into $M_U$ and return the flipped result of $M_u(\langle M' \rangle)$. If $M_u$ rejects (there are no useless states), we accept in WRAP. If $M_u$ accepts (there is a useless state), we reject in WRAP.
+    
+    Notably, the states which $M'$ can reach depend on whether $M$ accepts $w$. If $M$ accepts $w$, $M'$ goes to $q^*$. If $M$ does not accept $w$, $M'$ does not reach $q^*$.
+    
+    \begin{enumerate}
+        \item Given a yes-instance $\langle M' \rangle$ of ACCEPT, $M$ accepts $w$. Thus on input $x$, $M'$ goes to $q^*$. Because $M'$ has no useless states, $M_u$ rejects $\langle M' \rangle$, and thus it is a no-instance of USELESS.
+    
+        \item Given a no-instance $\langle M' \rangle$ of ACCEPT, $M$ does not accept $w$. Thus on input $x$, $M'$ does not go to $q*$. Because $M'$ has a useless state $q^*$, $M_u$ accepts $\langle M' \rangle$, and thus it is a yes-instance of USELESS.
+    \end{enumerate}
+    
+    By simply returning the flipped output of $M_U$, WRAP solves ACCEPT, which is a contradiction. Consequently, no such $M_u$ can exist that decides USELESS. 
+    
+\end{solution}
+
+\newpage 
+
+ \begin{problem}{2}
+    \textbf{Self-referential machines. }
+    \begin{enumerate}
+        \item [(a)] Design an algorithm $B$ that, assuming that its own source code $\langle B \rangle$ is conveniently given as input when starts, outputs the source code of another algorithm $A$ that prints the source code of $B$ on execution. (The algorithm should be described using pseudocode, not an explicit Turing machine.)
+        \item [(b)] Design an algorithm that outputs its own source code without any input. (Remember that your algorithm does not have access to its own source code. The executable of the algorithm alone has to generate its source code back.)
+        
+        [Hint: As a warm-up, can you construct a Turing machine $M$ that takes no input, and output a sequence of $1$s on the tape, where the number of $1$s is equal to two times the number of transitions (edges) in $M$? Then, think about how to use (a).]
+    \end{enumerate}
+\end{problem}\
+
+\begin{solution}
+
+\bbni
+
+\begin{enumerate}
+    \item [(a)] We define the algorithm $B$ as follows: 
+    \begin{lstlisting}[mathescape]
+$B(x)$: 
+    print$(``$print$(" + x + ``)")$
+    \end{lstlisting}
+    We will refer to the output of the algorithm $B$ as $\langle A_x \rangle$ where $x$ is the input variable. 
+    \begin{lstlisting}[mathescape]
+$A_x$: 
+    print$(x)$
+    \end{lstlisting}
+    Then, running $B$ on it's own source code, i.e. $x = \langle B \rangle$ we have, $\langle A_{\langle B \rangle} \rangle = $ print($\langle B \rangle$). Note that executing $A_{\langle B \rangle}$ will give us $\langle B \rangle$.
+
+    % As programmers working outside the definition of $Q$, 
+    % Thus, executing the algorithm $B$, given it's own source code $\langle B \rangle$ as input, outputs the source code of another algorithm $\langle A_{\langle B \rangle}\rangle$ that prints the source code $\langle B \rangle$ on execution. 
+    
+    \item [(b)] For this part, we construct the algorithm $Q$ which returns its own source code upon execution without any input. To do so, we modify our algorithm $B$ from part (a) as follows: 
+    \begin{lstlisting}[mathescape]
+$B(x)$: 
+    print$(``$print$(" + x + ``)" + x)$
+    \end{lstlisting}
+
+    As programmers, we have defined two algorithms: $A_x()$ and $B(x)$. Since we have the source code for both the algorithms, we can execute $B(\langle B\rangle )$ and get back $\langle A_{\langle B \rangle} \rangle \cdot \langle B \rangle$. Then, we can extract $A_{\langle B \rangle}$ from the output and copy this over in our definition of the algorithm $Q$.
+    \begin{lstlisting}[mathescape]
+$Q$: 
+    $A_{\langle B \rangle}$
+    def $B(x):$
+        print$(``$print$(" + x + ``)" + x)$
+    \end{lstlisting}
+    $Q$ executes in 2 parts. 
+    \begin{enumerate}
+        \item First, it executes $A_{\langle B \rangle}$, writing ${\langle B \rangle}$ to a work tape. 
+        \item Then, it reads $\langle B \rangle$ from the work tape as input (i.e. $x = {\langle B \rangle}$)  and outputs
+        \[B(\langle B \rangle) = A_{\langle B \rangle} \cdot {\langle B \rangle}\]
+        which is exactly the source code of $Q$. Thus, $Q$ outputs $\langle Q \rangle$. 
+    \end{enumerate}
+    
+\end{enumerate}
+    
+\end{solution}
+
+
+
+
+\end{document}

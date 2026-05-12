@@ -44,8 +44,12 @@ for some element $f\in R$. We will show that these subsets form a nice basis for
 
 \hrulefill
 
+\newpage
+
 \begin{problem}{1}
-    \textbf{Basic Open Sets.} Let $R$ be a ring and $f,g \in R$.
+    \textbf{Basic Open Sets.} 
+    
+    Let $R$ be a ring and $f,g \in R$.
     \begin{enumerate}
         \item Prove directly from the definition of the Zariski topology that $D(f)$ is an open set. 
         \item Compute $D(0)$ and $D(1)$. 
@@ -58,10 +62,48 @@ for some element $f\in R$. We will show that these subsets form a nice basis for
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $D(f)$ is the set of all prime ideals where $f \neq 0$, i.e. where $f$ doesn't vanish. So, $\Spec(R)\setminus D(f) = \V(f)$. Which by definition is a closed set, thus $D(f)$ is open. 
+        \item $D(0) = \emptyset$, and $D(1) = \Spec(R)$ since $0$ is in every prime ideal, and all prime ideals are proper. 
+        \item $D(f^n) \subseteq D(f)$ since $P$ is prime and $f^n \notin P$ we must have $f \notin P$. 
+        And $D(f) \subseteq D(f^n)$ since if $f \notin P$ and $P$ is prime, $f^n \notin P$.  Thus $D(f) = D(f^{n})$ for all $n\geq1$. 
 
+        \item $D(f) \cap D(g) = \{[P] \in \Spec(R) \mid f, g \notin P\}$. Since $P$ is prime, this implies that $fg \notin P$. Thus we have,  
+        \[D(f) \cap D(g) = \{[P] \in \Spec(R) \mid f, g \notin P\} = \{[P] \in \Spec(R) \mid fg \notin P\} = D(fg)\]
+        \item $(\implies)$ 
+        
+        Assume $D(f) \subset D(g)$. 
+        
+        Then we have $\V(g) \subset \V(f) \implies \sqrt{\langle f \rangle} \subset  \sqrt{\langle g \rangle} \implies f \in  \sqrt{\langle g \rangle}$. 
+
+        $(\impliedby)$
+
+        Assume $f \in \sqrt{\langle g \rangle}$. Then $f^n \in \langle g \rangle$ for some $n$. We first show that $\sqrt{\langle f \rangle} \subset \sqrt{\langle g \rangle}$. Let $h \in \sqrt{\langle f \rangle}$, then $h^m =rf \in \langle f \rangle$ for some $m \in \N$ and some $r \in R$. Then, we have  $h^{nm} = r^n f^n \in \langle g \rangle$. Thus, $h \in \sqrt{\langle g \rangle}$ and $\sqrt{\langle f \rangle} \subset \sqrt{\langle g \rangle}$. 
+
+        But that implies $\V(g) \subset \V(f) \implies D(f) \subset D(g)$. 
+
+        \item $(\implies)$ 
+        
+        Assume $D(f) = D(g)$. Then we have $\V(g) = \V(f) \implies \sqrt{\langle f \rangle} =  \sqrt{\langle g \rangle}$. 
+
+        $(\impliedby)$
+
+        Assume $\sqrt{\langle f \rangle} = \sqrt{\langle g \rangle}$. Then we have $\V(g) = \V(f) \implies D(f) = D(g)$. 
+
+        \item Let $U \in \Spec(R)$ open set. Then its complement $\Spec(R) \setminus U = \V(I)$ is a closed set for some $I \subset R$. Since $[\fp] \in U$ we know that $[\fp] \notin \V(I)$, then we have $I \not \subset \fp$. So there exists some $f \in I$ such that $f \notin \fp$ giving us $[\fp] \in D(f) \subset U$.
+        
+        \item Since $[\fp]$ and $U$ were arbitrary, by part (7) the basic open sets satisfy the basis criterion and hence form a basis. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{2}
-    \textbf{Examples of Basic Opens.} Explicitly describe the basic open set $D(f) \subset \Spec(R)$ in each of the following cases. 
+    \textbf{Examples of Basic Opens.} 
+    
+    Explicitly describe the basic open set $D(f) \subset \Spec(R)$ in each of the following cases. 
     \begin{multicols}{2}
     \begin{enumerate}
         \item $R=\K[x]$ and $f=x$.
@@ -76,9 +118,26 @@ for some element $f\in R$. We will show that these subsets form a nice basis for
     \end{multicols}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $D(x) = \Spec(R) \setminus \langle x \rangle = \{\langle 0 \rangle \cup \langle p(x) \rangle \mid p \neq x, \,p$ is irreducible$\}$. 
+        \item $D(x-a) = \Spec(R) \setminus \langle x - a \rangle = \{\langle 0 \rangle \cup \langle p(x) \rangle \mid p \neq x -a , \,p$ is irreducible$\}$. 
+        \item $D(p) = \Spec(\Z) \setminus \langle p \rangle = \{[\fp] \in \Spec(\Z), \fp \neq \langle p \rangle \}$.
+        \item $D(\overline x) = \{\langle \overline y, q(x) \rangle, \,q$ is irreducible or zero $\}$.
+        \item $D(\overline y) = \{\langle \overline x, q(y) \rangle, \,q$ is irreducible or zero $\}$.
+        \item $D(\overline 2) = \{\langle \overline 3 \rangle \}$.
+        \item $D(\overline 3) = \{\langle \overline 2 \rangle \}$.
+        \item $D(\overline 6) = \emptyset$.
+    \end{enumerate}
+\end{solution}
+
+\newpage
 
 \begin{problem}{3}
-    \textbf{Induced Map by Localization.}  Let $U\subset R$ be a multiplicatively closed set and let $\eta:R\to U^{-1}R$ be the localization map. In this exercise we will study the induced map $\eta^{\#}:\Spec(U^{-1}R) \to \Spec(R)$. 
+    \textbf{Induced Map by Localization.}  
+    
+    Let $U\subset R$ be a multiplicatively closed set and let $\eta:R\to U^{-1}R$ be the localization map. In this exercise we will study the induced map $\eta^{\#}:\Spec(U^{-1}R) \to \Spec(R)$. 
     \begin{enumerate}
         \item Use the correspondence between prime ideals in $U^{-1}R$ and $R$ given in Theorem~\ref{thm:localization-corr} to prove that $\eta^{\#}$ is injective and the image of $\eta^{\#}$ is
         \[
@@ -94,6 +153,25 @@ for some element $f\in R$. We will show that these subsets form a nice basis for
         \item Specializing to the case that $U=\{1,f,f^2,f^3,\ldots\}$, prove that $\eta^{\#}:\Spec(R[\frac{1}{f}]) \to \Spec(R)$ is a homeomorphism onto the basic open subset $D(f)$.
     \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item By Theorem 0.1 the map $\fq \to \eta^{-1}(\fq)$ gives a bijection between prime ideals in $U^{-1}R$ to prime ideals disjoint from $U$ in $R$. That is, 
+        \[
+        \im(\eta^{\#}) = X_{U} \coloneqq \left\{[\fp] \in \Spec(R) \;\; \big| \;\; \fp \cap U = \varnothing\right\} \subset \Spec(R).
+        \]
+        and $\eta^{\#}$ is injective since the bijection is injective. 
+
+        \item We have, by construction, 
+         \[
+        X_{U} = \left\{[\fp] \in \Spec(R) \;\; \big| \;\; \fp \cap U = \varnothing\right\} = \{\langle p \rangle, \langle 0 \rangle\}
+        \]
+        Note that this is not open in $\Spec(\Z)$ since it is the vanishing of the equation $x - p$, that is, 
+        \[\V(x-p) = \{\}\] 
+    \end{enumerate}
+\end{solution}
+
 
 \hrulefill
 

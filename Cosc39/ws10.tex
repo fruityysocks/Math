@@ -6,7 +6,9 @@
 
 \input{title}
 
-\begin{problem}
+\textbf{Credit Statement:} Talked to Carson Bates'27, Jack Bolitho'27, and Sair Shaikh'26. 
+
+\begin{problem}{1}
 Prove that all following languages are undecidable.
 
 \begin{enumerate}
@@ -17,6 +19,57 @@ Prove that all following languages are undecidable.
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Assume for contradiction that some Turing machine $M_{EQ}$ decides \textsc{Equal}. We will reduce the uncomputable problem
+        \[
+        \textsc{NeverAccept} := \left\{ \langle M \rangle \mid \text{Turing machine } M \text{ never accepts any input} \right\}
+        \]
+        to \textsc{Equal}. Let $M_\emptyset$ be a fixed Turing machine that immediately rejects every input (so $L(M_\emptyset) = \emptyset$ by construction). Construct a wrapper function \textsc{Wrap} around $M_{EQ}$: Given an input $\langle M \rangle$, \textsc{Wrap} proceeds as follows:
+        \begin{enumerate}
+            \item Run $M_{EQ}\!\left(\langle M \rangle,\, \langle M_\emptyset \rangle\right)$.
+            \item Return the result directly.
+        \end{enumerate}
+        
+        
+        Then,
+
+        \begin{itemize}
+        \item If 
+        % Given a yes-instance $\langle M \rangle$ of \textsc{NeverAccept}, 
+        $M$ accepts no input, we have $L(M) = \emptyset = L(M_\emptyset)$. As a result, $M_{EQ}$ accepts $\left(\langle M \rangle, \langle M_\emptyset \rangle\right)$, and thus $\langle M \rangle \in L$ (\textsc{NeverAccept}).
+
+        \item If
+        % Given a no-instance $\langle M \rangle$ of \textsc{NeverAccept}, 
+        $M$ accepts some input, we have $L(M) \neq \emptyset = L(M_\emptyset)$. As a result, $M_{EQ}$ rejects $\left(\langle M \rangle, \langle M_\emptyset \rangle\right)$, and thus $\langle M \rangle \notin L$(\textsc{NeverAccept}).
+        \end{itemize}
+
+        Thus, \textsc{Wrap} decides \textsc{NeverAccept}, which is a contradiction and hence no such $M_{EQ}$ can exist that decides \textsc{Equal}.
+
+        \item Assume for contradiction that some Turing machine $M_{REG}$ decides \textsc{Reg}. We will reduce the uncomputable problem
+        \[
+        \textsc{Accept} := \left\{ \langle M, w \rangle \mid \text{Turing machine } M \text{ accepts } w \right\}
+        \]
+        to \textsc{Reg}. We construct a Turing machine $M'$ as follows, given input $x$: 
+        \begin{enumerate}
+            \item Accept if $x \in 0^n1^n, \, n \geq 1$. 
+            \item If $x \notin 0^n1^n$, simulate $M$ with input $w$ and accept if $M$ accepts $w$. 
+            \item Reject otherwise.
+        \end{enumerate}
+        
+        
+        We then use the encoding of $M'$, $\langle M' \rangle$ as input for $M_{REG}$. Then we have the following cases, 
+
+        \begin{itemize}
+        \item If $M$ accepts $w$, $L(M') = \Sigma^\star$. Thus $L(M')$ is regular and $M_{REG}$ accepts.  
+        \item If $M$ does not accept $w$, $L(M') = \{0^n1^n \mid n \geq 1\}$. Thus $L(M')$ is not regular and $M_{REG}$ rejects.  
+        \end{itemize}
+        
+        Thus, {$M_{REG}$} decides \textsc{Accept}, which is a contradiction and hence no such $M_{REG}$ can exist that decides \textsc{Reg}.
+        
+    \end{enumerate}
+\end{solution}
 
 
 

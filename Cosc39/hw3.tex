@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 \include{../style}
+\newcommand{\green}{\textcolor{red}}
 
 \begin{document}
 
@@ -22,6 +23,68 @@ We can treat the collection of regular expressions itself as a language $\mathrm
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item [(a)] Define the fooling set as $F := \{0(^m0 \mid m \in \N\}$. Then for two arbitrary prefixes $0(^i0, \, 0(^j0 \in F$ with $i \neq j$, let the distinguishing suffix be $\green{(}+1)\green{)}^i$ \green{(}Note, the red parenthesis in the suffix are for our reference, for instance, $\green{(}+1)\green{)}^2 = +1)+1)$\green{)}. Then we have, 
+        \begin{itemize}
+            \item $0(^j0\green{(}+1)\green{)}^i \notin L$, because $i \neq j$ and hence the parentheses aren't balanced. 
+            \item $0(^i0\green{(}+1)\green{)}^i \in  L$, since the parentheses are balanced. 
+        \end{itemize}
+        This implies that $F$ is a fooling set of infinite size, and thus $L$ is not {regular}.
+
+        
+        \item [(b)]  
+
+        We prove the language \textit{RegEx} is regular by construction: 
+        
+        First, construct an NFA which accepts the \textbf{compliment} of the language \textit{RegEx} (i.e. the NFA rejects all strings which satisfy the rules of regular expression formatting). We do so by building two distinct \textit{gadgets} to prevent formatting errors.
+        \begin{enumerate}
+            \item [1.]\begin{enumerate}
+            \item[(i)] $*$ and $+$ characters must follow valid characters, particularly ($0$, $1$, and '$)$')
+            \item [(ii)]$+$ characters must be followed by valid characters, particularly ($0$, $1$, and '$'('$')
+        \end{enumerate}
+        \begin{center}
+            \begin{tikzcd}
+                {\phantom{1}} \arrow[r] &
+                \circled{\phantom{1}} \arrow[out = 110, in =60,loop, "{(}" ] \arrow[d, "{0, \, 1, \, )}", bend left =20] \arrow[rr, "{*, \, +}"] & {} &
+                \dcircled{\phantom{1}} \arrow[out = 110, in =60,loop, "{\Sigma}"]\\ 
+                {} & 
+                \circled{\phantom{1}} \arrow[out = -60, in =-110,loop, "{0, \, 1\, \, )}"] \arrow[u, "{*, \, (}", bend left =20] \arrow[rr, "+", bend left =10] & {} &
+                \dcircled{\phantom{1}} \arrow[ll, "{0, \, 1}", bend left =10] \arrow[llu, "{(}", swap, bend right =0] \arrow[u, "{*, \, +, \, )}", swap]
+            \end{tikzcd}
+        \end{center}
+
+        The first gadget ensures proper use of $*$ and $+$ operations:\\
+
+        \item [2.]  The second gadget guarantees correct use of parentheses—every open parentheses has a corresponding closed parentheses and in the right order—\textbf{and} prevents nesting.
+
+        \begin{center}
+            \begin{tikzcd}
+                {\phantom{1}} \arrow[r] & 
+                \circled{\phantom{1}} \arrow[out = 110, in =60,loop, "{\Sigma \setminus \{(, \, )\}}" ] \arrow[d, "{ (}"{yshift=-.1in}, bend left =20]  \arrow[dr, ")", ]&  \\ 
+                {} & 
+                \dcircled{\phantom{1}} \arrow[in = -110, out =-60,loop, "{\Sigma \setminus \{(, \, )\}}" ]  \arrow[u, ")"{yshift=-.1in}, bend left =20] \arrow[r, "("] & 
+                \dcircled{\phantom{1}} \arrow[out = -60, in =-110,loop, "\Sigma"]
+            \end{tikzcd}
+        \end{center}
+        \end{enumerate}
+    \end{enumerate}
+
+    \begin{tikzcd}
+        {\phantom{1}} \arrow[r] 
+        & \circled{\phantom{1}} \arrow[r, "a"] \arrow[rd, "{(}"'] \arrow[rrd, bend left=0, "{|,*,)}" description]
+        & \dcircled{\phantom{1}} \arrow[loop above, "a,{*}"] \arrow[l, "{|}"] \arrow[d, "{(}"] \arrow[rd, "{)}" description]
+        & \circled{\phantom{1}} \arrow[loop right, "\Sigma"] \\
+        & 
+        & \circled{\phantom{1}} \arrow[r, "a"] \arrow[loop below, "{|},{*}"] \arrow[ru, "{(},{)}" description]
+        & \circled{\phantom{1}} \arrow[loop below, "a,{*}"] \arrow[u, "{(},{)}" description] \arrow[ll, "{|}", bend right=20]
+    \end{tikzcd}
+\end{solution}
+Since this NFA recognizes the complement of \textit{RegEx}, we can first convert the NFA to an equivalent DFA (as proven in class) and then swap the accepting and rejecting states of the resulting DFA. Since we have proved such a swap produces a compliment langauge for DFAs, this operation produces a DFA that recognizes \textit{RegEx} itself.
+
+\newpage 
+
 \begin{problem}{2. Regular or not?}
 
 Prove or disprove that each of the languages below is regular (or not). Let $\Sigma^{+}$ denote the set of all nonempty strings over alphabet $\Sigma$; in other words,
@@ -30,12 +93,64 @@ Prove or disprove that each of the languages below is regular (or not). Let $\Si
 \]
 
 \begin{enumerate}
-    \item[(a)] $\{\, wxw^{R} : w, x \in \Sigma^{+} \,\}$
+    \item[(a)] 
+    $\{\, wxw^{R} : w, x \in \Sigma^{+} \,\}$
     
-    \item[(b)] $ \{\, ww^{R}x : w, x \in \Sigma^{+} \,\}$
+    \item[(b)]
+    $\{\, ww^{R}x : w, x \in \Sigma^{+} \,\}$
 \end{enumerate}
 
 \noindent
 \textbf{Hint:} To prove that a language $L$ is regular, construct an NFA that recognizes $L$; to disprove that $L$ is regular, construct a fooling set and argue that the construction is correct.
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+    \begin{enumerate}
+        \item [(a)] Let $a_i \in \Sigma$. (Note that this diagram shows the $i$-th branch of the DFA, for each $a_i \in \Sigma$ there is a separate branch of the DFA with $a_i$ replaced with the character.) The intuition for the following DFA to recognize all strings in 
+        \[
+        \{\, wxw^{R} : w, x \in \Sigma^{+} \,\}. 
+        \]
+
+        by satisfying $2$ conditions:
+
+            \item Since both w and x are in $\Sigma^+$, they must each contain at least one character. Therefore, any string of the form $wxw^R$ has length at least $3$.
+            \item The format $wxw^R$ means that the string begins and ends with the same character, because the first character comes from $w$, and the last character comes from $w^R$, which mirrors w.
+
+            The DFA visualizes this by branching on each possible starting symbol $a_i$ and then ensures that the string ends with the same symbol. The middle portion $x$ can be any sequence of symbols from $\Sigma$, as long as it is nonempty. The DFA allows any characters in between while enforcing matching first and last characters.
+        \begin{center}
+            \begin{tikzcd}
+                {\phantom{1}} \arrow[r] &\circled{\phantom{1}} \arrow[r, "a_i"] & \circled{\phantom{1}} \arrow[r, "\Sigma"] & \circled{\phantom{1}} \arrow[out = -60, in =-110,loop, "{\Sigma \setminus \{a_i\}}"] \arrow[r, "a_i", bend left = 10] & \dcircled{\phantom{1}} \arrow[l, "{\Sigma \setminus \{a_i\}}", bend left =10] \arrow[loop right, "a_i"]
+            \end{tikzcd}
+        \end{center}
+
+        \item  [(b)] 
+
+            When $|\Sigma| = 1$, say $\Sigma = \{a\}$, every $w \in \Sigma^+$ satisfies $w = w^R$. Thus the language becomes:
+            \[
+            (\Sigma^+ \Sigma^+ \Sigma^+) = \{a^n : n \geq 3\}
+            \]
+            which is just any string of the alphabet with more than $3$ characters. This can be recognized by the DFA below, proving its regular.
+
+            \begin{center}
+                \begin{tikzcd}
+                {\phantom{1}} \arrow[r] 
+                & \circled{\phantom{1}} \arrow[r, "a"] 
+                & \circled{\phantom{1}} \arrow[r, "a"] 
+                & \circled{\phantom{1}} \arrow[r, "a"] 
+                & \dcircled{\phantom{1}} \arrow[loop right, "a"]
+            \end{tikzcd}
+            \end{center}
+            
+        Else if $|\Sigma| \geq 2$, we claim that this language is not regular. Let $0, 1$ be two arbitrary characters in $\Sigma$. 
+        Define the fooling set as $F := \{(01)^m \mid m \in \N\}$.  Then for two arbitrary prefixes $(01)^i, \, (01)^j \in F$ with $i > j$, let the distinguishing suffix be $(10)^i$.  Then we have, 
+        \begin{itemize}
+            \item $(01)^i(10)^i \notin L$, because any valid decomposition must have $w=(01)^k$, so $w^R=(10)^k$. This forces $k=i$, which leaves $x=\varepsilon$. But since $x$ must be non-empty, this is impossible. 
+            \item $(01)^j(10)^i \in  L$, with $w = (01)^j, \, w^R = (10)^{j}, \, x = (10)^{i-j}$. 
+        \end{itemize}
+        This implies that $F$ is a fooling set of infinite size, and thus $L$ is not regular.
+
+    \end{enumerate}
+\end{solution}
 \end{document}
