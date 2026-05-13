@@ -16,6 +16,50 @@
      Deduce that a space $X$ is simply-connected iff all maps $S^1 \to X$ are homotopic. [In this problem, `homotopic' means `homotopic without regard to basepoints'.]
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{center}
+            \begin{tikzcd}
+                S^1 \times [0,1] \arrow[r, "H"] \arrow[d, "\pi", swap] & X \\ 
+                D^2 \arrow[ur, "f'"{xshift=-.1in}, swap] & {}\\ 
+                S^1 \arrow[ u, "\iota"] \arrow[ruu, "f", swap]
+            \end{tikzcd}
+        \end{center}
+
+    ($1 \implies 2$) 
+
+    Assume every map $f: S^1 \to X$ is homotopic to a constant map $e_{x_0}$. Let $H: S^1 \times [0,1] \to X$ be the homotopy between $f$ and $e_{x_0}$, with $H(s, 0) = f(s)$ and $H(s, 1) = e_{x_0}(s)$. We define a quotient map, 
+    \[\pi: S^1 \times [0,1] \to D^2, \qquad \pi(s, t) = (1-t)s\] 
+    Note that $\pi$ is continuous, surjective and maps $S^1 \times \{1\}$ to a constant point. Since $H$ is constant on $S^1 \times \{1\}$, it induces (via $\pi$) a continuous map $f': D^2 \to X$. 
+    Note that, 
+    \[f'\circ \pi(s, 0) = f'((1-0)s) = f'(s) = H(s, 0) = f(s)\]
+    That is $f'(s) = f(s)$ on $s \in \d D^2 = S^1$. Hence, every map $f$ extends to a map $f'$ from $D^2$ to $X$. 
+
+    \bbni
+
+    ($2 \implies 3$)
+
+    Assume that every map $f: S^1 \to X$ extends to a map $f': D^2 \to X$. 
+
+    Let $\iota: S^1 \to D^2$ be the natural inclusion map. Then, $f = f' \circ \iota$, and $f_\star  = f'_\star \circ \iota_\star$. But, 
+    \[\iota_\star: \pi_1(S^1, s_0) \to \pi_1(D^2, d_0)\]
+    is trivial because $\pi_1(D^2, d_0) = \{0\}$. Therefore $\iota_\star([\beta]) = 0$ for all $[\beta] \in \pi_1(S_1, s_0)$. Then, 
+    \[f_\star([\beta]) = f'_\star \circ \iota_\star ([\beta]) = f'_\star(0) = 0\]
+    Now, note that every loop $[\gamma] \in \pi_1(X, x_0)$ can be represented by some map $\gamma: S^1 \to X$, and by assumption it extendeds to some $f': D^2 \to X$. Applying the argument above gives us $[\gamma] = 0$ and hence $\pi_1(X, x_0) = 0$ for all $x_0 \in X$. 
+
+    \bbni
+
+    ($3 \implies 1$) 
+
+    Assume $\pi_1(X, x_0) = 0$ for all $x_0 \in X$. 
+
+    Let $s_0 \in S^1$ be the basepoint and pick $x_0 = f(s_0)$. Since $f$ is a map from $S^1 \to X$ it is a loop and since that every loop $[\gamma] \in \pi_1(X, x_0)$ can be represented by some map $\gamma: S^1 \to X$ we know it is homotopic to the constant loop $[e_{x_0}] \in \pi_1(X, x_0)$. And hence every map $f: S^1 \to X$ is homotopic to a constant map $e_{x_0}$.
+
+    Thus the three statements are equivalent. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{2}
      Show that there are no retractions $r : X \to A$ where
     $X = S^1 \times D^2$ and $A$ the circle shown in the figure.
@@ -24,13 +68,83 @@
     \end{center}
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+\end{solution}
+
 \begin{problem}{3}
     Show that the complement of a finite set of points in $\R^n$ is simply-connected if $n \geq 3$.
 \end{problem}
 
+\begin{solution}
+    \bbni
+
+    \textbf{Inductive Case:} Let $P$ be the hyperplane separating $x_k$ from $\{x_1, \ldots, x_{k-1}\}$. Now let $U$ be the open half-space containing $x_k$ minus $x_k$, and $V$ the open half-space containing $\{x_1, \ldots, x_{k-1}\}$ minus $\{x_1, \ldots, x_{k-1}\}$, chosen so that they overlap in a strip around the hyperplane $P$. That is, $U \cap V = P \times (-\epsilon, \epsilon)$ for some small $\epsilon > 0$.  Then, 
+    \[U \cup V = \R^n \setminus X \text{ and } U \cap V = P \times (-\epsilon, \epsilon) \iso \R^{n-1}\]
+    Then we have, 
+    \[U  \simeq \R^n \setminus \{x_k\} \simeq S^{n-1} \implies \pi_1(U) = \{0\}\]
+    (where $\pi_1(S^{n-1}) = 0$ since $n\geq 3$), and by the Inductive Hypothesis, since $V$ is homotopy equivalent to $\R^n$ with $k-1$ points removed we have $\pi_1(V) = \{0\}$. Moreover, $\pi_1(P) = \{0\}$ since $P \iso \R^{n-1}$ and $R^{n-1}$ is simply connected. 
+
+    Then by van Kampen, we have, 
+    \[\pi_1(\R^n \setminus X) \iso (\pi_1(U) \star \pi_1(V)) / N =  \{0\}\]
+    where $N$ is trivial since $\pi_1(U \cap V) = \{0\}$. 
+    Thus the complement of a finite set of points in $\R^n$ is simply connected if $n \geq 3$. 
+\end{solution}
+
+
+\begin{solution}
+    \bbni
+
+    Let $X = \{x_1, \ldots, x_k\} \subset {\R}^n$. We prove $\pi_1(\mathbb{R}^n \setminus X) = \{0\}$ by induction on $k$.
+
+    \textbf{Base Case: } $k = 1$. 
+
+    We know that $\R^n \setminus \{x\} \simeq S^{n-1}$ by deformation retraction, and that $\pi_1{(S^{n-1})} = \{0\}$ since $n - 1 \geq 2$. Hence, $\R^n \setminus \{x\}$ is simply connected. 
+
+    \textbf{Inductive Hypothesis.} Assume that for any set of $k-1$ points, $\pi_1(\R^n \setminus X) = \{0\}$. 
+
+    \textbf{Inductive Step.} Since the $x_i$ are distinct, choose a hyperplane $P \cong \mathbb{R}^{n-1}$ separating $x_k$ from $\{x_1, \ldots, x_{k-1}\}$. Define
+    \[
+        U = \bigl(H^+ \cup (P \times (-\varepsilon, \varepsilon))\bigr) \setminus \{x_k\},
+        \qquad
+        V = \bigl(H^- \cup (P \times (-\varepsilon, \varepsilon))\bigr) \setminus \{x_1, \ldots, x_{k-1}\},
+    \]
+    where $H^+$ is the open half-space on the side of $x_k$, $H^-$ is the open half-space on the side of $\{x_1, \ldots, x_{k-1}\}$, and $\varepsilon > 0$ is picked to be small enough that the strip $P \times (-\varepsilon, \varepsilon)$ contains none of the $x_i$. Then $U$ and $V$ are open sets satisfying
+    \[
+        U \cup V = \mathbb{R}^n \setminus X,
+        \qquad
+        U \cap V = P \times (-\varepsilon, \varepsilon) \cong \mathbb{R}^{n-1}.
+    \]
+    Note that since $n \geq 2$, removing finitely many points from an open subset of $\R^n$ preserves path-connectivity, so $U$, $V$, and $U \cap V \cong {\R}^{n-1}$ are all path-connected. Fix a basepoint $x_0 \in U \cap V$. We now compute the fundamental groups of each piece:
+    \[
+        U \simeq \mathbb{R}^n \setminus \{x_k\} \simeq S^{n-1}
+        \implies \pi_1(U) = \{0\},
+    \]
+    where $\pi_1(S^{n-1}) = \{0\}$ since $n \geq 3$. By the inductive hypothesis, $V \simeq \mathbb{R}^n \setminus \{x_1, \ldots, x_{k-1}\}$ gives $\pi_1(V) = \{0\}$. Moreover, $U \cap V \cong \mathbb{R}^{n-1}$ is simply connected, so $\pi_1(U \cap V) = \{0\}$.
+
+    Then by the Seifert--van Kampen theorem applied to the cover $\{U, V\}$,
+    \[
+        \pi_1(\mathbb{R}^n \setminus X) \cong \bigl(\pi_1(U) \star \pi_1(V)\bigr) / N,
+    \]
+    Since $\pi_1(U \cap V) = \{0\}$, the subgroup $N$ is trivial, and so
+    \[
+        \pi_1(\mathbb{R}^n \setminus X) \cong \{0\} \star \{0\} = \{0\}.
+    \]
+    Thus the complement of any finite set of points in $\mathbb{R}^n$ is simply connected for $n \geq 3$. 
+\end{solution}
+
+\newpage 
+
 \begin{problem}{4}
     Let $X \subset \R^3$ be the union of $n$ lines through the origin. Compute $\pi_1(\R^3 - X)$. 
 \end{problem}
+
+\begin{solution}
+    \bbni
+
+\end{solution}
+
 
 \begin{problem}{5}
     Proof for Theorem 1.38

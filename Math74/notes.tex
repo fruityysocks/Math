@@ -984,8 +984,90 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \section{Cell Complexes}
 
 \begin{definition}
-    We start with a discrete space whose points are regarded as $0$-cells. Now, we inductively define the $n$-skeleton $X^n$ from $X^{n-1}$ by attaching $n$-cells $e_\alpha^n$ via maps $\phi_\alpha: S^{n-1} \to X^{n-1}$ where $e^n_\alpha$s are $D^n_\alpha$. Hence, $X^n = X^{n-1} \sqcup D^n_\alpha / (x \sim \phi_\alpha(x) \text{ if } \alpha, \forall x \in S^{n-1})$. We say a topological space $X$ has a CW/CX structure if $X = \cup_n X^n$.
+    We start with a discrete space whose points are regarded as $0$-cells. Now, we inductively define the \textbf{$n$-skeleton} $X^n$ from $X^{n-1}$ by attaching $n$-cells $e_\alpha^n$ via maps $\phi_\alpha: S^{n-1} \to X^{n-1}$ where $e^n_\alpha$s are $D^n_\alpha$. Hence, $X^n = X^{n-1} \sqcup D^n_\alpha / (x \sim \phi_\alpha(x) \text{ if } \alpha, \forall x \in S^{n-1})$. We say a topological space $X$ has a CW/CX structure if $X = \cup_n X^n$.
 \end{definition}
+
+\begin{definition}
+    
+    Each cell $e_\alpha^n$ of a CW CX has a map $\Phi_\alpha: D^n_\alpha \to X$ which extends $\phi_\alpha: \d D^n_\alpha \to X$. It is defined by 
+    \[D_\alpha^n \hookrightarrow X^{n-1} \sqcup D_\alpha^n \to \underset{\phi_\alpha: \d D^n_\alpha \to X^{n-1}}{ X^{n-1} \sqcup D_\alpha^n} = X^n \hookrightarrow x\]
+    This map is called the \textbf{characteristic map} asssociated to $\phi_\alpha$. 
+\end{definition}
+
+\begin{definition}
+    A \textbf{subcomplex} $A$ of a CW CX $X$ is a subspace $A \subset X$ such that $A$ is a union of some number of cells in $X$ with a attaching map for each of those cells has a image contained in $A$. We say that $(X, A)$ is a CW pair. 
+\end{definition}
+
+\begin{definition}[Quotinent CX]
+    If $(X, A)$ is a CW pair, then $X/A$ inherits a canonical cell structure from $X$. The cells of $X/A$ are the cells $X - A$, plus one $0$-cell given by the image of $A$ in $X/A$. For a cell $e_\alpha^n$ of $X - A$ with $\phi_\alpha: S^{n-1} \to X^{n-1}$ , the corresponding attaching map in $X/A$ is 
+    \[S^{n-1} \to X^{n-1} \to X^{n-1} / A^{n-1}\]
+\end{definition}
+
+\begin{theorem}
+    If $(X, A)$ is a CW pair and $A$ is contractible then $q: X \to X/A$ is a homotopy equivalence. 
+\end{theorem}
+
+\begin{proof}
+    Hatcher Chapter 0, Homotopy Extension Lemma
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider a space $X$ built from $S^2$ by attaching an arc to two points in $S^2$. 
+
+        \includegraphics[width=0.4\linewidth]{assests/CW.png}
+
+        Both $(X, A)$ and $(X, B)$ are CW complexes.
+
+        \item $\pi_1(S^3, S^1) = ?$ \todo{}
+    \end{enumerate} 
+\end{example}
+
+\section{Homology}
+
+\begin{remark}
+    $\pi_n(S^n) = \Z$, and $\pi_m(S^n) = 0$ if $m >\leq n$. We don't know how to compute $\pi_m(S^n)$ for $m > n$.
+\end{remark}
+Homology distinguishes higher dimension space and it is easy to compute. We define simplical and singular homology separately, but eventually they have the same properties. 
+
+\subsection{Simplical Homology}
+
+\begin{definition}
+    A \textbf{$n$-simplex} is the smallest convex set in $\R^m$ spanned by $(n+1)$ points $v_0, \ldots, v_n$ such that all of them do not lie in any hyperplane of dimension less than $n$. That is, $v_1 - v_0, \, v_2 - v_0, \ldots, \, v_n - v_0$ are linearly independent. We say $(v_0, \ldots, v_n)$ comes with the order $v_0, \ldots, v_n$.
+
+    The standard $n$-simplex is 
+    \[\left\{(t_0, \ldots, t_n) \in \R^{n+1} \mid \sum_{i} t_i = 1, t_i \geq 0\right\}\]
+    There is a canonical homeomorphism from $\Delta^n$ to any $n$-simplex. 
+    \[(t_0, \ldots, t_n) \mapsto \sum t_iv_i\]
+\end{definition}
+
+\begin{definition}
+    $\Delta$-complex structure of a space $X$ is a collection of maps $\sigma_\alpha: \Delta^n \to X$. 
+    \begin{enumerate}
+        \item $\sigma_\alpha |_{\Delta_n^\circ}$ is injective and each point of $X$ is in the image of exactly one such $\sigma_\alpha |_{\Delta_n^\circ}$. 
+        \item $\sigma_\alpha |_{{\text{face of }\Delta_n}}$ is one of the maps $\sigma_\beta: \Delta^{n-1} \to X$, where a face of $\Delta^n$ is a $(n-1)$-simplex that we get by deleting a vertix of $\Delta^n$.
+        \item A set $U \subset X$ is open iff $\sigma_\alpha^{-1} (U)$ is open in $\Delta^n$, for all $\alpha$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Let $X$ be a $\Delta$-complex and let $\Delta_n(X)$ denote the free abelian group with basis $n$-simplicies of $X$. The elements of $\Delta_n(X)$ are of the form $\sum_i n_i \sigma_i$ where this is a finite sum, $n_i \in \Z$ and $\sigma_i: \Delta^n \to X$. 
+\end{definition}
+
+We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}, \ldots, v_n] \cong [v_0, \ldots, v_{n-1}]$. We will always orient the $1$-simplex $[v_i, v_j]$ by an arrow going from $v_i$ to $v-j$ for $i < j$. 
+
+\begin{proposition}
+    The composition 
+    \[\Delta_n(X) \xrightarrow{\d_n} \Delta_{n-1}(X) \xrightarrow{\d_{n-1}} \Delta_{n-2}(X)\] 
+    is zero $(\d_{n-1} \circ \d_n = 0)$.
+\end{proposition}
+
+\begin{proof}
+    \begin{align*}
+        \d_n(\sigma) &= \sum_i(-1)^i \sigma |_{[v_0, \ldots, \widehat{v_i}, \ldots, v_n]} \\ 
+        \d_{n-1} \circ \d_n (\sigma) &= \sum_{j <i}(-1)^i(-1)^j \sigma |_{[v_0, \ldots, \widehat{v_j}, \ldots \widehat{v_i}, \ldots, v_n]} +\sum_{i < j}(-1)^i(-1)^{j-1} \sigma |_{[v_0, \ldots, \widehat{v_i}, \ldots \widehat{v_j}, \ldots, v_n]}  \\
+    \end{align*}
+\end{proof}
 \end{document}
 
 

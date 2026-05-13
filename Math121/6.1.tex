@@ -645,7 +645,7 @@ However, a functor is not merely a rule on objects. To view these constructions 
                 \item $ f_*(\phi + \psi) =  f \circ (\phi + \psi) = f \circ \phi + f \circ \psi = f_*(\phi ) + f_*( \psi)$
             \end{itemize}
             A similar proof works to show $g_*$ is a $R$-module homomorphism. 
-            \item $(g \circ f)_* = g \circ f \circ \phi = g_*(f \circ \phi) = g_*(f_*(\phi)) = (g_* \circ f_*)(\phi) $
+            \item $(g \circ f)_* (\phi) = g \circ f \circ \phi = g_*(f \circ \phi) = g_*(f_*(\phi)) = (g_* \circ f_*)(\phi) $
             \item Let $h: M \to M$ be a $R$-module homomorphism, where $h = \id_M$. Then 
             \[h_* = h \circ \phi = \id_M \circ \phi = \id_{\Hom_R(T, M)}\]
         \end{itemize}
@@ -659,15 +659,52 @@ However, a functor is not merely a rule on objects. To view these constructions 
                 \item $ f^*(\phi + \psi) =   (\phi + \psi)  \circ f=  \phi \circ f + \psi  \circ f= f^*(\phi ) + f^*( \psi)$
             \end{itemize}
             A similar proof works to show $g^*$ is a $R$-module homomorphism. 
-            \item $(g \circ f)^* =\phi \circ  g \circ f = f^*( \phi \circ g) = f^*(g^*(\phi)) = (f^* \circ g^*)(\phi) $
+            \item $(g \circ f)^* (\phi) =\phi \circ  g \circ f = f^*( \phi \circ g) = f^*(g^*(\phi)) = (f^* \circ g^*)(\phi) $
             \item Let $h: M \to M$ be a $R$-module homomorphism, where $h = \id_M$. Then 
             \[h_* = \phi \circ h =  \phi \circ \id_M = \id_{\Hom_R(M, T)}\]
         \end{itemize}
         Thus, $\Hom_R(T, -)$ is a contravariant functor from $R-\Mod$ to $R-\Mod$. 
         
-        \item 
+        \item \begin{itemize}
+            \item We know that for any $R$-module $M$, $M\otimes_RT$ is a $R$-module. 
+            \item Let $f: M \to N$, $g: N \to O$ be $R$-module homomorphisms. Then, we need to show that $f \otimes \Id_T$ and $g \otimes \Id_T$ are $R$-module homomorphisms. 
+            \begin{itemize}
+                \item $r \cdot f \otimes \Id_T( m \otimes t) = r \cdot f(m) \otimes t = f(rm) \otimes t = f \otimes \Id_T( rm \otimes t)$
+                \item \begin{align*}
+                     f \otimes \Id_T((m+n) \otimes t) &= f(m+n) \otimes t \\
+                     &= f(m) \otimes t + f(n) \otimes t \\
+                     &=  f \otimes \Id_T( m \otimes t) + f \otimes \Id_T(n \otimes t) 
+                \end{align*}
+            \end{itemize}
+            A similar proof works to show $g \otimes \Id_T$ is a $R$-module homomorphism. 
+            \item \begin{align*}
+                (g \circ f) \otimes \Id_T (m \otimes t) &= (g \circ f)(m) \otimes t 
+                = g(f(m)) \otimes t  \\ 
+                &= g \otimes \Id_T (f(m) \otimes t)  \\
+                &=( g \otimes \Id_T) \circ (f \otimes \Id_T) (m \otimes t) 
+            \end{align*}
+            \item Let $h: M \to M$ be a $R$-module homomorphism, where $h = \Id_M$. Then 
+            \[h \otimes \Id_T  (m \otimes t)= h(m) \otimes t = m \otimes t = (\Id_M \otimes \Id_T) (m \otimes t)\]
+        \end{itemize}
+        Thus, $- \otimes_R T$ is a covariant functor from $R-\Mod$ to $R-\Mod$. 
+
+        \item \begin{itemize}
+            \item We know that $U^{-1}( - )$ is a $R-\Mod$. That is, for every $R$-module $M$ we have $U^{-1}M$ another $R$-module. 
+            \item Let $f: M \to N$, $g: N \to O$ be $R$-module homomorphisms. Then, we need to show that $U^{-1}f$ and $U^{-1}g$ are $R$-module homomorphisms. 
+            \begin{itemize}
+                \item $r \cdot U^{-1}f\fr{m}{u} = \frac{rf(m)}{u} = \frac{f(rm)}{u} = U^{-1}f \fr{rm}{u}$
+                \item $U^{-1}f \fr{m}{u}  + U^{-1}f \fr{n}{s} = \frac{f(m)}{u} + \frac{f(n)}{s} =  \frac{f(ms) + f(nu)}{ u s} = U^{-1}f \fr{ms + nu}{ u s} = U^{-1}f\left(\frac{m}{u}  + \frac{n}{s}\right)$
+            \end{itemize}
+            A similar proof works to show $g^*$ is a $R$-module homomorphism. 
+            \item $(U^{-1}g \circ U^{-1}f)\fr{m}{u} = U^{-1}g\left(U^{-1}f\fr{m}{u}\right)= \frac{g(f(m))}{u}  = U^{-1}(f \circ g)\fr{m}{u}$
+            \item Let $h: M \to M$ be a $R$-module homomorphism, where $h = \id_M$. Then 
+            \[U^{-1}h \fr{m}{u} = \frac{h(m)}{u} = \frac{m}{u}\]
+        \end{itemize}
+        Thus, $U^{-1}(-)$ is a covariant functor from $R-\Mod$ to $R-\Mod$. 
     \end{enumerate}
 \end{solution}
+
+\newpage
 
 \hrulefill
 
@@ -732,34 +769,47 @@ Localization is the especially well-behaved example in commutative algebra. Sinc
 
 \hrulefill
 
+\newpage 
+
+\begin{problem}{8} 
+    \textbf{Left Exactness of $\Hom_R(T,-)$.} 
+    
+    Let $T$ be an $R$-module and let
+    \[
+    \begin{tikzcd}[column sep=large]
+    0 \arrow[r] & A \arrow[r, hook, "i"] & B \arrow[r, two heads, "p"] & C \arrow[r] & 0
+    \end{tikzcd}
+    \]
+    be a short exact sequence.
+    \begin{enumerate}
+    \item Define the maps $i_*$ and $p_*$ by postcomposition, and prove that $p_*\circ i_*=0$.
+    \item Prove that $i_*:\Hom_R(T,A)\to \Hom_R(T,B)$ is injective.
+    \item Suppose $\phi:T\to B$ satisfies $p\circ \phi=0$. Prove that $\phi$ factors uniquely through $i:A\to B$. In other words, prove that there is a unique homomorphism $\widetilde{\phi}:T\to A$ such that $\phi=i\circ \widetilde{\phi}$.
+    \item Conclude that the sequence below is exact
+    \[
+    \begin{tikzcd}[column sep=large]
+    0 \arrow[r] & \Hom_R(T,A) \arrow[r, hook, "i_*"] & \Hom_R(T,B) \arrow[r, "p_*"] & \Hom_R(T,C).
+    \end{tikzcd}
+    \]
+    \item Suppose the original short exact sequence splits. Prove that $p_*:\Hom_R(T,B)\to \Hom_R(T,C)$ is surjective. Thus $\Hom_R(T,-)$ sends split short exact sequences to short exact sequences.
+    \item Let $R=\Z$ and apply $\Hom_{\Z}(\Z/2\Z,-)$ to
+    \[
+    \begin{tikzcd}[column sep=large]
+    0 \arrow[r] & \Z \arrow[r, hook, "\cdot 2"] & \Z \arrow[r, two heads] & \Z/2\Z \arrow[r] & 0
+    \end{tikzcd}
+    \]
+    Compute the resulting sequence and explain why $\Hom_{\Z}(\Z/2\Z,-)$ is not right exact.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+\end{solution}
+
 \begin{enumerate}[leftmargin=*, resume=problems]
 
-\item \textbf{Left Exactness of $\Hom_R(T,-)$.} Let $T$ be an $R$-module and let
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & A \arrow[r, hook, "i"] & B \arrow[r, two heads, "p"] & C \arrow[r] & 0
-\end{tikzcd}
-\]
-be a short exact sequence.
-\begin{enumerate}
-\item Define the maps $i_*$ and $p_*$ by postcomposition, and prove that $p_*\circ i_*=0$.
-\item Prove that $i_*:\Hom_R(T,A)\to \Hom_R(T,B)$ is injective.
-\item Suppose $\phi:T\to B$ satisfies $p\circ \phi=0$. Prove that $\phi$ factors uniquely through $i:A\to B$. In other words, prove that there is a unique homomorphism $\widetilde{\phi}:T\to A$ such that $\phi=i\circ \widetilde{\phi}$.
-\item Conclude that the sequence below is exact
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & \Hom_R(T,A) \arrow[r, hook, "i_*"] & \Hom_R(T,B) \arrow[r, "p_*"] & \Hom_R(T,C).
-\end{tikzcd}
-\]
-\item Suppose the original short exact sequence splits. Prove that $p_*:\Hom_R(T,B)\to \Hom_R(T,C)$ is surjective. Thus $\Hom_R(T,-)$ sends split short exact sequences to short exact sequences.
-\item Let $R=\Z$ and apply $\Hom_{\Z}(\Z/2\Z,-)$ to
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & \Z \arrow[r, hook, "\cdot 2"] & \Z \arrow[r, two heads] & \Z/2\Z \arrow[r] & 0
-\end{tikzcd}
-\]
-Compute the resulting sequence and explain why $\Hom_{\Z}(\Z/2\Z,-)$ is not right exact.
-\end{enumerate}
+
 
 \item \textbf{Left Exactness of $\Hom_R(-,T)$.} Let $T$ be an $R$-module and consider the short exact sequence below:
 \[

@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+\textbf{Bogus proof for \(P = NP\).}
+
+A boolean formula is in disjunctive normal form (or DNF) if it consists of a disjunction (OR) of several terms, each of which is the conjunction (AND) of one or more literals. For example, the formula
+    \[(\overline{x} \wedge y \wedge z) \vee ( y \wedge z) \vee (x \wedge \overline{y} \wedge \overline{z})\]
+
+is in disjunctive normal form.
+
+Consider the satisfiability problem for DNFs:
+
+\begin{tcolorbox}
+\textsc{DNFSAT}
+\begin{itemize}
+    \item \textbf{Input:} A boolean formula \(\varphi\) in disjunctive normal form
+    \item \textbf{Output:} Is the formula \(\varphi\) satisfiable?
+\end{itemize}
+\end{tcolorbox}
+
+\begin{enumerate}
+    \item[(a)] Describe a polynomial-time algorithm to solve \textsc{DNFSAT}.
+
+    \item[(b)] What is the error in the following argument that \(P = NP\)?
+
+    We reduce the NP-hard problem \textsc{3SAT} to \textsc{DNFSAT}. Suppose we are given a boolean formula in conjunctive normal form with at most three literals per clause, and we want to know if it is satisfiable. We can use the distributive law to construct an equivalent formula in disjunctive normal form. For example,
+    \[({x} \vee y \vee \overline{z}) \wedge ( \overline{x} \vee \overline{y}) = (x \wedge \overline{x}) \vee (y \wedge \overline{x}) \vee (\overline{z} \wedge \overline{x}) \vee (x \wedge \overline{y}) \vee ( y \wedge \overline{y}) \vee (\overline{z} \wedge \overline{y})\]
+    
+    Now we can use the algorithm from part (a) to determine, in polynomial time, whether the resulting DNF formula is satisfiable. We have just solved \textsc{3SAT} in polynomial time. Since \textsc{3SAT} is NP-hard, we must conclude that \(P = NP\).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{2}
+\textbf{Seer with predictive power.}
+
+We know that \textsc{CircuitSat} is self-reducible. That is, if there is an oracle that decides whether a given circuit is satisfiable, then we can find the satisfying assignment in polynomial time.
+
+Not surprisingly, oracles probably do not exist in real life. One day, a seer visits your door and claims that, while they have no way to decide if a given circuit is satisfiable or not, they hold the power to decide between two given circuits, which one is more likely to have a satisfying assignment.
+
+In other words, if you hand the seer two circuits \(C\) and \(C'\):
+\begin{itemize}
+    \item the seer will correctly point out which circuit is satisfiable if exactly one of \(C\) and \(C'\) is satisfiable;
+    \item the seer will choose an arbitrary circuit if both or neither \(C\) and \(C'\) are satisfiable.
+\end{itemize}
+
+Most importantly, the seer themselves do not know which case it is; since neither you nor them can check satisfiability, it is impossible to tell if the circuit the seer pointed out has a satisfying assignment or not.
+
+Prove that you can find a satisfying assignment for any given circuit in polynomial time, with the help of the seer.
+\end{problem}
+
+\end{document}

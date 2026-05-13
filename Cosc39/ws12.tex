@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+    Write down the decision version of each of the following problems, then describe a polynomialtime self-reduction assuming an oracle to the decision problem.
+    \begin{enumerate}
+        \item \bbni
+        
+        \begin{tcolorbox}
+            \textsc{FindMaxClique}
+            \begin{itemize}
+                \item \textbf{Input:} An undirected graph $G$. 
+                \item \textbf{Output:} Compute a maximum-size clique in $G$.
+            \end{itemize}
+        \end{tcolorbox}
+
+         \item \bbni
+        
+        \begin{tcolorbox}
+            \textsc{Find3Coloring}
+            \begin{itemize}
+                \item \textbf{Input:} An undirected graph $G$. 
+                \item \textbf{Output:} Compute a proper vertex $3$-coloring of $G$ (if exists). 
+            \end{itemize}
+        \end{tcolorbox}
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item \bbni
+        \begin{tcolorbox}
+            \textsc{FindMaxClique}
+            \begin{itemize}
+                \item \textbf{Input:} An undirected graph $G$. 
+                \item \textbf{Output:} Is there a size of clique $k$ in $G$? 
+            \end{itemize}
+        \end{tcolorbox}
+        $k = |V|, k--$
+        $|V| = n$ n choose k
+    \end{enumerate}
+\end{solution}
+
+
+
+\end{document}

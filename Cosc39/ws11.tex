@@ -19,10 +19,16 @@ Put the following problem into the smallest complexity classes possible: P, NP, 
 
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \textsc{Triangle} is in P because given a graph $G = (V,E)$ we can check if every triple of vertices $(u,v,w)$ and test whether all three edges $(u,v)$, $(v,w)$, and $(u,w)$ are present. This requires $|V| C_3$ look ups which is $O(|V|^3)$.
+\end{solution}
+
+
 \begin{problem}{2}
 Put the following problem into the smallest complexity classes possible: P, NP, or merely computable?
 \begin{tcolorbox}
-\textsc{MAXCLIQUE}
+\textsc{MaxClique}
 \begin{itemize}
     \item \textbf{Input:} An undirected graph $G$, a parameter $k$
     \item \textbf{Output:} Does graph $G$ contain a clique of size at least $k$?
@@ -30,10 +36,18 @@ Put the following problem into the smallest complexity classes possible: P, NP, 
 \end{tcolorbox}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \textsc{MaxClique} is in NP since given a set of vertices we can check if each pair is connected by an edge in polynomial time. 
+
+\end{solution}
+
+\newpage 
+
 \begin{problem}{3}
 Put the following problem into the smallest complexity classes possible: P, NP, or merely computable?
 \begin{tcolorbox}
-\textsc{PRIMEPOWER}
+\textsc{Primepower}
 \begin{itemize}
     \item \textbf{Input:} An integer $n$, and a prime $p$
     \item \textbf{Output:} Is $n = p^k$ for some positive integer $k$?
@@ -41,15 +55,25 @@ Put the following problem into the smallest complexity classes possible: P, NP, 
 \end{tcolorbox}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \textsc{Primepower} is in P because we can loop over $k$ until $p^k \geq n$ with $O\left(\ceil{\log_p(n)}\right)$. 
+\end{solution}
+
 \begin{problem}{4}
 Put the following problem into the smallest complexity classes possible: P, NP, or merely computable?
 \begin{tcolorbox}
-\textsc{COMPOSITES}
+\textsc{Composites}
 \begin{itemize}
     \item \textbf{Input:} An integer $n$
     \item \textbf{Output:} Is $n = pq$ for some positive integers $p, q > 1$?
 \end{itemize}
 \end{tcolorbox}
 \end{problem}
+
+\begin{solution}
+    \bbni 
+    \textsc{Composites} is in NP, because if someone else provided integers $p, q$ to us we can verify if $pq = n$ in polynomial time. 
+ \end{solution}
 
 \end{document}
