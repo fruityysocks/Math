@@ -804,7 +804,10 @@ Localization is the especially well-behaved example in commutative algebra. Sinc
 
 \begin{solution}
     \bbni
-
+    \begin{enumerate}
+        \item We define $i_* (\phi) = \phi \circ i$ and $p_*(\psi) = \psi \circ p$ for $\phi \in \Hom_R(T, A)$ and $\psi \in \Hom_R(T, B)$. Let $i(a) = b$. Then, 
+        \[p_* \circ i_* (\phi) = \psi \circ p \circ \phi \circ i\]
+    \end{enumerate}
 \end{solution}
 
 \begin{enumerate}[leftmargin=*, resume=problems]
@@ -879,58 +882,128 @@ R^n \arrow[r, "A"] & R^m \arrow[r, two heads] & M \arrow[r] & 0
 to describe $\Hom_R(M,N)$ as the kernel of an explicit map $N^m\to N^n$. Hint: Identify $\Hom_R(R^m,N)$ with $N^m$ and $\Hom_R(R^n,N)$ with $N^n$. The induced map is precomposition with $A$; in coordinates it is given by the transpose matrix $A^t$ acting on column vectors, with the usual convention.
 \end{enumerate}
 
-\item \textbf{Right Exactness of Tensor Product.} Let $T$ be an $R$-module and let the below be an exact sequence:
-\[
-\begin{tikzcd}[column sep=large]
-A \arrow[r, "f"] & B \arrow[r, "g"] & C \arrow[r] & 0
-\end{tikzcd}
-\]
-\begin{enumerate}
-\item Prove that $g\otimes \Id_T:B\otimes_R T\to C\otimes_R T$ is surjective.
-\item Construct a bilinear map $C\times T\to (B\otimes_R T)/\langle f(a)\otimes t\mid a\in A,\ t\in T\rangle$t by choosing a representative $b\in B$ of $c\in C$ and sending $(c,t)$ to the class of $b\otimes t$. Check that this is well-defined.
-\item Since $C\cong B/\img(f)$, use the universal property of quotients and tensor products to show that
-\[
-C\otimes_R T\cong (B\otimes_R T)/\langle f(a)\otimes t\mid a\in A,\ t\in T\rangle.
-\]
-\item Prove that $\ker(g\otimes \Id_T)=\img(f\otimes \Id_T)$.
-
-\item Conclude that the sequence below is exact:
-\[
-\begin{tikzcd}[column sep=large]
-A\otimes_R T \arrow[r] & B\otimes_R T \arrow[r] & C\otimes_R T \arrow[r] & 0.
-\end{tikzcd}
-\]
- \item Suppose the original short exact sequence splits. Prove that $g \times \Id_{T}$ is injective. Thus $-\otimes_{R}T$ sends split short exact sequences to short exact sequences.
-\end{enumerate}
-
-\item \textbf{Tensor Product Need Not Be Left Exact.} The next example shows that tensor product can turn a nonzero injective map into the zero map.
-\begin{enumerate}
-\item Tensor the short exact sequence
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & \Z \arrow[r, hook, "\cdot 2"] & \Z \arrow[r, two heads] & \Z/2\Z \arrow[r] & 0
-\end{tikzcd}
-\]
-with $\Z/2\Z$. Compute the resulting sequence explicitly.
-\item Explain why the map $\Z\otimes_{\Z}\Z/2\Z \to \Z\otimes_{\Z}\Z/2\Z$ induced by multiplication by $2$ is the zero map.
-\item Conclude that $-\otimes_{\Z}\Z/2\Z$ is not left exact.
-\item Let $n$ be a positive integer. Compute $(\Z/n\Z)\otimes_{\Z}(\Z/2\Z)$ and use this to predict what happens when one tensors the exact sequence below with $\Z/2\Z$:
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & \Z \arrow[r, hook, "\cdot n"] & \Z \arrow[r, two heads] & \Z/n\Z \arrow[r] & 0.
-\end{tikzcd}
-\]
-\end{enumerate}
-
-\item \textbf{Flat Modules.} An $R$-module $T$ is called \emph{flat} if the functor $-\otimes_R T$ is exact, or equivalently if tensoring with $T$ preserves injective maps.
-\begin{enumerate}
-\item Explain why right exactness of tensor product implies that $T$ is flat if and only if, for every injection $A\hookrightarrow B$, the induced map $A\otimes_R T \to B\otimes_R T$ is injective.
-\item Prove that $R$ is flat as an $R$-module. 
-\item Prove that a finite free module $R^n$ is flat.
-\item Prove that every free $R$-module is flat. Hint: Tensor product commutes with direct sums.
-\end{enumerate}
 
 \end{enumerate}
+
+\begin{problem}{11}
+    \textbf{Right Exactness of Tensor Product.} 
+    
+    Let $T$ be an $R$-module and let the below be an exact sequence:
+    \[
+    \begin{tikzcd}[column sep=large]
+    A \arrow[r, "f"] & B \arrow[r, "g"] & C \arrow[r] & 0
+    \end{tikzcd}
+    \]
+    \begin{enumerate}
+        \item Prove that $g\otimes \Id_T:B\otimes_R T\to C\otimes_R T$ is surjective.
+        \item Construct a bilinear map $C\times T\to (B\otimes_R T)/\langle f(a)\otimes t\mid a\in A,\ t\in T\rangle$t by choosing a representative $b\in B$ of $c\in C$ and sending $(c,t)$ to the class of $b\otimes t$. Check that this is well-defined.
+        \item Since $C\cong B/\img(f)$, use the universal property of quotients and tensor products to show that
+        \[
+        C\otimes_R T\cong (B\otimes_R T)/\langle f(a)\otimes t\mid a\in A,\ t\in T\rangle.
+        \]
+        \item Prove that $\ker(g\otimes \Id_T)=\img(f\otimes \Id_T)$.
+
+        \item Conclude that the sequence below is exact:
+        \[
+        \begin{tikzcd}[column sep=large]
+        A\otimes_R T \arrow[r] & B\otimes_R T \arrow[r] & C\otimes_R T \arrow[r] & 0.
+        \end{tikzcd}
+        \]
+        \item Suppose the original short exact sequence splits. Prove that $g \times \Id_{T}$ is injective. Thus $-\otimes_{R}T$ sends split short exact sequences to short exact sequences.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know that for all $c \in C$, there exists $b \in B$ such that $g(b) = c$. Now, let $c \otimes_R t \in C \otimes_R T$. Then we have, 
+        \[g \otimes_R \Id_T (b \otimes_R t) = g(b) \otimes_R t = c \otimes_R t\]
+        Hence the map $g \otimes_R \Id_T$ is surjective. 
+
+        \item Let $\phi: C \times T \to (B\otimes_R T)/\langle f(a)\otimes t\rangle$, where $(c,t) \mapsto \overline{b \otimes t}$ where $g(b) = c$. To check well-definedness let $g(b) = g(b')$. Then we have $g(b - b') = 0$, i.e. $b -b' \in \ker(g) = \im(f)$. So $b-b' = f(a)$ for some $a \in A$. 
+        \[(b - b') \otimes t = f(a) \otimes t \in \langle f(a)\otimes t\rangle \implies b \otimes t = b' \otimes t\]
+
+        \item 
+    \end{enumerate}
+\end{solution}
+
+
+\begin{problem}{12} \textbf{Tensor Product Need Not Be Left Exact.} 
+    
+    The next example shows that tensor product can turn a nonzero injective map into the zero map.
+    \begin{enumerate}
+    \item Tensor the short exact sequence
+        \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & \Z \arrow[r, hook, "\cdot 2"] & \Z \arrow[r, two heads] & \Z/2\Z \arrow[r] & 0
+        \end{tikzcd}
+        \]
+        with $\Z/2\Z$. Compute the resulting sequence explicitly.
+        \item Explain why the map $\Z\otimes_{\Z}\Z/2\Z \to \Z\otimes_{\Z}\Z/2\Z$ induced by multiplication by $2$ is the zero map.
+        \item Conclude that $-\otimes_{\Z}\Z/2\Z$ is not left exact.
+        \item Let $n$ be a positive integer. Compute $(\Z/n\Z)\otimes_{\Z}(\Z/2\Z)$ and use this to predict what happens when one tensors the exact sequence below with $\Z/2\Z$:
+        \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & \Z \arrow[r, hook, "\cdot n"] & \Z \arrow[r, two heads] & \Z/n\Z \arrow[r] & 0.
+        \end{tikzcd}
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We get, 
+        \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & \Z/2\Z \arrow[r, hook, "\cdot 2 \otimes_\Z \id_{\Z/2\Z}"] &  \Z/2\Z  \arrow[r, two heads] & \Z/2\Z \arrow[r] & 0
+        \end{tikzcd}
+        \]
+       Since $\Z \otimes_\Z \Z/2\Z \cong \Z/2\Z$ and $\Z/\Z \otimes_\Z \Z/2\Z \cong \Z/2\Z$. 
+
+       \item Let $a \otimes_\Z b \in \Z \otimes_\Z \Z/2\Z$. Then, 
+       \[\cdot 2 \otimes_\Z \id_{\Z/2\Z}(a \otimes_\Z b) =2a \otimes_\Z b = a \otimes_\Z 2b = a \otimes_\Z 0 = 0 (a \otimes_\Z b) = 0\]
+       Hence the map induced by multiplication by $2$ is the zero map. 
+
+       \item Since the map induced by multiplication by $2$ is the zero map, it is inot injective and hence $- \otimes_\Z \Z/2\Z$ is not left exact. 
+       
+       \item $(\Z/n\Z)\otimes_{\Z}(\Z/2\Z) \cong \Z/(n\Z + 2\Z) = \Z/(\gcd(n, 2)\Z)$. That is if $n$ is even, we have $(\Z/n\Z)\otimes_{\Z}(\Z/2\Z) \cong \Z/2\Z$ and the map induced by multiplication by $n$ is the zero map and the sequence is not exact at the first term.
+       
+       \[\begin{tikzcd} \mathbb{Z}/2\mathbb{Z} \arrow[r, "0"] & \mathbb{Z}/2\mathbb{Z} \arrow[r] & \mathbb{Z}/2\mathbb{Z} \arrow[r] & 0 \end{tikzcd}\]
+       
+       If $n$ is odd, we have $(\Z/n\Z)\otimes_{\Z}(\Z/2\Z) \cong 0$, the map induced by multiplication by $n$ remains injective, and the sequence is exact. 
+        \[\begin{tikzcd} \mathbb{Z}/2\mathbb{Z} \arrow[r, "\cdot n"] & \mathbb{Z}/2\mathbb{Z} \arrow[r] & 0 \arrow[r] & 0 \end{tikzcd}\]
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{13} \textbf{Flat Modules.} 
+    
+    An $R$-module $T$ is called \emph{flat} if the functor $-\otimes_R T$ is exact, or equivalently if tensoring with $T$ preserves injective maps.
+    \begin{enumerate}
+        \item Explain why right exactness of tensor product implies that $T$ is flat if and only if, for every injection $A\hookrightarrow B$, the induced map $A\otimes_R T \to B\otimes_R T$ is injective.
+        \item Prove that $R$ is flat as an $R$-module. 
+        \item Prove that a finite free module $R^n$ is flat.
+        \item Prove that every free $R$-module is flat. Hint: Tensor product commutes with direct sums.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item By right exactness of tensor products we have two of the three sufficient conditions for exactness. The third condition requires injective maps to map to injective maps. Thus, $T$ is flat iff for every injection $A\hookrightarrow B$, the induced map $A\otimes_R T \to B\otimes_R T$ is injective.
+        
+        \item We need to show that tensoring with $R$ preserves exactness, but since $A \otimes_R R \iso A$ gives us back the original sequence. Hence the functor $\otimes_R R$ is exact and $R$ is flat. 
+        
+        \item For any exact sequence $0 \to A \to B$, we need to show $0 \to A\otimes_R R^n \to B\otimes_R R^n$ is exact. But $A\otimes_R R^n \cong A^n$, this becomes $0 \to A^n \to B^n$, and the map $A^n \to B^n$ is just $i^{\oplus n}$ (applying $i$ componentwise), which is injective since $i$ is injective. Hence a finite free module $R^n$ is flat. 
+        
+        \item We know $A \otimes R^{(I)} \cong \oplus_{i \in I} A$, then the map $\oplus_{i \in I} A \to \oplus_{i \in I} B$ is injective because $A \to B$ is injective componentwise. 
+    \end{enumerate}
+\end{solution}
+
+
+\newpage 
 
 \hrulefill
 
@@ -946,75 +1019,158 @@ We already saw that $U^{-1}M\cong U^{-1}R\otimes_R M$. Since tensor product is r
 
 \hrulefill
 
+\newpage
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\begin{problem}{14}
+    \textbf{Exactness of Localization.} 
+    
+    Let $U\subset R$ be a multiplicatively closed set and let the sequence below be exact at $M$:
+    \[
+    \begin{tikzcd}[column sep=large]
+    M' \arrow[r, "f"] & M \arrow[r, "g"] & M''.
+    \end{tikzcd}
+    \]
+    \begin{enumerate}
+    \item Prove that
+    \[
+    \begin{tikzcd}[column sep=large]
+    U^{-1}M' \arrow[r, "U^{-1}f"] & U^{-1}M \arrow[r, "U^{-1}g"] & U^{-1}M''
+    \end{tikzcd}
+    \]
+    is a sequence of $U^{-1}R$-modules whose consecutive composition is zero.
+    \item Prove that $\img(U^{-1}f)\subseteq \ker(U^{-1}g)$.
+    \item Let $m/u\in U^{-1}M$ satisfy $(U^{-1}g)(m/u)=0$. Unpack the definition of equality to zero in $U^{-1}M''$ to show that there exists $t\in U$ such that $g(tm)=0$.
+    \item Use exactness of the original sequence at $M$ to find $m'\in M'$ with $f(m')=tm$.
+    \item Prove that $\frac{m}{u}=\frac{f(m')}{tu}$ in $U^{-1}M$, and conclude that $m/u\in \img(U^{-1}f)$.
+    \item Deduce that localization preserves exactness of arbitrary exact sequences. 
+    \end{enumerate}
+\end{problem}
 
-\item \textbf{Exactness of Localization.} Let $U\subset R$ be a multiplicatively closed set and let the sequence below be exact at $M$:
-\[
-\begin{tikzcd}[column sep=large]
-M' \arrow[r, "f"] & M \arrow[r, "g"] & M''.
-\end{tikzcd}
-\]
-\begin{enumerate}
-\item Prove that
-\[
-\begin{tikzcd}[column sep=large]
-U^{-1}M' \arrow[r, "U^{-1}f"] & U^{-1}M \arrow[r, "U^{-1}g"] & U^{-1}M''
-\end{tikzcd}
-\]
-is a sequence of $U^{-1}R$-modules whose consecutive composition is zero.
-\item Prove that $\img(U^{-1}f)\subseteq \ker(U^{-1}g)$.
-\item Let $m/u\in U^{-1}M$ satisfy $(U^{-1}g)(m/u)=0$. Unpack the definition of equality to zero in $U^{-1}M''$ to show that there exists $t\in U$ such that $g(tm)=0$.
-\item Use exactness of the original sequence at $M$ to find $m'\in M'$ with $f(m')=tm$.
-\item Prove that $\frac{m}{u}=\frac{f(m')}{tu}$ in $U^{-1}M$, and conclude that $m/u\in \img(U^{-1}f)$.
-\item Deduce that localization preserves exactness of arbitrary exact sequences. 
-\end{enumerate}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $\frac{m'}{u} \in U^{-1}M'$. Then the composition $U^{-1}g \circ U^{-1}f$ gives us, 
+        \[U^{-1}g \circ U^{-1}f \fr{m'}{u} = \frac{g(f(m'))}{u} = \frac{0}{u}\]
+        since $g(f(m)) = 0$. Thus the consecutive composition is zero. 
 
-\item \textbf{Localization Preserves Short Exact Sequences.} Let
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & A \arrow[r, hook, "i"] & B \arrow[r, two heads, "p"] & C \arrow[r] & 0
-\end{tikzcd}
-\]
-be a short exact sequence and let $U\subset R$ be a multiplicatively closed set.
-\begin{enumerate}
-\item Prove directly that $U^{-1}i:U^{-1}A\to U^{-1}B$ is injective.
-\item Prove directly that $U^{-1}p:U^{-1}B\to U^{-1}C$ is surjective.
-\item Use the previous exercise to conclude that
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & U^{-1}A \arrow[r, hook] & U^{-1}B \arrow[r, two heads] & U^{-1}C \arrow[r] & 0
-\end{tikzcd}
-\]
-is a short exact sequence of $U^{-1}R$-modules.
-\item Combine this with the isomorphism $U^{-1}M\cong U^{-1}R\otimes_R M$ to prove that $U^{-1}R$ is a flat $R$-module.
-\end{enumerate}
+        \item Let $\frac{m}{u} \in \img(U^{-1}f)$. Then we know that $m \in \img(f) = \ker(g)$. That is $g(m) = 0$ and thus $\frac{m}{u} \in \ker(U^{-1}g)$. 
+        
+        \item If $U^{-1}g \fr{m}{u} = \frac{g(m)}{u} = 0$. Then there exists $t \in U$ such that 
+        \[t(g(m) \cdot 1 - 0 \cdot u) = t \cdot g(m) = g (tm) = 0\]
 
-\item \textbf{Computing Localized Exact Sequences.}
-\begin{enumerate}
-\item Let $I\subseteq R$ be an ideal. Use exactness of localization to prove that $U^{-1}(R/I)\cong U^{-1}R/IU^{-1}R$.
-\item Localize the short exact sequence at $U=\{1,2,2^2,2^3,\ldots\}$. Identify each term explicitly
-\[
-\begin{tikzcd}[column sep=large]
-0 \arrow[r] & \Z \arrow[r, hook, "\cdot 6"] & \Z \arrow[r, two heads] & \Z/6\Z \arrow[r] & 0.
-\end{tikzcd}
-\]
-\item Localize the same sequence at $V=\Z\setminus \langle 2\rangle$. Identify $V^{-1}(\Z/6\Z)$.
-\item Let $R=\K[x]$ and $M=R/\langle x^2(x-1)\rangle$. Compute $M[1/x]$ using the localized presentation
-\[
-\begin{tikzcd}[column sep=large]
-R[1/x] \arrow[r, "\cdot x^2(x-1)"] & R[1/x] \arrow[r, two heads] & M[1/x] \arrow[r] & 0
-\end{tikzcd}
-\]
-\item Explain why localizing $R/\langle x^2(x-1)\rangle$ at the prime ideal $\langle x\rangle$ “keeps” the $x=0$ component and “removes” the $x=1$ component.
-\item With $R$ and $M$ as in the previous part, compute $M_{\langle x\rangle}$. Hint: What happens to $x-1$ in $R_{\langle x\rangle}$?
-\item Let $R=\K[x,y]$ and $M=R/\langle xy\rangle$. Compute $M[1/x]$ and $M[1/y]$.
-\end{enumerate}
-\end{enumerate}
+        \item Since the original sequence is exact at $M$ we have $\im(f) = \ker(g)$, since $tm \in \ker(g)$ we must have some $m' \in M'$ such that $f(m') =tm$.  
+        
+        \item Then, $\frac{f(m')}{tu} = \frac{tm}{tu} = \frac{m}{u} \in U^{-1}M$, since $tu \in U$, we have $\frac{m}{u} \in \img(U^{-1}f)$.
+        
+        \item Since $\frac{m}{u}$ is an arbitrary element in $\ker(U^{-1}g)$, we have $\ker(U^{-1}g) \subseteq \img(U^{-1}f)$. And part (2) gives us $\img(U^{-1}f) \subseteq \ker(U^{-1}g)$, so $\ker(U^{-1}g) = \img(U^{-1}f)$, and the sequence is exact at $M$. Thus localization preserves exactness of arbitrary exact sequences. 
+    \end{enumerate}
+\end{solution}
 
+\newpage 
 
+\begin{problem}{15}
+    \textbf{Localization Preserves Short Exact Sequences.} 
+    
+    Let
+    \[
+    \begin{tikzcd}[column sep=large]
+    0 \arrow[r] & A \arrow[r, hook, "i"] & B \arrow[r, two heads, "p"] & C \arrow[r] & 0
+    \end{tikzcd}
+    \]
+    be a short exact sequence and let $U\subset R$ be a multiplicatively closed set.
+    \begin{enumerate}
+        \item Prove directly that $U^{-1}i:U^{-1}A\to U^{-1}B$ is injective.
+        \item Prove directly that $U^{-1}p:U^{-1}B\to U^{-1}C$ is surjective.
+        \item Use the previous exercise to conclude that
+        \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & U^{-1}A \arrow[r, hook] & U^{-1}B \arrow[r, two heads] & U^{-1}C \arrow[r] & 0
+        \end{tikzcd}
+        \]
+        is a short exact sequence of $U^{-1}R$-modules.
+        \item Combine this with the isomorphism $U^{-1}M\cong U^{-1}R\otimes_R M$ to prove that $U^{-1}R$ is a flat $R$-module.
+    \end{enumerate}
+\end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $U^{-1}i \fr{a}{u} = \frac{i(a)}{u} = \fr{0}{1}$. Then there exists a $t \in U$ such that
+        \[t(i(a) \cdot 1 - u \cdot 0) = ti(a) = i(ta) = 0\]
+        Since $i$ is injective, this implies $ta = 0$. But then, $t(a \cdot 1 - u \cdot 0) = ta = 0$, so $\frac{a}{u} \sim \frac{0}{1} \in U^{-1}A$. Hence $U^{-1}i$ is injective. 
+        
+        \item Since $p$ is surjective, for every $c \in C$ there exists some $b \in B$ such that $p(b) = c$. Then, for some $\frac{c}{u} \in U^{-1}C$ we have, $U^{-1}p \fr{b}{u} = \frac{p(b)}{u} = \frac{c}{u}$. Thus $U^{-1}p$ is surjective.  
+        
+        \item Since $U^{-1}i$ is injective, $U^{-1}p$ is surjective, and $\ker(U^{-1}p) = \img(U^{-1}i)$ by Problem 14, the sequence is exact at every term and hence is a short exact sequence of $U^{-1}R$ modules. 
+        
+        \item Since $U^{-1}M\cong U^{-1}R\otimes_R M$ we have the resulting exact sequence, 
+         \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & U^{-1}R \otimes_R A \arrow[r, hook] & U^{-1}R \otimes_R B \arrow[r, two heads] & U^{-1}R \otimes C \arrow[r] & 0
+        \end{tikzcd}
+        \]
+        Thus $U^{-1}R \otimes_R -$ preserves exact sequences and hence $U^{-1}R$ is a flat $R$-module.
+    \end{enumerate}
+\end{solution}
 
+\newpage 
 
+\begin{problem}{16} \textbf{Computing Localized Exact Sequences.}
+        
+    \begin{enumerate}
+        \item Let $I\subseteq R$ be an ideal. Use exactness of localization to prove that $U^{-1}(R/I)\cong U^{-1}R/IU^{-1}R$.
+        \item Localize the short exact sequence at $U=\{1,2,2^2,2^3,\ldots\}$. Identify each term explicitly
+        \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & \Z \arrow[r, hook, "\cdot 6"] & \Z \arrow[r, two heads] & \Z/6\Z \arrow[r] & 0.
+        \end{tikzcd}
+        \]
+        \item Localize the same sequence at $V=\Z\setminus \langle 2\rangle$. Identify $V^{-1}(\Z/6\Z)$.
+        \item Let $R=\K[x]$ and $M=R/\langle x^2(x-1)\rangle$. Compute $M[1/x]$ using the localized presentation
+        \[
+        \begin{tikzcd}[column sep=large]
+        R[1/x] \arrow[r, "\cdot x^2(x-1)"] & R[1/x] \arrow[r, two heads] & M[1/x] \arrow[r] & 0
+        \end{tikzcd}
+        \]
+        \item Explain why localizing $R/\langle x^2(x-1)\rangle$ at the prime ideal $\langle x\rangle$ “keeps” the $x=0$ component and “removes” the $x=1$ component.
+        \item With $R$ and $M$ as in the previous part, compute $M_{\langle x\rangle}$. Hint: What happens to $x-1$ in $R_{\langle x\rangle}$?
+        \item Let $R=\K[x,y]$ and $M=R/\langle xy\rangle$. Compute $M[1/x]$ and $M[1/y]$.
+    \end{enumerate}
+\end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Using previous exercises, we get the exact sequence, 
+        \[\begin{tikzcd} 0 \arrow[r] & U^{-1}I \arrow[r, "U^{-1}\iota"] & U^{-1}R \arrow[r, "U^{-1}\pi"] & U^{-1}(R/I) \arrow[r] & 0 \end{tikzcd}\]
+        Then by the first isomorphism theorem we have, 
+        \[U^{-1}(R/I) \iso U^{-1}R/\ker(U^{-1}\pi) = U^{-1}R/\img(U^{-1}\iota) \iso U^{-1}R/U^{-1}I = U^{-1}R/IU^{-1}R\]
+
+        \item Localizing at $U$ gives us, 
+         \[
+        \begin{tikzcd}[column sep=large]
+        0 \arrow[r] & \Z\left[\frac{1}{2}\right] \arrow[r, hook, "\cdot 6"] & \Z\left[\frac{1}{2}\right]  \arrow[r, two heads] & \Z/3\Z \arrow[r] & 0.
+        \end{tikzcd}
+        \]
+        Since $U^{-1}\Z$ gives us $\Z\left[\frac{1}{2}\right]$ and since $\overline{2}$ is a unit in $\Z/3\Z$,
+        \begin{align*}
+            U^{-1}(\Z/6\Z) &\iso U^{-1}\Z / (6 U^{-1}\Z) \\
+            &= \Z\left[\frac{1}{2}\right] / \left (6 \Z\left[\frac{1}{2}\right] \right ) \\
+            &= \Z\left[\frac{1}{2}\right] / \left (3 \Z\left[\frac{1}{2}\right] \right ) \\
+            &\iso U^{-1}(\Z/3\Z) = \Z/3\Z 
+        \end{align*}
+
+        \item Since $\frac{\overline{3}}{1} \in U^{-1}(\Z/6\Z)$ is a unit, we have $\frac{2}{1} = \frac{3 \cdot 2}{3} = \frac{0}{1} \in U^{-1}(\Z/6\Z)$. Hence, $U^{-1}(\Z/6\Z) \iso \Z/2\Z$.
+        
+        \item Note that in $R\left[\tfrac{1}{x}\right] = \K[x, x^{-1}]$, $x$ is a unit. Then 
+        \[\img(\cdot x^2(x-1)) = \langle x^2 (x-1) \rangle = \langle x - 1\rangle\] 
+        So, $M\left[\frac{1}{x}\right]  = R \left[\frac{1}{x}\right]/\langle x - 1\rangle = \K$. 
+
+        \item Localizing at $\langle x \rangle$ means inverting $U = \R \setminus \langle x \rangle$, i.e. all polynomials that do not vanish at $x = 0$. Since $x-1 \neq 0$ when $x = 0$ it gets inverted killing the $x = 1$ component. But since $ x \notin U$, we preserve the $x = 0 $ component. 
+        
+        \item Since $\langle x - 1 \rangle$ is now a unit we get $M_{\langle x \rangle} \iso R / \langle x^2 \rangle$. 
+        
+        \item We have $R\left[\frac{1}{x}\right] = \K[x, y, x^{-1}]$. In $M\left[\frac{1}{x}\right]$, $x$ is a unit, so $\langle xy \rangle = \langle y \rangle$. Then $M\left[\frac{1}{x}\right] = \K[x, y , x^{-1}] / \langle y \rangle \iso \K[x, x^{-1}]$. Similarly, in $M\left[\frac{1}{y}\right]$, $y$ is a unit, so $\langle xy \rangle = \langle x \rangle$, and $M\left[\frac{1}{y}\right] = \K[x, y , y^{-1}] / \langle x \rangle \iso \K[y, y^{-1}]$. 
+    \end{enumerate}
+\end{solution}
 \end{document}

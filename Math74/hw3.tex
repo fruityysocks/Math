@@ -6,6 +6,8 @@
 
 \input{title}
 
+\textbf{Credit Statement:} Talked to Sair Shaikh'26. 
+
 \begin{problem}{1}
      Show that for a space $X$ , the following three conditions are equivalent:
      \begin{enumerate}
@@ -70,8 +72,11 @@
 
 \begin{solution}
     \bbni
-
+    
+    Note that $A$ is homeomorphic to $S^1$ thus $\pi_1(A) \iso \Z$ with generator $\gamma$ the loop that goes once around $A$. But the loop $\iota(\gamma)$ is homotopic to $[0] \in X$ since it can pass through itself in the solid torus. Then, the inclusion map induces the zero map on the fundamental groups. Since this is not injective a retraction $r: X \to A$ cannot exist.  
 \end{solution}
+
+\newpage
 
 \begin{problem}{3}
     Show that the complement of a finite set of points in $\R^n$ is simply-connected if $n \geq 3$.
@@ -142,11 +147,61 @@
 
 \begin{solution}
     \bbni
+    
+    We can deformation retract $\R^3$ onto $S^2$ by the family of maps $\phi_t(x) = x/|x|^t$ where $t \in [0,1]$ and $x$ is a point in $\R^3$. Now note that each line through the origin in $\R^3$ intersects $S^2$ in exactly two antipodal points. Since $\phi_t(x)$ is a multiple of $x$, if $x \notin X$ then $\phi_t(x) \notin X$, so, $\R^3 \setminus X$ deformation retracts to $S^2 \setminus \{p_1, \ldots, p_{2n}\}$ where $p_1, \ldots, p_{2n}$ are the antipodal points the lines in $X$ would've mapped onto. Hence, 
+    \[\R^3 \setminus X \simeq S^2 \setminus \{p_1, \ldots, p_{2n}\}\]
+    Now, recall that removing a point from $S^2$ via stereographic projection gives us $\R^2$. We. will show that $\pi_1(\R^2 \setminus \{q_1, \ldots, q_{2n-1}\}) \iso \star \Z^{2n-1}$ via induction on the number of points. For convenience, let $2n-1 = m$. 
 
+    \textbf{Base Case:} $m =1$. 
+
+    $\R^2 \setminus \{q\} \simeq S^1$, so we have $\pi_1(\R^2 \setminus \{q\}) \iso \Z = \star \Z^1$.
+    
+    \textbf{Inductive Hypothesis:} Assume that $\pi_1(\R^2 \setminus \{q_1, \ldots, q_{t}\}) \iso \star \Z^t$, for $t < m$. 
+
+    \textbf{Inductive Step:} Since the $q_i$ points are distinct, choose a line $L$ separating $q_m$ from $\{q_1, \ldots, q_{m-1}\}$. Define
+    \[
+        U = \bigl(H^+ \cup (L \times (-\varepsilon, \varepsilon))\bigr) \setminus \{q_m\},
+        \qquad
+        V = \bigl(H^- \cup (L \times (-\varepsilon, \varepsilon))\bigr) \setminus \{q_1, \ldots,q_{m-1}\},
+    \]
+    where $H^+$ is the open half-space on the side of $q_m$, $H^-$ is the open half-space on the side of $\{q_1, \ldots, q_{m-1}\}$, and $\varepsilon > 0$ is picked to be small enough that the strip $L \times (-\varepsilon, \varepsilon)$ contains none of the $q_i$. Then $U$ and $V$ are open sets satisfying
+    \[
+        U \cup V = \R^2 \setminus \{q_1, \ldots, q_{m}\},
+        \qquad
+        U \cap V = L \times (-\varepsilon, \varepsilon) \cong \R^{1}.
+    \]
+    Note that removing finitely many points from an open subset of $\R^2$ preserves path-connectivity, and $L$ is a line and is simply connected. So $U$, $V$, and $U \cap V \iso \R^1$ are all path-connected. Fix a basepoint $x_0 \in U \cap V$. We now compute the fundamental groups of each piece:
+    \[
+        U \simeq \R^2 \setminus \{q_m\} \simeq S^1
+        \implies \pi_1(U) = \Z,
+    \]
+    Then, by the inductive hypothesis, $V \simeq \R^2 \setminus \{q_1, \ldots, q_{m-1}\}$ gives $\pi_1(V) = \star \Z^{m-1}$, and we know that $U \cap V \cong \R^{1}$ is simply connected, so $\pi_1(U \cap V) = \{0\}$.
+
+    Then by the Seifert--van Kampen theorem applied to the cover $\{U, V\}$,
+    \[
+        \pi_1(\R^2 \setminus \{q_1, \ldots, q_m\}) \cong \bigl(\pi_1(U) \star \pi_1(V)\bigr) / N,
+    \]
+    Since $\pi_1(U \cap V) = \{0\}$, the subgroup $N$ is trivial, and so
+    \[
+        \pi_1(\R^2 \setminus \{q_1, \ldots, q_m\}) \cong \Z \star \Z^{m-1} = \star \Z^m.
+    \]
+    So we have, 
+    \[\R^3 \setminus X \simeq S^2 \setminus \{p_1, \ldots, p_{2n}\} \simeq \R^2 \setminus \{q_1, \ldots, q_{2n-1}\}\]
+    And therefore, 
+    \[\pi_1(\R^3 \setminus X) \iso \pi_1(S^2 \setminus \{p_1, \ldots, p_{2n}\}) \iso \pi_1(\R^2 \setminus \{q_1, \ldots, q_{2n-1}\}) = \star \Z^{2n-1}.\]
 \end{solution}
 
+% \newpage
 
-\begin{problem}{5}
-    Proof for Theorem 1.38
-\end{problem}
+% \begin{problem}{5}
+%     Proof for Theorem 1.38
+% \end{problem}
+
+% \begin{solution}
+%     \begin{theorem}
+%         Let $X$ be path-connected, locally path-connected, and semilocally simply-connected. Then there is a bijection between the set of basepoint-preserving isomorphism classes of path-connected covering spaces $p: (\widetilde{X},\widetilde{x_0})\to(X,x_0)$ and the set of subgroups of $\pi_1(X,x_0)$, obtained by associating the subgroup $p_* \pi_1(\widetilde{X},\widetilde{x_0})$ to the covering space $(\widetilde{X},\widetilde{x_0})$. If basepoints are ignored, this correspondence gives a bijection between isomorphism classes of path-connected covering spaces $p: \widetilde{X} \to X$ and conjugacy classes of subgroups of $\pi_1(X,x_0)$.
+%     \end{theorem}
+
+%     We prove this in two parts, first we show that 
+% \end{solution}
 \end{document}
