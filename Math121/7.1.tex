@@ -640,9 +640,34 @@ in $S$, where each $a_i$ acts through the structure map $R\to S$. The word \emph
         \[\iota: R \hookrightarrow S, \quad r \mapsto \frac{r}{1}\]
         which is a ring homomorphism. 
 
-        \item 
+        \item Since $S = \Frac(R)$, every element $\alpha \in S$ is by definition of the form $a/b$ with $a \in R$ and $b \in R \setminus \{0\}$. Since $R$ is a UFD we can cancel common irreducible factors of $a$ and $b$ and get a representation $a/b$ with $\gcd(a, b) = 1$. 
+        
+        \item Let $R = \Z[\sqrt{-5}]$. Then, $\frac{6}{1} = \frac{2 \cdot 3}{1} = \frac{(1+\sqrt{5})(1-\sqrt{5})}{1}$ which fails unique factorization and the argument in part 2 breaks down.
+        
+        \item We have, 
+        \begin{align*}
+            0 &=  \left(\frac{a}{b}\right)^n +r_1\left(\frac{a}{b}\right)^{n-1} +\cdots +r_{n-1}\left(\frac{a}{b}\right) +r_n \\ 
+            0 &= b^n \left(\fr{a}{b}^n + r_1\fr{a}{b}^{n-1} + \cdots + r_n\right) \\ 
+            0 &= a^n + r_1 b a^{n-1} + \cdots + r_nb^n \\ 
+        \implies a^n &= - b(r_1 a^{n-1} + \cdots + r_nb^{n-1})  \\ 
+        \implies b \mid& a^n 
+        \end{align*}
+
+        \item If $\gcd(a,b) = 1$ then $\gcd(a^n, b) = 1$, then $b \mid a^n$ implies that $b$ is a unit. 
+        
+        \item Let $bb' = 1$ then $\alpha = ab'/bb' = ab/1 \in R$. Thus, all integral elements of $S$ over $R$ are already in $R$. 
+        
+        \item Thus, $\overline{R}^S = R$ and $R$ is integrally closed. Since $R$ was an arbitrary UFD this holds for all UFDs. 
+        
+        \item $t \in S$ is integral over $R$ with, 
+        \[1(t^2) - 0(t) - t^2 = 0\]
+        where $t^2, 0, 1 \in R$. Thus $R$ is not integrally closed. 
+
+        \item $\Z[\sqrt{3}]$ is a UFD and by part 7 must be integrally closed. 
     \end{enumerate}
 \end{solution}
+
+\newpage 
 
 \hrulefill
 
@@ -660,64 +685,228 @@ Note you will often, especially in algebraic geometry, see this expressed as fin
 
 \hrulefill
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\newpage 
 
-\item \textbf{Module-Finite Extensions Are Integral.} Let $S$ be a module-finite $R$-algebra.
-\begin{enumerate}
-    \item Fix $s\in S$. Show that multiplication by $s$ defines an $R$-linear map
-    \[
-    \mu_s:S\longrightarrow S
-    \qquad \text{given by} \qquad
-    x\longmapsto sx.
-    \]
-    \item Apply the Cayley-Hamilton theorem (explain why you can apply it) to $\mu_{s}$ to deduce that $s$ is integral over $R$.
-    \item Conclude that every module-finite $R$-algebra is integral over $R$.
-\end{enumerate}
+\begin{problem}{15}
+    \textbf{Module-Finite Extensions Are Integral.} 
+    
+    Let $S$ be a module-finite $R$-algebra.
+    \begin{enumerate}
+        \item Fix $s\in S$. Show that multiplication by $s$ defines an $R$-linear map
+        \[
+        \mu_s:S\longrightarrow S
+        \qquad \text{given by} \qquad
+        x\longmapsto sx.
+        \]
+        \item Apply the Cayley-Hamilton theorem (explain why you can apply it) to $\mu_{s}$ to deduce that $s$ is integral over $R$.
+        \item Conclude that every module-finite $R$-algebra is integral over $R$.
+    \end{enumerate}
+\end{problem}
 
-\item \textbf{Finite Type Integral Extensions Are Module-Finite.} Suppose $S=R[s_1,\ldots,s_n]$ and each $s_i$ is integral over $R$.
-\begin{enumerate}
-    \item Prove that $R[s_1]$ is module-finite over $R$.
-    \item Prove that $R[s_1,s_2]$ is module-finite over $R[s_1]$, and hence module-finite over $R$.
-    \item Continue by induction to prove that $S$ is module-finite over $R$.
-    \item Deduce that if $S$ is algebra-finite and integral over $R$, then $S$ is module-finite over $R$.
-\end{enumerate}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Let $S = R[m_1, \ldots, m_n]$. Then from $S$'s ring axioms we have, 
+        \begin{itemize}
+            \item $\mu_s(x+y) = s(x+y) = sx + sy = \mu_s(x) + \mu_s(y)$ 
+            \item $\mu_s(rx) = s(rx) = r(sx) = r \mu_s(x)$ 
+        \end{itemize}
+        Thus multiplication by $s$ defines a $R$-linear map. 
 
-\item \textbf{The Comparison Theorem.} Let $S$ be an $R$-algebra. Prove that the following are equivalent.
-\begin{enumerate}
-    \item $S$ is module-finite over $R$.
-    \item $S$ is algebra-finite over $R$ and integral over $R$.
-\end{enumerate}
-Then revisit Problem 9 and explain how the theorem classifies each example.
+        \item Since $S$ is module-finite over $R$ and $\mu_s$ is a $R$-linear map we can apply Cayley Hamilton with $I = R$. Then we get the characteristic polynomial, 
+        \[p(\mu_s) = \mu_s^n + p_1\mu_s^{n-1} + \cdots + p_{n-1}\mu_s + p_n = 0\]
+        with $p_k \in R$. Applying $\mu_s$ to $1 \in R$ gives us
+        \[p(s \cdot 1) = s^n + p_1s^{n-1} + \cdots + p_{n-1}s + p_n = 0\]
+        which is a polynomial in $s$ with coefficients in $R$ and thus $s$ is integral over $R$. 
 
-\item \textbf{Permanence of Integral Extensions.} Let $R\to S\to T$ be maps of rings.
-\begin{enumerate}
-    \item Prove that every quotient $R/I$ is integral over $R$.
-    \item Suppose $S$ is integral over $R$ and $T$ is integral over $S$. Prove that $T$ is integral over $R$. Hint: If $t\in T$ satisfies a monic equation over $S$, first adjoin to $R$ the finitely many coefficients appearing in that equation.
-    \item If $S$ is integral over $R$ and $J\subseteq S$ is an ideal, prove that $S/J$ is integral over $R/(J\cap R)$.
-    \item If $S$ is integral over $R$ and $U\subset R$ is multiplicatively closed, prove that $U^{-1}S$ is integral over $U^{-1}R$.
-    \item More generally, if $S$ is integral over $R$ and $R\to R'$ is any ring map, prove that $R'\otimes_R S$ is integral over $R'$.
-\end{enumerate}
+        \item Since $s$ was an arbitrary element in $S$, this shows that all module-finite $R$-algebras are integral over $R$. 
+    \end{enumerate}
+\end{solution}
 
-\item \textbf{A First Consequence for Maximal Ideals.} Let $A\subseteq B$ be an integral extension of domains.
-\begin{enumerate}
-    \item Suppose $B$ is a field. Prove that $A$ is a field. Hint: If $0\neq a\in A$, then $a^{-1}\in B$ is integral over $A$; write a monic equation for $a^{-1}$ and multiply by a suitable power of $a$.
-    \item Let $R\to S$ be an integral ring map and let $\fq\in\Spec(S)$ with contraction $\fp=\fq\cap R$. Show that $S/\fq$ is integral over $R/\fp$.
-    \item Deduce that if $\fq$ is maximal, then $\fp$ is maximal.
-    \item Prove the converse: if $\fp$ is maximal, then $\fq$ is maximal. Hint: $S/\fq$ is an integral domain integral over the field $R/\fp$.
-    \item Conclude that under an integral ring map, a prime ideal upstairs is maximal if and only if its contraction downstairs is maximal.
-\end{enumerate}
+\newpage 
 
-\item \textbf{More Examples of Integral Extensions.} Decide whether each map is integral. If it is integral and algebra-finite, give module generators.
-\begin{enumerate}
-    \item $\Z\to \Z[i]$.
-    \item $\K[t^2]\to \K[t]$.
-    \item $\K[t^2,t^3]\to \K[t]$.
-    \item $\K[x]\to \K[x,x^{-1}]$.
-    \item $\K[x]\to \K[x,y]/\langle y^2-x^3\rangle$.
-    \item $\K[x^2,xy,y^2]\to \K[x,y]$. Hint: Show that $x$ and $y$ are integral over the source.
-\end{enumerate}
+\begin{problem}{16}
+    \textbf{Finite Type Integral Extensions Are Module-Finite.} 
+    
+    Suppose $S=R[s_1,\ldots,s_n]$ and each $s_i$ is integral over $R$.
+    \begin{enumerate}
+        \item Prove that $R[s_1]$ is module-finite over $R$.
+        \item Prove that $R[s_1,s_2]$ is module-finite over $R[s_1]$, and hence module-finite over $R$.
+        \item Continue by induction to prove that $S$ is module-finite over $R$.
+        \item Deduce that if $S$ is algebra-finite and integral over $R$, then $S$ is module-finite over $R$.
+    \end{enumerate}
+\end{problem}
 
-\end{enumerate}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know this from Problem 10. 
+        \item We know that if $s_1 \in S$ is integral over $R$ then, $R[s_1]$ is module finite over $R$. We also know that $s_2 \in S$ is integral over $R$. That is there exist $a_i \in R$ such that, 
+        \[s_2^n + a_1s_2^{n-1} + \cdots + a_n = 0\]
+        Note that since $a_i \in R$ they are in $R[s_1]$ and this equation also holds in $R[s_1]$. That is, $s_2$ is integral over $R[s_1]$, and $R[s_1][s_2]$ is module-finite over $R[s_1]$ and thus module-finite over $R$ (Problem 7, part 2). 
+        \item Assume that $R[s_1, s_2, \ldots, s_{n-1}]$ is module-finite over $R[s_1, s_2, \ldots, s_{n-2}]$ and hence module-finite over $R$. 
+        
+        Now consider, $R[s_1, s_2, \ldots, s_{n-1}][s_n]$.  We know that $s_n \in S$ is integral over $R$. That is there exist $a_i \in R$ such that, 
+
+        \[s_n^k + a_1s_n^{k-1} + \cdots + a_k = 0\]
+
+        Note that since $a_i \in R$ they are in $R[s_1, s_2, \ldots, s_{n-1}]$ and this equation also holds in $R[s_1, s_2, \ldots, s_{n-1}]$. That is, $s_n$ is integral over $R[s_1, s_2, \ldots, s_{n-1}]$, and $R[s_1, s_2, \ldots, s_{n-1}][s_n]$ is module-finite over $R[s_1, s_2, \ldots, s_{n-1}]$ and thus module-finite over $R$ (Problem 7, part 2). 
+
+
+
+        \item Since these were arbitrary rings, if $S$ is algebra-finite and integral over $R$, then $S$ is module-finite over $R$. 
+    \end{enumerate}
+\end{solution}
+
+
+\newpage 
+
+\begin{problem}{17}
+    \textbf{The Comparison Theorem.} 
+    
+    Let $S$ be an $R$-algebra. Prove that the following are equivalent.
+    \begin{enumerate}
+        \item $S$ is module-finite over $R$.
+        \item $S$ is algebra-finite over $R$ and integral over $R$.
+    \end{enumerate}
+    Then revisit Problem 9 and explain how the theorem classifies each example.
+\end{problem}
+
+\begin{solution}
+    \bbni 
+
+    We showed the direction $(2 \implies 1)$ in the previous question. So we only need to show $(1 \implies 2)$. Assume $S$ is module-finite over $R$. From Problem 4 part 3 we know that $S$ is algebra-finite over $R$ and from Problem 15 part 3 we know that $S$ is integral over $R$. Thus $1 \implies 2$. 
+
+    \begin{enumerate}
+        \item $\Z[i]$ is algebra-finite and integral over $\Z$ and hence is module-finite. 
+        \item $\K[t]$ is algebra finite and integral over $\K[t^2]$ and hence is module-finite. 
+        \item $\Q(\sqrt{3})$ is not integral over $\Z[\sqrt{3}]$ and hence is not module-finite. 
+        \item $\Q$ is not integral over $\Z$ and hence is not module-finite. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{18} \textbf{Permanence of Integral Extensions.} 
+    
+    Let $R\to S\to T$ be maps of rings.
+    \begin{enumerate}
+        \item Prove that every quotient $R/I$ is integral over $R$.
+        \item Suppose $S$ is integral over $R$ and $T$ is integral over $S$. Prove that $T$ is integral over $R$. Hint: If $t\in T$ satisfies a monic equation over $S$, first adjoin to $R$ the finitely many coefficients appearing in that equation.
+        \item If $S$ is integral over $R$ and $J\subseteq S$ is an ideal, prove that $S/J$ is integral over $R/(J\cap R)$.
+        \item If $S$ is integral over $R$ and $U\subset R$ is multiplicatively closed, prove that $U^{-1}S$ is integral over $U^{-1}R$.
+        \item More generally, if $S$ is integral over $R$ and $R\to R'$ is any ring map, prove that $R'\otimes_R S$ is integral over $R'$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know that $R$ is a $R$-module over itself. Then by Problem 7 part 1, $R/I$ is module-finite and thus is integral. 
+        
+        \item Since $T$ is integral over $S$, for all $t \in T$ we have, 
+        \[t^n + s_1t^{n-1} + \cdots + s_n = 0 \]
+        where $s_1, \ldots, s_n \in S$. But $S$ is integral over $R$ so we have $R[s_1, \ldots, s_n]$ a module-finite extension over $R$. Moreover, $t$ is integral over $R[s_1, \ldots, s_n]$ and $R[s_1, \ldots, s_n, t] = R[s_1, \ldots, s_n][t]$ is module-finite over $R[s_1, \ldots, s_n]$ and thus over $R$. Then by Problem 15, $t$ is integral over $R$. 
+
+        \item  Since $S$ is integral over $R$ for any $s\in S$ we have, 
+        \[s^n + r_1s^{n-1} + \cdots + r_n = 0\]
+        Then for $\overline{s} \in S/J$ we have, 
+        \[\overline{s}^n + \overline{r_1}\,\overline{s}^{n-1} + \cdots + \overline{r_n} = 0\]
+        But $\overline{r_i} = r_i + J  \in S = r_i + (J \cap R) \in R$. 
+        Hence the coefficients $\overline{r_i}$ lie in $R/\fp$ and $\overline{s}$ is integral over $R/(J \cap R)$. 
+        \item An element in $U^{-1}S$ is of the form $\frac{s}{u} = \frac{1}{u} \cdot \frac{s}{1}$. Since $\frac{1}{u} \in U^{-1}R$ it is integral over $U^{-1}R$. So, we only need to show that $\frac{s}{1}$ is integral over $U^{-1}R$. We know that $s$ is integral over $R$ and there exists some minimal monic polynomial of the form, 
+        \[s^n + r_1s^{n-1} + \cdots + r_n = 0\]
+        Then in $U^{-1}S$ by injectivity of $\eta$ we have, 
+        \[\fr{s}{1}^n + \fr{r_1}{1}\fr{s}{1}^{n-1} + \cdots + \fr{r_n}{1} = \fr{0}{1}\]
+        with $\frac{r_i}{1} \in U^{-1}R$. 
+        \item We know that $R' \otimes S$ is generated by the tensors $1 \otimes s$. Since $s$ is integral over $R$ we have, 
+        \[s^n + r_1s^{n-1} + \cdots + r_n = 0\]
+        Applying the map $S \to R' \otimes_R S$, $s \mapsto 1 \otimes s$ gives us
+        \[(1 \otimes s)^n + r_1(1 \otimes s)^{n-1} + \cdots + r_n = 0\]
+        Hence $1\otimes s$ is integral over $R'$ and since every element of $R'\otimes_R$ is a finite sum of products of these elements, the integrality is preserved.
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{19}
+    \textbf{A First Consequence for Maximal Ideals.} 
+    
+    Let $A\subseteq B$ be an integral extension of domains.
+    \begin{enumerate}
+        \item Suppose $B$ is a field. Prove that $A$ is a field. Hint: If $0\neq a\in A$, then $a^{-1}\in B$ is integral over $A$; write a monic equation for $a^{-1}$ and multiply by a suitable power of $a$.
+        \item Let $R\to S$ be an integral ring map and let $\fq\in\Spec(S)$ with contraction $\fp=\fq\cap R$. Show that $S/\fq$ is integral over $R/\fp$.
+        \item Deduce that if $\fq$ is maximal, then $\fp$ is maximal.
+        \item Prove the converse: if $\fp$ is maximal, then $\fq$ is maximal. Hint: $S/\fq$ is an integral domain integral over the field $R/\fp$.
+        \item Conclude that under an integral ring map, a prime ideal upstairs is maximal if and only if its contraction downstairs is maximal.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item If $a \neq 0 \in A$ then $a^{-1} \in B$ is integral over $A$ with 
+        \[\fr{1}{a}^n + r_1\fr{1}{a}^{n-1} + \cdots + r_n = 0\]
+        And, 
+        \begin{align*}
+           0 &= a^n \left(\fr{1}{a}^n + r_1\fr{1}{a}^{n-1} + \cdots + r_n\right) \\
+           0 &= 1 + r_1a + \cdots + r_na^n  \\
+           \implies 1 &= a(r_1 + \cdots + r_na^{n-1})
+        \end{align*}
+        That is $a$ has a inverse in $A$. Since $a$ was an arbitrary element this implies that every non-zero element in $A$ has a inverse and $A$ is a field. 
+
+        \item Since $S$ is integral over $R$ for any $s\in S$ we have, 
+        \[s^n + r_1s^{n-1} + \cdots + r_n = 0\]
+        Then for $\overline{s} \in S/\fq$ we have, 
+        \[\overline{s}^n + \overline{r_1}\,\overline{s}^{n-1} + \cdots + \overline{r_n} = 0\]
+        But $\overline{r_i} = r_i + \fq  \in S = r_i + \fq \cap R \in R = r_i + \fp$. 
+        Hence the coefficients $\overline{r_i}$ lie in $R/\fp$ and $\overline{s}$ is integral over $R/\fp$. 
+
+        \item If $\fq$ is maximal, then $S/\fq$ is a field and then by part 1 $R/fp$ must be a field and hence $\fp$ must be maximal. 
+        
+        \item If $\fp$ is maximal, then $R/\fp$ is a field, and by part 2 $S/\fq$ is integral over $R/\fp$. Then for any $\overline{s} \neq 0 \in S/\fq$ we have the minimal monic polynomial, 
+        \[\overline{s}^n + \overline{r_1}\,\overline{s}^{n-1} + \cdots + \overline{r_n} = 0\]
+        And since $R/\fp$ is a field we have,
+        \begin{align*}
+           \overline{r_n} &= - \overline{s}(\overline{s}^{n-1} + \overline{r_1}\,\overline{s}^{n-2} + \cdots + \overline{r_{n-1}} ) \\ 
+           1 = \frac{\overline{r_n}}{\overline{r_n}} &= - \overline{s} \left (\frac{1}{\overline{r_n}}\overline{s}^{n-1} + \frac{\overline{r_1}}{{\overline{r_n}}}\,\overline{s}^{n-2} + \cdots + \frac{\overline{r_{n-1}}}{\overline{r_n}} \right)
+        \end{align*}
+        Thus $\overline{s}$ has an inverse in $S/\fq$, and hence $S/\fq$ is a field and $\fq$ is maximal. 
+
+        \item Thus under an integral ring map $\fq$ is maximal if and only if $\fp$ is maximal. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{20}
+    \textbf{More Examples of Integral Extensions.} 
+    
+    Decide whether each map is integral. If it is integral and algebra-finite, give module generators.
+    \begin{enumerate}
+        \item $\Z\to \Z[i]$.
+        \item $\K[t^2]\to \K[t]$.
+        \item $\K[t^2,t^3]\to \K[t]$.
+        \item $\K[x]\to \K[x,x^{-1}]$.
+        \item $\K[x]\to \K[x,y]/\langle y^2-x^3\rangle$.
+        \item $\K[x^2,xy,y^2]\to \K[x,y]$. Hint: Show that $x$ and $y$ are integral over the source.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item The map is integral and algebra-finite with $\{1, i\}$ as module generators. 
+        \item The map is integral and algebra-finite with $\{1, t\}$ as module generators. 
+        \item The map is integral and algebra-finite with $\{1, t\}$ as module generators. 
+        \item The map is not integral. 
+        \item The map is module-finite with generators $\{1, y\}$ and thus is integral. 
+        \item The map is integral and algebra-finite with $\{1, x, y\}$ as module generators. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
 
 \hrulefill
 
@@ -745,75 +934,232 @@ Using the correspondence between prime ideals and irreducible closed subsets of 
 
 \hrulefill
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\newpage 
 
-\item \textbf{Unpacking the Definition.} Let $R$ be a nonzero ring.
-\begin{enumerate}
-    \item Show that $\dim(R)=0$ if and only if every prime ideal of $R$ is maximal.
-    \item Show that every field has Krull dimension $0$.
-    \item Show that if $R$ is an integral domain that is not a field, then $\dim(R)\geq 1$.
-    \item Let $I\subseteq R$ be an ideal. Use the correspondence between prime ideals of $R/I$ and prime ideals of $R$ containing $I$ to describe $\dim(R/I)$ in terms of chains of prime ideals in $R$.
-    \item Prove that $\dim(R)=\dim(R_{\red})$, where $R_{\red}=R/\Nil(R)$.
-\end{enumerate}
+\begin{problem}{21} \textbf{Unpacking the Definition.} 
+    
+    Let $R$ be a nonzero ring.
+    \begin{enumerate}
+        \item Show that $\dim(R)=0$ if and only if every prime ideal of $R$ is maximal.
+        \item Show that every field has Krull dimension $0$.
+        \item Show that if $R$ is an integral domain that is not a field, then $\dim(R)\geq 1$.
+        \item Let $I\subseteq R$ be an ideal. Use the correspondence between prime ideals of $R/I$ and prime ideals of $R$ containing $I$ to describe $\dim(R/I)$ in terms of chains of prime ideals in $R$.
+        \item Prove that $\dim(R)=\dim(R_{\red})$, where $R_{\red}=R/\Nil(R)$.
+    \end{enumerate}    
+\end{problem}
 
-\item \textbf{Dimension Zero Examples.} Compute the Krull dimension of each ring.
-\begin{multicols}{2}
-\begin{enumerate}
-    \item $\K$.
-    \item $\K\times \K$.
-    \item $\K[\epsilon]/\langle \epsilon^2\rangle$.
-    \item $\Z/12\Z$.
-    \item $\K[x]/\langle x^n\rangle$ for $n\geq 1$.
-    \item $\K[x,y]/\langle x,y\rangle$.
-\end{enumerate}
-\end{multicols}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item ($\implies$) 
+        
+        Assume $\dim(R) = 0$. Then the longest chain of strict inclusions in any chain of prime ideals in $R$ is zero. Thus every prime ideal must be maximal (otherwise there would be a maximal ideal containing it). 
 
-\item \textbf{Dimension One Examples.} 
-\begin{enumerate}
-    \item Prove that $\dim(\Z)=1$.
-    \item More generally, prove that every principal ideal domain that is not a field has Krull dimension $1$.
-    \item Prove that $\dim(\K[x])=1$.
-    \item Compute $\dim(\K[x]/\langle f\rangle)$ for a nonzero nonunit polynomial $f\in \K[x]$.
-    \item Compute $\dim(\Z[1/n])$ for an integer $n\geq 2$.
-\end{enumerate}
+        $(\impliedby)$ 
 
-\item \textbf{Building Longer Chains.} Let $\K$ be a field.
-\begin{enumerate}
-    \item Prove that
-    \[
-    \langle 0\rangle
-    \subsetneq
-    \langle x_1\rangle
-    \subsetneq
-    \langle x_1,x_2\rangle
-    \subsetneq
-    \cdots
-    \subsetneq
-    \langle x_1,\ldots,x_n\rangle
-    \]
-    is a chain of prime ideals in $\K[x_1,\ldots,x_n]$.
-    \item Deduce that $\dim(\K[x_1,\ldots,x_n])\geq n$.
-    \item Let $R$ be any nonzero ring. Show that $\dim(R[x])\geq \dim(R)+1$ whenever $\dim(R)$ is finite. Hint: Extend a chain in $R$ to $R[x]$, then add the ideal generated by the final prime together with $x$.
-\end{enumerate}
+        Assume every prime ideal of $R$ is maximal. Then the number of strict inclusions in any chain of prime ideals is zero, and thus $\dim(R) = 0$.
+        
+        \item Since the only prime ideal in a field is $\langle 0 \rangle$, it is maximal and thus the field has Krull dimension $0$.
+        
+        \item If $R$ is an integral domain $\langle 0 \rangle$ is a prime ideal and if $R$ is not a field then $\langle 0 \rangle$ is not maximal so there must exist at least one maximal ideal containing it (since $R$ is not the zero-ring). Hence, $\dim(R) \geq 1$. 
+        
+        \item $\dim(R/I) = $ length of longest chain of prime ideals in $R$ containing $I$. 
+        
+        \item We know that $\Nil(R) \subseteq \bigcap_i \fp_i$ where $\fp_i$ is a prime ideal in $R$. Then every chain of prime ideals in $R$ contains $\Nil(R)$ and by part 4, 
+        \[\dim(R) = \dim(R_{\red})\]
+    \end{enumerate}
+\end{solution}
 
-\item \textbf{Dimension and Quotients.} Let $\K$ be a field.
-\begin{enumerate}
-    \item Compute $\dim(\K[x,y]/\langle xy\rangle)$. Hint: Every prime ideal containing $xy$ contains $x$ or $y$.
-    \item Compute $\dim(\K[x,y]/\langle x^2,xy\rangle)$. Hint: First pass to the reduced ring.
-    \item Compute $\dim(\K[x,y]/\langle y-x^2\rangle)$.
-    \item Find a chain of prime ideals of length $2$ in $\K[x,y,z]/\langle xy\rangle$.
-    \item Assuming $\dim(\K[x_1,\ldots,x_n])=n$, compute the dimension of $\K[x,y,z]/\langle z-y^2+x^3\rangle$.
-\end{enumerate}
+\newpage 
 
-\item \textbf{Local Dimension.} Let $\fp\in\Spec(R)$.
-\begin{enumerate}
-    \item Recall that prime ideals of $R_{\fp}$ correspond to prime ideals $\fq\subseteq R$ with $\fq\subseteq \fp$. Use this to describe $\dim(R_{\fp})$ in terms of chains of prime ideals in $R$ ending inside $\fp$.
-    \item Compute $\dim(\K[x]_{\langle x\rangle})$.
-    \item Compute $\dim(\Z_{\langle p\rangle})$ for a prime number $p$.
-    \item Find a chain showing that $\dim(\K[x,y]_{\langle x,y\rangle})\geq 2$.
-    \item Assuming $\dim(\K[x,y])=2$, prove that $\dim(\K[x,y]_{\langle x,y\rangle})=2$.
-\end{enumerate}
+\begin{problem}{22} 
+    \textbf{Dimension Zero Examples.} 
+    
+    Compute the Krull dimension of each ring.
+    \begin{multicols}{2}
+    \begin{enumerate}
+        \item $\K$.
+        \item $\K\times \K$.
+        \item $\K[\epsilon]/\langle \epsilon^2\rangle$.
+        \item $\Z/12\Z$.
+        \item $\K[x]/\langle x^n\rangle$ for $n\geq 1$.
+        \item $\K[x,y]/\langle x,y\rangle$.
+    \end{enumerate}
+    \end{multicols}
+\end{problem}
 
-\end{enumerate}
+\begin{solution}
+    \bbni
+    \begin{multicols}{2}
+    \begin{enumerate}
+        \item $\dim (\K) = 0$.
+        \item $\dim (\K\times \K) = 1$.
+        \item $\dim(\K[\epsilon]/\langle \epsilon^2\rangle) = 0$.
+        \item $\dim(\Z/12\Z) = 0$.
+        \item $\dim(\K[x]/\langle x^n\rangle) = 0$
+        \item $\dim(\K[x,y]/\langle x,y\rangle) = 0$.
+    \end{enumerate}
+    \end{multicols}
+\end{solution}
+
+\newpage
+
+\begin{problem}{23} 
+    \textbf{Dimension One Examples.} 
+
+    \begin{enumerate}
+        \item Prove that $\dim(\Z)=1$.
+        \item More generally, prove that every principal ideal domain that is not a field has Krull dimension $1$.
+        \item Prove that $\dim(\K[x])=1$.
+        \item Compute $\dim(\K[x]/\langle f\rangle)$ for a nonzero nonunit polynomial $f\in \K[x]$.
+        \item Compute $\dim(\Z[1/n])$ for an integer $n\geq 2$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know that every non-zero ideal in $\Z$ is maximal (and the zero ideal is not maximal), so $\dim(\Z) = 1$. 
+        
+        \item We know from Math 71 that every non-zero prime ideal is maximal in a PID (and the zero ideal is not maximal), so every PID that is not a field has Krull dimension $1$. 
+        
+        \item $\K[x]$ is a PID, so by part 2 $\dim(\K[x]) = 1$. 
+        
+        \item By Problem 21, part 4 we have that $\dim(\K[x]/\langle f \rangle) = $ length of longest chain of prime ideals in $\K[x]$ containing $\langle f \rangle$. But since $f$ is non-zero and $\K[x]$ is a PID the longest chain containing $\langle f \rangle$ has length $1$. Thus, $\dim(\K[x]/\langle f \rangle) = 1$. 
+        
+        \item Let $\Z[1/n] = U^{-1}\Z$, $U = \{1, n, n^2, \ldots\}$. Then prime ideals in $\Z[1/n]$ are prime ideals $\fp$ such that $\fp \cap U = \emptyset$. So $\langle 0 \rangle$ and any prime $p$ such that $p \nmid n$ are prime ideals in $\Z[1/n]$. Thus, $\dim(\Z[1/n]) = 1$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{24} \textbf{Building Longer Chains.} 
+    
+    Let $\K$ be a field.
+    \begin{enumerate}
+        \item Prove that
+        \[
+        \langle 0\rangle
+        \subsetneq
+        \langle x_1\rangle
+        \subsetneq
+        \langle x_1,x_2\rangle
+        \subsetneq
+        \cdots
+        \subsetneq
+        \langle x_1,\ldots,x_n\rangle
+        \]
+        is a chain of prime ideals in $\K[x_1,\ldots,x_n]$.
+        \item Deduce that $\dim(\K[x_1,\ldots,x_n])\geq n$.
+        \item Let $R$ be any nonzero ring. Show that $\dim(R[x])\geq \dim(R)+1$ whenever $\dim(R)$ is finite. Hint: Extend a chain in $R$ to $R[x]$, then add the ideal generated by the final prime together with $x$.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item First note that $x_i \notin \langle x_1, \ldots, x_{i-1}\rangle$ since $\langle x_1, \ldots, x_{i-1}\rangle$ is of the form $\sum_j k_jx_1^{j_1} \cdots x_{i-1}^{j_{i-1}}$ and $x_i$ cannot be expressed as a combination of $x_1, \ldots, x_{i-1}$. Hence the containments are strict. 
+        
+        Moreover the ideals are prime since for any ideal $\langle x_1, \ldots, x_{i-1}\rangle$ the quotient ring $\K[x_1, \ldots, x_n]/\langle x_1, \ldots, x_{i-1}\rangle = \K[x_{i}, \ldots, x_n]$ which is an integral domain. 
+
+        Hence,  \[
+        \langle 0\rangle
+        \subsetneq
+        \langle x_1\rangle
+        \subsetneq
+        \langle x_1,x_2\rangle
+        \subsetneq
+        \cdots
+        \subsetneq
+        \langle x_1,\ldots,x_n\rangle
+        \]
+        is a chain of prime ideals in $\K[x_1,\ldots,x_n]$.
+
+        \item The chain in part 1 has length $n$ so $\dim(\K[x_1, \ldots, x_n]) \geq n$. 
+        
+        \item Suppose $\dim(R) = n$. Then there exists a chain of length $n$ in $R$, 
+        \[\fp_0 \subsetneq \fp_1 \subsetneq \cdots \subsetneq \fp_n\]
+        We extend this to a chain in $R[x]$ by 
+        \[
+        \fp_0R[x] \subsetneq \fp_1R[x] \subsetneq \cdots \subsetneq \fp_nR[x] \subsetneq \fp_nR[x] + \langle x\rangle.
+        \]
+        Now note that Each $\fp_iR[x]$ is prime since the quotient $R[x]/\fp_iR[x] \cong (R/\fp_i)[x]$ is an integral domain since $R/fp_i$ is. And $\fp_nR[x] + \langle x\rangle$ is prime since the quotient 
+        \[R[x]/(\fp_nR[x] + \langle x\rangle) \cong R/\fp_n,\]
+        which is an integral domain.
+
+        
+        Moreover the inclusions are strict. Suppose not, then if $\fp_{i-1}R[x] = \fp_iR[x]$ then contracting to $R$ gives $\fp_{i-1} = \fp_i$, a contradiction. And the last  inclusion is strict since $x \in \fp_nR[x] + \langle x\rangle$ but $x \notin \fp_nR[x]$ since elements of $\fp_nR[x]$ have all coefficients in $\fp_n$, and $1 \notin \fp_n$. 
+        Hence we have a chain of length $n+1$ in $R[x]$, so $\dim(R[x]) \geq \dim(R) + 1$.
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{25} \textbf{Dimension and Quotients.} 
+    
+    Let $\K$ be a field.
+    \begin{enumerate}
+        \item Compute $\dim(\K[x,y]/\langle xy\rangle)$. Hint: Every prime ideal containing $xy$ contains $x$ or $y$.
+        \item Compute $\dim(\K[x,y]/\langle x^2,xy\rangle)$. Hint: First pass to the reduced ring.
+        \item Compute $\dim(\K[x,y]/\langle y-x^2\rangle)$.
+        \item Find a chain of prime ideals of length $2$ in $\K[x,y,z]/\langle xy\rangle$.
+        \item Assuming $\dim(\K[x_1,\ldots,x_n])=n$, compute the dimension of $\K[x,y,z]/\langle z-y^2+x^3\rangle$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We know that $\dim(\K[x,y]/\langle xy \rangle)$ = Longest chain containing $\langle xy \rangle$ in $\K[x,y]$. 
+
+        Every chain containing $\langle xy \rangle$ lies either above $\langle x\rangle$ or above $\langle y\rangle$, and by symmetry both give chains of length $2$. So, $\dim(\K[x,y]/\langle xy \rangle) = 2$. 
+
+        \item Let $R = \K[x,y]/\langle x^2, xy \rangle$. Then we have, 
+        \[\dim(R) = \dim(R_{\red}) = \dim(R/\langle \overline{x} \rangle) \iso \dim(\K[y]) = 1\] 
+        
+        \item We have, 
+        \[\K[x,y]/\langle y - x^2 \rangle \iso \K[x, x^2] = \K[x]\]
+        Then, 
+        \[\dim(\K[x]) = 1\]
+
+        \item A chain of prime ideals of length $2$ is, 
+        \[\langle \overline{x} \rangle \subsetneq \langle \overline{x}, \overline{z} \rangle \subsetneq \langle \overline{x}, \overline{y}, \overline{z} \rangle \]
+
+        \item  We have, 
+        \[\K[x,y,z]/\langle z - y^2 + x^3 \rangle \iso \K[x, y, y^2 - x^3] = \K[x,y]\]
+        Then, 
+        \[\dim(\K[x,y]) = 2\]
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{26} \textbf{Local Dimension.} 
+
+    Let $\fp\in\Spec(R)$.
+    \begin{enumerate}
+        \item Recall that prime ideals of $R_{\fp}$ correspond to prime ideals $\fq\subseteq R$ with $\fq\subseteq \fp$. Use this to describe $\dim(R_{\fp})$ in terms of chains of prime ideals in $R$ ending inside $\fp$.
+        \item Compute $\dim(\K[x]_{\langle x\rangle})$.
+        \item Compute $\dim(\Z_{\langle p\rangle})$ for a prime number $p$.
+        \item Find a chain showing that $\dim(\K[x,y]_{\langle x,y\rangle})\geq 2$.
+        \item Assuming $\dim(\K[x,y])=2$, prove that $\dim(\K[x,y]_{\langle x,y\rangle})=2$.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Since that prime ideals of $R_{\fp}$ correspond to prime ideals $\fq\subseteq R$ with $\fq\subseteq \fp$, $\dim(R_{\fp}) = $ Longest chain of prime ideals in $R$ with $\fp$ as the maximal ideal. 
+        
+        \item $\dim(\K[x]_{\langle x \rangle}) = 1$. 
+        
+        \item $\dim(\Z_{\langle p \rangle}) = 1$.
+        
+        \item $ \langle 0 \rangle \subsetneq \langle x \rangle \subsetneq \langle x, y \rangle$. So $\dim(\K[x,y]_{\langle x,y\rangle})\geq 2$. 
+        
+        \item If $\dim(\K[x,y]) =2$ then the longest chain of prime ideals in $\K[x,y]$ is of length $2$ so $\dim(\K[x,y]_{\langle x,y\rangle})\leq 2$. Thus, 
+        \[\dim(\K[x,y]_{\langle x,y\rangle})= 2\]
+    \end{enumerate}
+\end{solution}
 
 \end{document}
