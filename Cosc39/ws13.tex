@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Claude. 
+
+\begin{problem}{1}
+Let $G$ be an (either undirected or directed) graph. A \emph{Hamiltonian path} in $G$ is a path that visits every single vertex in $G$ exactly once. Consider the following problems:
+
+\begin{tcolorbox}
+\textsc{DirectedHamPath}
+\begin{itemize}
+    \item \textbf{Input:} A directed graph $G$
+    \item \textbf{Output:} Is there a Hamiltonian path in $G$?
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textsc{HamPath}
+\begin{itemize}
+    \item \textbf{Input:} An undirected graph $G$
+    \item \textbf{Output:} Is there a Hamiltonian path in $G$?
+\end{itemize}
+\end{tcolorbox}
+
+\begin{enumerate}
+    \item Describe a polynomial-time reduction from \textsc{HamPath} to \textsc{DirectedHamPath}.
+
+    \item Describe a polynomial-time reduction from \textsc{DirectedHamPath} to \textsc{HamPath}.
+
+    \emph{[Hint: After trying the first reduction that comes to mind, check the no-to-no direction first: Can you recover from a Hamiltonian path on the constructed undirected graph a corresponding Hamiltonian path on the input directed graph?]}
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Given an undirected graph $G = (V, E)$, we construct a directed graph $H = (V, E')$ as follows,
+        \begin{itemize}
+            \item Every vertex in $G$ is a vertex in $H$, 
+            \item For an edge in $G$ between vertices $v, w$ we create two directed edges $v \to w$ and $w \to v$ in $H$. 
+        \end{itemize}
+
+        $(\implies)$
+
+        If $G$ has a Hamiltonian path $p = v_1, v_2, \ldots, v_n$ then the corresponding vertices $v_1, v_2, \ldots, v_n$ in $H$ also have a directed path $v_1 \to v_2 \to \cdots \to v_n$. 
+        
+        $(\impliedby)$ 
+
+        If $H$ has a Hamiltonian path $p = v_1 \to v_2, \to \cdots \to v_n$ then we know that each directed edge $(v_1, v_2)$ came from an undirected edge between $v_1$ and $v_2$ in $G$, thus there is a Hamiltonian path $v_1, v_2, \ldots, v_n$ in $G$. 
+
+        That is, $G$ has a Hamiltonian path if and only if $H$ has a Hamiltonian path. (And this construction takes polynomial time because we are only adding two edges per edge.)
+
+        \item Given a directed graph $G = (V, E)$ we construct an undirected graph $H = (V', E')$ as follows, 
+        \begin{itemize}
+            \item For every vertex $v \in V$ we create a gadget with three vertices $v_{in}, v, v_{out}$ in $V'$ and with edges $\{v_{in}, v\}$ and $\{v, v_{out}\} \in E'$.
+            \item For every edge $v \to w$ in $G$ we create an edge between $v_{out}$ and $w_{in}$. 
+        \end{itemize}
+
+        $(\implies)$
+
+        If $G$ has a Hamiltonian path $p = v_1 \to v_2 \to \cdots \to v_n$, then $H$ has a Hamiltonian path by construction, 
+        \[v_{1_{in}}, \, v_{1}, \,  v_{1_{out}}, \, v_{2_{in}}, \,  v_{2}, \,  v_{2_{out}}, \,  \ldots, \, v_{n_{in}}, \, v_{n}, \, v_{n_{out}}\]
+
+
+        $(\impliedby)$
+
+        If $H$ has a Hamiltonian path $p$ then we claim that the path traverses each gadget $(v_{in}, v, v_{out})$ consecutively because $v$'s only neighbors in $H$ are $v_{in}$ and $v_{out}$, so any Hamiltonian path visiting $v$ must come in from one and leave from the other and since every vertex $v$ must be visited the three nodes are visited consecutively. 
+        
+        We also claim that all gadges are  traversed in the same direction, that is if for some $v$, $p$ enters at $v_{in}$ and exits at $v_{out}$ then it must also enter at $w_{in}$ and exit at $w_{out}$ for all $w$. This is because $v_{in}$'s neighbors are $v$ and nodes of the form $w_{out}$, and $v_{out}$'s neighbors are $v$ and nodes of the form $w_{in}$. 
+        
+        Assume some gadget is entered at $v_{in}$ and exited at $v_{out}$, then the path must then take an inter-gadget edge from $v_{out}$ to some $w_{in}$, 
+        forcing the next gadget to also be traversed from the `in' node to the `out' node. By induction, all gadgets are traversed in this manner. (We can symmetrically argue for a gadget being entered at $v_{out}$ and exited at $v_{in}$). 
+
+        Now suppose $p$ is of the form 
+        \[v_{1_{in}},\, v_1,\, v_{1_{out}},\, v_{2_{in}},\, v_2,\, v_{2_{out}},\, 
+        \ldots,\, v_{n_{in}},\, v_n,\, v_{n_{out}}\]
+        then each inter-gadget edge between $v_{i_{out}}$ and  $v_{{(i+1)}_{in}}$ corresponds to 
+        a directed edge $v_i \to v_{i+1}$ in $G$, so $v_1 \to v_2 \to \cdots \to v_n$ 
+        is a Hamiltonian path in $G$. If $p$ is of the form 
+        \[v_{1_{out}},\, v_1,\, v_{1_{in}},\, v_{2_{out}},\, v_2,\, v_{2_{in}},\, 
+        \ldots,\, v_{n_{out}},\, v_n,\, v_{n_{in}}\]
+        then inter-gadget edge between $v_{i_{in}}$ and $v_{{(i+1)}_{out}}$ corresponds to 
+        a directed edge $v_i \leftarrow v_{i+1}$ in $G$, so $v_1 \leftarrow v_2 \leftarrow \cdots \leftarrow v_n$  is a Hamiltonian path in $G$.
+
+
+        Thus, $G$ has a Hamiltonian path if and only if $H$ has a Hamiltonian path. (And this construction takes polynomial time because we are only adding three vertices per vertex.)
+    \end{enumerate}
+\end{solution}
+
+
+\end{document}

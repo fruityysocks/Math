@@ -505,4 +505,118 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
 
     We show given $f \notin \mathfrak{N}(R)$ there exists a prime $P \subseteq R$ with $f \notin P$(i.e. $D(f) \neq \emptyset$). 
 \end{proof}
+
+\section{nonzerodivisors}
+\begin{remark}
+    If $M$ is a $R$-module we say an element $r \in R$ is a nonzerodivisor on $M$  $\iff$ $M \xrightarrow{\times r} M$ is injective $\iff$ $r \notin \Ann(m), \, \forall m \in M$ $\iff$ $(0:_M r) = \{m \in M \mid rm =0\} = 0$
+\end{remark}
+
+\begin{definition}
+    Let $M$ be a $R$-module. A sequence of elements $x_1, \ldots, x_t \in R$ is a \textbf{regular sequence} on $M$ if and only if 
+    \begin{enumerate}
+        \item $x_i$ is a nonzerodivisor on $M /\langle x_1, \ldots, x_{i-1} \rangle M$
+        \item $M \neq \langle x_1 \ldots x_t \rangle M$ (non-degenracy condition)
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    If $(R, \fm)$ is a local ring, $M$ is a finitely generated non-zero $R$-module, and $x_1, \ldots, x_t \in \fm$ then the conditions (1) and (2) above are equivalent to just (1). 
+\end{lemma}
+
+\begin{proof}
+    Nakayama
+\end{proof}
+
+
+\begin{theorem}[Krull's Intersection Theorem]
+    Let $R$ be a Noetherian ring, $I \subseteq R$ an ideal, and $M$ a finitely-generated $R$-module. There exists an element $r \in I$ such that \[(1-r) \bigcap_{k=1}^\infty I^kM = 0\]
+\end{theorem}
+
+\begin{corollary}
+    If $(R, \fm)$ is a local Noetherian ring, $I \subsetneq R$ then 
+    \[\bigcap_{k=1}^\infty I^k = 0\]
+\end{corollary}
+
+
+\begin{theorem}
+    Let $(R, \fm)$ be a local ring, $R$ is Noetherian, and $M$ is a non-zero finitely generated $R$-module. If $x_1, \ldots, x_t \in \fm$ then $x_1, \ldots, x_t$ is a regular sequence on $M$ if and only if every permutation is a regular sequence on $M$. 
+\end{theorem}
+
+\begin{proof}
+    Let $x, y$ be a regular sequence on $M$. We want to show that $y, x$ is a regular sequence on $M$.  
+
+    Assume $ym = 0$ for some $m \in M$. Then we have $y \overline{m} = 0 \in M/xM \implies \overline{m} =0 \implies m = xm_1$ for some $m_1$. 
+
+    That is, 
+    \[0 = ym = yxm_1 \implies ym_1 = 0 \in M \implies y \overline{m_1} = 0 \in M/xM\]
+    Then by inducting on the $m_i$s, we get $m \in \bigcap_{k=1}^\infty \langle x \rangle^k M$. By KIT, this implies $m = 0$, a contradiction, and thus $y$ is a NZD on $M$. 
+    
+    Now, assume $x\overline{m} = 0 \in M/yM$. Then, $xm  = ym_1 \in M \implies y \overline{m_1} = 0 \in M/xM \implies \overline{m_1} = 0 \implies m_1 = xm_2 \in M$. So in $M$, 
+    \[xm = ym_1 = xym_2 \implies m = ym_2 \implies \overline{m} = 0 \in M/yM\] 
+    Thus $x$ is a nonzerodivisor on $M/yM$, and $y, x$ is a regular sequence. 
+\end{proof}
+
+\begin{definition}
+    Given an ideal $I \subseteq R$ the height of $I$ is 
+    \begin{align*}
+        \height(I) &= \sup \{d \in \Z_{\geq 0} \mid \text{there exists a chain of prime ideals } P_0 \subsetneq P_1 \subsetneq \cdots, \subsetneq P_d \subset I\}  \\ 
+        &= \dim R - \dim \V(I)   \\ 
+        &= \dim R - \dim R/I
+    \end{align*}
+\end{definition}
+
+\begin{theorem}[Krull's Principal Ideal Theorem]
+    Let $R$ be a Noetherian ring, $x \in R$. If $P \subseteq R$ is a prime ideal minimal over $\langle x \rangle$ then  $\height(P) \leq 1$. 
+\end{theorem}
+
+\begin{corollary}
+    Let $R$ be a Noetherian ring $I = \langle r_1, \ldots, r_n \rangle \subseteq R$. If $P \subseteq R$ is a prime ideal minimal over $I$ then $\height(P) \leq n$.  
+\end{corollary}
+
+\begin{lemma}
+    Let $x$ be a nonzerodivisor on a Noetherian ring $R$. 
+    \[\dim R/x = \dim R - 1\]
+\end{lemma}
+
+\begin{corollary}
+    If $x_1, \ldots, x_n$ is a regular sequence on $R$ then 
+    \[\dim \left( R / \langle x_1, \ldots, x_n \rangle\right) = \dim R - n\]
+\end{corollary}
+
+\begin{definition}
+    Let $R$ be a ring, $I \subseteq R$ an ideal, $M$ a module, The depth of $M$ with respect to $I$ is 
+    \[\depth_I(M) = \{\text{maximal length of a regular sequence on $M$ contained in $I$}\}\] 
+    If $(R, \fm)$ is local, 
+    \[\depth(M) = \depth_{\fm} (M)\] 
+\end{definition}
+
+\begin{example}
+    Depth is not always finite. For instance, if $R = M = \K[x_1, x_2, \ldots]$ where $x_1, \ldots, x_n$ is a regular sequence for all $n$. 
+\end{example}
+
+\begin{proposition}
+    Let $M$ be a $R$-module, and $x \in R$, then TFAE, 
+    \begin{enumerate}
+        \item $x$ is a regular sequence on $M$. 
+        \item $k(x, M) = 0 \to M \xrightarrow{\times x} M \to 0$ 
+        
+        Where $H_1(k(x,M)) = 0$ and $H_0(k(x,M)) \neq 0$. In general, 
+        \[H_1(k(x,M)) = \ker(M \xrightarrow{\times x} M) = (0:_Mx) \]
+        and, 
+        \[H_0(k(x,M)) = M/xM \]
+    \end{enumerate}
+
+    If $x, y \in R$. 
+    \[k(x, y, M) = 0 \to M \xrightarrow{ \begin{bmatrix}
+        y \\ -x
+    \end{bmatrix}} M \oplus M \xrightarrow{\begin{bmatrix}
+        x & y
+    \end{bmatrix}} M \to 0\]
+
+    In general we need, 
+    \[H_0(k(x,y,m)) = M/(xf + yg \mid f, g \in M) = M/\langle x,y\rangle M \neq 0\]
+    \[H_2(k(x,y,m)) = \ker\left(\begin{bmatrix}
+        y \\ -x
+    \end{bmatrix}\right) = \{m \in M \mid m(-x) = 0, my = 0\}\]
+\end{proposition}
 \end{document}

@@ -17,22 +17,37 @@ is a proper ideal of $R$. Choosing a maximal ideal containing $\Ann(m)$ gives a 
 
 \hrulefill
 
+\begin{problem}{1} \textbf{Local Vanishing for Modules.} 
+    
+    
+    Let $R$ be a ring and $M$ an $R$-module. If $\cS \subset M$ is any subset, the \emph{annihilator} of $\cS$ is the ideal:
+    \[
+    \Ann_{R}(\cS) \coloneqq \left\{ r \in R \;\; \big|\;\; rs = 0 \text{ for all $s\in \cS$}\right\}.
+    \] 
+    If $\cS=\{m\}$ we write $\Ann_{R}(m)$ for $\Ann_{R}(\{m\})$. 
+    \begin{enumerate}
+        \item If $\cS \subset M$ is any subset, prove that $\Ann_{R}(\cS)$ is an ideal of $R$. 
+        \item Let $\fp \subset R$ be a prime ideal. Given $m \in M$, prove that $m/1=0$ in $M_{\fp}$ if and only if there exists $s\in R\setminus \fp$ such that $sm=0$ in $M$.
+        \item Let $M$ be the zero $R$-module. Explain why $U^{-1}M=0$ for any multiplicatively closed subset $U \subset R$. 
+        \item Prove that $M=0$ if and only if $M_{\fm}=0$ for every maximal ideal $\fm\subset R$. Hint: One direction should be easy. For the other, suppose $m\neq 0$, choose a maximal ideal containing $\Ann(m)$.
+        \item Deduce that $M=0$ if and only if $M_{\fp}=0$ for every prime ideal $\fp\in \Spec(R)$.
+        \item Let $f_1,\ldots,f_n\in R$ generate the unit ideal. Prove that $M=0$ if and only if $M[\frac{1}{f_{i}}]=0$ for every $i$. Hint: Again, one direction should be straightforward. For the other direction, given $m\in M$, first find powers $f_i^{t_i}$ killing $m$, then show that the ideal $\langle f_1^{t_1},\ldots,f_n^{t_n}\rangle$ is the unit ideal.
+        \item Let $\phi:M\to N$ be a homomorphism of $R$-modules. Prove that $\phi=0$ if and only if $\phi_{\fm}:M_{\fm}\to N_{\fm}$ is the zero map for every maximal ideal $\fm\subset R$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item \todo{Already proved this}
+        \item 
+    \end{enumerate}
+\end{solution}
+
+
 \begin{enumerate}[leftmargin=*, series=problems]
 
-\item \textbf{Local Vanishing for Modules.} Let $R$ be a ring and $M$ an $R$-module. If $\cS \subset M$ is any subset, the \emph{annihilator} of $\cS$ is the ideal:
-\[
-\Ann_{R}(\cS) \coloneqq \left\{ r \in R \;\; \big|\;\; rs = 0 \text{ for all $s\in \cS$}\right\}.
-\] 
-If $\cS=\{m\}$ we write $\Ann_{R}(m)$ for $\Ann_{R}(\{m\})$. 
-\begin{enumerate}
-    \item If $\cS \subset M$ is any subset, prove that $\Ann_{R}(\cS)$ is an ideal of $R$. 
-    \item Let $\fp \subset R$ be a prime ideal. Given $m \in M$, prove that $m/1=0$ in $M_{\fp}$ if and only if there exists $s\in R\setminus \fp$ such that $sm=0$ in $M$.
-    \item Let $M$ be the zero $R$-module. Explain why $U^{-1}M=0$ for any multiplicatively closed subset $U \subset R$. 
-    \item Prove that $M=0$ if and only if $M_{\fm}=0$ for every maximal ideal $\fm\subset R$. Hint: One direction should be easy. For the other, suppose $m\neq 0$, choose a maximal ideal containing $\Ann(m)$.
-    \item Deduce that $M=0$ if and only if $M_{\fp}=0$ for every prime ideal $\fp\in \Spec(R)$.
-    \item Let $f_1,\ldots,f_n\in R$ generate the unit ideal. Prove that $M=0$ if and only if $M[\frac{1}{f_{i}}]=0$ for every $i$. Hint: Again, one direction should be straightforward. For the other direction, given $m\in M$, first find powers $f_i^{t_i}$ killing $m$, then show that the ideal $\langle f_1^{t_1},\ldots,f_n^{t_n}\rangle$ is the unit ideal.
-    \item Let $\phi:M\to N$ be a homomorphism of $R$-modules. Prove that $\phi=0$ if and only if $\phi_{\fm}:M_{\fm}\to N_{\fm}$ is the zero map for every maximal ideal $\fm\subset R$.
-\end{enumerate}
+\item 
 
 \item \textbf{Homology and Localization Commute.} Let $R$ be a ring and consider the complex of $R$-modules below:
 \[

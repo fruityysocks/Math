@@ -1076,6 +1076,138 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     \[H_n := \ker(\d_n) / \im(\d_{n+1})\]
     Hence the $n$-th simplicial homology of $X$ is $H_n^\Delta(X) = \ker(\d_n) / \im(\d_{n+1})$.
 \end{definition}
+
+\begin{example}
+    Let $X = S^1$. There is one 0-simplex $v$ and one 1-simplex $e$. Then, 
+
+    \[\Delta_0(S^1) = \Z \langle v \rangle, \, \Delta_1(S^1) = \Z \langle e \rangle, \, \Delta_2(S^1) = 0\]
+    And we have, 
+    \[0 \xrightarrow{\d_2} \Delta_1(S^1) \xrightarrow{\d_1} \Delta_0 (S^1) \xrightarrow{\d_0} 0\]
+    with 
+    \[H_0^\Delta(S^1) = \frac{\ker(\d_0)}{\im(\d_1)} = \frac{\Z \langle v \rangle}{ \sigma_1 \mid_{[v_1] }- \sigma_1 \mid_{[v_0]}} = \frac{\Z\langle v \rangle}{ 0} \iso \Z\langle v \rangle \iso \Z,\]
+    \[H_1^\Delta(S^1) = \frac{\ker(\d_1)}{\im(\d_2)} = \frac{\Z \langle v \rangle}{ 0} \iso \Z\langle v \rangle \iso \Z,\]
+    and
+    \[H_2^\Delta(S^1) = \frac{\ker(\d_2)}{\im(\d_3)} = { 0}\]
+
+    We conclude that $H_n^\Delta(S^1) \iso \Z$ if $n = 0, 1$ and  $H_n^\Delta(S^1) = 0$ otherwise. 
+\end{example}
+
+\begin{example}
+    \bbni
+
+    \[
+    \begin{tikzcd}
+    v_0 \arrow[r,"a"]  & v_0 \\
+    v_0 \arrow[u,"b"] \arrow[r,swap,"a"] \arrow[ur,"c"{yshift = -.05in}] \arrow[ur, phantom, "\scriptstyle L"{yshift=0.1in, xshift=-.2in}] & v_0 \arrow[u,swap,"b"] \arrow[ul, phantom, "\scriptstyle U", very near start]
+    \end{tikzcd}
+    \]
+
+    We have, 
+    \begin{itemize}
+        \item $\Delta_0(T^2) = \Z \langle v_0 \rangle$ 
+        \item $\Delta_1(T^2) = \Z \langle a \rangle \oplus \Z \langle b \rangle \oplus \Z \langle c \rangle $ 
+        \item $\Delta_2(T^2) = \Z \langle U \rangle \oplus \Z \langle L \rangle$ 
+        \item $\Delta_3(T^2) = 0$
+    \end{itemize}
+
+    \[0 \xrightarrow{\d_3} \Delta_2(T^2) \xrightarrow{\d_2} \Delta_1(T^2) \xrightarrow{\d_1} \Delta_0 (T^2) \xrightarrow{\d_0} 0\]
+
+    The homologies are, 
+     \begin{itemize}
+        \item $H_0^\Delta(T^2) = \frac{\ker(\d_0)}{\im(\d_1)} =  \frac{\Z\langle v_0 \rangle}{ 0} \iso \Z\langle v_0 \rangle \iso \Z$
+        
+        \item $H_1^\Delta(T^2) = \frac{\ker(\d_1)}{\im(\d_2)} =  \frac{\Z\langle a \rangle \oplus \Z \langle b \rangle \oplus \Z \langle c \rangle}{ \Z\langle a + b - c \rangle} \iso  \frac{\langle a, b, c \rangle }{ \langle a + b - c\rangle} \iso \langle a, b \rangle \iso \Z\langle a \rangle \oplus \Z\langle b \rangle$
+        
+        \item $H^\Delta_2(T_2) = \frac{\ker(\d_2)}{\im(\d_3)} = \frac{\Z\langle U - L \rangle }{ 0} \iso \Z\langle U - L \rangle \iso \Z $
+
+        \item $H_n^\Delta = 0$ if $n \geq 3$. 
+    \end{itemize}
+\end{example}
+
+\begin{example}
+    Compute $H^\Delta_n (\R P^2)$. 
+
+    \[
+    \begin{tikzcd}
+    v_0   & v_1  \arrow[d,"a"] \arrow[l,"b", swap]\\
+    v_1 \arrow[u,"a"] \arrow[r,swap,"b"] \arrow[ur,"c"{yshift = -.05in}] \arrow[ur, phantom, "\scriptstyle U"{yshift=0.1in, xshift=-.2in}] & v_0  \arrow[ul, phantom, "\scriptstyle L", very near start]
+    \end{tikzcd}
+    \]
+    
+    \todo{Try; Hatcher has this worked out}
+\end{example}
+
+\begin{definition}
+    A \textbf{singular $n$-simplex} in a space $X$ is a map $\sigma: \Delta^n \to X$, where there are no conditions of $\im(\sigma)$ restricted to a face. 
+\end{definition}
+
+\begin{definition}
+    A \textbf{chain complex} is defined as the (finite) formal sum of singular $n$-simplices. 
+    \[C_n(X) := \left \{\sum_i n_i \sigma_i \mid \sigma_i : \Delta^n \to X\right \}\]
+    with the differential $\d_n : C_n(X) \to C_{n-1}(X)$ where, 
+    \[\d_n(\sigma):= \sum_i (-1)^i \sigma \mid_{[v_0, \ldots, \widehat{v_i}, \ldots, v_n]}\]
+     and $\d_n \circ \d_{n+1} = 0$. The \textbf{$n$-th singular homology} is \[H_n(X) := \frac{\ker(\d_n)}{\im(\d_{n+1})}\]
+\end{definition}
+
+\begin{remark}
+    $H_n(X)$ is an invariantt under the homeomorphism class of $X$. 
+\end{remark}
+
+\begin{proposition}
+    Let $X = \sqcup X_\alpha$ then $H_n(X) \iso \oplus_\alpha H_n(X_\alpha)$, where each $X_\alpha$ is a distinct path connected component of $X$. 
+\end{proposition}
+
+\begin{proof}
+    We have $C_n(X) \iso \oplus_\alpha C_n(X_\alpha)$ and $\d_n = \oplus_\alpha \d_n^\alpha$ which implies 
+    \[H_n(X) \iso \oplus_\alpha H_n(X_\alpha)\]
+\end{proof}
+
+\begin{proposition}
+    If $X$ is non-empty and path-connected then $H_0(X) \iso \Z$. 
+\end{proposition}
+
+\begin{proof}
+    By definition, 
+    \[H_0(X) \iso \frac{C_0(X)}{\im(\d_1)}\]
+    We define a homomorphism 
+    \[\varepsilon: C_0(X) \to \Z, \quad \sum_i n_i\sigma_i \mapsto \sum_i n_i\]
+    This map is surjective since for any $n \in \Z$, $\varepsilon(n\sigma_0) = n$ where $\sigma_0: \Delta^0 \to X$. 
+
+    \textbf{Claim:} $\ker(\varepsilon) = \im(\d_1)$. 
+
+    \begin{proof}
+        Note that $\im(d_1) \subseteq \ker(\varepsilon)$ since for a singular $1$-simplex $\sigma: \Delta^1 \to X$ we have $\varepsilon(\d_1(\sigma)) = 0$. 
+        
+        Now for $\ker(\varepsilon) \subseteq \im(\d_1)$, let $\varepsilon\left(\sum_i n_i\sigma_i\right) = 0 \implies \sum_i n_i = 0$. 
+        
+        Choose paths $\tau: I \to X$ for $i >0$, from a base point $x_0 \in X$ to $\sigma_i(v_0)$ and define $\sigma_0(v_0) = x_0$. We can view $\tau_i: [v_0, v_i] \to X$ as a singular $1$-simplex. Thus, $\delta(\tau_i) = \sigma_i(v_0) - x_0$. Hence, 
+        \[\d\left(\sum_i n_i \tau_i\right) = \sum_i n_i \sigma_i(v_0) - \sum_i n_i \cdot x_0 = \sum_i n_i \sigma_i(v_0) \implies \sum_i n_i \sigma_i \in \im(\d_i)\]
+
+        Thus $\ker(\varepsilon) = \im(\d_1)$. 
+    \end{proof} 
+    
+    That is, 
+
+    \[H_0(X) \iso \frac{C_0(X)}{\im(\d_1)} = \frac{C_0(X)}{\ker(\varepsilon)} \iso \Z\]
+\end{proof}
+
+\begin{proposition}
+    If $X$ is a point, then $H_n(X)\iso 0$ for $n > 0$ and $H_0(X) \iso \Z$.  
+\end{proposition}
+
+\begin{proof}
+    \todo{}
+\end{proof}
+
+\begin{definition}
+    We will change the definition of homology so that a point has trivial $H_0(-)$. The \textbf{reduced homology groups} $\widetilde{H_n}(X)$ is defined to be the homology of the following chain complex. 
+    \[\to C_n(X) \xrightarrow{\d_n} C_{n-1}(X) \xrightarrow{\d_{n-1}}  \cdots \xrightarrow{\d_1} C_0(X) \xrightarrow{\varepsilon} \Z \xrightarrow{0} 0\]
+    So, $\widetilde{H_n} (X) \iso H_n(X)$ if $n \geq 1$. Moreover we have $\im(\d_1) \subseteq \ker(\varepsilon)$
+
+    \todo{i missed this part}
+    
+    \[H_0(X)\iso \widetilde{H_0}(X) \oplus \Z \implies \widetilde{H_0}(\text{pt}) =0 \]
+\end{definition}
 \end{document}
 
 
