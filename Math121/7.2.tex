@@ -44,50 +44,176 @@ In the second half of the worksheet we use these theorems to prove and apply \em
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item 
+        \item If $r \neq 0 \in R$ then $\phi(r)^{-1} \in S$ is integral over $R$ with 
+        \[(\phi(r)^{-1})^n + r_1(\phi(r)^{-1})^{n-1} + \cdots + r_n = 0\]
+        And, 
+        \begin{align*}
+           0 &= \phi(r)^n\left((\phi(r)^{-1})^n + r_1(\phi(r)^{-1})^{n-1} + \cdots + r_n\right) \\
+           0 &= 1 + r_1\phi(r) + \cdots + r_n\phi(r)^n  \\
+           \implies 1 &= \phi(r)(r_1 + \cdots + r_n(\phi(r))^{n-1})
+        \end{align*}
+        That is $\phi(r)$ has a inverse in $\phi(R)$. Since $\phi$ is injective this implies that $r$ has an inverse in $R$. Since $\phi(r)$ was an arbitrary element this implies that every non-zero element in $R$ has a inverse and $R$ is a field. 
+
+        \item We know that $s \neq 0 \in S$ is integral over $R$. That is, we have the minimal mnic polynomial, 
+        \[s^n + r_1s^{n-1} + \cdots + r_n = 0\]
+        Since $R$ is a field we have, 
+        \begin{align*}
+            0 &= s^n + r_1s^{n-1} + \cdots + r_n  \\ 
+            r_n &= - (s^n + r_1s^{n-1} + \cdots + r_{n-1}s) \\ 
+            -r_n &= s(s^{n-1} + r_1s^{n-2} + \cdots + r_{n-1}) \\ 
+            1 = \frac{-r_n}{-r_n} &= s \left (\frac{1}{r_n}s^{n-1} + \frac{r_1}{r_n}s^{n-2} + \cdots + \frac{r_{n-1}}{r_n} \right )  
+        \end{align*}
+        That is $s$ has an integral inverse in $S$. Since $s$ was an arbitrary non-zero element this shows that $S$ is a field. 
+        
+
+        \item Since $S$ is integral over $R$ for any $s\in S$ we have, 
+        \[s^n + r_1s^{n-1} + \cdots + r_n = 0\]
+        Then for $\overline{s} \in S/\fq$ we have, 
+        \[\overline{s}^n + \overline{r_1}\,\overline{s}^{n-1} + \cdots + \overline{r_n} = 0\]
+        But $\overline{r_i} = r_i + \fq  \in S = r_i + \fq \cap R \in R = r_i + \fp$. 
+        Hence the coefficients $\overline{r_i}$ lie in $R/\fp$ and $\overline{s}$ is integral over $R/\fp$. 
+
+        \item If $\fq$ is maximal, then $S/\fq$ is a field and then by part 1 $R/fp$ must be a field and hence $\fp$ must be maximal. 
+        
+        \item If $\fp$ is maximal, then $R/\fp$ is a field, and by part 2 $S/\fq$ is integral over $R/\fp$. Then for any $\overline{s} \neq 0 \in S/\fq$ we have the minimal monic polynomial, 
+        \[\overline{s}^n + \overline{r_1}\,\overline{s}^{n-1} + \cdots + \overline{r_n} = 0\]
+        And since $R/\fp$ is a field we have,
+        \begin{align*}
+           \overline{r_n} &= - \overline{s}(\overline{s}^{n-1} + \overline{r_1}\,\overline{s}^{n-2} + \cdots + \overline{r_{n-1}} ) \\ 
+           1 = \frac{\overline{r_n}}{\overline{r_n}} &= - \overline{s} \left (\frac{1}{\overline{r_n}}\overline{s}^{n-1} + \frac{\overline{r_1}}{{\overline{r_n}}}\,\overline{s}^{n-2} + \cdots + \frac{\overline{r_{n-1}}}{\overline{r_n}} \right)
+        \end{align*}
+        Thus $\overline{s}$ has an inverse in $S/\fq$, and hence $S/\fq$ is a field and $\fq$ is maximal. 
+
+        \item Thus under an integral ring map $\fq$ is maximal if and only if $\fp$ is maximal. 
     \end{enumerate}
 \end{solution}
 
+\newpage 
 
-\begin{enumerate}[leftmargin=*, series=problems]
+\begin{problem}{2} \textbf{Prime Ideals Near a Point.} 
+    
+    Let $\phi:R\to S$ be a ring map and let $\fp\in\Spec(R)$. Write $U=R\setminus \fp$ and $S_{\fp}=U^{-1}S$.
+    \begin{enumerate}
+        \item Prove that if $\fq\in\Spec(S)$, then $\phi^{-1}(\fq)$ is a prime ideal of $R$.
+        \item Prove that prime ideals of $S_{\fp}$ are in bijection with prime ideals $\fq\in\Spec(S)$ such that $\fq\cap \phi(U)=\varnothing$. Equivalently, these are the primes $\fq$ such that $\phi^{-1}(\fq)\subseteq \fp$.
+        \item Suppose that $R\subseteq S$ is an injective ring map. Show that $S_{\fp}\neq 0$. Hint: If $1=0$ in $S_{\fp}$, then some element of $R\setminus \fp$ becomes zero in $S$.
+        \item Suppose that $S$ is integral over $R$. Prove that $S_{\fp}$ is integral over $R_{\fp}$.
+        \item Let $\mathfrak Q\in\Spec(S_{\fp})$ and let $\fq\subset S$ be the corresponding prime ideal. Show that if $\phi^{-1}_{\fp}(\mathfrak Q)=\fp R_{\fp}$, then $\phi^{-1}(\fq)=\fp$.
+    \end{enumerate}
+\end{problem}
 
-\item 
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item If $\fq \in \Spec(S)$ then $\fq$ is a prime ideal and we know that pre-images of prime ideals are prime, hence $\phi^{-1}(\fq)$ is a prime ideal of $R$. 
+        \item We have already proved this. 
+        \item  \todo{}
+        \item In Worksheet 7.1 Problem 17 that if $S$ is integral over $R$ and $U\subset R$ is multiplicatively closed, then $U^{-1}S$ is integral over $U^{-1}R$. Since $S_{\fp} = U^{-1}S$ with $U = R \setminus \fp$, we have $S_{\fp}$ is integral over $R_{\fp}$. 
+        \item We have, 
+         \[ \begin{tikzcd} R \arrow[r, "\phi"] \arrow[d] & S \arrow[d] \\ R_\mathfrak{p} \arrow[r, "\phi_\mathfrak{p}"] & S_\mathfrak{p} \end{tikzcd}\]
+         Where
+        \[\phi^{-1}_{\fp}(\mathfrak{Q}) = \fp R_{\fp} = \mathfrak{Q} \cap R_{\fp}\]
+        And 
+        \[\phi^{-1}({q}) = \phi^{-1}(\mathfrak{Q} \cap S) \cap R = \phi^{-1}_{\fp} (\mathfrak{Q}) \cap R = \fp R_{\fp} \cap R = \fp \]
+    \end{enumerate}
+\end{solution}
 
-\item \textbf{Prime Ideals Near a Point.} Let $\phi:R\to S$ be a ring map and let $\fp\in\Spec(R)$. Write $U=R\setminus \fp$ and $S_{\fp}=U^{-1}S$.
-\begin{enumerate}
-    \item Prove that if $\fq\in\Spec(S)$, then $\phi^{-1}(\fq)$ is a prime ideal of $R$.
-    \item Prove that prime ideals of $S_{\fp}$ are in bijection with prime ideals $\fq\in\Spec(S)$ such that $\fq\cap \phi(U)=\varnothing$. Equivalently, these are the primes $\fq$ such that $\phi^{-1}(\fq)\subseteq \fp$.
-    \item Suppose that $R\subseteq S$ is an injective ring map. Show that $S_{\fp}\neq 0$. Hint: If $1=0$ in $S_{\fp}$, then some element of $R\setminus \fp$ becomes zero in $S$.
-    \item Suppose that $S$ is integral over $R$. Prove that $S_{\fp}$ is integral over $R_{\fp}$.
-    \item Let $\mathfrak Q\in\Spec(S_{\fp})$ and let $\fq\subset S$ be the corresponding prime ideal. Show that if $\phi^{-1}_{\fp}(\mathfrak Q)=\fp R_{\fp}$, then $\phi^{-1}(\fq)=\fp$.
-\end{enumerate}
+\newpage 
 
-\item \textbf{Lying Over.} Let $R\subseteq S$ be an integral extension of rings. The goal of this exercise is to prove the \emph{Lying Over Theorem}: for every $\fp\in\Spec(R)$, there exists $\fq\in\Spec(S)$ such that $\fq\cap R=\fp$.
-\begin{enumerate}
-    \item Fix $\fp\in\Spec(R)$. Explain why $S_{\fp}$ is a nonzero integral extension of $R_{\fp}$.
-    \item Choose a maximal ideal $\mathfrak N\subset S_{\fp}$. Use the theorem from the previous worksheet saying that maximal ideals contract to maximal ideals under integral extensions to prove
-    \[
-    \mathfrak N\cap R_{\fp}=\fp R_{\fp}.
-    \]
-    \item Pull $\mathfrak N$ back to a prime ideal $\fq\subset S$ and prove that $\fq\cap R=\fp$.
-    \item State the correct version of Lying Over for a not-necessarily-injective integral map $\phi:R\to S$. Hint: Which prime ideals of $R$ can possibly be contractions of prime ideals of $S$?
-    \item Translate Lying Over into a statement about the image of the map $\phi^{\#}:\Spec(S)\to\Spec(R)$.
-\end{enumerate}
+\begin{problem}{3}
+    \textbf{Lying Over.} 
+    
+    Let $R\subseteq S$ be an integral extension of rings. The goal of this exercise is to prove the \emph{Lying Over Theorem}: for every $\fp\in\Spec(R)$, there exists $\fq\in\Spec(S)$ such that $\fq\cap R=\fp$.
+    \begin{enumerate}
+        \item Fix $\fp\in\Spec(R)$. Explain why $S_{\fp}$ is a nonzero integral extension of $R_{\fp}$.
+        \item Choose a maximal ideal $\mathfrak N\subset S_{\fp}$. Use the theorem from the previous worksheet saying that maximal ideals contract to maximal ideals under integral extensions to prove
+        \[
+        \mathfrak N\cap R_{\fp}=\fp R_{\fp}.
+        \]
+        \item Pull $\mathfrak N$ back to a prime ideal $\fq\subset S$ and prove that $\fq\cap R=\fp$.
+        \item State the correct version of Lying Over for a not-necessarily-injective integral map $\phi:R\to S$. Hint: Which prime ideals of $R$ can possibly be contractions of prime ideals of $S$?
+        \item Translate Lying Over into a statement about the image of the map $\phi^{\#}:\Spec(S)\to\Spec(R)$.
+    \end{enumerate}
+\end{problem}
 
-\item \textbf{First Examples of Lying Over.} Let $\K$ be a field.
-\begin{enumerate}
-    \item Show that $\K[t]$ is integral over $\K[t^2]$. For a prime ideal $\fq\subset \K[t]$, compute $\fq\cap \K[t^2]$ when $\fq=\langle t-a\rangle$.
-    \item Assume $\K$ is algebraically closed and $\operatorname{char}(\K)\neq 2$. For $u=t^2$, describe the primes of $\K[t]$ lying over the maximal ideal $\langle u-a\rangle\subset \K[u]$ when $a=0$ and when $a\neq 0$.
-    \item Show that $\K[t]$ is integral over $\K[t^2,t^3]$. Identify the prime of $\K[t]$ lying over the cusp point $\langle t^2,t^3\rangle\subset \K[t^2,t^3]$.
-    \item Show that $\Z[i]$ is integral over $\Z$. Compute the primes of $\Z[i]$ lying over $\langle 2\rangle$, $\langle 3\rangle$, and $\langle 5\rangle$ by factoring $x^2+1$ modulo $2$, $3$, and $5$.
-    \item Let $R\subseteq S$ be integral and let $I\subset R$ be an ideal. Prove that the induced map
-    \[
-    \{\fq\in\Spec(S)\mid \fq\supseteq IS\}\longrightarrow \{\fp\in\Spec(R)\mid \fp\supseteq I\}
-    \]
-    is surjective.
-\end{enumerate}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item In Worksheet 7.1 Problem 17 that if $S$ is integral over $R$ and $U\subset R$ is multiplicatively closed, then $U^{-1}S$ is integral over $U^{-1}R$. Since $S_{\fp} = U^{-1}S$ with $U = R \setminus \fp$, we have $S_{\fp}$ is integral over $R_{\fp}$. 
+        \item Since maximal ideals contract to maximal ideals under integral extensions we know that $\phi_{\fp}^{-1}(\mathfrak{N})$ is a maximal ideal in $R_{\fp}$. Since there is only one maximal ideal in $R_{\fp}$, namely $\fp R_{\fp}$, we must have 
+        \[\mathfrak{N} \cap R_{\fp} = \phi_{\fp}^{-1}(\mathfrak{N}) = \fp R_{\fp} \]
 
-\end{enumerate}
+        \item From Problem 2 part 5, we have that if $\fq \subset S$ corresponds to $\mathfrak{N}$ then 
+        \[\phi^{-1}(\fq) = \fq \cap R = \fp\]
+
+        \item From the first isomorphism theorem we have $R/\ker(\phi) \iso \phi(R) \subseteq S$. Since $\phi$ is integral, prime ideals in $S$ correspond to prime ideals in $R/\ker(\phi)$ which also correspond to prime ideals in $R$ containing $\ker(\phi)$. So the Lying Over Theorem  for not injective integral mps says that for every $\fp\in\Spec(R)$ such that $\ker(\phi) \subseteq \fp$, there exists $\fq\in\Spec(S)$ such that $\fq\cap R=\fp$.
+        
+        \item The image of the map $\phi^{\#}$ is surjective onto $\Spec(R/\ker(\phi))$, or the $\im(\phi^{\#})$ is precisely the set of prime ideals in $R$ containing the kernel of the map $\phi$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{4}
+    \textbf{First Examples of Lying Over.} 
+    
+    Let $\K$ be a field.
+    \begin{enumerate}
+        \item Show that $\K[t]$ is integral over $\K[t^2]$. For a prime ideal $\fq\subset \K[t]$, compute $\fq\cap \K[t^2]$ when $\fq=\langle t-a\rangle$.
+        \item Assume $\K$ is algebraically closed and $\operatorname{char}(\K)\neq 2$. For $u=t^2$, describe the primes of $\K[t]$ lying over the maximal ideal $\langle u-a\rangle\subset \K[u]$ when $a=0$ and when $a\neq 0$.
+        \item Show that $\K[t]$ is integral over $\K[t^2,t^3]$. Identify the prime of $\K[t]$ lying over the cusp point $\langle t^2,t^3\rangle\subset \K[t^2,t^3]$.
+        \item Show that $\Z[i]$ is integral over $\Z$. Compute the primes of $\Z[i]$ lying over $\langle 2\rangle$, $\langle 3\rangle$, and $\langle 5\rangle$ by factoring $x^2+1$ modulo $2$, $3$, and $5$.
+        \item Let $R\subseteq S$ be integral and let $I\subset R$ be an ideal. Prove that the induced map
+        \[
+        \{\fq\in\Spec(S)\mid \fq\supseteq IS\}\longrightarrow \{\fp\in\Spec(R)\mid \fp\supseteq I\}
+        \]
+        is surjective.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $\K[t]$ is module-finite over $\K[t^2]$ and hence is integral over $\K[t^2]$.  
+        \[\fq \cap \K[t^2] = \{p(t^2) \in \K[t^2] \mid p(a^2) = 0\} = \langle t^2 - a^2 \rangle \]
+
+        \item Prime ideals that lie over the maximal ideal $ \fp =\langle t^2 - a \rangle \subseteq \K[t^2]$ are maximal ideals $\fq$ in $\K[t]$ such that $\fq \cap \K[t^2] =  \fp$. Maximal ideals in $\K[t]$ are of the form $\langle t - b \rangle$, and by part 1 we know that $\langle t - b \rangle$ lies over $\fp$ iff $b^2 = a$. 
+        
+        If $a = 0$, 
+        \[\langle t - b \rangle \cap \K[t^2] = \langle t^2 \rangle \implies b = 0\] 
+        So there is a single prime ideal $\langle t \rangle$ lying over $\langle t^2 \rangle$.  
+
+        If $a \neq 0$, then $b = \pm \sqrt{a}$ since $\K$ is algebraically closed. Hence, two prime ideals lie over $\fp$, $\langle t - \sqrt{a} \rangle$ and $\langle t + \sqrt{a} \rangle$. 
+
+        \item $\K[t]$ is module-finite over $\K[t^2, t^3]$ and hence is integral over $\K[t^2, t^3]$. Primes of $\K[t]$ are of the form $\langle t - b \rangle$ for $b \in \K$ and $\langle 0 \rangle$. If  $\langle t - b \rangle$ lies over $\langle t^2, t^3 \rangle$ then 
+        \[t^2, t^3 \in \langle t - b \rangle \implies b^2 = b^3 = 0 \implies b = 0\]
+        Thus, $\langle t \rangle$ lies over $\langle t^2, t^3 \rangle$. 
+
+
+        \item $\Z[i]$ is module-finite over $\Z$ and hence is integral over $\Z$. We know $\Z[i] \iso \Z[x]/\langle x^2 + 1 \rangle$, and primes of $\Z[i]$ containing $\langle p \rangle$ correspond to prime ideals of $\Z[i]/\langle p \rangle$. Then, 
+        \[\Z[i]/\langle p \rangle \iso \F_p [i] \iso \F_p[x]/\langle x^2 + 1 \rangle \]
+        so primes correspond to irreducible factors of $\langle x^2 + 1 \rangle$ in $\F_p[x]$ since they generate the ideals containing it. Therefore, 
+        \begin{itemize}
+            \item $x^2 + 1  = (x+1)^2  \pmod 2$ so $\langle 1 + i \rangle$ lies over $\langle 2 \rangle$.
+            \item $x^2 + 1$ is irreducible modulo $3$ since $3 \pmod 4 \equiv 3$ and thus $-1$ is not a square, so $\langle 3 \rangle$ lies over $\langle 3 \rangle$.
+            \item $x^2 + 1 = (x+2)(x-2) \pmod 5$ so $\langle  i + 2\rangle$ and $\langle i - 2\rangle$ lie over $\langle 5 \rangle$.
+        \end{itemize} 
+
+        \item Let $\fp \in \Spec(R)$ such that $I \subseteq \fp$. Then by laying over we know that there exists $\fq in \Spec(S)$ such that $\fq \cap R = \fp$. Since $\fq$ is an ideal and we have $I \subseteq \fp \subseteq \fq$ as sets, $IS \subseteq \fq$. Hence, proving surjectivity. 
+        
+        
+        % We know that prime ideals of the form $\fp \supseteq I$ in $R$ correspond to prime ideals in $R/I$. 
+        
+        % \[\begin{tikzcd}
+        %     R \arrow[r, "\psi"] \arrow[d, "\pi_1"]&S \arrow[d, "\pi_2"] \\ 
+        %     R/I \arrow[r, "\phi"] & S/IS
+        % \end{tikzcd}\]
+        
+        % From Problem 1 we know that the image of the map $\phi^{\#}$ is surjective onto $\Spec(R/\ker(\phi))$, or the $\im(\phi^{\#})$ is precisely the set of prime ideals in $R$ containing the kernel of the map $\phi$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \hrulefill
 
@@ -109,78 +235,227 @@ More generally, every chain of prime ideals downstairs can be lifted to a chain 
 
 \hrulefill
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\newpage 
 
-\item \textbf{Proof of Going Up.} Let $R\subseteq S$ be integral, let $\fp_0\subseteq \fp_1$ be prime ideals of $R$, and let $\fq_0\in\Spec(S)$ lie over $\fp_0$.
-\begin{enumerate}
-    \item Prove that $S/\fq_0$ is integral over $R/\fp_0$.
-    \item Show that $\fp_1/\fp_0$ is a prime ideal of $R/\fp_0$.
-    \item Apply Lying Over to the integral extension $R/\fp_0\subseteq S/\fq_0$ to produce a prime ideal $\fq_1/\fq_0$ of $S/\fq_0$ lying over $\fp_1/\fp_0$.
-    \item Check that the corresponding prime ideal $\fq_1\subset S$ satisfies $\fq_0\subseteq \fq_1$ and $\fq_1\cap R=\fp_1$.
-    \item Prove the chain version of Going Up by induction: if
-    \[
-    \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_n
-    \]
-    is a chain in $R$ and $\fq_0$ lies over $\fp_0$, then there is a chain
-    \[
-    \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
-    \]
-    in $S$ with $\fq_i\cap R=\fp_i$ for all $i$.
-\end{enumerate}
-
-\item \textbf{Incomparability.} Let $R\subseteq S$ be an integral extension. The goal of this exercise is to prove: if $\fq\subseteq \fq'$ are prime ideals of $S$ and $\fq\cap R=\fq'\cap R$, then $\fq=\fq'$.
-\begin{enumerate}
-    \item Set $\fp=\fq\cap R=\fq'\cap R$. Explain why $R/\fp\subseteq S/\fq$ is an integral extension of domains.
-    \item Let $\mathfrak P=\fq'/\fq\subset S/\fq$. Show that $\mathfrak P\cap (R/\fp)=\langle 0\rangle$.
-    \item Suppose $0\neq b\in \mathfrak P$. Choose a monic equation of minimal degree
-    \[
-    b^n+a_1b^{n-1}+\cdots+a_{n-1}b+a_n=0
-    \]
-    with $a_i\in R/\fp$. Prove that $a_n=0$.
-    \item Use the fact that $S/\fq$ is a domain to get a monic equation for $b$ of smaller degree, a contradiction.
-    \item Conclude Incomparability.
-\end{enumerate}
-
-\item \textbf{Dimension is Preserved by Integral Extensions.} Let $R\subseteq S$ be an integral extension of nonzero rings.
-\begin{enumerate}
-    \item Let
-    \[
-    \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
-    \]
-    be a chain of prime ideals in $S$. Use Incomparability to show that
-    \[
-    \fq_0\cap R\subsetneq \fq_1\cap R\subsetneq\cdots\subsetneq \fq_n\cap R
-    \]
-    is a chain of prime ideals in $R$. Deduce that $\dim(S)\leq \dim(R)$.
-    \item Let
-    \[
-    \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_n
-    \]
-    be a chain of prime ideals in $R$. Use Lying Over and Going Up to lift it to a chain of prime ideals in $S$. Deduce that $\dim(R)\leq \dim(S)$.
-    \item Conclude that $\dim(R)=\dim(S)$.
-    \item Use this theorem to compute the Krull dimension of each ring below.
-    \begin{multicols}{2}
+\begin{problem}{5} \textbf{Proof of Going Up.} 
+    
+    Let $R\subseteq S$ be integral, let $\fp_0\subseteq \fp_1$ be prime ideals of $R$, and let $\fq_0\in\Spec(S)$ lie over $\fp_0$.
     \begin{enumerate}
-        \item $\K[t^2,t^3]$.
-        \item $\K[x,y]/\langle y^2-x^3\rangle$.
-        \item $\K[x^2,xy,y^2]$.
-        \item $\Z[i]$.
+        \item Prove that $S/\fq_0$ is integral over $R/\fp_0$.
+        \item Show that $\fp_1/\fp_0$ is a prime ideal of $R/\fp_0$.
+        \item Apply Lying Over to the integral extension $R/\fp_0\subseteq S/\fq_0$ to produce a prime ideal $\fq_1/\fq_0$ of $S/\fq_0$ lying over $\fp_1/\fp_0$.
+        \item Check that the corresponding prime ideal $\fq_1\subset S$ satisfies $\fq_0\subseteq \fq_1$ and $\fq_1\cap R=\fp_1$.
+        \item Prove the chain version of Going Up by induction: if
+        \[
+        \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_n
+        \]
+        is a chain in $R$ and $\fq_0$ lies over $\fp_0$, then there is a chain
+        \[
+        \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
+        \]
+        in $S$ with $\fq_i\cap R=\fp_i$ for all $i$. 
     \end{enumerate}
-    \end{multicols}
-\end{enumerate}
+\end{problem}
 
-\item \textbf{Closed Sets Under Integral Maps.} Let $R\subseteq S$ be integral and let $\phi^{\#}:\Spec(S)\to\Spec(R)$ be the induced map.
-\begin{enumerate}
-    \item Let $J\subseteq S$ be an ideal. Show that
-    \[
-    \phi^{\#}(\V(J))=\V(J\cap R).
-    \]
-    Hint: One inclusion is direct. For the other, apply Lying Over to $R/(J\cap R)\subseteq S/J$ after checking the kernel carefully.
-    \item Deduce that $\phi^{\#}$ is a closed map.
-    \item If $R\subseteq S$ is finite and $\K$ is algebraically closed, explain why the induced map on affine algebraic sets should be thought of as a finite-to-one map. Make this precise by showing that for each $\fp\in\Spec(R)$, the fibre ring $\kappa(\fp)\otimes_R S$ is finite-dimensional over $\kappa(\fp)$.
-\end{enumerate}
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item This follows from Problem 1 part 5. 
+        \item We know that prime ideals of $R/\fp_0$ correspond to prime ideals of $R$ containing $\fp_0$. Since $\fp_0 \subseteq \fp_1$, $\overline{\fp_1} = \fp_1/\fp_0$ is a prime ideal of $R/\fp_0$. 
+        \item We know that the map $R/\fp_0 \to S/\fq_0$ is an integral map. By laying over, we know there exists $\overline{\fq_1}\subseteq S/\fq_0$ that lies over $\overline{\fp_1}$. Since prime ideals of $S/\fq_0$ correspond to prime ideals of $S$ containing $\fq_0$, $\overline{\fq_1} = \fq_1/\fq_0$. 
+        \item Thus, $\fq_0 \subseteq \fq_1$. We know $\fq_1/\fq_0 \cap R/\fp_0 =  \fp_1/\fp_0$. $\fq_1 \cap R$ is the pre-image of the quotinent map $\pi: R \to R/\fp_0$, then, 
+        \[\pi^{-1} ((\fq_1/\fq_0) \cap (R/\fp_0)) =  \pi^{-1}(\fp_1/\fp_0) = \fp_1\]
+        \item Assume for $m < n$ that if
+        \[
+        \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_m
+        \]
+        is a chain in $R$ and $\fq_0$ lies over $\fp_0$, then there is a chain
+        \[
+        \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_m
+        \]
+        in $S$ with $\fq_i\cap R=\fp_i$ for all $i$.
+        
+        Then if $\fp_m \subsetneq \fp_n$, then by parts 3 and 4, we know there exists $\fq_n \subseteq S$ such that $\fq_m \subset \fq_n$ and $\fq_n \cap R = \fp_n$. Note that the inclusion $\fq_m \subsetneq \fq_n$ is strict since the contractions correspond to $\fp_m$ and $\fp_n$, and the inclusion $\fp_m \subsetneq \fp_n$ is strict. 
+        
+        Thus for any $n$, if
+        \[
+        \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_n
+        \]
+        is a chain in $R$ and $\fq_0$ lies over $\fp_0$, then there is a corresponding chain
+        \[
+        \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
+        \]
+        in $S$ with $\fq_i\cap R=\fp_i$ for all $i$. 
+    \end{enumerate}
+\end{solution}
 
-\end{enumerate}
+\newpage
+
+\begin{problem}{6} \textbf{Incomparability.} 
+    
+    Let $R\subseteq S$ be an integral extension. The goal of this exercise is to prove: if $\fq\subseteq \fq'$ are prime ideals of $S$ and $\fq\cap R=\fq'\cap R$, then $\fq=\fq'$.
+    \begin{enumerate}
+        \item Set $\fp=\fq\cap R=\fq'\cap R$. Explain why $R/\fp\subseteq S/\fq$ is an integral extension of domains.
+        \item Let $\mathfrak P=\fq'/\fq\subset S/\fq$. Show that $\mathfrak P\cap (R/\fp)=\langle 0\rangle$.
+        \item Suppose $0\neq b\in \mathfrak P$. Choose a monic equation of minimal degree
+        \[
+        b^n+a_1b^{n-1}+\cdots+a_{n-1}b+a_n=0
+        \]
+        with $a_i\in R/\fp$. Prove that $a_n=0$.
+        \item Use the fact that $S/\fq$ is a domain to get a monic equation for $b$ of smaller degree, a contradiction.
+        \item Conclude Incomparability.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item This follows from Problem 1 part 5. 
+        \item If $r + \fq, r' + \fq \in \fq'/\fq$ then $r - r' \in \fq \subseteq \fq'$, that is, 
+        \[\mathfrak{P} \cap (R/\fp) = \{r + \fp  \mid r + \fq \in \fq'/\fq \} = \{r + \fp \mid r \in \fq' \cap R\} = \{r + \fp \mid r \in \fp\} = \langle 0 \rangle\]
+        \item Since $b \in \mathfrak{P}$ we have $b^n+a_1b^{n-1}+\cdots+a_{n-1}b \in \mathfrak{P}$ which implies that $-a_n \in \mathfrak{P}$. But since $a_n \in R/\fp \implies a_n \in \mathfrak{P} \cap (R/\fp) = \langle 0 \rangle \implies a_n = 0$. 
+        \item  We have, 
+        \begin{align*}
+             b(b^{n-1}+a_1b^{n-2}+\cdots+a_{n-1})&=0 \\ 
+        \end{align*}
+        Since $S/\fq$ is a domain and $b \neq 0$ we must have
+        \begin{align*}
+             b^{n-1}+a_1b^{n-2}+\cdots+a_{n-1} &=0 \\ 
+        \end{align*} 
+        Thus giving us a monic equation for $b$ of smaller degree, which is a contradiction since we assumed minimality. Thus $b = 0$. 
+        \item Part 4 shows us that $\mathfrak{P}$ has no non-zero elements and thus $\fq' / \fq = \langle 0 \rangle \implies \fq' = \fq$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{7}
+    \textbf{Dimension is Preserved by Integral Extensions.} 
+    
+    Let $R\subseteq S$ be an integral extension of nonzero rings.
+    \begin{enumerate}
+        \item Let
+        \[
+        \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
+        \]
+        be a chain of prime ideals in $S$. Use Incomparability to show that
+        \[
+        \fq_0\cap R\subsetneq \fq_1\cap R\subsetneq\cdots\subsetneq \fq_n\cap R
+        \]
+        is a chain of prime ideals in $R$. Deduce that $\dim(S)\leq \dim(R)$.
+        \item Let
+        \[
+        \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_n
+        \]
+        be a chain of prime ideals in $R$. Use Lying Over and Going Up to lift it to a chain of prime ideals in $S$. Deduce that $\dim(R)\leq \dim(S)$.
+        \item Conclude that $\dim(R)=\dim(S)$.
+        \item Use this theorem to compute the Krull dimension of each ring below.
+        \begin{multicols}{2}
+        \begin{enumerate}
+            \item $\K[t^2,t^3]$.
+            \item $\K[x,y]/\langle y^2-x^3\rangle$.
+            \item $\K[x^2,xy,y^2]$.
+            \item $\Z[i]$.
+        \end{enumerate}
+        \end{multicols}
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Since the preimage of prime ideals is prime we know that each $\fq_i \cap R$ is prime, and by Incomparability all containments are strict. Then if  
+        \[
+        \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
+        \]
+        is the longest chain of prime ideals in $S$, we get a chain of prime ideals in $R$ that has the same length
+        \[
+        \fq_0\cap R\subsetneq \fq_1\cap R\subsetneq\cdots\subsetneq \fq_n\cap R
+        \]
+        Hence $\dim(S) \leq \dim(R)$. 
+
+        \item If \[
+        \fp_0\subsetneq \fp_1\subsetneq\cdots\subsetneq \fp_n
+        \]
+        is a chain of prime ideals in $R$. Then by laying over we know that there exist prime ideals 
+        \[
+        \fq_0, \fq_1, \ldots, \fq_n
+        \]
+        lying over each corresponding ideal in $R$. Moreover from going over we know that for each pair $\fp_i \subseteq \fp_{i+1}$ such that there exists a $\fq_i$ that lies over $\fp_i$, there exists an prime ideal $\fq_{i+1} \subseteq S$ that lies over $\fp_{i+1}$ and contains $\fq_i$. Thus we get a chain of prime ideals in $S$,
+        \[
+        \fq_0\subsetneq \fq_1\subsetneq\cdots\subsetneq \fq_n
+        \]
+        Since the chains are of equal length we have $\dim (S) \geq \dim(R)$. 
+
+        \item Thus, $\dim(S) = \dim(R)$. 
+        
+        \item \begin{enumerate}
+            \item Since $\K[t]$ is integral over $\K[t^2, t^3]$, 
+            \[\dim(\K[t^2, t^3]) = \dim (\K[t]) = 1\]
+            \item Since $\K[x, y]/\langle y^2 - x^3 \rangle$ is module-finite (and thus integral over) $\K[x]$, 
+            \[\dim(\K[x, y]/\langle y^2 - x^3 \rangle) = \dim (\K[x]) = 1\]
+            \item Since $\K[x,y]$ is integral over $\K[x^2, xy, y^2]$,
+            \[\dim(\K[x, y]) = \dim (\K[x^2, xy, y^2]) = 2\]
+            \item Since $\Z[i]$ is integral over $\Z$,
+            \[\dim(\Z[i]) = \dim (\Z) = 1\]
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{8}
+    \textbf{Closed Sets Under Integral Maps.} 
+    
+    Let $R\subseteq S$ be integral and let $\phi^{\#}:\Spec(S)\to\Spec(R)$ be the induced map.
+    \begin{enumerate}
+        \item Let $J\subseteq S$ be an ideal. Show that
+        \[
+        \phi^{\#}(\V(J))=\V(J\cap R).
+        \]
+        Hint: One inclusion is direct. For the other, apply Lying Over to $R/(J\cap R)\subseteq S/J$ after checking the kernel carefully.
+        \item Deduce that $\phi^{\#}$ is a closed map.
+        \item If $R\subseteq S$ is finite and $\kappa$ is algebraically closed, explain why the induced map on affine algebraic sets should be thought of as a finite-to-one map. Make this precise by showing that for each $\fp\in\Spec(R)$, the fibre ring $\kappa(\fp)\otimes_R S$ is finite-dimensional over $\kappa(\fp)$.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item $\phi^{\#}(\V(J)) \subseteq \V(J\cap R)$
+        
+        Let $\fp \in \phi^{\#}(\V(J))$. Then there exists some $\fq \in \V(J)$ such that $\phi^{\#}(\fq) =  \fq \cap R = \fp$. Since $J \subseteq \fq$ we must have $J \cap R \subseteq \fq \cap R = \fp$.
+        
+        $\phi^{\#}(\V(J)) \supseteq \V(J\cap R)$
+        
+        Let $\fp \in \V(J\cap R)$. Then by going up and laying over we have, 
+
+        \[\begin{tikzcd}
+            J \arrow[d] \arrow[r, phantom, "\subseteq"] & \fq \arrow[d]\\ 
+            J \cap R \arrow[r, phantom, "\subseteq"] & \fp
+        \end{tikzcd}\]
+        Thus there exists an $\fq \subset S$ such that $\phi^{\#}(\fq) = \fp$. 
+
+        \item Thus, $\phi^{\#}$ maps closed sets to closed sets and hence is a closed map. 
+        
+        \item If $R \subseteq S$ is integral and finite we have $S = R[s_1, \ldots, s_n]$. And the following diagram commutes, 
+        
+        \[\begin{tikzcd}
+            R \arrow[r] \arrow[d] & \kappa(\fp)  \arrow[d]\\ 
+            S  \arrow[r] & \kappa(\fp) \otimes_R S \\ 
+        \end{tikzcd}\]
+       Note that every element of $\kappa(\fp) \otimes_R S$ is a finite sum of simple tensors $k \otimes s$. Since $s \in S$, we can write $s = \sum_i r_i s_i$ for $r_i \in R$. Then, 
+        \begin{align*}
+            k \otimes s &= k \otimes \sum_i r_i s_i\\ 
+            &= k  \sum_i r_i \otimes \sum_i s_i\\ 
+            &=  \sum_i k r_i \otimes  s_i\\ 
+            &=  \sum_i k r_i (1 \otimes  s_i)
+        \end{align*}
+        Hence $\kappa(\fp) \otimes_R S$ is spanned by simple tensors $(1 \otimes s_1), \ldots, (1 \otimes s_n)$ and thus is finite dimensional over $\kappa(\fp)$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \hrulefill
 
@@ -203,30 +478,66 @@ Let $A\subseteq B$ be an integral extension of domains. If $A$ is integrally clo
 
 \hrulefill
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\newpage 
 
-\item \textbf{Unpacking Going Down.} Let $\phi:R\to S$ be a ring map.
-\begin{enumerate}
-    \item Write the definition of Going Up for $\phi$ using a diagram of prime ideals.
-    \item Write the definition of Going Down for $\phi$ using a diagram of prime ideals.
-    \item Explain why Going Up is about lifting specializations and Going Down is about lifting generalizations.
-    \item Prove directly that a localization map $R\to U^{-1}R$ satisfies Going Down. Hint: Use the correspondence between primes of $U^{-1}R$ and primes of $R$ disjoint from $U$.
-    \item Give an example of a flat map that is not integral and an integral map that is not flat.
-\end{enumerate}
+\begin{problem}{9}  \textbf{Unpacking Going Down.} 
+    
+    Let $\phi:R\to S$ be a ring map.
+    \begin{enumerate}
+        \item Write the definition of Going Up for $\phi$ using a diagram of prime ideals.
+        \item Write the definition of Going Down for $\phi$ using a diagram of prime ideals.
+        \item Explain why Going Up is about lifting specializations and Going Down is about lifting generalizations.
+        \item Prove directly that a localization map $R\to U^{-1}R$ satisfies Going Down. Hint: Use the correspondence between primes of $U^{-1}R$ and primes of $R$ disjoint from $U$.
+        \item Give an example of a flat map that is not integral and an integral map that is not flat.
+    \end{enumerate}    
+\end{problem}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Going up says, given $\fq_0$ over $\fp_0$ and $\fp_0 \subseteq \fp_1$ we have
+         \[\begin{tikzcd}
+            \fq_0 \arrow[d, "\cap R", swap]  \arrow[r, dashed, "\subseteq"] & \fq_1 \arrow[d, "\cap R"] \\ 
+            \fp_0 \arrow[r, "\subseteq"] & \fp_1 
+        \end{tikzcd}\]
 
-\item \textbf{Consequences of Going Down.} 
-\begin{enumerate}
-    \item Let $R\to S$ be faithfully flat. Prove that $\Spec(S)\to\Spec(R)$ is surjective. Hint: For $\fp\in\Spec(R)$, show that $\kappa(\fp)\otimes_R S\neq 0$.
-    \item Deduce that if $R\to S$ is faithfully flat, then every finite chain of primes in $R$ can be lifted to a chain of primes in $S$. Conclude that $\dim(S)\geq \dim(R)$.
-    \item Apply this to $R\to R[x]$ to recover the inequality $\dim(R[x])\geq \dim(R)+1$ for nonzero $R$. Hint: if $\fp_0\subsetneq\cdots\subsetneq\fp_n$ is a chain in $R$, use the explicit chain $\fp_0R[x]\subsetneq\cdots\subsetneq\fp_nR[x]\subsetneq\fp_nR[x]+\langle x\rangle$.
-    \item Let $A\subseteq B$ be an integral extension of domains with $A$ integrally closed. Let $\fq\in\Spec(B)$ and $\fp=\fq\cap A$. Use Going Up, Going Down for Normal Domains, and Incomparability to prove
-    \[
-    \height(\fq)=\height(\fp).
-    \]
-    \item Specialize the previous part to a finite extension $\K[y_1,\ldots,y_d]\subseteq B$ where $B$ is a domain. What does it say about heights of primes in $B$?
-\end{enumerate}
+        \item Going down says, given $\fq_1$ over $\fp_1$ and $\fp_0 \subseteq \fp_1$ we have
+         \[\begin{tikzcd}
+            \fq_0  \arrow[d, "\cap R", swap] & \fq_1 \arrow[l, dashed, "\subseteq", swap] \arrow[d, "\cap R"] \\ 
+            \fp_0  \arrow[r, "\subseteq"] & \fp_1 
+        \end{tikzcd}\]
 
-\end{enumerate}
+        \item In $\Spec(S)$ going up enables us to go from $\fq_0$ (over $\fp_0$) to $\fq_0 \subseteq \fq_1$, so $\fq_1 \in \V(\fq_0)$ and going down lets us find $\fq_0$ such that $\fq_1 \in \V(\fq_0)$. 
+        
+        \item In worksheet 6.1 we showed that a localized ring is a flat module and thus localization satisfies the flat going down theorem. 
+        
+        \item $\K \to \K[x]$ is flat but not integral and $\Z \to \Z/p\Z$ is integral but not flat. 
+    \end{enumerate}
+\end{solution}
+
+\begin{problem}{10}
+    \textbf{Consequences of Going Down.} 
+
+    \begin{enumerate}
+        \item Let $R\to S$ be faithfully flat. Prove that $\Spec(S)\to\Spec(R)$ is surjective. Hint: For $\fp\in\Spec(R)$, show that $\kappa(\fp)\otimes_R S\neq 0$.
+        \item Deduce that if $R\to S$ is faithfully flat, then every finite chain of primes in $R$ can be lifted to a chain of primes in $S$. Conclude that $\dim(S)\geq \dim(R)$.
+        \item Apply this to $R\to R[x]$ to recover the inequality $\dim(R[x])\geq \dim(R)+1$ for nonzero $R$. Hint: if $\fp_0\subsetneq\cdots\subsetneq\fp_n$ is a chain in $R$, use the explicit chain $\fp_0R[x]\subsetneq\cdots\subsetneq\fp_nR[x]\subsetneq\fp_nR[x]+\langle x\rangle$.
+        \item Let $A\subseteq B$ be an integral extension of domains with $A$ integrally closed. Let $\fq\in\Spec(B)$ and $\fp=\fq\cap A$. Use Going Up, Going Down for Normal Domains, and Incomparability to prove
+        \[
+        \height(\fq)=\height(\fp).
+        \]
+        \item Specialize the previous part to a finite extension $\K[y_1,\ldots,y_d]\subseteq B$ where $B$ is a domain. What does it say about heights of primes in $B$?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Since $R \to S$ is faithfully flat we know that $\kappa(\fp) \otimes_R S = 0 \iff \kappa(\fp) = 0$, since $\kappa(\fp) \neq 0$ for any prime ideal we know $\kappa(\fp) \otimes_R S \neq 0$. Since tensor product commutes with localization and quotients, 
+        \[\kappa(\fp) \otimes_R S \iso R_{\fp}/\fp R_{\fp} \otimes_R S = (R_{\fp} \otimes_R S) / (\fp R_{\fp} \otimes_R S) = S_{\fp}/\fp S_{\fp}\]
+        
+
+    \end{enumerate}
+\end{solution}
 
 \hrulefill
 

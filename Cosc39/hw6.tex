@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+\textbf{No fast automata checker.} 
+
+    Consider the following problem about NFAs.
+
+    \begin{tcolorbox}
+    \textsc{NFA-REJECT}
+    \begin{itemize}
+        \item \textbf{Input:} An $n$-state NFA $N$.
+        \item \textbf{Output:} Does NFA $N$ reject at least one string? In other words, is $L(N) \neq \Sigma^*$?
+    \end{itemize}
+    \end{tcolorbox}
+
+    Prove that the \textsc{NFA-REJECT} problem is NP-hard.
+
+    \emph{[We have demonstrated in class that analyzing the behavior of a program in general is undecidable; here we see that even when the program has no access to memory we cannot expect to have efficient algorithms!]}
+\end{problem}
+
+\begin{problem}{2}
+    \textbf{Unfinished coursework.} 
+    
+    A \emph{dominating set} in graph $G$ is a set of vertices $S$ so that every vertex is in $S$ or a neighbor of $S$.
+
+    \begin{tcolorbox}
+    \textsc{DOMSET}
+    \begin{itemize}
+        \item \textbf{Input:} An undirected graph $G$, a parameter $q$
+        \item \textbf{Output:} Does $G$ have a dominating set of size at most $q$?
+    \end{itemize}
+    \end{tcolorbox}
+
+    Prove that \textsc{DOMSET} does not have sub-exponential time algorithm under ETH.
+\end{problem}
+
+\begin{problem}{3}
+    Many puzzles, board games, and video games are NP-hard; the list is so long that I cannot even. (See this course webpage of Erik Demaine.) Most signature examples includes Baba is You (actually undecidable), Candy Crush Saga, Chess, Cookie Clicker, Doom, Go, Grand Theft Auto, Legend of Zelda, Magic the Gathering (actually undecidable), Minesweeper, Pokémon, Portal, Resident Evil, Rush Hour, Sudoku, Super Mario Bros., Tetris, and more.
+
+    Prove one of your favorite games is NP-hard. (To get full credit, you need to choose a game that has not been proven to be NP-hard before.)
+\end{problem}
+
+\end{document}

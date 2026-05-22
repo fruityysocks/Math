@@ -1208,6 +1208,84 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     
     \[H_0(X)\iso \widetilde{H_0}(X) \oplus \Z \implies \widetilde{H_0}(\text{pt}) =0 \]
 \end{definition}
+
+\begin{definition}
+    If $\alpha \in C_n(X)$ we say that $\alpha$ is a \textbf{chain}. $\alpha$ is a \textbf{cycle} if $\d_n(\alpha) = 0$ $\alpha$ is called a boundry if $\alpha = \d(\beta)$ for some $\beta \in C_{n+1}(X)$. 
+\end{definition}
+
+\begin{definition}
+    A map $\phi: C_n(X) \to C_n(Y)$ is called a \textbf{chain map} if $\d(\phi) = \phi(\d)$. Such a $\phi$ always induces a map in homology. 
+\end{definition}
+
+\begin{proposition} [Homotopy Invariance of Singular Homology]
+    Let $f: X \to Y$ then $\exists$ an induced homomorphism defined by 
+    \[f_{\#}:: C_n(X) \to C_n(Y), \quad \sigma \mapsto f \circ \sigma\]
+    which extends $\Z$-linearly.  This map satisfies $f_{\#}\d = \d f_{\#}$. 
+\end{proposition}
+
+\begin{proof}
+    For some $\sigma \in C_n(X)$. 
+    \begin{align*}
+        f_{\#}\d(\sigma) &= f_{\#} \left(\sum_i (-1)^i \sigma | [v_0, \ldots, \widehat{v_i}, \ldots, v_n]\right) \\ 
+        &= \sum_i (-1)^i (f \circ \sigma) \mid_{[v_0, \ldots, \widehat{v_i}, \ldots, v_n]} \\ 
+        &= \d f_{\#} (\sigma)
+    \end{align*}
+
+    Hence $f_{\#}$ induces a map $f \star: H_n(X) \to H_n(Y)$. 
+    \begin{proof}
+        Note $f_{\#} (\ker \d_{n_X}) \subset \ker \d_{n_Y}$. Since $\alpha \in C_n(X)$ such that $\d(\alpha) = 0$. Then, 
+        \[f_{\#}(\d_X(\alpha)) = 0 = \d(f_{\#} (\alpha)) \implies f_{\#}(\alpha) \in \ker(\d_{n_Y})\]
+        Again note that $f_{\#} (\im \d_{{n+1}_X}) \subset \im \d_{{n+1}_Y}$. Let $\alpha \in C_n(X)$ and $\beta \in C_{n+1}(\beta)$ such that $\alpha = \d (\beta)$. Then, 
+        \[f_{\#}(\alpha) = 0 = f_{\#} \d (\beta) = \d(f_{\#}\beta) \implies f_{\#}(\alpha) \in \im (\d_{n+1})\]
+
+        Since $f_{\#}$ sends $\ker(\d_n)$ to $\ker(\d_n)$ and $\im(\d_{n+1})$ to $\im(\d_{n+1})$ it induces a map $f_\star: H_n(X) \to H_n(Y)$. 
+    \end{proof}
+\end{proof}
+
+\begin{theorem}
+    If $f, g: X \to Y$ are homotopic, then they induce the same map on homology, 
+    \[f_\star = g_\star : H_n(X) \to H_n(Y)\]
+\end{theorem}
+
+\begin{proof}
+    The idea is to subdivide $\Delta^n \times I $ into $(n+1)$-simplicies. Let's say $\Delta^n \times \{0\} = [v_0, \ldots, v_n]$, $\Delta^n \times \{1\} = [w_0, \ldots, w_n]$. We start with $[v_0, \ldots, v_n]$ and consider the $(n+1)$-simplex $[v_0, v_n, w_n]$. Here we keep track of a distinguished edge from $v_n \to w_n$. Note that by contracting along the distinguished edge we go from the $[v_0, \ldots v_n]$-face to $[v_0, \ldots, v_{n-1}, w_n]$-face of the $(n+1)$-simplex. We say that $[v_0, \ldots v_n]$ is the lower face and $[v_0, \ldots, v_{n-1}, w_n]$ the upper face. 
+
+    In a typical step, we will construct a $(n+1)$-simplex $[v_0, \ldots, v_i, w_i, \ldots, w_n]$ with lower face $[v_0, \ldots, v_i, w_{i+1}, \ldots, w_n]$ and upper face  $[v_0, \ldots, v_{i-1}, w_i, \ldots, w_n]$ which we get by contracting along the edge from $v_i$ to $w_i$. 
+\end{proof}
+
+\begin{proposition}
+     Now given $F: X \times I \to Y$  a homotopy we can define for any singular $n$-simplex $\sigma: \Delta^n \to X$ the mao, 
+    \[F': F \circ (\sigma \times \Id) : \Delta^n \times I \to Y\] 
+    Now define the map $p: C_n(X) \to C_{n+1}(Y)$ by 
+
+    \[P(\sigma) = \sum_i(-1)^i F' \mid_{[v_0, \ldots, v_i, w_i, \ldots, w_n]}\]
+
+    It will turn out that $P$ is not a chain map but 
+    \[\d P = g_{\#} - f_{\$} - P \d\]
+\end{proposition}
+
+\begin{proof}
+    Let $\sigma: \Delta^n \to X$. Then, 
+    \begin{align*}
+        \d P(\alpha) &= \sum_{j \leq i} (-1)^i(-1)^j F' \mid_{[v_0, \ldots, \widehat{v_j}, \ldots, v_i, w_i, \ldots, w_n]} + \sum_{j \geq i} (-1)^i(-1)^{j+1} F' \mid_{[v_0, \ldots, v_i, w_i, \ldots, \widehat{v_j},\ldots, w_n]}
+    \end{align*} 
+    all terms of $\d P (\sigma)$ with $i=j$ will cancel except $F' \mid_{[ \widehat{v_0}, w_0, \ldots, w_n]} = g \circ \sigma = g_{\#}(\sigma)$ and $-F' \mid_{[v_0, \ldots, v_n, \widehat{w_n}]} = - f \circ \sigma = -f_{\#}(\sigma)$ that is $\d P(\sigma) = g_{\#} \sigma - f_{\#} \sigma$ which is a homotopy between $g_{\#}$ and $f_{\#}$. 
+
+    Now $P \d(\sigma)$ precisely equals negative of sum of $i+j$ terms in $\d P(\sigma)$, that is, 
+    \[P \d (\sigma) = \sum_{j < i} (-1)^{i-1}(-1)^j F' \mid_{[v_0, \ldots, \widehat{v_j}, \ldots, v_i, w_i, \ldots, w_n]} + \sum_{j > i} (-1)^i(-1)^{j} F' \mid_{[v_0, \ldots, v_i, w_i, \ldots, \widehat{v_j},\ldots, w_n]}\]
+\end{proof}
+
+\begin{corollary}
+    $\widehat{H_i} (D^n) = 0$ for all $i$. 
+\end{corollary}
+
+\section{Exact Sequences}
+
+\begin{theorem}
+    Let $X$ be a space and $A$ be a subspace of $X$ such that $A$ is closed and it is a deformation retraction of a neighborhood of $A$ in $X$. Then we have a long exact sequence given by 
+    \[\ldots \to \widetilde{H_n}(A)\xrightarrow{i_\star} \widetilde{H_n}(X) \xrightarrow{j_\star} \widetilde{H_n}(X/A) \xrightarrow{\d} \widetilde{H_{n-1}}(A) \xrightarrow{i_\star} \widetilde{H_{n-1}}(X) \xrightarrow{j_\star} \widetilde{H_{n-1}}(X/A) \xrightarrow{\d}\ldots\]
+    where $i_\star$ is induced from $i: A \hookrightarrow X$ and $j_\star$ is induced from $j: X \to X/A$. 
+\end{theorem}
 \end{document}
 
 
