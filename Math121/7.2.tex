@@ -107,7 +107,7 @@ In the second half of the worksheet we use these theorems to prove and apply \em
     \begin{enumerate}
         \item If $\fq \in \Spec(S)$ then $\fq$ is a prime ideal and we know that pre-images of prime ideals are prime, hence $\phi^{-1}(\fq)$ is a prime ideal of $R$. 
         \item We have already proved this. 
-        \item  \todo{}
+        \item Assume for contradiction that $S_{\fp} = 0$. Then $\frac{0}{1} \sim \frac{1}{1} \implies \exists t \in \phi(R \setminus \fp)$ such that $t(1 - 0) = 0 \implies t = 0 \implies t \in \ker(\phi)$ but $\phi$ is injective so $t$ must be $0$ and $0 \notin R \setminus \fp$. A contradiction. Hence, $S_{\fp} \neq 0$. 
         \item In Worksheet 7.1 Problem 17 that if $S$ is integral over $R$ and $U\subset R$ is multiplicatively closed, then $U^{-1}S$ is integral over $U^{-1}R$. Since $S_{\fp} = U^{-1}S$ with $U = R \setminus \fp$, we have $S_{\fp}$ is integral over $R_{\fp}$. 
         \item We have, 
          \[ \begin{tikzcd} R \arrow[r, "\phi"] \arrow[d] & S \arrow[d] \\ R_\mathfrak{p} \arrow[r, "\phi_\mathfrak{p}"] & S_\mathfrak{p} \end{tikzcd}\]
@@ -532,12 +532,46 @@ Let $A\subseteq B$ be an integral extension of domains. If $A$ is integrally clo
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item Since $R \to S$ is faithfully flat we know that $\kappa(\fp) \otimes_R S = 0 \iff \kappa(\fp) = 0$, since $\kappa(\fp) \neq 0$ for any prime ideal we know $\kappa(\fp) \otimes_R S \neq 0$. Since tensor product commutes with localization and quotients, 
-        \[\kappa(\fp) \otimes_R S \iso R_{\fp}/\fp R_{\fp} \otimes_R S = (R_{\fp} \otimes_R S) / (\fp R_{\fp} \otimes_R S) = S_{\fp}/\fp S_{\fp}\]
+        \item Since $R \to S$ is faithfully flat we know that $\kappa(\fp) \otimes_R S = 0 \iff \kappa(\fp) = 0$, as $\kappa(\fp) \neq 0$ for any prime ideal we know $\kappa(\fp) \otimes_R S \neq 0$. That is $\kappa(\fp) \otimes_R S$ has at least one prime ideal, let this ideal be $\overline{\fq}$. Since pre-images of prime ideals are prime, $\overline{\fq}$ gives us a prime ideal $\fq \in S$. 
+        \[\begin{tikzcd}
+            S \arrow[r] & \kappa(\mathfrak{p})\otimes_R S \\
+            R \arrow[u] \arrow[r] & \kappa(\mathfrak{p}). \arrow[u]
+        \end{tikzcd}\]
         
+        Since the diagram commutes, the two maps $R \to S \to \kappa(\fp) \otimes_R S$ and $R \to \kappa(\fp) \to \kappa(\fp) \otimes_R S$ must agree. Pulling back $\fq$ along the bottom-right path gives us  $(0) \in \Spec(\kappa(\fp))$, and $(0)$ contracts to $\fp \in \Spec(R)$. Thus $\fq$ lies over $\fp$. Hence every $\fp \in \Spec(R)$ is in the image and thus the map $\Spec(S) \to \Spec(R)$ is surjective. 
+        
+        % \[\begin{tikzcd}
+        %     \Spec(S)  \arrow[d]  & \Spec(\kappa(\fp) \otimes_R S)  \arrow[d] \arrow[l]\\ 
+        %     \Spec(R)  & \Spec(\kappa(\fp)) \arrow[l]
+        % \end{tikzcd}\]
+        
+        \item Since $\Spec(S) \to \Spec(R)$ is surjective, given a longest prime chain in $R$, 
+        \[\fp_0 \subsetneq \fp_1 \subsetneq \cdots \subsetneq \fp_n\]
+        we can find a lift of $\fp_n$, $\fq_n \in \Spec(S)$. Then by going down, we can inductively find the corresponding prime chain of the same length in $S$,
+        \[\fq_0 \subsetneq \fq_1 \subsetneq \cdots \subsetneq \fq_n\]
+        so $\dim(S) \geq \dim(R)$.
 
+        \item Let 
+        \[\fp_0 \subsetneq \fp_1 \subsetneq \cdots \subsetneq \fp_n\] 
+        be any chain chain in $R$ and define the ideal laying over $\fp_n$ as $\fq_n = \fp_n R[x]$ since $\fq \cap R = \fp$ and 
+        \[R[x] / \fq_n = R/\fp_nR[x] = (R/\fp_n)[x]\]
+        which is a domain. Then by part (2) we can inductively find a chain such that 
+        \[\fq_0 \subsetneq \fq_1 \subsetneq \cdots \subsetneq \fq_n = \fp_n R[x]\]
+        Note that $\fp_n R[x] \subsetneq \fp_n R[x] + \langle x \rangle$ since $x \notin \fp_nR[x]$ because every element of $\fp_n R[x]$ has its coefficients in $\fp_n$ but $x$ has leading coefficient $1$. 
+        
+        So we have a chain of length $n+1$ in $S$
+        \[\fq_0 \subsetneq \fq_1 \subsetneq \cdots \subsetneq \fq_n = \fp_n R[x] \subsetneq \fp_n R[x] + \langle x \rangle\]
+        so $\dim(S) \geq \dim(R) + 1$. 
+
+        \item Going down for normal domains gives us that $\height(\fq) \geq \height(\fp)$. To see that $\height(\fq) \leq (\fp)$ we consider a longest chain that ends at $\fq$ in $B$. Restricting it to $A$ gives us a chain that ends at $\fp$. Moreover we know all inclusions in the chain are strict by Incomparability. 
+        Hence, $\height(\fq) = \height(\fp)$. 
+
+        \item Since $\K[y_1, \ldots, y_d]$ is a polynomial ring over a field it is a UFD and hence is integrally closed and the extension $\K[y_1, \ldots, y_d] \subseteq B$ is integral. Moreover note that any prime in $\K[y_1, \ldots, y_d]$ has height at most $d$. Then by part 4 for any prime ideal $\fq \in B$ we have, 
+        \[\height(\fq) = \height(\fq \cap \K[y_1, \ldots, y_d]) \leq d\]
     \end{enumerate}
 \end{solution}
+ 
+\newpage
 
 \hrulefill
 
@@ -555,91 +589,188 @@ The proof is an induction on the number of algebra generators. The key step is a
 
 \hrulefill
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\newpage 
 
-\item \textbf{The Monic Change of Variables Trick.} Let $0\neq f\in \K[x_1,\ldots,x_n]$. The goal of this exercise is to make a change of variables so that $f$ becomes monic in one variable. Write
-\[
-f=\sum_{\alpha} c_{\alpha}x_1^{\alpha_1}\cdots x_n^{\alpha_n},
-\]
-where $\alpha=(\alpha_1,\ldots,\alpha_n)\in \Z_{\geq 0}^n$, only finitely many $c_\alpha$ are nonzero, and $c_\alpha\in \K$. Choose an integer $N$ larger than every exponent appearing in every monomial of $f$; that is, $N>\alpha_i$ for every exponent vector $\alpha$ appearing in $f$ and every $i$.
-
-\begin{enumerate}
-    \item Define
+\begin{problem}{11} \textbf{The Monic Change of Variables Trick.} 
+    
+    Let $0\neq f\in \K[x_1,\ldots,x_n]$. The goal of this exercise is to make a change of variables so that $f$ becomes monic in one variable. Write
     \[
-    w(\alpha)
-    =
-    \alpha_n+\alpha_1N+\alpha_2N^2+\cdots+\alpha_{n-1}N^{n-1}.
+    f=\sum_{\alpha} c_{\alpha}x_1^{\alpha_1}\cdots x_n^{\alpha_n},
     \]
-    Explain why this is the base-$N$ expansion of an integer whose ``digits'' are $\alpha_n,\alpha_1,\alpha_2,\ldots,\alpha_{n-1}$
+    where $\alpha=(\alpha_1,\ldots,\alpha_n)\in \Z_{\geq 0}^n$, only finitely many $c_\alpha$ are nonzero, and $c_\alpha\in \K$. Choose an integer $N$ larger than every exponent appearing in every monomial of $f$; that is, $N>\alpha_i$ for every exponent vector $\alpha$ appearing in $f$ and every $i$.
 
-\item Since all these digits are strictly smaller than $N$, prove that if $w(\alpha)=w(\beta)$ then then $\alpha=\beta$. Thus the weights $w(\alpha)$ are distinct for distinct monomials of $f$.
+    \begin{enumerate}
+        \item Define
+        \[
+        w(\alpha)
+        =
+        \alpha_n+\alpha_1N+\alpha_2N^2+\cdots+\alpha_{n-1}N^{n-1}.
+        \]
+        Explain why this is the base-$N$ expansion of an integer whose ``digits'' are $\alpha_n,\alpha_1,\alpha_2,\ldots,\alpha_{n-1}$
 
-    \item Introduce new variables
-    \[
-    y_i=x_i-x_n^{N^i}
-    \qquad\text{for }1\leq i\leq n-1.
-    \]
-    Equivalently, $ x_i=y_i+x_n^{N^i}$. Substitute these expressions into a monomial
-    \[
-    x_1^{\alpha_1}\cdots x_{n-1}^{\alpha_{n-1}}x_n^{\alpha_n}.
-    \]
-    Show that the unique term obtained by choosing $x_n^{N^i}$ from every factor $(y_i+x_n^{N^i})^{\alpha_i}$ is $x_n^{w(\alpha)}$. All other terms contain at least one $y_i$ and have strictly smaller degree in $x_n$.
+      \item Since all these digits are strictly smaller than $N$, prove that if $w(\alpha)=w(\beta)$ then then $\alpha=\beta$. Thus the weights $w(\alpha)$ are distinct for distinct monomials of $f$.
 
-    \item Since the weights $w(\alpha)$ are distinct, there is a unique exponent vector $\alpha^{\max}$ appearing in $f$ for which $w(\alpha)$ is largest. Show that, after the substitution, the highest power of $x_n$ appearing in $f$ is
-    \[
-    c_{\alpha^{\max}}x_n^{w(\alpha^{\max})}.
-    \]
+        \item Introduce new variables
+        \[
+        y_i=x_i-x_n^{N^i}
+        \qquad\text{for }1\leq i\leq n-1.
+        \]
+        Equivalently, $ x_i=y_i+x_n^{N^i}$. Substitute these expressions into a monomial
+        \[
+        x_1^{\alpha_1}\cdots x_{n-1}^{\alpha_{n-1}}x_n^{\alpha_n}.
+        \]
+        Show that the unique term obtained by choosing $x_n^{N^i}$ from every factor $(y_i+x_n^{N^i})^{\alpha_i}$ is $x_n^{w(\alpha)}$. All other terms contain at least one $y_i$ and have strictly smaller degree in $x_n$.
 
-    \item Conclude that, after multiplying $f$ by the nonzero scalar $c_{\alpha^{\max}}^{-1}$ we may regard $f$ as a monic polynomial in $x_n$ with coefficients in
-    \[
-    \K[y_1,\ldots,y_{n-1}].
-    \]
+        \item Since the weights $w(\alpha)$ are distinct, there is a unique exponent vector $\alpha^{\max}$ appearing in $f$ for which $w(\alpha)$ is largest. Show that, after the substitution, the highest power of $x_n$ appearing in $f$ is
+        \[
+        c_{\alpha^{\max}}x_n^{w(\alpha^{\max})}.
+        \]
 
-    \item Let $A=\K[x_1,\ldots,x_n]/\langle f\rangle$. Prove that the image of $x_n$ in $A$ satisfies a monic polynomial with coefficients in the subalgebra generated by the images of
-    \[
-    y_1,\ldots,y_{n-1}.
-    \]
-    Therefore the image of $x_n$ is integral over this subalgebra.
+        \item Conclude that, after multiplying $f$ by the nonzero scalar $c_{\alpha^{\max}}^{-1}$ we may regard $f$ as a monic polynomial in $x_n$ with coefficients in
+        \[
+        \K[y_1,\ldots,y_{n-1}].
+        \]
 
-    \item Show $A$ is generated as an algebra over $\K[y_1,\ldots,y_{n-1}]$ by the single integral element $x_{n}$. Deduce that $S$ is module-finite over $\K[y_1,\ldots,y_{n-1}]$. 
-\end{enumerate}
+        \item Let $A=\K[x_1,\ldots,x_n]/\langle f\rangle$. Prove that the image of $x_n$ in $A$ satisfies a monic polynomial with coefficients in the subalgebra generated by the images of
+        \[
+        y_1,\ldots,y_{n-1}.
+        \]
+        Therefore the image of $x_n$ is integral over this subalgebra.
 
-\item \textbf{Proof of Noether Normalization.} Let $A=\K[x_1,\ldots,x_n]/I$ be an algebra-finite $\K$-algebra.
-\begin{enumerate}
-    \item If $I=\langle 0\rangle$, prove the theorem.
-    \item If $I\neq \langle 0\rangle$, choose $0\neq f\in I$. Use the previous exercise to make a change of variables so that $A$ is module-finite over the image of a polynomial ring in $n-1$ variables.
-    \item Let $A_1$ denote this image subalgebra. Explain why $A_1$ is algebra-finite over $\K$ using at most $n-1$ algebra generators.
-    \item Apply induction to $A_1$ to find a polynomial subring $\K[y_1,\ldots,y_d]\subseteq A_1$ such that $A_1$ is module-finite over $\K[y_1,\ldots,y_d]$.
-    \item Prove that $A$ is module-finite over $\K[y_1,\ldots,y_d]$.
-    \item Explain why the elements $y_1,\ldots,y_d$ are algebraically independent over $\K$.
-\end{enumerate}
+        \item Show $A$ is generated as an algebra over $\K[y_1,\ldots,y_{n-1}]$ by the single integral element $x_{n}$. Deduce that $A$ is module-finite over $\K[y_1,\ldots,y_{n-1}]$. 
+    \end{enumerate}
+\end{problem}
 
-\item \textbf{Finding Normalizations by Hand.} For each algebra below, find a polynomial subring over which the algebra is module-finite. When possible, give explicit module generators.
-\begin{multicols}{2}
-\begin{enumerate}
-    \item $\K[t^2,t^3]$.
-    \item $\K[x,y]/\langle y^2-x^3\rangle$.
-    \item $\K[x,y]/\langle xy\rangle$. Hint: Try $x+y$.
-    \item $\K[x,y,z]/\langle z^2-xy\rangle$.
-    \item $\K[x^2,xy,y^2]\subseteq \K[x,y]$.
-    \item $\K[s^2,s^3,t]$.
-\end{enumerate}
-\end{multicols}
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Since $\alpha \in \Z$, and all $\alpha_i < N$ we can write a base-$N$ expansion of the integer $(\alpha_n\alpha_1\alpha_2\cdots\alpha_{n-1})_N$ in this manner. 
+        
+        \item Assume $w(\alpha) = w(\beta)$. Then $(\alpha_n\alpha_1\alpha_2\cdots\alpha_{n-1})_N = (\beta_n\beta_1\beta_2\cdots\beta_{n-1})_N \implies \alpha = \beta$. 
+        
+        \item We have $\prod_i^n x_i^{\alpha_i} = x_n^{\alpha_n} \prod_i^{n-1} \left (y_i + x_n^{N^i} \right )^{\alpha_i}$. Picking just $x_n^{N^i}$ from every factor gives us, 
+        \[ x_n^{\alpha_n} \prod_i^{n-1} \left (x_n^{N^i} \right )^{\alpha_i} = x_n^{\alpha_n} \prod_i^{n-1} x_n^{\alpha_i N^i} = x_n^{\alpha_n + \alpha_1 N^1 + \cdots + \alpha_{n-1}N^{n-1}} = x_n^{w(\alpha)} \]
+        By binomial expansion we know that all other terms contain at least one $y_i$ and hence have strictly smaller degree in $x_n$. 
 
-\item \textbf{Zariski's Lemma from Noether Normalization.} Let $A$ be an algebra-finite $\K$-algebra that is also a field.
-\begin{enumerate}
-    \item By Noether Normalization, choose $\K[y_1,\ldots,y_d]\subseteq A$ such that $A$ is module-finite over $\K[y_1,\ldots,y_d]$. Explain why this extension is integral.
-    \item Use the earlier fact that if $B$ is a field integral over a domain $A_0$, then $A_0$ is a field, to prove that $\K[y_1,\ldots,y_d]$ is a field.
-    \item Prove that $d=0$.
-    \item Conclude that $A$ is a finite-dimensional vector space over $\K$. Equivalently, every field that is algebra-finite over $\K$ is algebraic and finite over $\K$.
-    \item Deduce the weak Nullstellensatz: if $\K$ is algebraically closed and $\fm\subset \K[x_1,\ldots,x_n]$ is maximal, then
-    \[
-    \fm=\langle x_1-a_1,\ldots,x_n-a_n\rangle
-    \]
-    for some $a_1,\ldots,a_n\in \K$.
-\end{enumerate}
+        \item Thus after substitution, the leading term contributed by each monomial $c_\alpha x_1^{\alpha_i} \cdots x_n^{\alpha_n}$ in $f$ is $c_\alpha x^{w_\alpha}$. From part 2 we know that distinct $\alpha$'s have distinct $w(\alpha)$'s, and thus no two monomomials of $f$ contribut leading terms of the same order. Therefore, there exists some $\alpha^{\max}$ whose weight $w(\alpha^{\max})$ is the largest, and thus the highest power of $x_n$ in $f$ is $c_{\alpha^{\max}} x_n^{w(\alpha^{max})}$. 
+        
+        \item Since $c_\alpha \in \K$, we can multiply the term in the previous part by $c_{\alpha^{\max}}^{-1}$ to ensure the coefficient is one, thus making the polynomial $f$ monic in $x_n$ with coefficients in $\K[y_1, \ldots, y_{n-1}]$. 
+        
+        \item ${x_n} \in \K[x_1, \ldots, x_n]$ satisfies the monic polynomial 
+        \[c_{\alpha^{\max}}^{-1} \cdot f = x_n^{w(\alpha^{\max})} + g_{d-1}(y_1, \ldots, y_{n-1})x_n^{w(\alpha^{\max})-1} + \ldots + g_{0}(y_1, \ldots, y_{n-1}) = 0\]
+        with coefficients in $\K[y_1, \ldots y_{n-1}]$. In $A$ we get, 
+        \[\overline{x_n} = \overline{c_{\alpha^{\max}}^{-1} \cdot f} = \overline{x_n^{w(\alpha^{\max})}} + \overline{g_{d-1}x_n^{w(\alpha^{\max})-1} }+ \ldots + \overline{g_{0}} = 0\]
+        where each $\overline{g_i}$ is the image of $g_i(y_1, \ldots, y_{n-1})$ in $A$. Hence $\overline{x_n}$ is integral over the subalgebra generated by the image of $y_1, \ldots, y_{n-1}$ in $\K[x_1, \ldots, x_n]/\langle f \rangle$. 
+        
+        \item Note that there is an isomorphism $\K[y_1, \ldots, y_{n-1}][x_n] \iso \K[x_1, \ldots, x_n]$ given by the maps, 
+        \[\phi: x_i \mapsto y_i + x_n^{N^i}, \quad x_n \mapsto x_n\]
+        \[\psi: y_i \mapsto x_i - x_n^{N^i}, \quad x_n \mapsto x_n\]
 
-\end{enumerate}
+        Now we show that the map $\pi: \K[y_1, \ldots, y_{n-1}] \to A$ is injective. Assume for contradiction $p(y_1, \ldots, y_{n-1}) \in \ker(\pi)$. That is, $p(y_1, \ldots, y_{n-1}) \in \langle f \rangle$ or $p(y_1, \ldots, y_{n-1}) = g \cdot f$  for some $g \in \K[x_1, \ldots, x_n]$. But $x_n-\deg(p) = 0$ and $x_n-\deg(g \cdot f) \geq w(\alpha^{\max})$. But this is a contradiction. Hence $\pi$ must be injective. 
+
+        From the isomorphism, we know that every element of $A$ can be represented by $h \in \K[x_1, \ldots, x_n] = \K[y_1, \ldots, y_{n-1}][x_n]$. Since $f$ is monic we get, 
+        \[h = f \cdot q + r, \qquad x_n-\deg(r) \leq w(\alpha^{\max})\]
+        Since $f \equiv 0$ in $A$, we get $\overline{h} = \overline{r}$ where $x_n-\deg(r) \leq w(\alpha^{\max})$ with coefficients in $\K[y_1, \ldots, y_{n-1}]$. Thus $A$ is spanned by $1, x_n, \ldots, x_n^{w(\alpha^{\max})-1 }$ and hence is module-finite.
+    \end{enumerate}
+\end{solution}
+
+
+\newpage 
+
+\begin{problem}{12} \textbf{Proof of Noether Normalization.} 
+    
+    Let $A=\K[x_1,\ldots,x_n]/I$ be an algebra-finite $\K$-algebra.
+    \begin{enumerate}
+        \item If $I=\langle 0\rangle$, prove the theorem.
+        \item If $I\neq \langle 0\rangle$, choose $0\neq f\in I$. Use the previous exercise to make a change of variables so that $A$ is module-finite over the image of a polynomial ring in $n-1$ variables.
+        \item Let $A_1$ denote this image subalgebra. Explain why $A_1$ is algebra-finite over $\K$ using at most $n-1$ algebra generators.
+        \item Apply induction to $A_1$ to find a polynomial subring $\K[y_1,\ldots,y_d]\subseteq A_1$ such that $A_1$ is module-finite over $\K[y_1,\ldots,y_d]$.
+        \item Prove that $A$ is module-finite over $\K[y_1,\ldots,y_d]$.
+        \item Explain why the elements $y_1,\ldots,y_d$ are algebraically independent over $\K$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item If $I = \langle 0 \rangle$, then the $x_i$ are algebraically independent and $A = \K[x_1, \ldots, x_n]$ is itself a polynomial ring and hence is trivially module-finite over itself. 
+        \item Assume $I \neq \langle 0 \rangle$. Now let $f$ be a non-zero polynomial in $I$. By Problem 11 we know that $\K[x_1, \ldots, x_n]/\langle f \rangle$ is module-finite over $\K[y_1, \ldots, y_{n-1}]$ for some algebraically independent $y_1, \ldots y_{n-1}$. 
+        
+        Since $f \in I$ we have $\langle f \rangle \subseteq I$ and we have the quotient map $\K[x_1, \ldots, x_n] /\langle f \rangle \to A$, and hence $A$ is module-finite over the image of $\K[y_1, \ldots, y_{n-1}]$ in $A$. 
+
+        \item Since $A_1$ is the image of a polynomial ring in $n-1$ variables, it has at most $n-1$ algebra-generators over $\K$.  
+        
+        \item By part 3, $A_1$ has at most $n-1$ generators, so by the induction hypothesis there exists some $d \leq n-1$ and algebraically independant elements $y_1, \ldots, y_d$ such that $A_1$ is module finite over $\K[y_1, \ldots, y_d]$. 
+        
+        \item Since $A$ is module-finite over $A_1$ and $A_1$ is module-finite over $\K[y_1, \ldots, y_d]$, $A$ is module-finite over $\K[y_1, \ldots, y_d]$ (Worksheet 7.1, Problem 7). 
+        
+        \item $\K[y_1, \ldots, y_d]$ is a polynomial ring and thus the $y_i$ are algebraically independent over $\K$. 
+    \end{enumerate}
+\end{solution}
+
+
+\newpage 
+
+\begin{problem}{13} \textbf{Finding Normalizations by Hand.} 
+
+    For each algebra below, find a polynomial subring over which the algebra is module-finite. When possible, give explicit module generators.
+    \begin{multicols}{2}
+    \begin{enumerate}
+        \item $\K[t^2,t^3]$.
+        \item $\K[x,y]/\langle y^2-x^3\rangle$.
+        \item $\K[x,y]/\langle xy\rangle$. Hint: Try $x+y$.
+        \item $\K[x,y,z]/\langle z^2-xy\rangle$.
+        \item $\K[x^2,xy,y^2]\subseteq \K[x,y]$.
+        \item $\K[s^2,s^3,t]$.
+    \end{enumerate}
+    \end{multicols}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item $\K[t^2, t^3]$ is module-finite over $\K[t^3 - t^2]$ with generators $\{1, t^2, t^4\}$. 
+        \item $\K[x,y]/\langle y^2-x^3\rangle$ is module-finite over $\K[x]$ with generators $\{1, y\}$. 
+        \item $\K[x,y]/\langle xy\rangle$ is module-finite over $\K[x+y]$ with generators $\{1, x, y\}$. 
+        \item $\K[x,y,z]/\langle z^2-xy\rangle$ is module-finite over $\K[x+y, z]$ with generators $\{1, x\}$. 
+        \item $\K[x^2,xy,y^2]\subseteq \K[x,y]$ is module-finite over $\K[x^2, y^2]$ with generators $\{1, xy\}$. 
+        \item $\K[s^2,s^3,t]$ is module-finite over $\K[s^3 - s^2, t]$ with generators $\{1, s^2, s^4\}$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{14} \textbf{Zariski's Lemma from Noether Normalization.} 
+    
+    Let $A$ be an algebra-finite $\K$-algebra that is also a field.
+    \begin{enumerate}
+        \item By Noether Normalization, choose $\K[y_1,\ldots,y_d]\subseteq A$ such that $A$ is module-finite over $\K[y_1,\ldots,y_d]$. Explain why this extension is integral.
+        \item Use the earlier fact that if $B$ is a field integral over a domain $A_0$, then $A_0$ is a field, to prove that $\K[y_1,\ldots,y_d]$ is a field.
+        \item Prove that $d=0$.
+        \item Conclude that $A$ is a finite-dimensional vector space over $\K$. Equivalently, every field that is algebra-finite over $\K$ is algebraic and finite over $\K$.
+        \item Deduce the weak Nullstellensatz: if $\K$ is algebraically closed and $\fm\subset \K[x_1,\ldots,x_n]$ is maximal, then
+        \[
+        \fm=\langle x_1-a_1,\ldots,x_n-a_n\rangle
+        \]
+        for some $a_1,\ldots,a_n\in \K$.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Module-finiteness implies integrality hence $A$ is integral over $\K[y_1, \ldots, y_d]$. 
+        \item We have an integral extension $\K[y_1, \ldots, y_d] \to A$, and we know that $\K[y_1, \ldots, y_d]$ is a polynomial ring over a field and hence a UFD. Then by Problem 1.2, since $A$ is a field, $\K[y_1, \ldots, y_d]$ is also a field. 
+        
+        \item Assume $d \neq 0$. Then $y_1 \in \K[y_1, \ldots, y_d]$ doesn't have an inverse. A contradiction. Hence $d$ must be $0$. 
+        
+        \item Thus $A$ is module-finite over the field $\K$, i.e. is a finite-dimensional vector space over $\K$, i.e. every element of $A$ is algebraic over $\K$. So $A$ is a algebra-finite over $\K$. 
+        
+        \item Let $\fm \subset \K[x_1, \ldots, x_n]$ be maximal. Then $\K[x_1, \ldots, x_n]/\fm$ is a field. By Noether Normalization $\K[x_1, \ldots, x_n]/\fm$ is algebra-finite over $\K$ and hence a finite algebraic extension of $\K$. Since $\K$ is algebraically closed it has no finite proper extensions and hence $\K[x_1, \ldots, x_n]/\fm \iso \K$. Then $x_i - a_i \in \fm$ and hence $\langle x_1 - a_1, \ldots, x_n - a_n \rangle = \fm$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \hrulefill
 
@@ -655,38 +786,111 @@ Equivalently, if $\K[y_1,\ldots,y_d]\subseteq A$ is a Noether normalization, the
 
 \hrulefill
 
-\begin{enumerate}[leftmargin=*, resume=problems]
+\newpage 
 
-\item \textbf{Dimension of Affine Domains.} Let $A$ be an algebra-finite $\K$-algebra that is a domain.
-\begin{enumerate}
-    \item Let $\K[y_1,\ldots,y_d]\subseteq A$ be a Noether normalization. Use dimension preservation for integral extensions to prove $\dim(A)=d$.
-    \item Show that $\Frac(A)$ is algebraic over $\K(y_1,\ldots,y_d)$. Hint: First prove that every element of $A$ is algebraic over $\K(y_1,\ldots,y_d)$.
-    \item Deduce that $\trdeg_{\K}\Frac(A)=d$.
-    \item Conversely, explain why $d$ is determined by $A$ and not by the choice of Noether normalization.
-\end{enumerate}
+\begin{problem}{15} \textbf{Dimension of Affine Domains.} 
+    
+    Let $A$ be an algebra-finite $\K$-algebra that is a domain.
+    \begin{enumerate}
+        \item Let $\K[y_1,\ldots,y_d]\subseteq A$ be a Noether normalization. Use dimension preservation for integral extensions to prove $\dim(A)=d$.
+        \item Show that $\Frac(A)$ is algebraic over $\K(y_1,\ldots,y_d)$. Hint: First prove that every element of $A$ is algebraic over $\K(y_1,\ldots,y_d)$.
+        \item Deduce that $\trdeg_{\K}\Frac(A)=d$.
+        \item Conversely, explain why $d$ is determined by $A$ and not by the choice of Noether normalization.
+    \end{enumerate}
+\end{problem}
 
-\item \textbf{Computations Using Noether Normalization.} Compute the Krull dimension of each ring. In each case, try to exhibit a finite extension from a polynomial subring or reduce to irreducible components.
-\begin{multicols}{2}
-\begin{enumerate}
-    \item $\K[t^2,t^3]$.
-    \item $\K[s^2,s^3,t]$.
-    \item $\K[x,y,z]/\langle z^2-xy\rangle$.
-    \item $\K[x,y,z]/\langle xy,z\rangle$.
-    \item $\K[x,y,z]/\langle xz,yz\rangle$.
-    \item $\K[x_1,\ldots,x_n]/\langle x_1,\ldots,x_r\rangle$.
-    \item $\Z[x]/\langle x^2+1\rangle$.
-    \item $\K[x^2,xy,y^2]$.
-\end{enumerate}
-\end{multicols}
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item $A$ is integral over $\K[y_1, \ldots, y_d]$. We know that $\dim(\K[y_1, \ldots, y_d]) = d$ and by laying over and going up $\dim(A) \geq d$. Let 
+        \[\fq_0 \subsetneq \fq_1 \subsetneq \cdots \subsetneq \fq_n\]
+        be a prime ideal chain in $A$. Then by Incomparability we get the chain  
+        \[\fq_0 \cap \K[y_1, \ldots, y_n] \subsetneq \fq_1 \cap \K[y_1, \ldots, y_n]  \subsetneq \cdots \subsetneq \fq_n \cap \K[y_1, \ldots, y_n] \]
+        Hence every length in $A$ corresponds to a chain of equal length in $\K[y_1, \ldots, y_d]$ and $\dim(A) = d$. 
 
-\item \textbf{Finite Maps to Affine Space.} Let $A$ be an algebra-finite $\K$-algebra and let $P=\K[y_1,\ldots,y_d]\subseteq A$ be a Noether normalization.
-\begin{enumerate}
-    \item Show that the induced map $\Spec(A)\longrightarrow \Spec(P)\cong \mathbb{A}^d_{\K}$ is surjective.
-    \item For $\fp\in\Spec(P)$, prove that the fibre ring $\kappa(\fp)\otimes_P A$ is finite-dimensional over $\kappa(\fp)$.
-    \item Assume $\K$ is algebraically closed and $\fp=\langle y_1-a_1,\ldots,y_d-a_d\rangle$ is a closed point of $\mathbb A^d_{\K}$. Show that the closed points in the fibre over $\fp$ correspond to maximal ideals of the finite-dimensional $\K$-algebra $A/\fp A$.
-    \item Prove that a finite-dimensional algebra over a field has only finitely many maximal ideals. Hint: Distinct maximal ideals are comaximal, and the Chinese Remainder Theorem gives a surjection onto a product of fields.
-    \item Explain the geometric slogan: Noether normalization gives a finite-to-one projection from an affine algebraic set to affine space of the same dimension.
-\end{enumerate}
-\end{enumerate}
+        \item Since $A$ is integral over $\K[y_1, \ldots, y_d]$ every element of $A$ satisfies some monic polynomial with coefficients in $\K[y_1, \ldots, y_d]$, i.e. every element in $A$ is algebraic over $\K[y_1, \ldots, y_d]$. Since $\K[y_1, \ldots, y_d] \subseteq \K(y_1, \ldots, y_d)$, every element of $A$ is algebraic over it. 
+        
+        Now note that elements of $\Frac(A)$ are of the form $\frac{a}{b}$ where $a, b \in A$. Since both $a, b$ are algebraic over $\K(y_1, \ldots, y_d)$ and algebraic extensions are closed under field operations $\frac{a}{b}$ is also algebraic over $\K(y_1, \ldots, y_d)$. 
+
+        \item We know that $\trdeg_{\K}\Frac(A) \geq d$ since $y_1, \ldots, y_d$ are algebraically independent over $\K$. By part 2, since $\Frac(A)$ is algebraic over $\K(y_1, \ldots, y_d)$, $\trdeg_{\K} \Frac(A) \leq d$ since every element except $y_1, \ldots y_d$ are algebraic over $\K(y_1, \ldots, y_d)$. Thus, $\trdeg_{\K}\Frac(A)=d$.
+ 
+        \item Because $\trdeg_{\K}\Frac(A) = d$, which depends only on $A$ and $\K$, not on any choices made in the Noether normalization. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{problem}{16}  \textbf{Computations Using Noether Normalization.} 
+    
+    Compute the Krull dimension of each ring. In each case, try to exhibit a finite extension from a polynomial subring or reduce to irreducible components.
+    \begin{multicols}{2}
+    \begin{enumerate}
+        \item $\K[t^2,t^3]$.
+        \item $\K[s^2,s^3,t]$.
+        \item $\K[x,y,z]/\langle z^2-xy\rangle$.
+        \item $\K[x,y,z]/\langle xy,z\rangle$.
+        \item $\K[x,y,z]/\langle xz,yz\rangle$.
+        \item $\K[x_1,\ldots,x_n]/\langle x_1,\ldots,x_r\rangle$.
+        \item $\Z[x]/\langle x^2+1\rangle$.
+        \item $\K[x^2,xy,y^2]$.
+    \end{enumerate}
+    \end{multicols}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Since $\K[t^2, t^3]$ is module-finite over $\K[t^3 - t^2]$ we have $\dim(\K[t^2, t^3]) = \dim(\K[t^3 - t^2]) = 1$. 
+        \item Since $\K[s^2, s^3, t]$ is module-finite over $\K[s^3 - s^2, t]$ we have $\dim(\K[s^2, s^3, t]) = \dim(\K[s^3 - s^2, t]) = 2$. 
+        \item Since $\K[x, y, z] / \langle z^2 - xy \rangle$ is module-finite over $\K[x + y, z]$ we have $\dim(\K[x, y, z] / \langle z^2 - xy \rangle) = \dim(\K[x+y, z]) = 2$.
+        \item Since $\K[x, y, z] / \langle xy, z \rangle$ is module-finite over $\K[x + y]$ we have $\dim(\K[x, y, z] / \langle xy, z \rangle) = \dim(\K[x+y ]) = 1$.
+        \item $\K[x, y, z] / \langle xz, yz \rangle = \K[x, y, z] / \langle z \rangle \cap \langle x, y \rangle$. Then, 
+        \[\K[x, y, z] / \langle z \rangle \iso \K[x,y] \implies \dim(\K[x, y, z] / \langle xz, yz \rangle) = 2\] 
+        or 
+        \[\K[x, y, z] / \langle x, y \rangle \iso \K[z] \implies \dim(\K[x, y, z] / \langle xz, yz \rangle) = 1\] 
+        Since the Krull dimension is the $\sup$, $\dim(\K[x, y, z] / \langle xz, yz \rangle)= 2$. 
+        \item Since $\K[x_1,\ldots,x_n]/\langle x_1,\ldots,x_r\rangle$ is module-finite over $\K[x_{r+1}, \ldots, x_n]$ we have \\
+        $\dim(\K[x_1,\ldots,x_n]/\langle x_1,\ldots,x_r\rangle) = \dim(\K[x_{r+1}, \ldots, x_n]) = n - r$. 
+        \item Since $\Z[x] / \langle x^2 +1 \rangle$ is module-finite over $\Z$ we have $\dim(\Z[x] / \langle x^2 +1 \rangle) = \dim(\Z) = 1$.
+        \item Since $\K[x^2, xy, y^2]$ is module-finite over $\K[x^2, y^2]$ we have $\dim(\K[x^2, xy,  y^2]) = \dim(\K[x^2, y^2]) = 2$. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{17}  \textbf{Finite Maps to Affine Space.} 
+
+    Let $A$ be an algebra-finite $\K$-algebra and let $P=\K[y_1,\ldots,y_d]\subseteq A$ be a Noether normalization.
+    \begin{enumerate}
+        \item Show that the induced map $\Spec(A)\longrightarrow \Spec(P)\cong \mathbb{A}^d_{\K}$ is surjective.
+        \item For $\fp\in\Spec(P)$, prove that the fibre ring $\kappa(\fp)\otimes_P A$ is finite-dimensional over $\kappa(\fp)$.
+        \item Assume $\K$ is algebraically closed and $\fp=\langle y_1-a_1,\ldots,y_d-a_d\rangle$ is a closed point of $\mathbb A^d_{\K}$. Show that the closed points in the fibre over $\fp$ correspond to maximal ideals of the finite-dimensional $\K$-algebra $A/\fp A$.
+        \item Prove that a finite-dimensional algebra over a field has only finitely many maximal ideals. Hint: Distinct maximal ideals are comaximal, and the Chinese Remainder Theorem gives a surjection onto a product of fields.
+        \item Explain the geometric slogan: Noether normalization gives a finite-to-one projection from an affine algebraic set to affine space of the same dimension.
+    \end{enumerate}    
+\end{problem}
+
+\begin{solution}
+    \bbni 
+    \begin{enumerate}
+        \item By Laying over every ideal $\fp \in \Spec(P)$ corresponds to an ideal $\fq \in \Spec(A)$ such that $\fq \cap P = \fp$. Hence the map $\Spec(A) \to \Spec(P)$ is surjective. 
+        
+        \item We proved this in Problem 8. 
+        
+        \item Since $\K$ is algebraically closed, $\fp$ is maximal in $P$ and $\kappa(\fp) = P/\fp \iso \K$. So the fibre ring is
+        \[\kappa(\fp) \otimes_P A = (P/\fp) \otimes_P A \iso A/\fp A\]
+        The closed points of the fiber are the maximal ideals of this fiber ring, which are exactly the maximal ideals of $A$ containing $\fp A$ i.e. the maximal ideals of $A/\fp A$. 
+
+        \item Let $\fm_1, \ldots, \fm_r$ be distinct maximal ideals of $A/\fp A$. Since they are distinct maximal ideals, they are pairwise comaximal and by the CRT, there is a surjection
+        \[A/\fp A \twoheadrightarrow \prod_{i=1}^r A/\fm_i\]
+        Each $\fm_i$ is a maximal ideal of $A/\fp A$, which is a finite-dimensional $\K$-algebra and hence algebra-finite over $\K$. By the Weak Nullstellensatz, $A/\fm_i \cong \K$ for each $i$. Thus we have a surjection
+        \[A/\fp A \twoheadrightarrow \prod_{i=1}^r \K\]
+        which gives
+        \[\dim_\K(A/\fp A) \geq \dim_\K \prod_{i=1}^r \K = r\]
+        Since $A/\fp A$ is finite-dimensional over $\K$ by part (2) and $r \leq \dim_\K(A/\fp A)$, $A/\fp A$ has only finitely many maximal ideals.
+
+        \item Noether normalization gives a surjection $\Spec(A) \twoheadrightarrow A_{\K}^d$ where $d - \dim(A)$. Parts (3) and (4) say that each fiber over a closed point is finite and nonempty. So geometrically, every point of $A_{\K}^d$ has finitely many points of $\Spec(A)$ above it and hence Noether normalization gives a finite-to-one projection from an affine algebraic set to affine space of the same dimension.
+    \end{enumerate}
+\end{solution}
 
 \end{document}

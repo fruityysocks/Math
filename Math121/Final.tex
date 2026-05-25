@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{amsart}
 
 \include{../style}
 
@@ -10,6 +10,80 @@
 \date{}
 \maketitle
 \vspace{-0.3in}
+
+\begin{enumerate}
+    \item \todo{Motivation}
+    \item Homogeneus prime ideals encode homogeneus polynomials vanishing on some projective subvariety of the ring. For instance, given the (homogeneous coordinate) ring $k[x_0, \ldots, x_n]$, in its associated  projective space is $P^n = \Proj(k[x_0, \ldots, x_n])$ we have
+    \begin{itemize}
+        \item $(0)$ — corresponds to all of ${\P}^n$
+        \item $(x_i)$ — a hyperplane $\{x_i = 0\} \iso P^{n-1}$
+        \item $(x_i, x_j)$ — a codimension-2 linear subspace $\{x_i, x_j = 0\} \iso P^{n-2}$
+        \item $(f)$ for homogeneous irreducible $f$  of degree $d$ - a hypersurface $\iso P^{n-d}$. 
+    \end{itemize}
+    \item We want homogeneous primes because in $\P^n$ coordinates are only defined upto scaling. So a polynomial $f$ only vanishes consistently at a projective point if $f(\lambda x) = 0$ whenever $f(x) = 0$, which forces $f$ to be homogeneous. 
+    \item Graded Rings. 
+    \begin{itemize}
+        \item Worth noting that all ring maps from $R \to \gr_IR$ map through the quotinent $R/I$.
+        \item The blow up algebra surjects onto $\gr_I R$, 
+        \[B_IR/IB_I R \iso \gr_IR\]
+        \item If $\gr_IR$ is a domain, then $R$ is a domain (converse not true). 
+    \end{itemize}
+    \item Let $M$ be a smooth manifold and $k$ be a field. $\mathcal C^\infty(M)$ is the ring of infinitely differentiable (smooth) functions $f: M \to k$.
+    \item Let $X$ be a topological space, $x \in X$ a point, and maps $f, g: X \to k$, then $f$ and $g$ are equivalent if they agree on some open neighborhood $U$ of $x$ such that 
+    \[f \sim_x g \iff f \big |_{U}(u) = g \big |_{U}(u), \, \forall u \in U\]
+    The germ of $f$ at $x$ is its equivalence class $[f]_x$.
+    \item The ring of germs at $x$ is,
+    \[\mathcal{O}_{X, x} = \{[f]_x \mid f : U \to k\}\]
+    with addition and multiplication defined representativewise. 
+    This is a local ring with maximal ideal 
+    \[\fm_x = \{[f]_x \in \cO_{X, x} \mid f(x) = 0\}\]
+    which is maximal because evaluation at $x$ gives a surjective ring homomorphism:
+    \[\text{ev}_x: \mathcal{O}_{X,x} \twoheadrightarrow k, \quad [f]_x \mapsto f(x)\]
+    with kernel $\fm_x$, so $\cO_{X, x} / \fm_x \iso k$, which is a field. 
+    \item \begin{theorem}[Krull's Intersection Theorem]
+        Let $R$ be a Noetherian ring, $I \subseteq R$ an ideal, and $M$ a finitely-generated $R$-module. There exists an element $r \in I$ such that \[(1-r) \bigcap_{k=1}^\infty I^kM = 0\]
+    \end{theorem}
+
+    \begin{corollary}
+        If $(R, \fm)$ is a local Noetherian ring, $I \subsetneq R$ then 
+        \[\bigcap_{k=1}^\infty I^k = 0\]
+    \end{corollary}
+    \item \todo{Graded Rings/Modules}
+    \item \todo{Filtrations, Stable Filtrations, Initial forms, Artin-Rees}
+    \item \todo{Blow-up Algebras, Blow Ups, Exceptional Set}
+    \item Limiting point of a line: 
+
+    A line through $0$ in $\A^r$ is determined by its direction (which corresponds to a point in $\P^{r-1}$). More precisely, the line through $0$ and $p = (p_1, \ldots, p_r)$ corresponds to:
+        \[[p_1 : \cdots : p_r] \in \P^{r-1}\]
+    So a sequence of secant lines $\ell_{p_n}$ is really a sequence of points $[p_n] \in \mathbf{P}^{r-1}$. A \textbf{limiting position} is a limit point of this sequence:
+    $$\ell = \lim_{n \to \infty} [p_n] \in \P^{r-1}$$
+    This is well-defined because $P^{r-1}$ is compact (over $\C$), so every sequence has a convergent subsequence.
+
+    \item The correspondence between the exceptional set in the blow up and the associated graded ring gives us a beautiful geometric consequence. Let $R = k[x_1, \ldots, x_r]/J$ and $I = (x_1, \ldots, x_r)$ where $k$ is algebraically closed and $J \subset I$, also let $X = \V(J) \subset \A^r$ so $0 \in X$. 
+    
+    -- basically $X$ is the algebraic subset of $\A^r$ cut out by $J$. 
+
+    Then we define the tangent cone of $X$ at $0$ as the cone composed of all lines that are the limiting positions of secant lines to $X$ passing through the point $0$. Alternatively, the tangent cone at $0$ is then:
+    \[TC_0(X) = \overline{\{[p] \in \mathbf{P}^{r-1} : p \in X \setminus \{0\}\}} \subset \mathbf{P}^{r-1}\]
+    the closure of the set of directions of points on $X$, together with the actual lines they represent in $\A^r$. The closure is what captures the limiting directions — directions you can approach but which may not themselves be realized by points of $X \setminus \{0\}$. One can show that the ideal $\ini_I(J) \subset k[x_1, \ldots, x_r]$ defines the tangent cone so that the coordinate ring of the tangent cone is $\gr_{(x_1, \ldots, x_r)}R$. \todo{exercise 5.3 eisenbud}
+    
+    \begin{itemize}
+        \item The tangent cone at a smooth point is the tangent line. 
+        \item 
+    \end{itemize}
+
+    \item \todo{Examples}
+
+    \item What makes a good family? Flatness! 
+    \begin{itemize}
+        \item Algebraically, this means that when the family is represented by a $R$-algebra $S$, then $S$ is flat as a $R$-module. 
+        \item Geometrically this means that when the family is represented by a morphism $\phi: X \to B$, then for each point $x \in X$ there is an affine neighborhood $U$ of $x$ and a affine neighborhood of $\phi(x)$ such that $\phi$ restricts to a map $U \to V$ and the corresponding map of coordinate rings $K[V] \to K[U]$ makes $K[U]$ into a flat $K[V]$-module. 
+    \end{itemize}
+
+    \item Free resolution helps "standardize" the sequence so tor can give us a measure of the faliure of exactness \todo{examples and definitions}
+    \item \todo{Criteria for Flatness.}
+    \item \todo{Rees Algebras as a flat family. }
+\end{enumerate}
 
 
 
