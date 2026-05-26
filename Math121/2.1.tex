@@ -51,7 +51,6 @@ Given any subset $\cS \subset R$ define
     \end{enumerate}
 \end{solution}
 
-\newpage 
 
 \hrulefill
 
@@ -59,14 +58,15 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
 
 \hrulefill
 
-\begin{problem}{2}
-\textbf{The Zariski Topology.} We will now place a topology on the set $\Spec(R)$,  called the Zariski topology after Oscar Zariski. 
+\newpage 
+
+\begin{problem}{2} \textbf{The Zariski Topology.} 
+
+    We will now place a topology on the set $\Spec(R)$,  called the Zariski topology after Oscar Zariski. 
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
         \item Prove that if  $\cS, \cT \subset R$ are arbitrary sets then $\V(\cS) \cap \V(\cT) = \V(\cS \cup \cT)$. Explain why your argument extends to an \emph{arbitrary} intersection. 
         \item Prove that if  $\cS, \cT \subset R$ are arbitrary sets then $\V(\cS) \cup \V(\cT) = \V(\cS \cdot \cT)$ where 
-    \[
-    \cS \cdot \cT \coloneqq \{ st \;\; |\;\; s \in \cS,\; t \in \cT\}.
-    \]
+        \[\cS \cdot \cT \coloneqq \{ st \;\; |\;\; s \in \cS,\; t \in \cT\}.\]
         \item Prove that the sets of the form $\V(\cS)$ are the closed sets of a topology on $\Spec(R)$. We call this topology the Zariski topology on $\Spec(R)$. (Hint: Rephrase the definition of a topology in terms of closed sets instead of open sets.) 
         \item Take a break and Google Oscar Zariski and read about his life. 
     \end{enumerate}
@@ -106,7 +106,9 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
     \end{enumerate}    
 \end{solution}
 
-\newpage 
+
+\vspace{.2in}
+
 
 \begin{problem}{3}
     Describe the closed subsets of $\mSpec(R) \subset \Spec(R)$ in the subspace topology.
@@ -118,15 +120,15 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
     Closed subsets of $\mSpec(R)$ look like $\V(\cS) \cap \mSpec(R)$, for all $\V(\cS)$ in the Zariski Topology on $\Spec(R)$. That is, the closed subsets of $\mSpec(R)$ are maximal ideals $M$ such that $S \subseteq M$. 
 \end{solution}
 
-\vspace{.2in}
+\newpage 
 
 \begin{problem}{4}
     Let $\K$ be an algebraically closed field. This exercise will describe the Zariski topology on $\Spec(\K[x])$. 
-\begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-	\item Describe the points of $\Spec(\K[x])$. (Hint: There are two types.)
-	\item Prove that if $\cS \subset \K[x]$ then $\V(\cS) = \V(\{f\})$ where $f$ is the greatest common divisor of all elements of $\cS$. 
-	\item Show that the subspace topology on $\mSpec(\K[x])$ is the finite complement topology. (Recall the \emph{finite complement topology} on a set $X$ is defined by letting the open sets be the empty set and sets of the form $X \setminus T$ for $T \subset X$ a subset of finite cardinality.)
-\end{enumerate}
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Describe the points of $\Spec(\K[x])$. (Hint: There are two types.)
+        \item Prove that if $\cS \subset \K[x]$ then $\V(\cS) = \V(\{f\})$ where $f$ is the greatest common divisor of all elements of $\cS$. 
+        \item Show that the subspace topology on $\mSpec(\K[x])$ is the finite complement topology. (Recall the \emph{finite complement topology} on a set $X$ is defined by letting the open sets be the empty set and sets of the form $X \setminus T$ for $T \subset X$ a subset of finite cardinality.)
+    \end{enumerate}
 \end{problem}
 
 \begin{solution}
@@ -150,32 +152,41 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
         
         Hence, $\V(S) = \V(\{f\})$. 
 
-        \item \todo{}
+        \item Let $C$ be a closed set in $\mSpec(\K[x])$. Then we know $C = \V(I)$ for some $I \subseteq \K[x]$. Since $\K[x]$ is a PID every ideal is of the form $I = \langle f \rangle$ for some $f \in \K[x]$. 
+        \begin{itemize}
+            \item  If $f = 0$ then $\V(f) = \mSpec(\K[x])$. 
+            \item If $f \neq 0$, since $\K$ is algebraically closed, $f = \prod^n_{i=1} (x_i - a_i)$ for finitely many factors. Moreover since $\K[x]$ is a PID over an algebraically closed field maximal ideals of $\K[x]$ correspond to irreducible polynomials, which are of the form $\langle x - a \rangle$. So, $\langle f \rangle \subseteq \langle x_i - a_i \rangle$ for its finitely many factors.
+        \end{itemize}
+        Hence, $\V(I)$ is finite and the closed sets are exactly $\mSpec(\K[x])$ itself and finite subsets, which is exactly the finite complement topology.
     \end{enumerate}
 \end{solution}
 
+\newpage
+
 
 \begin{problem}{5}
-    \textbf{Dense Points.} If $X$ is a topological space we say that a set $S \subset X$ is \emph{dense} if $U\cap S \neq \varnothing$ for every non-empty open subset $U \subset X$. 
+    \textbf{Dense Points.} 
+    
+    If $X$ is a topological space we say that a set $S \subset X$ is \emph{dense} if $U\cap S \neq \varnothing$ for every non-empty open subset $U \subset X$. 
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-	\item Let $p$ be a point in a topological space $X$. Prove that  $\{p\}$ is a dense subset of $X$ if and only if the smallest closed subset which contains $\{p\}$ is $X$. We call such points \emph{dense points} of $X$. (Note: no point in $\R^n$ or $\C^n$ with the Euclidean topology is dense in this sense.)
-	\item Given a prime ideal $P \subset R$ we will frequently write $[P]$ to denote the corresponding point in $\Spec(R)$. Prove that a point $[P] \in \Spec(R)$ is dense if and only if $\V(P) = \Spec(R)$.
-	\item\label{ex-pt:dense-points-exm} Characterize all of the dense points in the following: 
-		\begin{multicols}{2}
-            \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
-			\item $\Spec(\K[x])$
-			\item $\Spec(\Z)$
-			\item $\Spec(\Z[t])$
-			\item $\Spec(\K[x]/\langle x^{2}\rangle)$
-			\item $\Spec(\K[x,y])$
-			\item $\Spec(\Z/\langle 6\rangle)$.
-			\item $\Spec(\Z/\langle 4\rangle)$.
-			\item $\Spec(\Z/\langle 12\rangle)$.
-		\end{enumerate}
-        \end{multicols}
-	\item Prove that if $R$ is a domain then $\Spec(R)$ has a unique dense point. 
-	\item Repeat part 5(c) replacing $\Spec$ with $\mSpec$ in the subspace topology. Can $\mSpec(R)$ ever have a dense point?
-	\item Consider the following two properties (which together are implied by the Hausdorff condition) for a topological space $X$: i) for every $p \in X$ the set $\{p\}$ is closed and ii) given two distinct points $p,q\in X$ there exist open subsets $U,V \subset X$ such that $p \in U$ and $q \in V$ and $U\cap V = \varnothing$. Prove that if $X$ is a topological space with a dense point, and $X$ is not a single point, then $X$ fails both parts of this definition. 
+        \item Let $p$ be a point in a topological space $X$. Prove that  $\{p\}$ is a dense subset of $X$ if and only if the smallest closed subset which contains $\{p\}$ is $X$. We call such points \emph{dense points} of $X$. (Note: no point in $\R^n$ or $\C^n$ with the Euclidean topology is dense in this sense.)
+        \item Given a prime ideal $P \subset R$ we will frequently write $[P]$ to denote the corresponding point in $\Spec(R)$. Prove that a point $[P] \in \Spec(R)$ is dense if and only if $\V(P) = \Spec(R)$.
+        \item\label{ex-pt:dense-points-exm} Characterize all of the dense points in the following: 
+            \begin{multicols}{2}
+                \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+                \item $\Spec(\K[x])$
+                \item $\Spec(\Z)$
+                \item $\Spec(\Z[t])$
+                \item $\Spec(\K[x]/\langle x^{2}\rangle)$
+                \item $\Spec(\K[x,y])$
+                \item $\Spec(\Z/\langle 6\rangle)$.
+                \item $\Spec(\Z/\langle 4\rangle)$.
+                \item $\Spec(\Z/\langle 12\rangle)$.
+            \end{enumerate}
+            \end{multicols}
+        \item Prove that if $R$ is a domain then $\Spec(R)$ has a unique dense point. 
+        \item Repeat part 5(c) replacing $\Spec$ with $\mSpec$ in the subspace topology. Can $\mSpec(R)$ ever have a dense point?
+        \item Consider the following two properties (which together are implied by the Hausdorff condition) for a topological space $X$: i) for every $p \in X$ the set $\{p\}$ is closed and ii) given two distinct points $p,q\in X$ there exist open subsets $U,V \subset X$ such that $p \in U$ and $q \in V$ and $U\cap V = \varnothing$. Prove that if $X$ is a topological space with a dense point, and $X$ is not a single point, then $X$ fails both parts of this definition. 
 	\end{enumerate}
 \end{problem}
 
@@ -208,14 +219,35 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
 
         Hence proved that a point $[P] \in \Spec(R)$ is dense if and only if $\V(P) = \Spec(R)$.
 
-        \item \todo{}
+        \item 
         
-        \begin{multicols}{2}
-            \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
-            \item  S
-            \item $0$ 
+        \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+            \item Since $\K[x]$ is a PID, points of $\Spec(\K[x])$ are $\langle 0 \rangle$ and maximal ideals $\langle f \rangle$ where $f$ is a monic irreducible polynomial. From part (b) we know that dense points of $\Spec(\K[x])$ are points $[P] \in \Spec(\K[x])$ such that $\V(P) = \Spec(\K[x])$. 
+            
+            Since $\V(f) = \{\langle f \rangle\}$, $[f]$ is not dense in $\Spec(\K[x])$. However since $\V(0) = \Spec(\K[x])$, $[0]$ is dense in $\Spec(\K[x])$. 
+
+            \item Since $\Z$ is a PID, points of $\Spec(\Z)$ are $\langle 0 \rangle$ and maximal ideals $\langle p \rangle$ where $p \in \Z$ prime. From part (b) we know that dense points of $\Spec(\Z)$ are points $[P] \in \Spec(\Z)$ such that $\V(P) = \Spec(\Z)$. 
+            
+            Since $\V(p) = \langle p \rangle$, $[p]$ is not dense in $\Spec(\Z)$. However since $\V(0) = \Spec(\Z)$, $[0]$ is dense in $\Spec(\Z)$. 
+
+            \item From part (b) we know that dense points of $\Spec(\Z[t])$ are points $[P] \in \Spec(\Z[t])$ such that $\V(P) = \Spec(\Z[t])$. Since $\V(0) = \Spec(\Z[t])$, $[0]$ is dense in $\Spec(\Z[t])$, and for every non-zero $[P] \in \Spec(\Z[t])$, $\V(P)$ doesn't contain $[0]$ since $\langle P \rangle \not \subseteq \langle 0 \rangle$. Hence, $[P]$ is not dense. 
+            
+            \item $\Spec(\K[x]/\langle x^{2}\rangle) = \{\langle x \rangle\}$ since $\langle 0 \rangle$ is not prime. Hence $[x]$ is trivially dense in $\Spec(\K[x]/\langle x^{2}\rangle)$. 
+            
+            \item From part (b) we know that dense points of $\Spec(\K[x, y])$ are points $[P] \in \Spec(\K[x,y])$ such that $\V(P) = \Spec(\K[x,y])$. Since $\V(0) = \Spec(\K[x, y])$, $[0]$ is dense, and for every non-zero $[P] \in \Spec(\K[x,y])$, $\V(P)$ doesn't contain $[0]$ since $\langle P \rangle \not \subseteq \langle 0 \rangle$. Hence, $[P]$ is not dense. 
+
+            \item $\Spec(\Z/\langle 6\rangle) = \{\langle 2 \rangle, \langle 3 \rangle\}$. Note that they are both maximal since $\Z/\langle 6\rangle/\langle 2 \rangle = \Z/\langle 2 \rangle$ and $\Z/\langle 6\rangle/\langle 3 \rangle = \Z/\langle 3 \rangle$. 
+            
+            From part (b) we know that dense points of $\Spec(\Z/\langle 6\rangle)$ are points $[P] \in \Spec(\Z/\langle 6\rangle)$ such that $\V(P) = \Spec(\Z/\langle 6\rangle)$. Since both ideals are maximal and incomparable, $\V([2])$ doesn't contain $[3]$ and $\V([3])$ doesn't contain $[2]$. Hence, there are no dense points in $\Spec(\Z/\langle 6\rangle)$. 
+
+            \item $\Spec(\Z/\langle 4\rangle) = \{\langle 2 \rangle\}$. Hence $[2]$ is trivially dense. 
+
+            \item $\Spec(\Z/\langle 12\rangle) = \{\langle 2 \rangle, \langle 3 \rangle \}$. Note that they are both maximal since $\Z/\langle 12\rangle/\langle 2 \rangle = \Z/\langle 2 \rangle$ and $\Z/\langle 12\rangle/\langle 3 \rangle = \Z/\langle 3 \rangle$. 
+            
+            From part (b) we know that dense points of $\Spec(\Z/\langle 12\rangle)$ are points $[P] \in \Spec(\Z/\langle 12\rangle)$ such that $\V(P) = \Spec(\Z/\langle 12\rangle)$. Since both ideals are maximal and incomparable, $\V([2])$ doesn't contain $[3]$ and $\V([3])$ doesn't contain $[2]$. Hence, there are no dense points in $\Spec(\Z/\langle 12\rangle)$. 
+
         \end{enumerate}
-        \end{multicols}
+
 
         \item Assume that $R$ is an integral domain. 
         
@@ -227,11 +259,29 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
 
         Hence if $R$ is a domain, $\Spec(R)$ has a unique dense point. 
 
-        \item \todo{}
+        \item 
         
         \begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
-            \item 
+            \item Since $\K[x]$ is a PID, points of $\mSpec(\K[x])$ are maximal ideals $\langle f \rangle$ where $f$ is a monic irreducible polynomial. 
+            Since $\V(f) = \langle f \rangle$, $[f]$ is not dense in $\mSpec(\K[x])$.
+
+            \item Since $\Z$ is a PID, points of $\mSpec(\Z)$ are maximal ideals $\langle p \rangle$ where $p \in \Z$ prime. 
+            Since $\V(p) = \langle p \rangle$, $[f]$ is not dense in $\Spec(\Z)$. 
+
+            \item For every non-zero $[P] \in \mSpec(\Z[t])$, $\V(P) = \{[P]\}$. Hence, $[P]$ is not dense. 
+            
+            \item $\mSpec(\K[x]/\langle x^{2}\rangle) = \{\langle x \rangle\}$. Hence $[x]$ is trivially dense in $\mSpec(\K[x]/\langle x^{2}\rangle)$. 
+            
+            \item For every maximal ideal $[P] \in \mSpec(\K[x,y])$, $\V(P) =\{[P]\} \neq \mSpec(\K[x,y])$. Hence, $[P]$ is not dense. 
+
+            \item $\mSpec(\Z/\langle 6\rangle) = \{\langle 2 \rangle, \langle 3 \rangle\}$. Since $\V([2])$ doesn't contain $[3]$ and $\V([3])$ doesn't contain $[2]$ there are no dense points in $\mSpec(\Z/\langle 6\rangle)$. 
+
+            \item $\mSpec(\Z/\langle 4\rangle) = \{\langle 2 \rangle\}$. Hence $[2]$ is trivially dense. 
+
+            \item $\mSpec(\Z/\langle 12\rangle) = \{\langle 2 \rangle, \langle 3 \rangle \}$. Since $\V([2])$ doesn't contain $[3]$ and $\V([3])$ doesn't contain $[2]$ there are no dense points in $\mSpec(\Z/\langle 12\rangle)$. 
         \end{enumerate}
+
+        $\mSpec(R)$ only has dense points when it is a singleton set. 
 
         \item Assume $X$ is a topological space with a dense point $p$ and $X$ is not a single point.
         
@@ -241,7 +291,7 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
     \end{enumerate}
 \end{solution}
 
-\newpage 
+\vspace{.2in}
 
 \begin{problem}{6}
      Let $\cS \subset R$ be any subset. Prove that $\V(\cS) = \V(\langle \cS \rangle)$ where $\langle \cS \rangle$ denotes the ideal generated by $\cS$. 
@@ -255,6 +305,7 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
     And it follows that $\V(\cS) = \V(\langle \cS \rangle)$. 
 \end{solution}
 
+\newpage 
 
 \begin{problem}{7}
     In this exercise we wish to understand the Zariski topology on $\Spec(\C[x,y])$. Fix a point $p=(a,b) \in \C^{2}$.
@@ -276,10 +327,25 @@ A \emph{topological space} is a set $X$ together with a collection of subsets $\
 \begin{solution}
     \bbni 
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-        \item
+        \item We have, $\ev_p: \C[x,y] \to \C$ where $f \mapsto f(a,b)$. If $f$ vanishes at $p$ then $f(a,b) = 0$, i.e. $f \in \ker(\ev_p) = \fm_p$. The field homomorphism is surjective (constant functions), hence $\fm_p$ is maximal (First Isomorphism Theorem). 
+        
+        \item Note that $\fm_p \supseteq \langle x -a, y -b \rangle$ since both $x-a$ and $y-b$ vanish at $(a,b)$. Moreover since both $\langle x -a, y -b \rangle$ ($\C[x,y]/\langle x -a, y -b \rangle \iso \C$) and $\fm_p$ are maximal they must be equal. 
+        
+        \item Let $p = (a,b), q = (c,d) \in \C^2$. Assume $\eta(p) = \eta(q)$, then 
+        \[\fm_p = \fm_q \implies x - a \in \langle x -c, y -d \rangle \implies c = a\] 
+        similarly $y - b \in \langle x -c, y -d \rangle \implies b  = d$. Hence $p = q$. 
+
+        \item $\langle x \rangle, \langle y \rangle \in \Spec(\C[x,y])$ but not in $\im(\eta)$ since the latter only consists of maximal ideals. 
+        
+        \item The closed subsets of $\Spec(\C[x,y])$ are of finite unions and arbitrary intersections of the following: 
+        \begin{itemize}
+            \item $\V(\langle 1 \rangle) = \emptyset$
+            \item $\V(\langle 0 \rangle) = \Spec(\C[x,y])$
+            \item $\V(\langle f \rangle) = \{[\fp] \in \Spec(\C[x,y]), \langle f \rangle \subseteq \fp\}$, $f$ is an irreducible polynomial. 
+            \item $\V(\fm_p) = \{\fm_p\}$, where $\fm_p$ is the maximal ideal that corresponds to the kernel of evaluation-at-$p$ map. 
+        \end{itemize}
     \end{enumerate}
 \end{solution}
-
 
 \hrulefill
 
@@ -287,8 +353,11 @@ A function $f: X \to Y$ of topological spaces is \emph{continuous} if and only i
  
 \hrulefill
 
-\begin{problem}{8}
-\textbf{Ring Maps Induce Continuous Maps.} Let $\phi:R \to S$ be a ring homomorphism. The goal of this exercise is to show $\phi$ induces a map $\phi^{\#}:\Spec(S) \to \Spec(R)$, which is continuous in the Zariski topology.
+\newpage 
+
+\begin{problem}{8} \textbf{Ring Maps Induce Continuous Maps.} 
+
+Let $\phi:R \to S$ be a ring homomorphism. The goal of this exercise is to show $\phi$ induces a map $\phi^{\#}:\Spec(S) \to \Spec(R)$, which is continuous in the Zariski topology.
 \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
 	 \item Prove that if $[P] \in \Spec(S)$, then $[\phi^{-1}(P)] \in  \Spec(R)$.
 	 \item Prove that the map below is continuous in the Zariski topology:
@@ -308,45 +377,99 @@ A function $f: X \to Y$ of topological spaces is \emph{continuous} if and only i
 \begin{solution}
     \bbni 
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-        \item \textbf{Claim:} Let $\phi: R \to S$ be a ring homomorphism, and $P \subseteq S$ be a prime ideal, then $\phi^{-1}(P)$ is a prime ideal. 
+        \item We know that pre-images of ideals are ideals, so we only need to show that $\phi^{-1}(P)$ is prime. Let $ab \in P$, then $\phi^{-1}(ab) \in \phi^{-1}(P)$. Since $P$ is prime either $a \in P$ or $b \in P$, and hence either $\phi^{-1}(a) \in \phi^{-1}(P)$ or $\phi^{-1}(b) \in \phi^{-1}(P)$. Hence $\phi^{-1}(P)$ is prime, and $[\phi^{-1}(P)] \in \Spec(R)$. 
         
-        \textit{Proof:} 
+        \item We will show that pre-images of closed sets in $\Spec(R)$ are closed. Let $\V(I)$ be a closed set for some ideal $I \subseteq R$. Then, 
+        \[(\phi^{\#})^{-1}(\V(I)) = \{\fp \mid I \subseteq \phi^{-1}(\fp)\} = \{\fp \mid \langle \phi(I) \rangle \subseteq \fp\} = \V(\langle \phi(I) \rangle )\]
+        Which is a closed set in $\Spec(S)$.
+
+        \item The map induced on spectra is $\Spec(\Z/2\Z) \xrightarrow{\phi^{\#}} \Spec(\Z)$. $[0]$ is the only element in $\Spec(\Z/2\Z)$ and $\phi^{\#}([0]) = [2] \in \Spec(\Z)$. 
+        
+        \item The map induced on spectra is $\Spec(\Q) \xrightarrow{\phi^{\#}} \Spec(\Z)$. $[0]$ is the only element in $\Spec(\Q)$ and $\phi^{\#}([0]) = [0] \in \Spec(\Z)$. 
+        
+        \item If $\phi: R \hookrightarrow S$ is injective, we can view $R$ as a subring of $S$ and $\phi^{\#}([\fp]) = [\phi^{-1}(\fp)] = [\fp \cap R] \in \Spec(R)$. 
     \end{enumerate}
 \end{solution}
+
+\newpage 
+
 \hrulefill
 
 A \emph{category} is a collection of objects together with, for each pair of objects, a set of morphisms between them, equipped with an associative composition law and an identity morphism for each object. A \emph{functor} between categories $\textbf{C}$ and $\textbf{D}$ is a mapping that assigns to each object of $\textbf{C}$ an object of $\textbf{D}$ and to each morphism in $\textbf{C}$ a morphism in $\textbf{D}$, preserving identity morphisms and composition. A functor is \emph{contravariant} if it reverses the order of composition and \emph{covariant} if it preserves the order of composition.
 
 \hrulefill
 
-\begin{problem}{9}
-    \textbf{Spec as a Functor.} In this problem we package together much of this worksheet to define the $\Spec$ functor. Consider the map:
+\newpage 
+
+\begin{problem}{9} \textbf{Spec as a Functor.} 
+    
+    In this problem we package together much of this worksheet to define the $\Spec$ functor. Consider the map:
     \[
     \begin{tikzcd}[row sep  = .5em, column sep = 3.5em]
     \comRing \arrow[r] & \Top \\
     R \arrow[r, mapsto] & \Spec(R)
     \end{tikzcd}
     \]
-from the category of commutative rings with unit with ring homomorphisms to the category of topological spaces with continuous maps. 
- \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-	 \item Explain using Question~\ref{ex:ring-maps-spec-maps} how this mapping defines a contravariant functor from $\comRing$ to $\Top$. To check functoriality, verify 
-	 \[
-	 \left(\Id_{R}\right)^{\#} = \Id_{\Spec(R)} \quad \quad \text{and} \quad \quad \left(\psi \circ \phi\right)^{\#} = \phi^{\#} \circ \psi^{\#}
-	 \]
-	 for ring maps $\phi:R\to S$ and $\psi:S\to T$.   We call this the $\Spec$ functor.
-	 \item Do isomorphic rings have Spectra that are homeomorphic topological spaces? Explain.
-	 \item If two rings have homeomorphic spectra, are they necessarily isomorphic rings? Explain.
-\end{enumerate}
-
+    from the category of commutative rings with unit with ring homomorphisms to the category of topological spaces with continuous maps. 
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Explain using Question 8 how this mapping defines a contravariant functor from $\comRing$ to $\Top$. To check functoriality, verify 
+        \[
+        \left(\Id_{R}\right)^{\#} = \Id_{\Spec(R)} \quad \quad \text{and} \quad \quad \left(\psi \circ \phi\right)^{\#} = \phi^{\#} \circ \psi^{\#}
+        \]
+        for ring maps $\phi:R\to S$ and $\psi:S\to T$.   We call this the $\Spec$ functor.
+        \item Do isomorphic rings have Spectra that are homeomorphic topological spaces? Explain.
+        \item If two rings have homeomorphic spectra, are they necessarily isomorphic rings? Explain.
+    \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item We already showed that a homomorphism between rings $R \to S$ corresponds to a map between their spectra $\Spec(S) \to \Spec(R)$, and that this map is a continuous topological map.So it only remains to check that the functorial properties hold,
+        \begin{itemize}
+            \item Let $\id_R: R \to R$ be the identity map. Then for $[\fp] \in \Spec(R)$,
+            \[(\id_R)^{\#}([\fp]) = [\id_R^{-1}(\fp)] = [\fp] = \id_{\Spec(R)}([\fp])\]
+            \item Let $\phi: R \to S, \, \psi: S\to T$ be two ring homomorphisms. Then for $[\fp] \in \Spec(T)$,
+            \begin{align*}
+                (\psi \circ \phi)^{\#}([\fp]) &= [((\psi \circ \phi)^{-1}(\fp))] = [\phi^{-1}(\psi^{-1}(\fp))] \\
+                &= [\phi^{-1}(\psi^{\#}(\fp))] = [\phi^{\#}(\psi^{\#}(\fp))] \\
+                &= [\phi^{\#} \circ \psi^{\#}(\fp)]
+            \end{align*}
+        \end{itemize}
+        Hence $ \left(\Id_{R}\right)^{\#} = \Id_{\Spec(R)} $ and $\left(\psi \circ \phi\right)^{\#} = \phi^{\#} \circ \psi^{\#}$. 
+        The reversal of order makes this a covariant functor. 
+
+        \item If $\phi: R \xrightarrow{\sim} S$ is a ring isomorphism then $\phi^{-1}: S  \xrightarrow{\sim} R$ is also a ring isomorphism. Then, 
+        \[(\phi^{-1} \circ \phi)^{\#} = \phi^{\#} \circ (\phi^{-1})^{\#} = (\Id_R)^{\#} = \Id_{\Spec(R)}\]
+        \[(\phi \circ \phi^{-1})^{\#} = (\phi^{-1})^{\#} \circ \phi^{\#} = (\Id_S)^{\#} = \Id_{\Spec(S)}\]
+        so $\phi^{\#}$ and $(\phi^{-1})^{\#}$ are inverse to each other. Since 
+        both $\phi^{\#}$ and $(\phi^{-1})^{\#}$ are continuous, $\phi^{\#}: 
+        \Spec(S) \to \Spec(R)$ is a homeomorphism. Hence isomorphic rings have 
+        homeomorphic spectra. 
+
+        \item No, because we could have an homeomorphism between spectra of fields ($\Spec(\C) \iso \Spec(\R)$) but that doesn't necessarily correspond to an isomorphism of fields ($\C \not \iso \R$). 
+    \end{enumerate}
+\end{solution}
+
+\vspace{.2in}
 
 \begin{problem}{10}
      Find a homeomorphism between  $\Spec(\C[x])$ and  $\Spec(\C[x,y] /\langle x-y \rangle).$ Construct the corresponding ring map explicitly in \textit{Macaulay2} and compute its kernel.
 
 \end{problem}
 
+\begin{solution}
+    \bbni 
+    Since $\C[x,y] /\langle x-y \rangle \iso \C[x]$ we send $\fp \subseteq \C[x]$  to $\overline{ \fp} \subseteq \C[x,y] /\langle x-y \rangle$. And the corresponding ring map is$ \C[x,y] /\langle x-y \rangle \to \C[x]$ with trivial kernel. 
+\end{solution}
+
+\newpage 
+
+
 \begin{problem}{11}
-    \textbf{Closed Embeddings I.}  Let $I \subset R$ be an ideal and $\pi: R \to R/I$ the natural quotient map. Consider the induced map on spectra
+    \textbf{Closed Embeddings I.}  
+    
+    Let $I \subset R$ be an ideal and $\pi: R \to R/I$ the natural quotient map. Consider the induced map on spectra
     \[
     \begin{tikzcd}[row sep = .5em, column sep = 3.5em]
     \Spec\left(R/I\right) \arrow[r, "\pi^{\#}"] & \Spec\left(R\right) 
@@ -364,4 +487,18 @@ from the category of commutative rings with unit with ring homomorphisms to the 
     \end{enumerate}
 \end{problem}
 
+\begin{solution}
+    \bbni
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Ideals in $R/I$ correspond to ideals in $R$ containing $I$. And for any ideal $I \subseteq R$ prime ideal we have $\pi(I) = \overline{I}$. Let $\overline{\fp} \in \Spec(R/I)$. Then $\pi^{\#}(\overline{\fp}) = \pi^{-1}(\overline{\fp}) = \fp$. 
+        \item The image of $\pi^{\#}$ by definition is
+        \[\im(\pi^{\#}) = \pi^{\#}(\Spec(R/I)) = \{\fp \in \Spec(R) \mid I \subseteq \pi(\fp)\} = \V(I)\]
+        \item Suppose $\pi^{\#}(\overline{\fp}) = \pi^{\#}(\overline{\fq})$ then, 
+        \[\pi^{-1}(\overline{\fp}) = \pi^{-1}(\overline{\fq}) \implies \fp = \fq\]
+        since $\pi$ is surjective. 
+        \item If $J \subseteq R/I$ is an ideal then $I \subseteq \pi^{-1}(J)$  
+        \[\pi^{\#}(\V(J)) = \{\pi^{\#}(\overline{\fp}) \mid J \subseteq \overline{\fp}\} = \{\pi^{-1}(\overline{\fp})\mid \pi^{-1}(J) \subseteq \pi^{-1}(\overline{\fp})\} = \V(\pi^{-1}(J))\]
+        Since $\pi^{\#}$ sends closed sets to closed sets and is a bijection onto $\V(I)$, it is a homeomorphism onto its image, and hence a closed embedding. 
+    \end{enumerate}
+\end{solution}
 \end{document}
