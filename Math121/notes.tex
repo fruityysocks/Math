@@ -506,7 +506,10 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
     We show given $f \notin \mathfrak{N}(R)$ there exists a prime $P \subseteq R$ with $f \notin P$(i.e. $D(f) \neq \emptyset$). 
 \end{proof}
 
+\newpage 
+
 \section{nonzerodivisors}
+
 \begin{remark}
     If $M$ is a $R$-module we say an element $r \in R$ is a nonzerodivisor on $M$  $\iff$ $M \xrightarrow{\times r} M$ is injective $\iff$ $r \notin \Ann(m), \, \forall m \in M$ $\iff$ $(0:_M r) = \{m \in M \mid rm =0\} = 0$
 \end{remark}
@@ -666,13 +669,20 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
     Let $R$ be a ring and $I, J_1, \ldots, J_n$ be proper ideals and let $J_2, \ldots, J_n$ be prime ideals. Then,
     \begin{enumerate}
         \item If $I \subseteq \cup_{i=1}^n J_i$ then $I \subseteq J_i$ for some $i$. 
-        \item If $I \not \subseteq J_i$ then $I \not \subseteq \cup_{i=1}^n J_i$. 
+        \item If $I \not \subseteq J_i$ for all $i$ then there exists $x \in J$ such that $x \notin \cup_{i=1}^n J_i$
     \end{enumerate}
 \end{lemma}
+
+\begin{theorem}
+    Let $R$ be a Noetherian ring and $M$ a finitely generated $R$-module then 
+    \[\# \{\fp \in \Spec(R) \mid \fp = \Ann(m), \, m \in M\} < \infty\]
+    such primes are called associated primes of $M$. 
+\end{theorem}
 
 \begin{lemma}
     If $(R, \fm)$ is a local Noetherian regular ring then $R$ is an integral domain. 
 \end{lemma}
+
 
 \begin{proof}
     We will show this by induction on the dimension of $R$. 
@@ -681,14 +691,228 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
     \[\dim_R(\fm/\fm^2) = \dim(R) = 0\]
     Then as vector spaces $\fm = \fm^2 = \fm \fm $. Then Nakayama's Lemma implies that $\fm = \langle 0 \rangle$, and hence $R$ is a field and thus a domain.
     
-    \textbf{Inductive Step:} Assume $\dim(R) = d$, and the claim is true for all rings of $\dim \leq d-1$. 
+    \textbf{Inductive Step:} Assume $\dim(R) = d$, and the claim is true for all rings of $\dim \leq d-1$. Let $(R, \fm)$ be regular, i.e. $\dim(R) = \dim_R(\fm/\fm^2)$. We want to quotient $R$ by an element $x \in R$ such that 
+    \begin{itemize}
+        \item $R/\langle x \rangle$ has $\dim = d - 1$. 
+        
+        By KPT $R/\langle x \rangle$ has $\dim = d-1$ $\iff$ $x$ is a nonzerodivisor $\iff x$ is not contained in an associated prime of $R$. So we must avoid the finitely many associated primes. 
+
+        \item $R/\langle x \rangle$ is regular.
+        
+        $R/\langle x \rangle$ is regular $\iff \dim_R(\fn/\fn^2) = \dim(R/\langle x \rangle) = d - 1$, where $\fn = \fm / \langle x \rangle$. We claim if $x \notin \fm^2$ then $\dim(\fn/\fn^2) = d -1$. By prime avoidance we may pick $x \in \fm$ such that $x \notin \fm^2$ and $x \notin$ an associated prime.   
+    \end{itemize}
+
+    Thus $(R/\langle x \rangle)$ is a regular local Noetherian ring of dimension $d - 1$. So by induction it is a domain. 
+
+    Now assume for contradiction that $R$ is not a domain. Then
+    \[ab = 0 \quad \text{for } a, b \in \fm \]
+    reduction mod $x$ gives us
+    \[\overline{a}\overline{b} = 0 \quad \text{in } R/\langle x \rangle\]
+    WLOG let $\overline{a} = 0 \implies a = a_1 x$. Then since $x$ is a nonzerodivisor
+    \[ab = (a_1x) b = 0 \implies a_1b = 0\] 
+    We can repeat this process and get, 
+    \[a \in \cap_{n \geq 1} \langle x^n \rangle\]
+    which implies $a = 0$ by KIT. Thus $R$ is a domain. 
 \end{proof}
+
 
 \begin{theorem}
     If $(R, \fm)$ is a regular local Noetherian ring then 
     \[\depth_{\fm}(R) = \dim(R)\]
 \end{theorem}
 
+\begin{proof}
+    We will show this by induction on the dimension of $R$. 
+
+    \textbf{Base Case:} $\dim(R) = 0$. Then $R$ is a field and $\depth_{\fm}(R) = \dim(R)$. 
+    
+    \textbf{Inductive Step:} Assume $\dim(R) = d$, and the claim is true for all rings of $\dim \leq d-1$. Pick $x \in \fm \setminus \fm^2$.Since $R$ is a domain, $x$ is a nonzerodivisor. Then, 
+    \[\dim(R/\langle x \rangle) = d - 1, \quad \dim(\fn/\fn^2) = d - 1\]
+    Now pick a regular sequence $\overline{y_2}, \ldots, \overline{y_d}$ for $R/\langle x \rangle$. Pick lifts $y_2, \ldots, y_d$ in $R$ of $\overline{y_2}, \ldots, \overline{y_d}$ look at $x, y_2, \ldots, y_d$, 
+    \begin{itemize}
+        \item $x$ is a nonzerodivisor
+        \item $y_2$ is a nonzerodivisor in since $y_2 = \overline{y_2}$ on $R/\langle x \rangle$. 
+    \end{itemize}
+    We get the rest from $\overline{y_2}, \ldots, \overline{y_d}$ being a regular sequence in $R/\langle x \rangle$. Thus $\dim(R) = \depth_{\fm}(R)$. 
+\end{proof}
+
+\begin{definition}
+    A local ring $(R, \fm)$ is \textbf{Cohen-Macaualy} if and only if 
+    \[\depth(R) = \dim(R)\]
+\end{definition}
+
+\begin{corollary}
+    If $(R, \fm)$ is a local Noetherian ring and $R$ is regular then $R$ is Cohen-Macaualy. 
+
+    The converse is not true. 
+\end{corollary}
+
+\begin{definition}
+    Let $R$ be a ring. An $R$-module is projective if and only if given any surjective $R$-linear mapo $f: M \twoheadrightarrow N$ and any $R$-linear map $g: P \to N$
+
+    \[\begin{tikzcd}
+        {} & P \arrow[d, "g"] \ar[dl, dashed, "\widetilde{g}", swap] \\ 
+        M \ar[r, two heads, "f"] & N
+    \end{tikzcd}\]
+    then there exists $\widetilde{g}$ as above. 
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $F$ be a free $R$-module. We claim that $F$ is projective. 
+        \[\begin{tikzcd}
+            {} & F \arrow[d, "g"] \ar[dl, dashed, "\widetilde{g}", swap] \\ 
+            M \ar[r, two heads, "f"] & N
+        \end{tikzcd}\]
+        $g$ is determined on a basis $\{e_i\}$. Then we define $\widetilde{g}$ on lifts of $g(e_i)$. 
+
+        \item Let $R = \Z/6\Z$ and $M = \langle 3 \rangle = \{\overline{0}, \overline{3}\}$. Then $M$ is not free since free modules of $R$ have either $1$ element, $6^n$ elements, or infinite elements. We have $R \iso \Z/2\Z \times \Z/3\Z$. And $M \iso \Z/2\Z$. So $M$ is a summand of a free-module. Then by the theorem below, $M$ is projective, not free. 
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}
+    Let $R$ be a ring and $P$ an $R$-module. Then TFAE, 
+    \begin{enumerate}
+        \item $P$ is projective. 
+        \item Every surjection $M \twoheadrightarrow P$ splits. 
+        \item $P$ is a direct summand of a free module. 
+        \item the functor $\Hom_R(P, -)$ is exact. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    (1) $\implies$ (2) 
+
+    Pick a surjection. Then, 
+    \[\begin{tikzcd}
+        {} & P \arrow[d, "\id"] \ar[dl, dashed, swap] \\ 
+        M \ar[r, two heads] & P
+    \end{tikzcd}\]
+
+    (2) $\implies$ (3)
+
+    Pick a surjection with $F$ free 
+
+    \[0 \to k \to F \twoheadrightarrow P \to 0\]
+
+    by (2) this splits on right and by splitting lemma $F \iso P \oplus k$. 
+
+    (1) $\equiv$ (4) 
+
+    Since $\Hom_R(P, -)$ is injective. 
+
+    (3) $\implies$ (1) 
+
+    Assume $F \iso P \oplus k$ with $F$ free. 
+
+    \[\begin{tikzcd}
+        {} & P \arrow[d, "g"] \\ 
+        M \ar[r, two heads, "f"] & N
+    \end{tikzcd}\]
+
+    Direct Sum-ing with $k$, 
+    \[\begin{tikzcd}
+        {} & P\oplus k \iso F\arrow[d, "g \oplus \id"] \\ 
+        M \oplus k \ar[r, two heads, "f \oplus \id"] & N \oplus k
+    \end{tikzcd}\]
+    \todo{Then there exists a map $F \to M \oplus k$}
+
+    Hence proved.
+\end{proof}
+
+\begin{definition}
+    A matrix $E \in \text{Mat}_{n \times n}(R)$ is \textbf{idempotent} if and only if $E^2 = E$. 
+\end{definition}
+
+\begin{remark}
+    If $E$ is an idempotent then $I - E$ is an idempotent. 
+\end{remark}
+
+\begin{lemma}
+    Let $R$ be a finitely generated $R$-module then $P$ is projective if and only if there exists an idempotent matrix $E \in \text{Mat}_{n \times n}(R)$ for some $n > 0$ such that $P \iso \im(R^n \xrightarrow{E} R^n)$. 
+\end{lemma}
+
+\begin{proof}
+    ($\implies$) 
+
+    Assume $P$ is projective. Since $P$ is finitely generated 
+    \[0 \to k \to R^n \to P \to 0\]
+    Since $R^n \to P$ splits $R^n \iso P \oplus k$. Now let $E: R^n \to R^n$ be a projection onto $P$. (Projection is idempotent). 
+
+    $(\impliedby)$
+
+    Assume $P \iso \im(R^n \xrightarrow{E} R^n)$ with $E^2 = E$. Then, 
+    \[R^n \iso \im(E) \oplus \ker(E)\]
+    and $\im(E) \iso P$. 
+\end{proof}
+
+\begin{definition}
+    A module $M$ is \textbf{finitely-presented} if there exists an exact sequence 
+    \[R^m \to R^n \twoheadrightarrow M \to 0\]
+    for some $m, n$.
+\end{definition}
+
+\begin{remark}
+    If $M$ is finitely-generated
+
+    \[\begin{tikzcd}
+    0 \ar[r] & R^m \arrow[r] & R^n \arrow[r, two heads] & M \arrow[r] & 0 \\ 
+    {} & R^m \ar[u, two heads] \ar[ur, dashed]
+    \end{tikzcd}\]
+    Being finitely-presented is the same as being finitely-generated and the kernel of the surjective map being fg. \todo{}
+\end{remark}
+
+\begin{theorem}
+Let \(R\) be a ring and let \(M\) be a finitely-presented \(R\)-module. The following are equivalent:
+\begin{enumerate}
+    \item \(M\) is projective
+    \item \(M_{\fp}\) is a free \(R_{\fp}\) module for all \({\fp} \in \Spec(R)\)
+    \item \(M_{\fp}\) is free as an \(R_{\fp}\) module for all \({\fp} \in \mSpec(R)\)
+    \item \(M[1/f_i]\) is free for \(i = 1, \ldots, n\) where \(\langle{f_1, \ldots, f_t}\rangle\)
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Let $(R, \fm)$ be a local ring. If $P$ is a finitely-presented projective $R$-module then $P$ is free. 
+\end{theorem}
+
+\begin{proof}
+    Let $(R, \fm, k)$ be a local ring where $k$ is the residue field and let $P$ be a finitely-presented $R$ module that is projective. Pick $y_1, \ldots, y_t \in P$ whose images are a basis for $P/\fm P$ as a $k$-vector space (Nakayama). Then we have a surjection, 
+    \[R^t \twoheadrightarrow P, \quad e_i \mapsto y_i\]
+    Since $P$ is projective this map splits, 
+    \[R^t \iso P \oplus k\]
+    for a finitely-generated module $k$. 
+    This gives us a map 
+    \[R^n \twoheadrightarrow P \oplus k, \quad e_i \mapsto (y_i, 0)\]
+    Tensoring by $R/fm$ gives us 
+    \[k^n \twoheadrightarrow P/\fm P \oplus k/\fm k, \quad e_i \mapsto \overline{y_i}\]
+    Which implies $k/\fm k = 0$. By Nakayama's lemma applied to $k$, 
+    \[\implies k = 0 \implies R^t \iso P\]
+\end{proof}
+
+\begin{theorem}[Quillen-Suslin]
+    If $k$ is a field and $M$ is a finitely-presented projective module over $k[x_1, \ldots, x_n]$ then $M$ is free. 
+
+    Geometrically speaking this means 
+    ``over $\A^n$ every algebraic'' vector bundle of finite rank is trivial. 
+\end{theorem}
+
+\begin{definition}
+    Let $R$ be a ring and $M$ be a $R$-module. A \textbf{projective resolution} of $M$ is a chain complex 
+    \[0 \leftarrow P_0 \xleftarrow{d_0} P_1 \xleftarrow{d_1} P_2 \xleftarrow{d_2} \cdots\]
+    such that 
+    \begin{enumerate}
+        \item The $P_i$ are projective for all $i$. 
+        \item $H_i(P_{\bullet}, d_{\bullet}) = \begin{cases}
+            M & i = 0 \\ 
+            0 & \text{otherwise}
+        \end{cases}$
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Kaplansky]
+    Let $(R, \fm)$ be a local ring and  $P$ is any $R$-module then $P$ is projective if and only if $P$ is free. 
+\end{theorem}
 
 \begin{theorem}[ABS] 
     Let $(R, \fm)$ be a Noetherian local ring with residue field $k = R/\fm$. Then TFAE, 
@@ -700,5 +924,5 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
     \end{enumerate}
 \end{theorem}
 
-
+n-variable m clause k-sat to giant OR of $2^{\delta n}$ many sparse k-SAT instances where each has \#clauses at most linear in n, for any $\delta > 0$. 
 \end{document}

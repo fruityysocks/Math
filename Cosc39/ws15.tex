@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\textbf{Credit Statement:} Talked to Sair Shaikh'26, Nand Patel'27, Kiran Jones'27, and Carson Bates'27. 
+
+\begin{problem}{1}
+    A \textbf{dominating set} in graph $G$ is set of vertices $S$ so that every vertex is in $S$ or a neighbor of $S$.
+    \begin{tcolorbox}
+        \textsc{DomSet}
+        \begin{itemize}
+            \item \textbf{Input:} An undirected graph $G$, a parameter $q$
+            \item \textbf{Output:} Does $G$ have a dominating set of size at most $q$?
+        \end{itemize}
+    \end{tcolorbox}
+
+    We can also separate the parameter q out from the definition of \textsc{DomSet}:
+    \begin{tcolorbox}
+        q-\textsc{DomSet}
+        \begin{itemize}
+            \item \textbf{Input:} An undirected graph $G$
+            \item \textbf{Output:} Does $G$ have a dominating set of size at most $q$?
+            \end{itemize}
+    \end{tcolorbox}
+    Prove that q-\textsc{DomSet} cannot be solved in $O(n^{q-\delta})$ time for any $\delta > 0$ under SETH, by reducing an arbitrary $n$-variable sparse $k$-SAT instance to a $q$-\textsc{DomSet} instance with $O(q2^{\frac{n}{q}}+m)$ nodes
+\end{problem}
+
+\begin{solution}
+    \bbni
+
+    We reduce a sparse $k$-\textsc{Sat} instance to a $q$-\textsc{DomSet} instance in the following manner: 
+
+    Let $q = k$. Create an undirected graph $G$ as follows: 
+    \begin{enumerate}
+        \item Create $q$ groups $X_1, \ldots, X_q$ of $n$ variables. Create a node $X_{i_j}$ for each possible assignment of a group $X_i$. That gives us $q2^{n/q}$ groups. 
+        
+        Also create a node $n_s$ for each clause ($1 \leq s \leq m$).  
+        Hence we have a total of $q2^{n/q} + m$ nodes. 
+
+        \item Every $X_i$ is a complete subgraph. If there exists a node $X_{i_j}$ that satisfies some clause $n_s$ create an edge between them.
+    \end{enumerate}
+
+
+    We claim that $G$ has a dominating set of size $q$ if and only if the $k$-\textsc{Sat} instance is satisfiable.
+
+
+    $(\implies)$ 
+    
+    Let $S$ be a dominating set with $|S| = q$. Then $S$ contains exactly one node from each group $X_i$ since for any node $u \in X_i$ whose assignment satisfies no clause, $u$ has no edges to any clause node. Then $u$'s only neighbors are other nodes in $X_i$, so $u$ can only be dominated if $S \cap X_i \neq \emptyset$. Since this holds for every group and there are $q$ groups with $|S| = q$, we conclude $|S \cap X_i| = 1$ for each $i$. (If two nodes in $X_i$ satisfy a clause we just pick one since those nodes are neighbors anyway). 
+
+
+    $(\impliedby)$ 
+    
+    
+    Suppose $\sigma$ is a satisfying assignment. For each group $X_i$, let $v_i$ be the node corresponding to $\sigma$'s assignment on $X_i$'s variables, and let $S = \{v_1, \ldots, v_q\}$. We claim $S$ is a dominating set of size $q$:
+    \begin{itemize}
+        \item Every node $u \in X_i$ is dominated by $v_i$, since $X_i$ is a complete subgraph and thus $v_i$ is adjacent to every other node in $X_i$.
+        \item Every clause node $n_s$ is dominated: since $\sigma$ is satisfying, some group $X_i$ contains a variable that satisfies clause $s$. Then $v_i$, which agrees with $\sigma$ on $X_i$, also satisfies $s$, so the edge $v_i \sim n_s$ exists by construction.
+    \end{itemize}
+    
+
+    Thus we have reduced sparse $k$-\textsc{Sat} to $q$-\textsc{DomSet}. 
+    Now we show that if $q$-\textsc{DomSet} having an algorithm that solves it in $O(\fn^{q-\delta})$ time, where $\fn$ is the number of nodes in the graph, by contradiction. Assume such an algorithm exists. Then, 
+    \begin{align*}
+        O(\fn^{q-\delta}) &= O\left(\left(q2^{n/q} + m\right)^{q-\delta}\right) \\ 
+        \intertext{By the sparsification lemma we have $m = \Theta(n) = \alpha n$ for some $\alpha$}
+        O(\fn^{q-\delta}) &= O\left(\left(k2^{n/k} + \alpha n\right)^{k - \delta}\right) \\ 
+        \intertext{Note that $2^{n/k}$ clearly dominates, so we drop the other term and the constant $k$.}
+        O(\fn^{q-\delta}) &=  O\left((2^{n/k})^{k - \delta}\right) = O\left(2^{n(1 - \delta/k)}\right)
+    \end{align*}
+    Since $\delta/k$ is positive ($\delta > 0$ and $k$ fixed positive constant), this gives us an $O(2^{n(1-\delta/k)})$  algorithm (which is stricting less than $O(2^n)$) that solves $k$-\textsc{Sat}, contradicting SETH. 
+    
+    Thus we cannot solve $q$-\textsc{DomSet} in in $O(\fn^{q-\delta})$ time.  
+\end{solution}
+
+
+
+\end{document}
