@@ -35,7 +35,7 @@
 \end{definition}
 
 \begin{definition}
-     Let $(X, J)$ and $(X', J')$ be topological spaces. Then they are \textbf{homeomorphic} if $\exists$ a continuous bijection $f: (X, J) \to (X', J')$. So that $f^{-1}$ is also continuous. 
+     Let $(X, J)$ and $(X', J')$ be topological spaces. Then they are \textbf{homeomorphic} if $\, \exists$ a continuous bijection $f: (X, J) \to (X', J')$. So that $f^{-1}$ is also continuous. 
 \end{definition}
 
 \begin{exercise}
@@ -1026,9 +1026,13 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \section{Homology}
 
 \begin{remark}
-    $\pi_n(S^n) = \Z$, and $\pi_m(S^n) = 0$ if $m >\leq n$. We don't know how to compute $\pi_m(S^n)$ for $m > n$.
+    $\pi_n(S^n) = \Z$, and $\pi_m(S^n) = 0$ if $m < n$. We don't know how to compute $\pi_m(S^n)$ for $m > n$.
 \end{remark}
 Homology distinguishes higher dimension space and it is easy to compute. We define simplical and singular homology separately, but eventually they have the same properties. 
+
+\begin{remark}
+    For spheres the homology groups $H_i(S^n)$ are isomorphic to the homotopy groups $\pi_i(S^n)$ for $1 \leq i \leq n$; and for $i > n$, $H_i(S^n) = 0$. 
+\end{remark}
 
 \subsection{Simplical Homology}
 
@@ -1042,20 +1046,38 @@ Homology distinguishes higher dimension space and it is easy to compute. We defi
 \end{definition}
 
 \begin{definition}
-    $\Delta$-complex structure of a space $X$ is a collection of maps $\sigma_\alpha: \Delta^n \to X$. 
+    A \textbf{face} of an $n$-simplex $\Delta^n = [v_0, \ldots, v_n]$ is the $n-1$-simplex obtained by deleting one of its $n+1$ vertices. The vertices of a face, or of any subsimplex spanned by a subset of the vertices, will always be ordered according to their order in the larger simplex.
+\end{definition}
+
+\begin{definition}
+    The \textbf{boundary} $\d{\Delta}^n$ is the union of all the faces of $\Delta^n$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{open simplex} $\mathring{\Delta}^n$ is the interior of $\Delta^n$, i.e. $\Delta^n - \d \Delta^n$. 
+\end{definition}
+
+\begin{definition}
+    The \textbf{$\Delta$-complex structure} of a space $X$ is a collection of maps $\sigma_\alpha: \Delta^n \to X$. 
     \begin{enumerate}
-        \item $\sigma_\alpha |_{\Delta_n^\circ}$ is injective and each point of $X$ is in the image of exactly one such $\sigma_\alpha |_{\Delta_n^\circ}$. 
-        \item $\sigma_\alpha |_{{\text{face of }\Delta_n}}$ is one of the maps $\sigma_\beta: \Delta^{n-1} \to X$, where a face of $\Delta^n$ is a $(n-1)$-simplex that we get by deleting a vertix of $\Delta^n$.
+        \item $\sigma_\alpha |_{\mathring{\Delta}^{n}}$ is injective and each point of $X$ is in the image of exactly one such $\sigma_\alpha |_{\mathring{\Delta}^{n}}$. 
+        \item Restriction of $\sigma_\alpha$ to a face of ${\Delta}^{n}$  is one of the maps $\sigma_\beta: \Delta^{n-1} \to X$. We identify the face of $\Delta^n$ with $\Delta^{n-1}$ by the canonical linear homeomorphism between them that preserves the ordering of the vertices.
+        \[\lambda_i: \Delta^{n-1} \to \Delta^n, \qquad (t_0, \ldots, t_{n-1}) \mapsto (t_0, \ldots,\, t_{i-1}, \, 0 , \, t_i, \ldots,\, t_{n-1} )\]
         \item A set $U \subset X$ is open iff $\sigma_\alpha^{-1} (U)$ is open in $\Delta^n$, for all $\alpha$.
     \end{enumerate}
 \end{definition}
+
 
 \begin{definition}
     Let $X$ be a $\Delta$-complex and let $\Delta_n(X)$ denote the free abelian group with basis $n$-simplicies of $X$. The elements of $\Delta_n(X)$ are of the form $\sum_i n_i \sigma_i$ where this is a finite sum, $n_i \in \Z$ and $\sigma_i: \Delta^n \to X$. 
 \end{definition}
 
-We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}, \ldots, v_n] \cong [v_0, \ldots, v_{n-1}]$. We will always orient the $1$-simplex $[v_i, v_j]$ by an arrow going from $v_i$ to $v-j$ for $i < j$. 
+We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}, \ldots, v_n] \cong [v_0, \ldots, v_{n-1}]$. We will always orient the $1$-simplex $[v_i, v_j]$ by an arrow going from $v_i$ to $v_j$ for $i < j$. 
 
+\begin{definition}
+    We define a \textbf{boundary homomorphism} $\d_n: \Delta_n(X) \to \Delta_{n-1}(X)$ where, 
+    \[\d_n(\sigma_\alpha) = \sum_i (-1)^i \sigma_\alpha \mid _{[v_0, \ldots, \widehat{v_i}, \ldots, v_n]}\]
+\end{definition}
 \begin{proposition}
     The composition 
     \[\Delta_n(X) \xrightarrow{\d_n} \Delta_{n-1}(X) \xrightarrow{\d_{n-1}} \Delta_{n-2}(X)\] 
@@ -1071,10 +1093,10 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 
 \begin{definition}
     In general, whenever we have $(C_n, \d_n)$
-    \[\to C_{n+1} \xrightarrow{\d_{n+1}} C_n \xrightarrow{\d_n} C_{n-1} \xrightarrow{\d_{n-1}}\] 
-    with $\d_n \circ \d_{n+1} = 0$, then $\img(\d_{n+1}) \subset \ker(\d_n)$. Hence we define the $n$-th homology group, 
+    \[\cdots \xrightarrow{} C_{n+1} \xrightarrow{\d_{n+1}} C_n \xrightarrow{\d_n} C_{n-1} \xrightarrow{\d_{n-1} \cdots }\] 
+    with $\d_n \circ \d_{n+1} = 0$, then $\img(\d_{n+1}) \subset \ker(\d_n)$. Hence we define the \textbf{$n$-th homology group}, 
     \[H_n := \ker(\d_n) / \im(\d_{n+1})\]
-    Hence the $n$-th simplicial homology of $X$ is $H_n^\Delta(X) = \ker(\d_n) / \im(\d_{n+1})$.
+    where elements of $\ker(\d_n)$ are \textbf{cycles} and elements of $\im(\d_{n+1})$ are \textbf{boundaries}. The \textbf{$n$-th simplicial homology} of $X$ is $H_n^\Delta(X) = \ker(\d_n) / \im(\d_{n+1})$.
 \end{definition}
 
 \begin{example}
@@ -1084,8 +1106,8 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     And we have, 
     \[0 \xrightarrow{\d_2} \Delta_1(S^1) \xrightarrow{\d_1} \Delta_0 (S^1) \xrightarrow{\d_0} 0\]
     with 
-    \[H_0^\Delta(S^1) = \frac{\ker(\d_0)}{\im(\d_1)} = \frac{\Z \langle v \rangle}{ \sigma_1 \mid_{[v_1] }- \sigma_1 \mid_{[v_0]}} = \frac{\Z\langle v \rangle}{ 0} \iso \Z\langle v \rangle \iso \Z,\]
-    \[H_1^\Delta(S^1) = \frac{\ker(\d_1)}{\im(\d_2)} = \frac{\Z \langle v \rangle}{ 0} \iso \Z\langle v \rangle \iso \Z,\]
+    \[H_0^\Delta(S^1) = \frac{\ker(\d_0)}{\im(\d_1)} = \frac{\Z \langle v \rangle}{ \{\sigma_1 \mid_{[v_1] }- \sigma_1 \mid_{[v_0]}\}} = \frac{\Z\langle v \rangle}{\{0\}} \iso \Z\langle v \rangle \iso \Z,\]
+    \[H_1^\Delta(S^1) = \frac{\ker(\d_1)}{\im(\d_2)} = \frac{\Z \langle v \rangle}{ \{0\}} \iso \Z\langle v \rangle \iso \Z,\]
     and
     \[H_2^\Delta(S^1) = \frac{\ker(\d_2)}{\im(\d_3)} = { 0}\]
 
@@ -1114,7 +1136,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 
     The homologies are, 
      \begin{itemize}
-        \item $H_0^\Delta(T^2) = \frac{\ker(\d_0)}{\im(\d_1)} =  \frac{\Z\langle v_0 \rangle}{ 0} \iso \Z\langle v_0 \rangle \iso \Z$
+        \item $H_0^\Delta(T^2) = \frac{\ker(\d_0)}{\im(\d_1)} =  \frac{\Z\langle v_0 \rangle}{\{0\}} \iso \Z\langle v_0 \rangle \iso \Z$
         
         \item $H_1^\Delta(T^2) = \frac{\ker(\d_1)}{\im(\d_2)} =  \frac{\Z\langle a \rangle \oplus \Z \langle b \rangle \oplus \Z \langle c \rangle}{ \Z\langle a + b - c \rangle} \iso  \frac{\langle a, b, c \rangle }{ \langle a + b - c\rangle} \iso \langle a, b \rangle \iso \Z\langle a \rangle \oplus \Z\langle b \rangle$
         
@@ -1125,7 +1147,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 \end{example}
 
 \begin{example}
-    Compute $H^\Delta_n (\R P^2)$. 
+    Compute $H^\Delta_n (\RP^2)$. 
 
     \[
     \begin{tikzcd}
@@ -1134,15 +1156,43 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     \end{tikzcd}
     \]
     
-    \todo{Try; Hatcher has this worked out}
+
+    We have, 
+    \begin{itemize}
+        \item $\Delta_0(\RP^2) = \Z \langle v_0 \rangle \oplus \Z \langle v_1 \rangle$ 
+        \item $\Delta_1(\RP^2) = \Z \langle a \rangle \oplus \Z \langle b \rangle \oplus \Z \langle c \rangle $ 
+        \item $\Delta_2(\RP^2) = \Z \langle U \rangle \oplus \Z \langle L \rangle$ 
+
+    \end{itemize}
+
+    \[0 \xrightarrow{\d_3} \Delta_2(\RP^2) \xrightarrow{\d_2} \Delta_1(\RP^2) \xrightarrow{\d_1} \Delta_0 (\RP^2) \xrightarrow{\d_0} 0\]
+
+    The homologies are, 
+     \begin{itemize}
+        \item $H_0^\Delta(\RP^2) = \frac{\ker(\d_0)}{\im(\d_1)} =  \frac{\Z\langle v_0 \rangle \oplus \Z\langle v_0 \rangle}{\langle v_0 - v_1\rangle} \iso \Z\langle v_0 \rangle \iso \Z$
+        
+        \item $H_1^\Delta(\RP^2) = \frac{\ker(\d_1)}{\im(\d_2)} =  \frac{\Z\langle a -b  \rangle \oplus \Z \langle c \rangle}{ \Z\langle a - b - c, \, a - b + c \rangle}$
+        
+        Let $x = a - b$, $y = c$. Then we have, 
+        \[x + y = 0, \quad x - y = 0 \implies 2x = 2 y = 0\] 
+        i.e. both $x$ and $y$ have order $2$. And, 
+        \[x - y = 0 \implies x = y\]
+        So,  
+        \[H_1^\Delta(\RP^2) = \frac{\Z\langle a -b  \rangle \oplus \Z \langle c \rangle}{ \Z\langle a - b - c, \, a - b + c \rangle} \iso \frac{\Z\langle x \rangle }{2x} \iso \Z/2\Z\]
+
+        
+        \item $H^\Delta_2(T_2) = \frac{\ker(\d_2)}{\im(\d_3)} = \frac{\{0\}}{\{0\}} \iso \{0\} $
+
+        \item $H_n^\Delta = 0$ if $n \geq 3$. 
+    \end{itemize}
 \end{example}
 
 \begin{definition}
-    A \textbf{singular $n$-simplex} in a space $X$ is a map $\sigma: \Delta^n \to X$, where there are no conditions of $\im(\sigma)$ restricted to a face. 
+    A \textbf{singular $n$-simplex} in a space $X$ is a map $\sigma: \Delta^n \to X$, where there are no conditions of $\im(\sigma)$ restricted to a face (i.e. singularities are allowed). The only requirement is that $\sigma$ is continuous. 
 \end{definition}
 
 \begin{definition}
-    A \textbf{chain complex} is defined as the (finite) formal sum of singular $n$-simplices. 
+    A \textbf{chain complex} $C_n(X)$ is the free abelian group with the set of singular $n$-simplices in $X$ as basis. Its elements are called \textbf{$n$-chains} which are (finite) formal sum of singular $n$-simplices. 
     \[C_n(X) := \left \{\sum_i n_i \sigma_i \mid \sigma_i : \Delta^n \to X\right \}\]
     with the differential $\d_n : C_n(X) \to C_{n-1}(X)$ where, 
     \[\d_n(\sigma):= \sum_i (-1)^i \sigma \mid_{[v_0, \ldots, \widehat{v_i}, \ldots, v_n]}\]
@@ -1150,7 +1200,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 \end{definition}
 
 \begin{remark}
-    $H_n(X)$ is an invariantt under the homeomorphism class of $X$. 
+    $H_n(X)$ is an invariant under the homeomorphism class of $X$. 
 \end{remark}
 
 \begin{proposition}
@@ -1185,9 +1235,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 
         Thus $\ker(\varepsilon) = \im(\d_1)$. 
     \end{proof} 
-    
     That is, 
-
     \[H_0(X) \iso \frac{C_0(X)}{\im(\d_1)} = \frac{C_0(X)}{\ker(\varepsilon)} \iso \Z\]
 \end{proof}
 
@@ -1196,17 +1244,37 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 \end{proposition}
 
 \begin{proof}
-    \todo{}
+     Let $x_0$ be a point. Then the constant map $\sigma_n: \Delta^n \to X$ gives us a $n$-simplex for all $n$ since constant maps are continuous. Since the restriction of the constant map is the constant map we get, 
+    \[\d_n(\sigma_n) = \sum_{i=0}^n (-1)^i \sigma_{n-1} = \sigma_{n-1} \sum_{i=0}^n (-1)^i = \begin{cases*}
+        0 ,& n \text{ odd} \\ 
+        \sigma_{n-1}, & n \text{ even} \\ 
+    \end{cases*}\]
+
+    Thus we get, 
+    \[\cdots \xrightarrow{\d_3} C_2(x_0) \xrightarrow{\d_2} C_1(x_0) \xrightarrow{\d_1} C_0(x_0) \xrightarrow{\d_0} 0 \]
+    \[\cdots \xrightarrow{0} \Z \xrightarrow{\iso} \Z \xrightarrow{0} \Z \xrightarrow{} 0 \]
+    Then for odd $n$ we have, 
+    $\ker(\d_n) = \Z$ and $\im(\d_{n+1}) = \im(\id_{C_{n-1}}) = \Z$, so
+    \[H_n(x_0) = \frac{\ker(\d_n)}{\im(\d_{n+1})} = \frac{\Z}{\Z} = \{0\}\]
+    For even $n > 0$, we have
+    $\ker(\d_n) = 0$,  so
+    \[H_n(x_0) = \frac{\ker(\d_n)}{\im(\d_{n+1})} = \{0\}\]
+    For $n = 0$, we have,
+    \[H_0(x_0) = \frac{\ker(\d_0)}{\im(\d_{1})} = \frac{\Z}{0} = \Z\]
+
+    Hence, the singular homology groups of a point are $0$ for $n > 0$ and $\Z$ for $n = 0$. 
 \end{proof}
 
 \begin{definition}
     We will change the definition of homology so that a point has trivial $H_0(-)$. The \textbf{reduced homology groups} $\widetilde{H_n}(X)$ is defined to be the homology of the following chain complex. 
     \[\to C_n(X) \xrightarrow{\d_n} C_{n-1}(X) \xrightarrow{\d_{n-1}}  \cdots \xrightarrow{\d_1} C_0(X) \xrightarrow{\varepsilon} \Z \xrightarrow{0} 0\]
-    So, $\widetilde{H_n} (X) \iso H_n(X)$ if $n \geq 1$. Moreover we have $\im(\d_1) \subseteq \ker(\varepsilon)$
-
-    \todo{i missed this part}
-    
-    \[H_0(X)\iso \widetilde{H_0}(X) \oplus \Z \implies \widetilde{H_0}(\text{pt}) =0 \]
+    So, $\widetilde{H_n} (X) \iso H_n(X)$ if $n \geq 1$. Moreover we have $\im(\d_1) \subseteq \ker(\varepsilon)$. So, 
+    \begin{align*}
+        H_0(X) = \frac{C_0(X)}{\im(\d_1)} 
+        \iso \frac{\ker(\varepsilon) \oplus \Z}{ \im(\d_1)} 
+        = \widetilde{H_0}(X) \oplus \Z
+    \end{align*}
+    Hence, $\widetilde{H_0}(\text{pt}) =0$. 
 \end{definition}
 
 \begin{definition}
@@ -1231,7 +1299,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
         &= \d f_{\#} (\sigma)
     \end{align*}
 
-    Hence $f_{\#}$ induces a map $f \star: H_n(X) \to H_n(Y)$. 
+    Hence $f_{\#}$ induces a map $f_\star: H_n(X) \to H_n(Y)$. 
     \begin{proof}
         Note $f_{\#} (\ker \d_{n_X}) \subset \ker \d_{n_Y}$. Since $\alpha \in C_n(X)$ such that $\d(\alpha) = 0$. Then, 
         \[f_{\#}(\d_X(\alpha)) = 0 = \d(f_{\#} (\alpha)) \implies f_{\#}(\alpha) \in \ker(\d_{n_Y})\]
@@ -1254,14 +1322,14 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 \end{proof}
 
 \begin{proposition}
-     Now given $F: X \times I \to Y$  a homotopy we can define for any singular $n$-simplex $\sigma: \Delta^n \to X$ the mao, 
+     Now given $F: X \times I \to Y$  a homotopy we can define for any singular $n$-simplex $\sigma: \Delta^n \to X$ the map, 
     \[F': F \circ (\sigma \times \Id) : \Delta^n \times I \to Y\] 
-    Now define the map $p: C_n(X) \to C_{n+1}(Y)$ by 
+    Now define the \textbf{prism operator} $P: C_n(X) \to C_{n+1}(Y)$ by 
 
     \[P(\sigma) = \sum_i(-1)^i F' \mid_{[v_0, \ldots, v_i, w_i, \ldots, w_n]}\]
 
     It will turn out that $P$ is not a chain map but 
-    \[\d P = g_{\#} - f_{\$} - P \d\]
+    \[\d P = g_{\#} - f_{\#} - P \d\]
 \end{proposition}
 
 \begin{proof}
@@ -1270,13 +1338,15 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
         \d P(\alpha) &= \sum_{j \leq i} (-1)^i(-1)^j F' \mid_{[v_0, \ldots, \widehat{v_j}, \ldots, v_i, w_i, \ldots, w_n]} + \sum_{j \geq i} (-1)^i(-1)^{j+1} F' \mid_{[v_0, \ldots, v_i, w_i, \ldots, \widehat{v_j},\ldots, w_n]}
     \end{align*} 
     all terms of $\d P (\sigma)$ with $i=j$ will cancel except $F' \mid_{[ \widehat{v_0}, w_0, \ldots, w_n]} = g \circ \sigma = g_{\#}(\sigma)$ and $-F' \mid_{[v_0, \ldots, v_n, \widehat{w_n}]} = - f \circ \sigma = -f_{\#}(\sigma)$ that is $\d P(\sigma) = g_{\#} \sigma - f_{\#} \sigma$ which is a homotopy between $g_{\#}$ and $f_{\#}$. 
-
-    Now $P \d(\sigma)$ precisely equals negative of sum of $i+j$ terms in $\d P(\sigma)$, that is, 
+    The terms with $i \neq j$ are exactly $-P \d(\sigma)$, that is, 
     \[P \d (\sigma) = \sum_{j < i} (-1)^{i-1}(-1)^j F' \mid_{[v_0, \ldots, \widehat{v_j}, \ldots, v_i, w_i, \ldots, w_n]} + \sum_{j > i} (-1)^i(-1)^{j} F' \mid_{[v_0, \ldots, v_i, w_i, \ldots, \widehat{v_j},\ldots, w_n]}\]
+    Thus, 
+    \[\d P = g_{\#} - f_{\#} - P \d\]
+
 \end{proof}
 
 \begin{corollary}
-    $\widehat{H_i} (D^n) = 0$ for all $i$. 
+    $\widetilde{H_i} (D^n) = 0$ for all $i$. 
 \end{corollary}
 
 \section{Exact Sequences}
@@ -1286,6 +1356,60 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     \[\ldots \to \widetilde{H_n}(A)\xrightarrow{i_\star} \widetilde{H_n}(X) \xrightarrow{j_\star} \widetilde{H_n}(X/A) \xrightarrow{\d} \widetilde{H_{n-1}}(A) \xrightarrow{i_\star} \widetilde{H_{n-1}}(X) \xrightarrow{j_\star} \widetilde{H_{n-1}}(X/A) \xrightarrow{\d}\ldots\]
     where $i_\star$ is induced from $i: A \hookrightarrow X$ and $j_\star$ is induced from $j: X \to X/A$. 
 \end{theorem}
+
+\todo{2 classes}
+
+\newpage 
+
+\begin{definition}
+    \textbf{Degree} of a map $f: S^n \to S^n$ is $f_{\star}(1) \in \Z$ where $f_{\star}: H_n(S^n) \to H_n(S^n)$ and $1 \in \Z \iso H_n(S^n)$. 
+
+    \begin{example}
+        \bbni
+        \begin{enumerate}
+            \item $(\Id)_{\star} = \id \implies \deg \Id = 1$ 
+            \item If $f: S^n \to S^n$ is not a surjection then $\deg f = 0$ (potential final problem). \todo{For $f$ we can assume that $f$ misses a pt $\in S^n$ so we can factor $f$ as a map $S^n \xrightarrow{\overline {f}} S^n \setminus \{x_0\} \hookrightarrow S^n$ so $f_{\star} = (i \circ \overline{f})_{\star} = (i_{\star})(\overline{f})_{\star}$ so $\deg = 0$}
+            \item If $f \simeq g$ then $\deg f = \deg g$. 
+            \item $\deg(f \circ g) = \deg f \times \deg g$
+            \item If $f$ is a homotopy equivalence then $\deg f = \pm 1$. 
+            \item If $f$ is a reflection along a equitorial sphere then $\deg f = - 1$. (Hatcher, Chapter 2.1)
+            \item If $f$ is the anti-podal map on $S^n$ then $\deg f = (-1)^{n+1}$.
+            \item If $f: S^n \to S^n$ has no fixed points then $\deg f = (-1)^{n+1}$. 
+            \begin{proof}
+                If $f(x) \neq x$ for all $x \in S^n$ then the line segment joining $-x$ to $f(x)$ does not pass through the origin. Then, 
+                \[f_t(x) = \frac{(1-t)f(x) + t(-x)}{|(1-t)f(x) + t(-x)|}\] defines a homotopy of $f$ to the antipodal map in $S^n$. So, $f_t: S^n \to S^n$. 
+            \end{proof}
+        \end{enumerate}
+    \end{example}
+\end{definition}
+
+\begin{theorem}
+    $S^n$ has a non-zero vector field if and only if $n$ is odd. 
+\end{theorem}
+
+\begin{proof}
+    ($\implies$)
+    
+    Vector field in $S^n$ corresponds to $S^n \xrightarrow{v} \R^{n+1}$, $x \mapsto v(x)$ such that $x \perp v(x) \iff \langle x, v(x) \rangle = 0$. Suppose $v$ is such a vector field on $S^n$. We may normalize $v(X)$ by $\frac{v(x)}{|v(x)|}$ so that $v$ can be thought of as a map $S^n \xrightarrow{v} S^n$. Now consider $\cos(t) \cdot x + \sin (t) \cdot v(x)$ By letting $t$ go from $0$ to $\pi$, we obtain a homotopy $f_t: S^n \to S^n$ from the identity to the antipodal map. 
+
+    $\implies \deg \id = \deg (-\id) \implies 1 = (-1)^{n+1} \implies n$ is odd.  
+
+    $(\impliedby$) 
+
+    Suppose $n$ is odd. Say $n = 2k - 1$. Define $v(x_1, \ldots, x_{2k}) = (-x_2, x_1, \ldots, -x_{2k}, x_{2k-1}) \in \R^{n+1}$. 
+    
+    $x \perp v(x)$ and $||v(x) || = 1$. 
+\end{proof}
+
+\begin{definition}
+    \textbf{Euler characteristic} of a space $X$ 
+    \[\chi(X):= \sum_n (-1)^n \text{rank}(H_n(X))\]
+    rank of a finitely-generated, free, abelian group is the number of $\Z$-summands in that group. 
+
+    \begin{example}
+        rank($Z \otimes Z \otimes Z) = 1$. $\chi(T^2) = (-1)^0 (1) + (-1)^1 (2) + (-1)^2 (1)$
+    \end{example}
+\end{definition}
 \end{document}
 
 

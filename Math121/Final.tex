@@ -1,4 +1,5 @@
 \documentclass[12pt]{amsart}
+\usepackage{pgfplots}
 
 \include{../style}
 
@@ -11,66 +12,507 @@
 \maketitle
 \vspace{-0.3in}
 
-\begin{enumerate}
-    \item \todo{Motivation}
-    \item Homogeneus prime ideals encode homogeneus polynomials vanishing on some projective subvariety of the ring. For instance, given the (homogeneous coordinate) ring $k[x_0, \ldots, x_n]$, in its associated  projective space is $P^n = \Proj(k[x_0, \ldots, x_n])$ we have
+
+\section{What is a Blowup?}
+    
+    \begin{wrapfigure}{r}{0.45\textwidth}
+        \centering
+        \vspace{-1.5em}
+        \begin{tikzpicture}
+        \begin{axis}[
+            axis lines=middle,
+            xlabel={$x$},
+            ylabel={$y$},
+            samples=150,
+            domain=-1:3,
+            xmin=-2.2, xmax=3.2,
+            ymin=-3.5, ymax=3.5,
+            width=0.42\textwidth,
+        ]
+            \addplot[red, thick] {x*sqrt(x+1)};
+            \addplot[red, thick] {-x*sqrt(x+1)};
+        \end{axis}
+        \end{tikzpicture}
+    \end{wrapfigure}
+
+    We care about studying varieties and singularities are an obstruction to that. Intuitively, a singularity is a point in the variety where the tangent is not well-defined. For instance, in $\A^2$ the curve $y^2 = x^3 + x^2$ has node at the origin where two branches cross and we have two perfectly valid tangent directions, $y = x$ and $y = -x$.   \todo{add caption to the figure}
+
+
+    % \begin{tikzpicture}
+    % \begin{axis}[
+    %     axis lines=middle,
+    %     xlabel={$x$},
+    %     ylabel={$y$},
+    %     samples=150,
+    %     domain=-1:3,
+    %     xmin=-2.2, xmax=3.2,
+    %     ymin=-3.5, ymax=3.5,
+    % ]
+    %     \addplot[red, thick] {x*sqrt(x+1)};
+    %     \addplot[red, thick] {-x*sqrt(x+1)};
+    % \end{axis}
+    % \end{tikzpicture}
+
+    Blowups are a systematic tool for resolving singularities like this one. The idea is fairly straightforward, instead of picking one tangent direction at the singular point, we replace the point with a copy of $\P^1$, which parametrizes all lines through it simultaneously. The two branches then lift to the blowup as separate smooth curves, intersecting $\P^1$ at different points. 
+    
+
+    % \begin{tikzpicture}
+    %     \begin{axis}[
+    %         view={60}{25},
+    %         xlabel={$x$},
+    %         ylabel={$u$},
+    %         zlabel={$y$},
+    %         domain=-2:2,
+    %         y domain=-2:2,
+    %         samples=25,
+    %         samples y=25,
+    %     ]
+
+    %     % Blowup surface y = xu
+    %     \addplot3[
+    %         surf,
+    %         opacity=0.5,
+    %     ]
+    %     ({x},{y},{x*y});
+
+    %     % Strict transform of y^2=x^2(x+1)
+    %     \addplot3[
+    %         very thick,
+    %         red,
+    %         samples=200,
+    %         domain=-2:2,
+    %     ]
+    %     ({x^2-1},{x},{x*(x^2-1)});
+
+    %     \end{axis}
+    % \end{tikzpicture}
+  
+    In general, the blowup of a variety $X \subset \A^n$ at a point replaces that point with a copy of $\P^{n-1}$, thus recording all the directions one can approach it from. So, it lives in $\A^n \times \P^{n-1}$. 
+
+    Projective space $\P^n$ parametrizes lines through the origin in $\A^{n+1}$, i.e., a point $[p_0: p_1: \cdots : p_{n-1}]$ represents a line through $0$ and $(p_0, \ldots, p_{n-1})$ in $\A^{n+1}$ with two points being equivalent if they differ by a non-zero scalar. Thus, a polynomial $f$ only vanishes consistently at a projective point if $f(\lambda x) = 0$ whenever $f(x) = 0$, forcing $f$ to be homogeneous. Therefore subvarieties of $\P{n-1}$ are cut out by homogeneous ideals. For instance, given the (homogeneous coordinate) ring $k[x_0, \ldots, x_n]$, in its associated  projective space $\P^n$ we have
     \begin{itemize}
-        \item $(0)$ — corresponds to all of ${\P}^n$
-        \item $(x_i)$ — a hyperplane $\{x_i = 0\} \iso P^{n-1}$
-        \item $(x_i, x_j)$ — a codimension-2 linear subspace $\{x_i, x_j = 0\} \iso P^{n-2}$
-        \item $(f)$ for homogeneous irreducible $f$  of degree $d$ - a hypersurface $\iso P^{n-d}$. 
+        \item $(0)$ — corresponds to all of ${\P}^n$ \todo{not accurate}
+        \item $(x_i)$ — a hyperplane $\{x_i = 0\} \iso \P^{n-1}$
+        \item $(x_i, x_j)$ — a codimension-2 linear subspace $\{x_i, x_j = 0\} \iso \P^{n-2}$
+        \item $(f)$ for homogeneous irreducible $f$  of degree $d$ - a hypersurface $\iso \P^{n-d}$. 
     \end{itemize}
-    \item We want homogeneous primes because in $\P^n$ coordinates are only defined upto scaling. So a polynomial $f$ only vanishes consistently at a projective point if $f(\lambda x) = 0$ whenever $f(x) = 0$, which forces $f$ to be homogeneous. 
-    \item Graded Rings. 
-    \begin{itemize}
-        \item Worth noting that all ring maps from $R \to \gr_IR$ map through the quotinent $R/I$.
-        \item The blow up algebra surjects onto $\gr_I R$, 
-        \[B_IR/IB_I R \iso \gr_IR\]
-        \item If $\gr_IR$ is a domain, then $R$ is a domain (converse not true). 
-    \end{itemize}
-    \item Let $M$ be a smooth manifold and $k$ be a field. $\mathcal C^\infty(M)$ is the ring of infinitely differentiable (smooth) functions $f: M \to k$.
-    \item Let $X$ be a topological space, $x \in X$ a point, and maps $f, g: X \to k$, then $f$ and $g$ are equivalent if they agree on some open neighborhood $U$ of $x$ such that 
-    \[f \sim_x g \iff f \big |_{U}(u) = g \big |_{U}(u), \, \forall u \in U\]
-    The germ of $f$ at $x$ is its equivalence class $[f]_x$.
-    \item The ring of germs at $x$ is,
-    \[\mathcal{O}_{X, x} = \{[f]_x \mid f : U \to k\}\]
-    with addition and multiplication defined representativewise. 
-    This is a local ring with maximal ideal 
-    \[\fm_x = \{[f]_x \in \cO_{X, x} \mid f(x) = 0\}\]
-    which is maximal because evaluation at $x$ gives a surjective ring homomorphism:
-    \[\text{ev}_x: \mathcal{O}_{X,x} \twoheadrightarrow k, \quad [f]_x \mapsto f(x)\]
-    with kernel $\fm_x$, so $\cO_{X, x} / \fm_x \iso k$, which is a field. 
-    \item \begin{theorem}[Krull's Intersection Theorem]
+
+\newpage
+
+\section{Graded Rings and Modules}
+    Since subvarieties of $\P^{n-1}$ are cut out by homogeneous ideals we need a framework to work with them. The polynomial ring $R = k[x_1, \ldots, x_n]$ decomposes naturally by degree, 
+    \[R = \bigoplus_{d \geq 0} k[x_1, \ldots, x_n]_d\]
+    where $R_d = k[x_1, \ldots, x_n]_d$ denotes homogeneous polynomials of degree $d$. Note that multiplication respects this decomposition, 
+    \[R_d \cdot R_e \subseteq R_{d+e}\]
+    This ring $R = \bigoplus_{d \geq 0} R_d$ is called a graded ring. The polynomial ring has a natural grading by degree, but a general ring $R$ doesn't. To extract a graded ring from $R$, we pick ideals $I_i \subset R$ such that the descending multiplicative chain holds, 
+    \[R \supset I_1 \supset I_2 \supset I_3 \supset \cdots\]
+    where $I_iI_j \subset I_{i+j}$. When the $I_i$ are powers of a single ideal, this chain is called a $I$-adic filtration, and it allows us to measure ``how deeply" an element lies in $I$. For our purposes, $I$ is always the maximal ideal of a local Noetherian ring $R$.
+
+    From this filtration we can recover the associated graded ring $\gr_I R$, 
+    \[\gr_I R := R/I \oplus I/I^2 \oplus \cdots\]
+    Where the multiplication in $\gr_I R$ is well-defined. For $a \in I^n/I^{n+1}$ and $b \in I^m/I^{m+1}$, we pick represtatives $a' \in I^n$ and $b' \in I^m$ and define the product $ab \in I^{n+m}/I^{n+m+1}$ to be the image of $a'b'$. One can check that this is well-defined modulo $I^{m+n+1}$. We will now develop some theory around filtrations and graded rings that will be helpful later. 
+
+    The idea of $I$-adic filtrations can be generalized to the case of modules. 
+    \begin{definition}
+        Given an $R$-module $M$, and an ideal $I \subseteq R$ we get the $I$-adic filtration of the module,
+        \[M \supset IM \supset I^2M \supset \cdots\] 
+        and the associated graded module,
+        \[\gr_I M := M/IM \oplus IM/I^2M \oplus I^2M/I^3M \oplus \cdots\]
+        with multiplication defined as follows: for $a \in I^n/I^{n+1}$ and $b \in I^mM/I^{m+1}M$, we pick represtatives $a' \in I^n$ and $b' \in I^mM$ and define the product $ab \in I^{n+m}M/I^{n+m+1}M$ to be the image of $a'b'$.
+    \end{definition}
+
+    \begin{remark}
+        Note that intersecting the terms of the $I$-adic filtration of $M$ with some submodule $M' \subset M$ sadly generally does not give us the $I$-adic filtration of $M'$. 
+    \end{remark}
+
+    The Artin-Rees lemma characterizes exactly the cases where this condition does hold. We will state it here and prove it after having developed the requisite theory. 
+
+    \begin{lemma}[Artin-Rees]
+        Let $R$ be a Noetherian ring, $I \subseteq R$ an ideal, and $M' \subset M$ be finitely generated $R$-modules. If
+        \[M = M_0 \supset M_1 \supset M_2 \supset \cdots\]
+        is a $I$-stable filtration then the induced filtration
+        \[M' = M' \cap M_0 \supset M' \cap  M_1 \supset M' \cap  M_2 \supset \cdots\]
+        is also $I$-stable, i.e., there exists $m$ such that $I(M' \cap M_n) = M' \cap M_{n+1}$ for $n \geq m$. 
+    \end{lemma}
+
+    \begin{definition}
+        Let $R$ be a ring, $I \subseteq R$ an ideal, and $M$ an $R$-module. A filtration $M = M_0 \supset M_1 \supset \cdots$ is called an $I$-filtration if $IM_n \subseteq M_{n+1}$ for all $n \geq 0$, and $I$-stable if there exists $m$ such that $M_{m+i} = I^i M_m$ for all $i \geq 0$.
+    \end{definition}
+
+    \begin{notation}
+        We write $M_k$ to denote $I^kM$, and $\gr_I R = \bigoplus_{k \geq 0} I^k/I^{k+1}$ and $\gr_I M = \bigoplus_{k \geq 0} M_k/M_{k+1}$ for the associated graded ring and module respectively.
+    \end{notation}
+
+    % \begin{proposition}
+    %     Let $R$ be a ring, $I \subseteq R$ an ideal, and $M$ a finitely-generated $R$-module. If $\gr_I M = \oplus_{k \geq 0} I^k M/ I^{k+1}M$ is an $I$-stable filtration and each $I^kM/I^{k+1}M$ is a finitely-generated submodule of $M$, then $\gr_I M$ is a finitely-generated module over $\gr_I R$. 
+    % \end{proposition}
+    % \todo{If we need this, prove it (pg 147)}
+
+
+    All ring maps $R \to \gr_I R$ factor over the quotient $R/I$, since any  such map must send $I$ to positive degree elements and hence $I \subset  \ker(\phi_0)$, where $\phi_0$ denotes the degree $0$ component,
+    \[\begin{tikzcd}
+        R \arrow[r, "\phi"] \arrow[d, twoheadrightarrow] & \gr_I R \\
+        R/I \arrow[ur, dashed, "\exists!"'] &
+    \end{tikzcd}\]
+    However there is no interesting natural homomorphism from $M$ to $\gr_I M$, but there is an interesting natural set map called the initial form.
+
+    \begin{definition}
+        Let $f \in M$ and $m$ be the greatest number such that $f \in M_m$. Then, the intial form of $f$, $\ini(f)$, is defined as, 
+        \[\init(f) = f \pmod{M_{m+1}}  \in M_m/M_{m+1} \subset \gr M\] 
+        or if $f \in \cap^\infty M_m$ 
+        \[\init(f) = 0.\]
+    \end{definition}
+    
+    \begin{definition}
+        For a submodule $M' \subset M$ we define $\init(M')$ to be the $\gr_I R$-submodule of $\gr_I M$ generated by $\init(f)$ for all $f \in M'$. 
+    \end{definition}
+
+    \begin{remark}
+        Unfortunately, $\init(M')$ is generally not obtained as the submodule generated by the initial forms of the generators of $M'$. 
+        
+        For instance, take $R = k[x,y]$, $I = (x,y)$, and $J = (x^2 + y^3, xy) \subset R$ with the $I$-adic filtration. The initial forms of the generators are $\init(x^2 + y^3) = x^2$ and $\init(xy) = xy$, so the submodule generated by their initial forms is $(x^2, xy) \subset \gr_I R \cong k[x,y]$. However, consider:\[y \cdot (x^2 + y^3) - x \cdot (xy) = x^2y + y^4 - x^2y = y^4 \in J\]so $\init(y^4) = y^4 \in \init(J)$. But $y^4 \notin (x^2, xy)$ in $k[x,y]$, since every element of $(x^2, xy)$ has $x$ as a factor while $y^4$ does not. Therefore $\init(J) \supsetneq (\init(x^2 + y^3), \init(xy))$.
+    \end{remark}
+
+    \begin{proposition}
+        Let $R$ be a ring, $I \subset R$ be an ideal, and let $M$ be a finitely generated $R$-module with $I$-filtration $\mathcal{J} : M = 
+    M_0 \supset M_1 \supset \cdots$ by finitely generated modules $M_i$. 
+    The filtration $\mathcal{J}$ is $I$-stable if and only if the 
+    $B_I R$-module $B_{\mathcal{J}}M$ is finitely generated.
+    \end{proposition}
+
+    \begin{proof}
+        \bbni
+
+        ($\implies$)
+
+        Assume $\mathcal{J}$ is $I$-stable. Then we have $M_{n+i} = I^i M_n$ for some $n$ and all $i \geq 0$. That is, for all $k > n$, $M_k$ is generated from $M_n$ by multiplying powers of $I$. Since each $M_0, \ldots, M_n$ is finitely-generated, the union of their generating sets gives a finite generating set for $B_{\mathcal{J}}M$. 
+
+        ($\impliedby$)
+
+        Assume $B_{\mathcal{J}}M$ is finitely generated. Since $B_{\mathcal{J}}M = \bigoplus_{n \geq 0} M_n$ is a direct sum, every element has only finitely many nonzero homogeneous components. Therefore each generator $g_i$ is contained in $M_0 \oplus \cdots \oplus M_{k_i}$ for some finite $k_i$, and taking $n = \max(k_1, \ldots, k_r)$, all generators are contained in $M_0 \oplus \cdots \oplus M_n$. 
+        
+        Each generator $g_i$ decomposes as a finite sum of homogeneous pieces, and the $B_IR$-submodule generated by all these homogeneous pieces contains the $B_IR$-submodule generated by $\{g_i\}$, since each $g_i$ is a sum of its homogeneous pieces. Since $\{g_i\}$ generates $B_{\mathcal{J}}M$, the homogeneous pieces also generate $B_{\mathcal{J}}M$. Hence we may assume $B_{\mathcal{J}}M$ is generated by homogeneous elements in $M_0, \ldots, M_n$.
+
+        Since all generators live in degrees $\leq n$, any element of $M_{n+i}$ is produced by multiplying a generator $m \in M_k$ with $k \leq n$ by some $a \in I^{n+i-k}$. Since $\mathcal{J}$ is an $I$-filtration, $I^{n-k} m \in M_n$, so $a \cdot m = I^i \cdot (I^{n-k} m) \in I^i M_n$. Therefore $M_{n+i} \subseteq I^i M_n$. The reverse inclusion $I^i M_n \subseteq M_{n+i}$ follows immediately from $\mathcal{J}$ being an $I$-filtration. Hence $M_{n+i} = I^i M_n$ for all $i \geq 0$, hence $\mathcal{J}$ is stable. \todo{proofread}
+    \end{proof}
+
+
+    \begin{lemma}[Artin-Rees]
+        Let $R$ be a Noetherian ring, $I \subseteq R$ an ideal, and $M' \subset M$ be finitely generated $R$-modules. If
+        \[M = M_0 \supset M_1 \supset M_2 \supset \cdots\]
+        is a $I$-stable filtration then the induced filtration
+        \[M' = M' \cap M_0 \supset M' \cap  M_1 \supset M' \cap  M_2 \supset \cdots\]
+        is also $I$-stable, i.e., there exists $m$ such that $I(M' \cap M_n) = M' \cap M_{n+1}$ for $n \geq m$. 
+    \end{lemma}
+
+    \begin{proof}
+        Let 
+        \[\mathcal{J}' : M' = M_0' \supset M_1' := M' \cap M_1 \supset M_2' 
+        := M' \cap M_2 \supset \cdots\]
+        be the induced filtration on $M'$. The module $B_{\mathcal{J}'}M' = 
+        \bigoplus_{n \geq 0} (M' \cap M_n)$ is naturally a graded 
+        $B_I R$-submodule of $B_{\mathcal{J}}M$. 
+        
+        % : for $a \in I^i$ and $m \in 
+        % M' \cap M_n$ we have $am \in M'$ (since $M'$ is a submodule) and $am 
+        % \in I^i M_n \subseteq M_{n+i}$ (since $\mathcal{J}$ is an 
+        % $I$-filtration), so $am \in M' \cap M_{n+i}$
+
+        Since $\mathcal{J}$ is $I$-stable, $B_{\mathcal{J}}M$ is finitely 
+        generated as a $B_I R$-module by Proposition 2.9. Since $R$ is 
+        Noetherian and $I$ is finitely generated, $B_I R = \bigoplus_{n \geq 
+        0} I^n t^n$ is a finitely generated $R$-algebra and hence Noetherian 
+        by the Hilbert basis theorem. Therefore the submodule 
+        $B_{\mathcal{J}'}M'$ of the finitely generated $B_I R$-module 
+        $B_{\mathcal{J}}M$ is itself finitely generated. Applying Proposition 
+        2.9 again, $\mathcal{J}'$ is an $I$-stable filtration of $M'$. \todo{Proofread}
+    \end{proof}
+    
+    \begin{remark}
+        One of the important applications of associated graded constructions is when $I$ is maximal ideal then $\gr_I R$ is a graded algebra over the field $R/I$ and if $I$ is finitely-generated, $\gr_I R$ is a finitely-generated algebra. Thus, $\gr_I$ allows us to turn arbitrary Noetherian rings into finitely-generated graded rings which are easier to study. \todo{Why? tbh we loved Noetherian rings all term}
+    \end{remark}
+
+\newpage
+
+\section{Blow Up Algebras}
+
+
+\begin{definition}
+    Let $R$ be a ring, and $I \subset R$ be an ideal. The \textbf{blowup 
+    algebra} of $I$ in $R$ is the $R$-algebra, 
+    \[B_I R:= \bigoplus_{n \geq 0} I^n t^n = R \oplus It \oplus I^2t^2 
+    \oplus \cdots \cong R[tI] \subset R[t]\]
+    where $t$ is a formal variable tracking the degree of the ideal. The 
+    associated graded ring is obtained by quotinenting by $IB_IR$:
+    \[B_I R/ I B_I R = \gr_I R = R/I \oplus I/I^2 \oplus \cdots \]
+\end{definition}
+
+    The blowup algebra is the algebraic structure behind the geometric operation 
+    of blowing up a subvariety. Suppose $R$ is the coordinate $k$-algebra of an affine variety $X$, and $I \subset R$ is the ideal of a subvariety $Y \subset X$. Let $a_1, \ldots, a_r$ be $k$-algebra generators for $R$ and let $g_0, \ldots, g_s$ be generators of $I$ as an ideal of $R$. 
+    \begin{proposition}
+        The blowup algebra $B_I R$ is a homomorphic image of 
+        $k[x_1, \ldots, x_r, y_0, \ldots, y_s]$.
+    \end{proposition}
+
+    \begin{proof}
+        Define a ring homomorphism 
+        \[\phi: k[x_1, \ldots, x_r, y_0, \ldots, y_s] \to B_I R, 
+        \quad x_i \mapsto a_i, \quad y_j \mapsto g_j t\]
+        This is surjective since any element of $B_I R$ is a finite sum of terms of the form $f \cdot g t^n$ with $f \in R$ and $g \in I^n$, and since $f$ is a polynomial in the $a_i$ and $g$ is a polynomial in the $g_j$, every such term is in the image of $\phi$. By the first isomorphism theorem:
+        \[B_I R \cong k[x_1, \ldots, x_r, y_0, \ldots, y_s] / \ker(\phi)\]
+        Since $B_IR$ is a graded ring and $\phi$ respects the grading by sending the $x_i$ to degree $0$ elements and the $y_j$ to degree $1$ elements, the kernel is a homogeneous ideal.
+    \end{proof}
+
+    $k[x_1,\ldots,x_r]$ is the coordinate ring of $\A^r$, and $k[y_0, \ldots, y_s]$ is the homogeneous coordinate ring of $\P^s$. So $k[x_1, \ldots, x_r, y_0, \ldots, y_s]$ is the coordinate ring of the product $A^r \times A^{s+1}$, and quotienting by a homogeneous ideal in the $y_j$ variables makes the vanishing scale-invariant in the $y_j$ and hence cuts out a subvariety that is projective in the $y$-directions, 
+    \[Z = \V(\ker \phi) \subset \A^r \times \P^s\]
+    The projection $\pi: \A^r \times \P^s \to \A^r$ restricts to a map $Z \to X$ which is an isomorphism away from the preimage of $Y$. The set $Z$ is called the \textbf{blowup of $Y$ in $X$}, and the preimage $\pi^{-1}(Y) \subset Z$ is called the \textbf{exceptional set}. 
+    
+    \todo{ Algebraically, the exceptional set corresponds to:
+    \[B_I R / I B_I R = \gr_I R\]
+    The exceptional set is the projective variety associated to $\gr_I R$. Recall that $\gr_I R = \bigoplus_{n \geq 0} I^n/I^{n+1}$ is a graded ring, and its homogeneous prime ideals not containing all of $(\gr_I R)_{>0}$ correspond to points of a projective variety, exactly as homogeneous prime ideals of $k[x_0, \ldots, x_s]$ correspond to points of $\P^s$. This variety parametrizes all limiting directions of approach to $Y$ inside $X$ --- the degree $1$ piece $I/I^2$ is the space of directions, and taking its projectivization replaces $Y$ with the set of all lines through it, one for each limiting direction of a secant line to $X$ through $Y$.
+}
+
+
+    % The blowup algebra is very closely related with the blowup of a point. To see this, we revist the example from the start of this note. The curve $y^2 = x^3 + x^2$ has a singularity at the origin. To construct the blowup algebra, we have $A = \V(y^2 - x^3 - x^2 )$, and $R = k[x,y]/\langle y^2 - x^3 - x^2 \rangle$. Since we are blowing it up at the origin, the corresponding maximal ideal (by Nullstellensatz) is $I = \langle x, y \rangle$, the maximal ideal. 
+
+    % The blowup algebra is 
+
+    % \[B_I R:= R \oplus It \oplus I^2t^2 \cdots\]
+
+    % which is a homomorphic image of
+
+    % Note that the the generators of $R$ as a $k$-algebra are $\{x, y\}$ and the generators of $I$ as an ideal are also $\{x, y\}$. Relableing the latter variables gives us 
+
+    We are now ready to revisit the example we looked at at the start of this note more formally, 
+
+    \subsection*{Example: Blowing up the node of $y^2 = x^3 - x^2$}
+
+    The curve $y^2 = x^3 - x^2$ has a node at the origin. The 
+    Jacobian $(-3x^2 + 2x, 2y)$ vanishes at $(0,0)$, confirming it is 
+    singular. 
+    
+    % The tangent cone at the origin is computed from the lowest degree  part of $y^2 - x^3 + x^2$, which is $y^2 - x^2 = (y-x)(y+x)$, giving two  tangent lines $y = x$ and $y = -x$ as expected for a node.  
+    We blow up $Y = \{0\}$ inside $X = \V(y^2 - x^3 + x^2)$. The coordinate ring is $R = k[x,y]/\langle y^2 - x^3 + x^2 \rangle$ and the maximal ideal of the origin is $I = \langle x, y \rangle$ (by Nullstellensatz). 
+    
+    
+    The generators of $R$ as a $k$-algebra are $\{x, y\}$ and the generators of $I$ are also $\{x, y\}$. Relabeling the generators of $R$ as $x_1, x_2$ and the generators of $I$ as $y_0, y_1$, the blowup algebra is a homomorphic image of $k[x_1, x_2, y_0, y_1]$ by the surjection,
+    \[\phi: x_1 \mapsto x, \quad x_2 \mapsto y, \quad y_0 \mapsto xt, \quad 
+    y_1 \mapsto yt\]
+
+    The kernel is generated by the curve relation $x_2^2 - x_1^3 + x_1^2$ and 
+    the relation $x_1 y_1 - x_2 y_0$, which lies in $\ker(\phi)$ since 
+    $\phi(x_1 y_1 - x_2 y_0) = x \cdot yt - y \cdot xt = 0$. Since this 
+    relation is homogeneous of degree $1$ in $y_0, y_1$, the blowup cuts out 
+    an algebraic subset $Z \subset \A^2 \times \P^1$.
+
+    % To compute $Z$ explicitly, we cover $\P^1$ by two affine pieces: $U_0 = 
+    % \{y_0 \neq 0\}$ and $U_1 = \{y_1 \neq 0\}$, on each of which we normalize 
+    % one coordinate to $1$ and work affinely.
+
+    % \textbf{On $U_0$} ($y_0 = 1$): We set $t = y_1/y_0$ as the affine 
+    % coordinate. The relation $x_1 y_1 - x_2 y_0 = 0$ gives $y = xt$, and 
+    % substituting into the curve equation:
+    % \[(xt)^2 - x^3 + x^2 = 0 \implies x^2(t^2 - x + 1) = 0\]
+    % The factor $x^2 = 0$ is the exceptional set sitting above the origin. Away 
+    % from it, $Z \cap (\A^2 \times U_0)$ is cut out by $t^2 - x + 1 = 0$, 
+    % which is smooth.
+
+    % \textbf{On $U_1$} ($y_1 = 1$): We set $s = y_0/y_1$ as the affine 
+    % coordinate. The relation $x_1 y_1 - x_2 y_0 = 0$ gives $x = ys$, and 
+    % substituting into the curve equation:
+    % \[y^2 - (ys)^3 + (ys)^2 = 0 \implies y^2(1 - ys^3 + s^2) = 0\]
+    % The factor $y^2 = 0$ is again the exceptional set. Away from it, $Z \cap 
+    % (\A^2 \times U_1)$ is cut out by $1 - ys^3 + s^2 = 0$, which is smooth.
+
+    % The exceptional set sits above the origin and corresponds to $\gr_I R$. 
+    % The degree $1$ piece $I/I^2$ is spanned by $x$ and $y$ modulo $I^2$, so 
+    % the exceptional set is $\Proj(\gr_I R) \cong \P^1$. The two branches of 
+    % the node meet $\P^1$ at the points $[1:1]$ and $[1:-1]$, corresponding to 
+    % the tangent directions $y = x$ and $y = -x$. The blowup has separated the 
+    % two branches, resolving the singularity.
+
+    \newpage 
+
+    \section{Tangent Cone}
+
+    \begin{theorem}[Krull's Intersection Theorem]
         Let $R$ be a Noetherian ring, $I \subseteq R$ an ideal, and $M$ a finitely-generated $R$-module. There exists an element $r \in I$ such that \[(1-r) \bigcap_{k=1}^\infty I^kM = 0\]
     \end{theorem}
 
+    \begin{proof}
+
+        Let $N = \bigcap_{k=1}^\infty I^k M$. We want to find $r \in I$ such 
+        that $(1-r)N = 0$. Consider the $I$-adic filtration on $M$, 
+        \[M \supset IM \supset I^2M \supset \cdots\]
+        and the induced filtration on $N$, 
+        \[N \supset N \cap IM \supset N \cap I^2M \supset \cdots\]
+        By Artin-Rees applied to $N \subset M$, there exists $m$ such that for 
+        all $n \geq m$, 
+        \[N \cap I^n M = I^{n-m}(N \cap I^m M)\]
+        In particular, 
+        \[N \cap I^{m+1}M = I(N \cap I^m M)\]
+        But since $N$ is the intersection of all $I^kM$ we have $N \subseteq I^{m+1}M$, so $N \cap 
+        I^{m+1}M = N$. Similarly $N \subseteq I^m M$, so $N \cap I^m M = N$. 
+        Therefore:
+        \[N = IN\]
+        Since $R$ is Noetherian and $M$ is finitely generated, $N$ is a 
+        finitely generated $R$-module. Applying Nakayama's lemma to $N = IN$: 
+        there exists $r \in I$ such that $(1-r)N = 0$.
+    \end{proof}
+
     \begin{corollary}
-        If $(R, \fm)$ is a local Noetherian ring, $I \subsetneq R$ then 
+        If $R$ is a domain or $(R, \fm)$ is a local Noetherian ring, and $I \subsetneq R$ then 
         \[\bigcap_{k=1}^\infty I^k = 0\]
     \end{corollary}
-    \item \todo{Graded Rings/Modules}
-    \item \todo{Filtrations, Stable Filtrations, Initial forms, Artin-Rees}
-    \item \todo{Blow-up Algebras, Blow Ups, Exceptional Set}
-    \item Limiting point of a line: 
 
-    A line through $0$ in $\A^r$ is determined by its direction (which corresponds to a point in $\P^{r-1}$). More precisely, the line through $0$ and $p = (p_1, \ldots, p_r)$ corresponds to:
-        \[[p_1 : \cdots : p_r] \in \P^{r-1}\]
-    So a sequence of secant lines $\ell_{p_n}$ is really a sequence of points $[p_n] \in \mathbf{P}^{r-1}$. A \textbf{limiting position} is a limit point of this sequence:
-    $$\ell = \lim_{n \to \infty} [p_n] \in \P^{r-1}$$
-    This is well-defined because $P^{r-1}$ is compact (over $\C$), so every sequence has a convergent subsequence.
+    \begin{proof}
+        Let $M = R$. Since $I$ is a proper ideal, there exists some $r \in I$ such that $r \neq 1$, so $1 - r \neq 0$. If $R$ is a domain, we are done. If $R$ is a local ring, $r \in I \subseteq \fm$ so $1 - r \notin \fm$, hence $1-r$ is a unit and must be non-zero. Hence, $\cap_{k=1}^\infty I^k = 0$.
+    \end{proof}
 
-    \item The correspondence between the exceptional set in the blow up and the associated graded ring gives us a beautiful geometric consequence. Let $R = k[x_1, \ldots, x_r]/J$ and $I = (x_1, \ldots, x_r)$ where $k$ is algebraically closed and $J \subset I$, also let $X = \V(J) \subset \A^r$ so $0 \in X$. 
-    
-    -- basically $X$ is the algebraic subset of $\A^r$ cut out by $J$. 
+    \begin{corollary}
+        If $R$ is a Noetherian local ring and $I \subsetneq R$ is an ideal then if $\gr_I R$ is a domain, so is $R$.  
+    \end{corollary}
 
-    Then we define the tangent cone of $X$ at $0$ as the cone composed of all lines that are the limiting positions of secant lines to $X$ passing through the point $0$. Alternatively, the tangent cone at $0$ is then:
+    \begin{proof}
+        If $fg = 0 \in R$ then $\init(f) \init(g) = 0 \in \gr_I R$. Since $\gr_I R$ is a domain, $\init (f)$ or $\init(g)$ is zero. Without loss of generality, assume $\init(f) = 0$. Then by definition, $f \in \cap_{k=1}^\infty I^k$ and by KIT we know that $\cap_{k=1}^\infty I^k = 0$. Hence $f = 0$. Thus, $R$ is a domain. 
+    \end{proof}
+
+    \begin{definition}
+        A line through $0$ in $\A^r$ is determined by its direction (which corresponds to a point in $\P^{r-1}$). More precisely, the line through $0$ and $p = (p_1, \ldots, p_r)$ corresponds to $[p_1 : \cdots : p_r] \in \P^{r-1}$
+        So a sequence of secant lines $\ell_{p_n}$ at a point $X \subset A^r$ is really a sequence of points $[p_n] \in \mathbf{P}^{r-1}$. A \textbf{limiting position} is a limit point of this sequence:
+        $$\ell = \lim_{n \to \infty} [p_n] \in \P^{r-1}$$
+        This is well-defined because $P^{r-1}$ is compact (over $\C$), so every sequence has a convergent subsequence.
+    \end{definition}
+
+    The correspondence between the exceptional set in the blow up and the associated graded ring gives us a beautiful geometric consequence. Let $R = k[x_1, \ldots, x_r]/J$ and $I = (x_1, \ldots, x_r)$ where $k$ is algebraically closed and $J \subset I$, also let $X$ be the algebraic subset of $\A^r$ cut out by $J$, 
+    \[X = \V(J) \subset \A^r \text{ so } 0 \in X\] 
+
+    Then we define the tangent cone of $X$ at $0$ as the cone composed of all lines that are the limiting positions of secant lines to $X$ passing through the point $0$. Alternatively, the tangent cone at $0$ is then the closure of the set of directions of points on $X$, together with the actual lines they represent in $\A^r$. 
     \[TC_0(X) = \overline{\{[p] \in \mathbf{P}^{r-1} : p \in X \setminus \{0\}\}} \subset \mathbf{P}^{r-1}\]
-    the closure of the set of directions of points on $X$, together with the actual lines they represent in $\A^r$. The closure is what captures the limiting directions — directions you can approach but which may not themselves be realized by points of $X \setminus \{0\}$. One can show that the ideal $\ini_I(J) \subset k[x_1, \ldots, x_r]$ defines the tangent cone so that the coordinate ring of the tangent cone is $\gr_{(x_1, \ldots, x_r)}R$. \todo{exercise 5.3 eisenbud}
+    Since the closure captures limiting directions that arise as limits of secant lines but may not themselves be a point of $X \setminus \{0\}$.
+     
+    \todo{Add figure and theorem}
+
+    \begin{theorem}
+    Let $R = k[x_1, \ldots, x_r]/J$ with $I = (x_1, \ldots, x_r)$ and 
+    $k$ algebraically closed. The tangent cone $TC_0(X)$ to $X = \V(J) 
+    \subset \A^r$ at the origin is the algebraic subset:
+    \[TC_0(X) = \V(\init_I(J)) \subset \A^r\]
+    where $\init_I(J) = \langle \init(f) : f \in J \rangle \subset k[x_1, \ldots, x_r]$ 
+    is the ideal generated by the initial forms of all elements of $J$. 
+    Moreover, the coordinate ring of the tangent cone is:
+    \[k[x_1, \ldots, x_r]/\init_I(J) \cong \gr_I R\]
+\end{theorem}
+
+\begin{proof}
+    We sketch the key steps; for a complete proof see Harris \cite{harris}. 
     
-    \begin{itemize}
-        \item The tangent cone at a smooth point is the tangent line. 
-        \item 
-    \end{itemize}
+    First, $\init_I(J)$ is a homogeneous ideal since each $\init(f)$ is 
+    homogeneous by definition, so $\V(\init_I(J))$ is indeed a cone in 
+    $\A^r$.
+
+    For the geometric identification: a direction $[v] \in \P^{r-1}$ lies 
+    in $TC_0(X)$ if and only if $v$ is a limit of directions $[p_n]$ with 
+    $p_n \in X \setminus \{0\}$ and $p_n \to 0$. Writing $p_n = t_n v_n$ 
+    with $t_n \to 0$ and $v_n \to v$, and expanding $f(t_n v_n) = 0$ for 
+    $f \in J$, the leading order term gives $\init(f)(v) = 0$. Since this 
+    holds for all $f \in J$, we get $v \in \V(\init_I(J))$. The converse 
+    holds by a similar limiting argument.
+
+    For the ring isomorphism, note that the natural map:
+    \[k[x_1, \ldots, x_r] \twoheadrightarrow \gr_I R = \bigoplus_{n \geq 
+    0} I^n/I^{n+1}\]
+    sending $x_i$ to its class in $I/I^2$ is surjective with kernel 
+    $\init_I(J)$, giving $\gr_I R \cong k[x_1, \ldots, x_r]/\init_I(J)$.
+\end{proof}
+
+\begin{example}
+    For the nodal curve $y^2 = x^3 - x^2$, the lowest degree part of 
+    $f = y^2 - x^3 + x^2$ is $\init_I(f) = y^2 - x^2 = (y-x)(y+x)$. So 
+    the tangent cone is $\V(y^2 - x^2) \subset \A^2$, the union of the two 
+    lines $y = x$ and $y = -x$, confirming the two tangent directions at 
+    the node. The coordinate ring is $k[x,y]/(y^2 - x^2) \cong \gr_I R$.
+\end{example}
+
+    One can show that the ideal $\ini_I(J) \subset k[x_1, \ldots, x_r]$ defines the tangent cone so that the coordinate ring of the tangent cone is $\gr_{(x_1, \ldots, x_r)}R$. \todo{exercise 5.3 eisenbud}
+
+
+\section{Conclusion} 
+
+\newpage 
+
+\section{Worksheet} 
+
+\begin{problem}{1}
+
+\end{problem}
+
+\begin{enumerate}
+    \item Motivation 
+    % \item Graded Rings \& Modules 
+    % \item Filtrations, Stable Filtrations, Initial forms, Artin-Rees
+    \item KIT 
+    \item Blow Ups, Blow Up Algebras, Exceptional Sets 
+    \item Limiting Points and Tangent Cones
+    \item Flatness 
+    \item Projective and Free Resolutions 
+    \item `Criteria for Flatness'
+    \item Rees Algebras
+\end{enumerate}
+
+\begin{enumerate}
+    % \item \todo{Motivation}
+    % \item Homogeneus prime ideals encode homogeneus polynomials vanishing on some projective subvariety of the ring. For instance, given the (homogeneous coordinate) ring $k[x_0, \ldots, x_n]$, in its associated  projective space $P^n = \Proj(k[x_0, \ldots, x_n])$ we have
+    % \begin{itemize}
+    %     \item $(0)$ — corresponds to all of ${\P}^n$
+    %     \item $(x_i)$ — a hyperplane $\{x_i = 0\} \iso P^{n-1}$
+    %     \item $(x_i, x_j)$ — a codimension-2 linear subspace $\{x_i, x_j = 0\} \iso P^{n-2}$
+    %     \item $(f)$ for homogeneous irreducible $f$  of degree $d$ - a hypersurface $\iso P^{n-d}$. 
+    % \end{itemize}
+    % \item We want homogeneous primes because in $\P^n$ coordinates are only defined upto scaling. So a polynomial $f$ only vanishes consistently at a projective point if $f(\lambda x) = 0$ whenever $f(x) = 0$, which forces $f$ to be homogeneous. 
+    % \item Graded Rings. 
+    % \begin{itemize}
+    %     \item Worth noting that all ring maps from $R \to \gr_IR$ map through the quotinent $R/I$.
+    %     \item The blow up algebra surjects onto $\gr_I R$, 
+    %     \[B_IR/IB_I R \iso \gr_IR\]
+    %     \item If $\gr_IR$ is a domain, then $R$ is a domain (converse not true). 
+    % \end{itemize}
+    % \item Let $M$ be a smooth manifold and $k$ be a field. $\mathcal C^\initty(M)$ is the ring of infinitely differentiable (smooth) functions $f: M \to k$.
+    % \item Let $X$ be a topological space, $x \in X$ a point, and maps $f, g: X \to k$, then $f$ and $g$ are equivalent if they agree on some open neighborhood $U$ of $x$ such that 
+    % \[f \sim_x g \iff f \big |_{U}(u) = g \big |_{U}(u), \, \forall u \in U\]
+    % The germ of $f$ at $x$ is its equivalence class $[f]_x$.
+    % \item The ring of germs at $x$ is,
+    % \[\mathcal{O}_{X, x} = \{[f]_x \mid f : U \to k\}\]
+    % with addition and multiplication defined representativewise. 
+    % This is a local ring with maximal ideal 
+    % \[\fm_x = \{[f]_x \in \cO_{X, x} \mid f(x) = 0\}\]
+    % which is maximal because evaluation at $x$ gives a surjective ring homomorphism:
+    % \[\text{ev}_x: \mathcal{O}_{X,x} \twoheadrightarrow k, \quad [f]_x \mapsto f(x)\]
+    % with kernel $\fm_x$, so $\cO_{X, x} / \fm_x \iso k$, which is a field. 
+    % \item
+    % \item \todo{Graded Rings/Modules}
+    % \item \todo{Filtrations, Stable Filtrations, Initial forms, Artin-Rees}
+    % \item \todo{Blow-up Algebras, Blow Ups, Exceptional Set}
+    % \item Limiting point of a line: 
+
+    % A line through $0$ in $\A^r$ is determined by its direction (which corresponds to a point in $\P^{r-1}$). More precisely, the line through $0$ and $p = (p_1, \ldots, p_r)$ corresponds to:
+    %     \[[p_1 : \cdots : p_r] \in \P^{r-1}\]
+    % So a sequence of secant lines $\ell_{p_n}$ is really a sequence of points $[p_n] \in \mathbf{P}^{r-1}$. A \textbf{limiting position} is a limit point of this sequence:
+    % $$\ell = \lim_{n \to \infty} [p_n] \in \P^{r-1}$$
+    % This is well-defined because $P^{r-1}$ is compact (over $\C$), so every sequence has a convergent subsequence.
+
+    % \item The correspondence between the exceptional set in the blow up and the associated graded ring gives us a beautiful geometric consequence. Let $R = k[x_1, \ldots, x_r]/J$ and $I = (x_1, \ldots, x_r)$ where $k$ is algebraically closed and $J \subset I$, also let $X = \V(J) \subset \A^r$ so $0 \in X$. 
+    
+    % -- basically $X$ is the algebraic subset of $\A^r$ cut out by $J$. 
+
+    % Then we define the tangent cone of $X$ at $0$ as the cone composed of all lines that are the limiting positions of secant lines to $X$ passing through the point $0$. Alternatively, the tangent cone at $0$ is then:
+    % \[TC_0(X) = \overline{\{[p] \in \mathbf{P}^{r-1} : p \in X \setminus \{0\}\}} \subset \mathbf{P}^{r-1}\]
+    % the closure of the set of directions of points on $X$, together with the actual lines they represent in $\A^r$. The closure is what captures the limiting directions — directions you can approach but which may not themselves be realized by points of $X \setminus \{0\}$. One can show that the ideal $\ini_I(J) \subset k[x_1, \ldots, x_r]$ defines the tangent cone so that the coordinate ring of the tangent cone is $\gr_{(x_1, \ldots, x_r)}R$. \todo{exercise 5.3 eisenbud}
+    
+    % \begin{itemize}
+    %     \item The tangent cone at a smooth point is the tangent line. 
+    %     \item 
+    % \end{itemize}
 
     \item \todo{Examples}
 

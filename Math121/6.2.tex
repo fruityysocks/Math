@@ -4,6 +4,7 @@
 
 \ifSubfilesClassLoaded{\input{title}}{}
 
+\hrulefill
 
 Throughout this course, ``ring'' means \textit{commutative} ring with unity, and all modules are assumed to be modules over the relevant ring. Let $R$ be a ring and let $M$ be an $R$-module. Recall from the previous worksheets that if $U \subset R$ is a multiplicatively closed set, the localization of $M$ at $U$ is a $U^{-1}R$-module, denoted $U^{-1}M$, which intuitively consists of elements of the form $\frac{m}{u}$ for $m\in M$ and $u\in U$ (up to equivalence). Further, localization is a functor, meaning given a map $\phi:M \to N$ of  $R$-modules we get a map $U^{-1}(\phi):U^{-1}M \to U^{-1}N$ of $U^{-1}R$-modules. On elements this map is given by $\frac{m}{u}\mapsto \frac{\phi(m)}{u}$. Further, we saw that localization is an exact functor, meaning that it preserves exact sequences. 
 
@@ -16,6 +17,8 @@ Recall that for a prime ideal $\fp\subset R$ we write $M_{\fp}$ for the localiza
 is a proper ideal of $R$. Choosing a maximal ideal containing $\Ann(m)$ gives a point of $\Spec(R)$ where $m$ cannot disappear after localization. This is the algebraic version of saying that a nonzero object must be visible somewhere locally.
 
 \hrulefill
+
+\newpage
 
 \begin{problem}{1} \textbf{Local Vanishing for Modules.} 
     

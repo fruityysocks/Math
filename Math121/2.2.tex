@@ -22,19 +22,21 @@
 \newpage
 
 \begin{problem}{1}
-    \textbf{Evaluation Maps.} For a point $p=(a_1,\ldots,a_n) \in \K^n$ the \emph{evaluation-at-$p$} map is given by
-\[
-\begin{tikzcd}[row sep =.5em, column sep = 3.5em]
-	\K[x_1,\ldots,x_n] \arrow[r, "\ev_p"] & \K \\
-	f \arrow[r, mapsto] & f(p)
-\end{tikzcd}.
-\]
-\begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-	\item Prove that $\ev_p$ is a ring homomorphism and find generators for $\fm_{p}\coloneqq \ker(\ev_p)$. 
-	\item Prove that there is a bijection, induced by these evaluation maps, between $\K^{n}$ and the subset of $\Spec(\K[x_1,\ldots,x_n])$ consisting of maximal ideals whose residue field is isomorphic to $\K$ as a $\K$-algebra. 
-	\item Find a maximal ideal of $\R[x,y]$ that is not of the form $\fm_p$ for any $p\in \R^{2}$. 
-	\item Restate Hilbert's Nullstellensatz I (above) in terms of $\fm_p$. 
-\end{enumerate}
+    \textbf{Evaluation Maps.} 
+    
+    For a point $p=(a_1,\ldots,a_n) \in \K^n$ the \emph{evaluation-at-$p$} map is given by
+    \[
+    \begin{tikzcd}[row sep =.5em, column sep = 3.5em]
+        \K[x_1,\ldots,x_n] \arrow[r, "\ev_p"] & \K \\
+        f \arrow[r, mapsto] & f(p)
+    \end{tikzcd}.
+    \]
+    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+        \item Prove that $\ev_p$ is a ring homomorphism and find generators for $\fm_{p}\coloneqq \ker(\ev_p)$. 
+        \item Prove that there is a bijection, induced by these evaluation maps, between $\K^{n}$ and the subset of $\Spec(\K[x_1,\ldots,x_n])$ consisting of maximal ideals whose residue field is isomorphic to $\K$ as a $\K$-algebra. 
+        \item Find a maximal ideal of $\R[x,y]$ that is not of the form $\fm_p$ for any $p\in \R^{2}$. 
+        \item Restate Hilbert's Nullstellensatz I (above) in terms of $\fm_p$. 
+    \end{enumerate} 
 \end{problem}
 
 \begin{solution}

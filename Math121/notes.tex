@@ -584,12 +584,16 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
     \[\height (I) = \dim(R) - \dim(R/I)\]
 \end{theorem}
 
+\begin{definition}
+    Given a Noetherian local ring $(R, \fm, k)$, its \textbf{embedding dimension} $\mu(R)$ is the minimal number of generators required for its maximal ideal $\fm$.  
+\end{definition}
+
 \begin{theorem}[Krull's Principal Ideal Theorem]
     Let $R$ be a Noetherian ring, $x \in R$. If $P \subseteq R$ is a prime ideal minimal over $\langle x \rangle$ then  $\height(P) \leq 1$. 
 \end{theorem}
 
 \begin{corollary}
-    Let $R$ be a Noetherian ring $I = \langle r_1, \ldots, r_n \rangle \subseteq R$. If $P \subseteq R$ is a prime ideal minimal over $I$ then $\height(P) \leq n$.  
+    Let $R$ be a Noetherian ring, and ideal  $I = \langle r_1, \ldots, r_n \rangle \subseteq R$. If $P \subseteq R$ is a prime ideal minimal over $I$ then $\height(P) \leq n$.  
 \end{corollary}
 
 \begin{theorem}[Krull's Height Theorem]
@@ -599,7 +603,6 @@ If $R$ is a domain, $\ker(\eta) = \langle 0 \rangle \implies \eta$ is injective,
 \begin{corollary}
     If $(R, \fm)$ is a Noetherian local ring with residue field $k = R/\fm$, 
     \[\dim(R) = \height(\fm) \leq \mu (\fm) = \dim_k (\fm/\fm^2)\]
-    where $\mu(\fm)$ is the minimal number of generators of the ideal $\fm$ or the embedding dimension of $R$. 
 \end{corollary}
 
 \begin{definition}
@@ -908,13 +911,235 @@ Let \(R\) be a ring and let \(M\) be a finitely-presented \(R\)-module. The foll
             0 & \text{otherwise}
         \end{cases}$
     \end{enumerate}
+    We say that this is a \textbf{free resolution} if $P_i$ is free for all $i$. 
 \end{definition}
+
+\begin{definition}
+    The \textbf{projective dimension} of a module $M$ is 
+    \[\text{pd}(M) = \inf \{\text{lengths of projective resolutions of } M\}\]
+\end{definition}
+
+\begin{definition}
+    A free resolution $F_\bullet$ of a module $M$ is \textbf{minimal} if and only if for each differential
+    \[F_i \xleftarrow{d_i} F_{i+1}\]
+    we have that $\img(d_i) \subseteq \fm F_i$
+\end{definition}
+
+\begin{definition}
+    If $F_\bullet$ and $G_\bullet$ are chain complexes of $R$-modules, then an isomorphism $\psi_\bullet: F_\bullet \to G_\bullet$ is a collection $\{\psi_i: F_i \to G_i\}$ of $R$-module maps such that 
+    \begin{enumerate}
+        \item $\psi_i$ is an isomorphism for all $i$ and,
+        \item \begin{tikzcd}
+            F_i \arrow[d, "\psi_i"] & F_{i+1}  \arrow[l, "d_i"] \arrow[d, "\psi_{i+1}"]\\ 
+            G_i & \arrow[l, "\delta_i"] G_{i+1}
+        \end{tikzcd}
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+    Let $(R, \fm)$ be a Noetherian local ring and $M$ a finitely-generated $R$-module, then
+    \begin{enumerate}
+        \item A minimal free resolution of $M$ exists 
+        \item If $F_\bullet$ and $G_\bullet$ are minimal free resolutions of $M$ then $F_\bullet \iso G_\bullet$
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+
+    \begin{enumerate}
+        \item Pick a minimal generating set of $M$ $m_1, \ldots, m_t$ such that 
+        \[0 \leftarrow M \overset{\pi}{\twoheadleftarrow} F_\bullet \iso R^{\oplus t} \leftarrow \ker(\pi) \leftarrow 0\]
+        Since $R$ is Noetherian and $F_\bullet$ is finitely-generated, $\ker(\pi)$ is finitely-generated. Pick a minimal generating set $k_1, \ldots, k_s$ such that 
+        \[ \ker(\pi) \overset{\pi_1}{\twoheadleftarrow} F_1 \iso R^{\oplus S}, \quad k_i \text{\reflectbox{$\mapsto$}} e_i\]
+        So we have, 
+
+        \[\begin{tikzcd}
+            {}&{} &{} & 0 \\ 
+            0 & M \ar[l] & F_0 \ar[l, two heads, "\pi"] & \ker(\pi) \ar[l] \ar[u] & 0 \ar[l] \\
+            {} & {} & {} & F_i \ar[u, two heads, "\pi_1"] \ar[lu, "d_0"] \\ 
+            {} & {} & {} & \ker(\pi_2) \ar[u] \\ 
+            {} & {} & {} & 0 \ar[u] \\ 
+        \end{tikzcd}\]
+
+        \noindent such that $\coker(d_0) \iso M$ and $\img(d_0) \iso \fm F_0$ since none of $m_1, \ldots, m_t$ lie in $\fm M$. 
+        The rest of the proof follows by induction. 
+    \end{enumerate}
+\end{proof}
 
 \begin{theorem}[Kaplansky]
     Let $(R, \fm)$ be a local ring and  $P$ is any $R$-module then $P$ is projective if and only if $P$ is free. 
 \end{theorem}
 
-\begin{theorem}[ABS] 
+\begin{definition}
+    Let  $F_\bullet$ and $G_\bullet$ be projective chain complexes \textbf{a chain homotopy} between chain maps $\psi_\bullet$ and $\phi_\bullet$ is the data of $R$-module maps $h_i: F_i \to G_{i+1}$ such that,
+    \[\phi_{i+1}(x) - \phi_{i+1}(x) = h_i(d_i(x)) + \delta_{i+1}(h_{i+1}(x))\]
+
+    \[\begin{tikzcd}
+        F_i \ar[dd, bend left = -10,swap, "\psi_i"]  \ar[dd, bend left = 10, "\phi_i"] \ar[ddrr, "h_i"{xshift = -.1in, yshift=.1in}] & {} & \ar[ll, swap, "d_i"] F_{i+1} \ar[dd, bend left = -10,swap, "\psi_{i+1}"]  \ar[dd, bend left = 10, "\phi_{i+1}"] \ar[ddrr, "h_{i+1}"{xshift = -.1in, yshift=.1in}] & {} & \ar[ll, swap, "d_{i+1}"] F_{i+2}\ar[dd, bend left = -10,swap, "\psi_{i+2}"]  \ar[dd, bend left = 10, "\phi_{i+2}"]  \\ 
+        {} \\ 
+        G_i & {} & \ar[ll, swap, "\delta_i"] G_{i+1} & {} & \ar[ll, swap, "\delta_{i+1}"] G_{i+2} 
+    \end{tikzcd}\]
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a ring, $M$ and $N$ $R$-modules and 
+    \[0 \leftarrow M \xleftarrow{\pi_M} F_\bullet, \quad 0 \leftarrow N \xleftarrow{\pi_N} G_\bullet\]
+    be projective resolutions of $M$ and $N$ respectively. Given any $R$-module map $\phi: M \to N$ there exists a lift $f_0$ of $\phi$ to $F_\bullet$ and $G_\bullet$ i.e. 
+
+    \[\begin{tikzcd}
+        0 & M \ar[l] \ar[d, "\phi"] & F_0 \ar[d, "f_0"] \ar[l, "\pi_M", swap] & F_1 \ar[l, swap, "d_0"] \ar[d, "f_1"]  & F_2 \ar[l, swap, "d_1"] \ar[d, "f_2"]  & \cdots \ar[l, swap] \\ 
+        0 & N \ar[l] & G_0 \ar[l, "\pi_N", swap] & G_1 \ar[l, swap, "\delta_0"]  & G_2 \ar[l, swap, "\delta_1"]  & \cdots \ar[l, swap] \\ 
+    \end{tikzcd}\]
+
+    Moreover the lift $f_0$ is unique upto homotopy. 
+\end{theorem}
+
+\begin{corollary}
+    Projective residue are unique upto chain homotopy. 
+\end{corollary}
+
+\begin{corollary}
+    Say $(R, \fm)$ is a local Noetherian ring and $F_\bullet$ and $G_\bullet$ are minimal free resolutions of a finitely-generated module $M$ then
+    \begin{enumerate}
+        \item $F_\bullet$ and $G_\bullet$ are homotopy equivalent. 
+        \item If $\phi_\bullet, \psi_\bullet: F_\bullet \to G_\bullet$ are chain maps that are homotopy equivalent then 
+        \[\psi_\bullet \otimes R / \fm  =  \phi_\bullet \otimes R / \fm\]
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    Suppose $h_i$ is a homotopy then 
+    \[\phi_{i+1}(x) - \phi_{i+1}(x) = h_i(d_i(x)) + \delta_{i+1}(h_{i+1}(x))\]
+    the minimality of $F_\bullet$ implies $\img(d_i) \subseteq \fm F_{i+1}$ and the minimality of $G_\bullet$ implies $\img(\delta_i) \subseteq \fm G_{i+1}$. That is $\img(\psi_{i + 1} - \phi_{i+1}) \subseteq \fm G_{i+1}$. Tensoring by $R/\fm$ gives 
+    \[F_{i+1} / \fm F_{i+1} \xrightarrow{\overline{\psi_{i+1}} - \overline{\phi_{i+1}}} G_{i+1} / \fm G_{i+1}\]
+    is the zero map which implies that 
+    \[\psi_{i+1} \otimes R / \fm  =  \phi_{i+1} \otimes R / \fm\]
+\end{proof}
+
+
+\begin{definition}
+    The exterior product $\Lambda ^{i+1}(R^n)$ is the free $R$-module with symbols $e_{j_1} \wedge e_{j_2} \wedge \cdots \wedge e_{j_{i+1}}$ modulo the alternating relations. 
+\end{definition}
+
+\begin{definition}
+    Let $R$ be a ring and $x_1, \ldots, x_n$ be a sequence of elements in $R$. The \textbf{Koszul complex} on $x_1, \ldots, x_n$ is the chain complex of $R$-module $K^R_\bullet(x_1, \ldots, x_n)$ where 
+    \[K^R_{i+1}(x_1, \ldots, x_n) = \Lambda ^{i+1}(R^n) \xrightarrow{d_i} \Lambda ^{i}(R^n) = K^R_{i} (x_1, \ldots, x_n)\] where 
+    \[d_i(e_{j_1} \wedge e_{j_2} \wedge \cdots \wedge e_{j_{i+1}}) = \sum_{k=1}^{i+1} (-1)^k x_{j_k} \cdot e_{j_1} \wedge \cdots \wedge \widehat{e_{j_k}} \wedge \cdots \wedge e_{j_{i+1}}\]
+\end{definition}
+
+\begin{proposition}
+    $K^R_\bullet(x_1, \ldots, x_n)$ is a free chain complex. 
+\end{proposition}
+
+\begin{proof}
+    We check $\delta_{i-1}(\delta_i(-)) = 0$ on basis element. And 
+    \begin{align*}
+        \delta_{i-1}(\delta_i(e_{j_1} \wedge e_{j_2} \wedge \cdots \wedge e_{j_{i+1}})) &= \delta\left(\sum_{k=1}^{i+1} (-1)^k x_{j_k} \cdot e_{j_1} \wedge \cdots \wedge \widehat{e_{j_k}} \wedge \cdots \wedge e_{j_{i+1}}\right) \\ 
+        &= \sum_{k=1}^{i+1} (-1)^k x_{j_k} \cdot \delta (e_{j_1} \wedge \cdots \wedge \widehat{e_{j_k}} \wedge \cdots \wedge e_{j_{i+1}}) \\ 
+        &= \sum_{k=1}^{i+1} (-1)^k x_{j_k} \cdot \left(\sum_{\ell=1}^{i+1} (-1)^{\ell-1} x_{j_\ell} \cdot (e_{j_1} \wedge \cdots \wedge \widehat{e_{j_k}} \wedge \cdots \widehat{e_{j_\ell}} \wedge \cdots \wedge e_{j_{i+1}})\right) \\ 
+        \todo{}
+    \end{align*}
+    Then this is the zero map. 
+\end{proof}
+
+\begin{lemma}
+    $K^R_\bullet(x_1)$ is a free resolution $R/\langle x_1 \rangle$ if and only if $x_1$ is a nonzerodivisor if and only if $x_1$ is a regular sequence. Then the complex 
+    \[ 0 \to R \xrightarrow{-x_1} R \to R/\langle x_1 \rangle \to 0\] 
+    upon tensoring by $M$
+    \[ 0 \to M \xrightarrow{-x_1} M \to M/\langle x_1 \rangle M \to 0\] 
+    remains exact. 
+\end{lemma}
+
+\begin{definition}
+    Let $R$ be a ring, $M$ an $R$-module and $x_1, \ldots, x_n$ a sequence of elements in $R$. The \textbf{koszul complex} of $x_1, \ldots, x_n$ on $M$ 
+    \[K_\bullet^R(x_1, \ldots, x_n) = K^R_\bullet(\overline{x}, M)\]
+    The \textbf{koszul homology} of $x_1, \ldots, x_n$ on $M$ is 
+    $H_i(\overline{x}, M) = H_i(K^R_\bullet(\overline{x}, M))$.
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a ring and $M$ be a $R$-module. If $x_1, \ldots, x_n$ is a regular sequence on $M$ then 
+    \[H_i(\overline{x}, M) = \begin{cases}
+        0 & i > 0 \\ 
+        M / \langle x_1, \ldots x_n \rangle M & i = 0
+    \end{cases}\]
+\end{theorem}
+
+\begin{corollary}
+    If $x_1, \ldots, x_n$ is a regular sequence on $R$ then the koszul complex of $K^R_\bullet(x_1, \ldots, x_n)$ is a free resolution of $R/\langle x_1, \ldots, x_n \rangle$.
+\end{corollary}
+
+\begin{theorem}
+    Let $(R, \fm)$ be a local ring and $M$ a finitely-generated $R$-module. Let $x_1, \ldots, x_n \in \fm$ then 
+    $x_1, \ldots, x_n$ is a regular sequence on $M$ if and only if $H_i(\overline{x}, M) = \begin{cases}
+        0 & i > 0 \\ 
+        M / \langle x_1, \ldots x_n \rangle M & i = 0
+    \end{cases}$
+\end{theorem}
+
+\begin{definition}
+    Let $(R, \fm)$ be a local ring, $k = R/\fm$ be it's residue field, and $M$ be a $R$-module. 
+    \[\Tor_R^i(k, M) = H_i(F_\bullet \otimes M)\]
+    where $F_\bullet$ is the free resolution of $k$ as an $R$-module. And 
+    \[\Ext_R^i (k, M) = H_i(\Hom_R(F_\bullet, M))\]
+\end{definition}
+
+\begin{remark}[Tor is Balanced]
+    If $G_\bullet$ is a free resolution of $M$ then 
+    \[\Tor^i_R( M, k)  = H_i(G_\bullet \otimes k) \iso H_i(F_\bullet \otimes M) \iso \Tor^i_R(k, M)\]
+\end{remark}
+
+\begin{lemma}
+    Let $H_\bullet$ be a free resolution of $M$ and $G_\bullet$ be a minimal free resolution of $M$ then 
+    \[H_\bullet \iso G_\bullet \oplus C_\bullet\]
+    That is, $\pd(M) = $ length of the minimal free resolution. 
+\end{lemma}
+
+\begin{lemma}
+    Let $M$ be a finitely-generated module over a Noetherian local ring $(R, \fm)$ with residue field $k$. Then 
+    \[\pd_R(M) = \sup \{i \in \Z_{\geq 0} \mid \Tor_R^i (M, k) \neq 0\}\]
+\end{lemma} 
+
+\begin{proof}
+    $\sup \{i \in \Z_{\geq 0} \mid \Tor_R^i (M, k) \neq 0\} \leq \pd_R(M)$. Compute $\Tor(k, M)$ by the minimal free resolution of $M$. 
+    \[\Tor^i(M, k) = H_i(G_\bullet \otimes R) = H_i(G_\bullet \otimes R/\fm) = \dim_R(G_i/\fm G_i)\]
+    \todo{}
+\end{proof}
+
+\begin{theorem}[Auslander-Buchsbaum Formula]
+    Let $(R, \fm, k)$ be a local Noetherian ring, and let $M$ be a finitely-generated $R$-module. If $\pd_R M < \infty$ then, 
+    \[\pd_R (M) + \depth_{\fm}(M) = \depth_{\fm}(R)\]
+\end{theorem}
+
+\begin{definition}
+    The standard $\Z$-grading on $S = k[x_0, \ldots, x_n]$ is a decomposition of $S$ as an abelian group 
+    \[S \iso \bigoplus_{d \in \Z} S_d\]
+    where $S_d$ is the $k$-vector space spanned by monomials of degree $k$. 
+
+    A graded module over $S$ is an $S$-module with a decomposition as an abelian group
+    \[M \iso \bigoplus_{d \in \Z} M_d\]
+    such that $S_e \cdot M_d \subseteq M_{e+d}$. 
+\end{definition}
+
+\begin{theorem}[Hilbert's Syzygy Theorem]
+    If $M$ is a finitely-generated graded module over $S$ then $M$ has a free resolution of length at most $(n+1)$. 
+\end{theorem}
+
+\begin{theorem}[Eisenbud]
+    Let $(S, \fm)$ be a regular local Noetherian ring and $f \in \fm^2$, $f \neq 0$ and is not a zero-divisor. If $M$ is a finitely-generated module over $R = S /\langle f \rangle$ then the minimal $R$-free resolution of $M$ is eventually $2$-periodic 
+    \[0 \leftarrow M \leftarrow F_0 \leftarrow \cdots \leftarrow F_t \leftarrow R^s \xleftarrow{A} R^s \xleftarrow{B} R^s \xleftarrow{A} R^s \xleftarrow{B} \cdots\]
+    for some matrices $A$ and $B$ such that 
+    \[AB = BA = f \Id\]
+\end{theorem}
+
+\begin{theorem}[? i think this is a definition lol]
+    Let $(R, \fm, k)$ be a local Noetherian ring and $M$ a finitely-generated $R$-module. The poincare series of $M$ 
+    \[P_M(t) = \sum_{i \geq 0} \dim_R \Tor_i^R(M, R)t^i\]
+    where $\dim \Tor_i^R(k, k) = \binom{n}{i}$
+    and \[P_R(t) = \sum_{i \geq 0} \binom{n}{i}t^i = (1+t)^n\]
+\end{theorem}
+
+\begin{theorem}[Auslander-Buchsbaum-Serie] 
     Let $(R, \fm)$ be a Noetherian local ring with residue field $k = R/\fm$. Then TFAE, 
     \begin{enumerate}
         \item $R$ is a regular ring. 
@@ -924,5 +1149,15 @@ Let \(R\) be a ring and let \(M\) be a finitely-presented \(R\)-module. The foll
     \end{enumerate}
 \end{theorem}
 
-n-variable m clause k-sat to giant OR of $2^{\delta n}$ many sparse k-SAT instances where each has \#clauses at most linear in n, for any $\delta > 0$. 
+
+\begin{theorem}[Auslander-Buchsbaum-Serie 2] 
+    Let $(R, \fm)$ be a Noetherian local ring with residue field $k = R/\fm$. Then TFAE, 
+    \begin{enumerate}
+        \item $R$ is a regular ring. 
+        \item The global dimension of $R$ is finite. 
+        \item Every finitely-generated $R$-module has a projective resolution of finite length. 
+        \item $P_R(t)$ is a polynomial. 
+    \end{enumerate}
+\end{theorem}
+
 \end{document}
