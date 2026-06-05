@@ -1,4 +1,5 @@
 \documentclass[12pt]{amsart}
+\usepackage{wrapfig}
 
 \include{../style}
 
@@ -38,36 +39,41 @@
      Let $(X, J)$ and $(X', J')$ be topological spaces. Then they are \textbf{homeomorphic} if $\, \exists$ a continuous bijection $f: (X, J) \to (X', J')$. So that $f^{-1}$ is also continuous. 
 \end{definition}
 
-\begin{exercise}
+\begin{example}
     Show that any two open intervals of $\R$ are homeomorphic (where we put subspace topology on the open intervals). 
-\end{exercise}    
+\end{example}    
 
 \begin{solution}
-    Let $(a,b)$ and $(c,d)$ be open intervals. \todo{} 
+    Let $(a,b)$ and $(c,d)$ be open intervals and define $f: (a,b) \to (c,d)$ as follows: 
+    \[f(x) = c + (x-a) \frac{d-c}{b-a}\]
+    Then, $f$ is continuous since it is a linear function in $x$, bijective because it is strictly increasing (injective) and has a continuous inverse. 
 \end{solution}
 
 \begin{remark}
-    Number of path connected topologies is preserved by continuous maps. For instance, $[0,1]$ is not homeomorphic to $(0,1)$, and $\R$ is not homeomorphic to $\R^2$.     
+    Number of path-connected topologies is preserved by continuous maps. For instance, $[0,1]$ is not homeomorphic to $(0,1)$, since $[0,1] \setminus \{0\} = (0,1]$ is path-connected but $(0, 1) \setminus \{\text{pt}\} = (0, \text{pt}) \cup (\text{pt}, 1)$ which has two path-connected components. 
+    Similarly, $\R$ is not homeomorphic to $\R^2$ since $\R \setminus \{\text{pt}\}$ gives us two disconnected components, but $\R^2 \setminus \{\text{pt}\}$ is path-connected.    
 \end{remark}
 
-\begin{exercise}
+\begin{example}
     \bbni 
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
         \item Is $\R^2$ homeomorphic to $\R^3$? 
         \item Is $S^2 ( = x^2 + y^2 + z^2  = 1)$ homeomorphic to $T^2 = S^1 \times S^1$?
         \item Is $S^2$ homeomorphic to $S^1 \times [a,b)$? 
     \end{enumerate}
-\end{exercise}
+\end{example}
 
 \begin{solution}
     \bbni 
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-        \item \todo{}
+        \item No, since  $\pi_1(\R^2 \setminus \{\text{pt}\}) = \pi_1(S^1) = \Z$ and $\pi_1(\R^3 \setminus \{\text{pt}\}) = \pi_1(S^2) = 0$
+        \item No, since $\pi_1(S^2) = 0$ and $\pi_1(T^2) = \Z \oplus \Z$. 
+        \item No, since $\pi_1(S^2) = 0$ and $\pi_1(S^1 \times [a,b)) = \pi_1(S^1) = \Z$. 
     \end{enumerate}
 \end{solution}
     
 \begin{definition}
-    If $f$ and $f'$ are continuous maps from spaces $X$ to $Y$ we say that $f$ is homotopic to $f'$ if $\exists$ a continuous map $F: X \times I = [0,1]  \to Y$ such that $F(x, 0) = f(x)$ and $F(x, 1) = f'(x)$.  $F$ is called the \textbf{homotopy} between $f$ and $f'$, and we write $f \simeq f'$.
+    If $f$ and $f'$ are continuous maps from spaces $X$ to $Y$ we say that $f$ is homotopic to $f'$ if $\exists$ a continuous map $F: X \times [0,1]  \to Y$ such that $F(x, 0) = f(x)$ and $F(x, 1) = f'(x)$.  $F$ is called the \textbf{homotopy} between $f$ and $f'$, and we write $f \simeq f'$.
 \end{definition}
 
 \begin{definition}
@@ -93,9 +99,8 @@
 \end{example}
 
 \begin{proof}
-     Want to find $F$ such that $F: X \times I \to \R^2$. $F(x, 0) = f(x), F(x,1) = f'(x)$ for all $x \in X$. 
-    The following map (straight line homotopy) works. 
-    \[F(x,t) = (1-t)f(x) + tf'(x)\]
+     Want to find $F$ such that $F: X \times I \to \R^2$, $F(x, 0) = f(x)$, and $F(x,1) = g(x)$ for all $x \in X$. The following map (straight-line homotopy) works. 
+    \[F(x,t) = (1-t)f(x) + tg(x)\]
 \end{proof}
 
 \begin{lemma}
@@ -109,11 +114,29 @@
     \begin{enumerate}
         \item \textbf{Reflexive:} $f \simeq f$ by $F(s,t) = f(s)$. 
         \item \textbf{Symmetric:} Let $f \simeq g$ by the homotopy $F(s,t)$. Then $g \simeq f$ is homotopic by the homotopy $G(s,t) = F(s,1-t)$. 
-        \item Transitive: Let $f \simeq g$ by $F(s_1,t)$ and $g \simeq h$ by $G(s_2,t)$. We can show that $f \simeq h$ by $H(s,t) = \begin{cases*}
-            s = s_1, \, 0 \leq t \leq 1/2 \\ 
-            s = s_2, \, 1/2 \leq t \leq 1 \\  
-        \end{cases*}$
-        \todo{check and also prove for $\simeq_p$}
+        \item \textbf{Transitive:} Let $f \simeq g$ by $F(s,t)$ and $g \simeq h$ by $G(s,t)$. We can show that $f \simeq h$ by \[H(s,t) = \begin{cases}
+            F(s, 2t), & 0 \leq t \leq 1/2 \\ 
+            G(s, 2t-1), & 1/2 \leq t \leq 1 
+        \end{cases}\]
+        Then $H(s, 0) = F(s, 0) = f(s)$, and $H(s, 1) = G(s, 1) = h(s)$. Hence, $f \simeq h$. 
+    \end{enumerate}
+
+    Path-Homotopy is an equivalence relation: 
+    \begin{enumerate}
+        \item \textbf{Reflexive:} $f \simeq_p f$ by $F(s,t) = f(s)$. 
+        \item \textbf{Symmetric:} Let $f \simeq_p g$ by the homotopy $F(s,t)$. Then $g \simeq_p f$ is homotopic by the homotopy $G(s,t) = F(s,1-t)$. 
+        \item \textbf{Transitive:} Let $f \simeq_p g$ by $F(s,t)$ and $g \simeq_p h$ by $G(s,t)$. We can show that $f \simeq_p h$ by, 
+        \[H(s,t) = \begin{cases}
+            F(s, 2t), & 0 \leq t \leq 1/2 \\ 
+            G(s, 2t-1), & 1/2 \leq t \leq 1 
+        \end{cases}\]
+        Where 
+        \begin{itemize}
+            \item $H(s, 0) = F(s, 0) = f(s)$
+            \item $H(s, 1) = G(s, 1) = h(s)$ 
+            \item $H(0, t) = x_0$ and $H(1, t) = x_1$. 
+        \end{itemize}
+        Hence, $f \simeq_p h$. 
     \end{enumerate}
     Thus path-homotopies are equivalence relations and we write $[f]$ to denote the path-homotopy equivalence class of $f$. 
 \end{proof}
@@ -158,28 +181,28 @@
 \begin{proof}
     \bbni
     \begin{enumerate}
-        \item Let $f \simeq_p f'$ by $F$ and $g \simeq g'$ by $G$, then we can show that $f \star g \simeq f' \star g'$ by defining $H: I \times I \to X$ such that 
+        \item Let $f \simeq_p f'$ by $F$ and $g \simeq_p g'$ by $G$, then we can show that $f \star g \simeq_p f' \star g'$ by defining $H: I \times I \to X$ such that 
         \[H(s,t) = \begin{cases*}
             F(2s, t), \, s \in [0, 1/2] \\ 
             G(2s -1, t), \, s \in [1/2, 1]
         \end{cases*}\]
 
-        \item $f \star e_{x_1} \simeq f$ by $H : I \times I \to X$ such that 
+        \item $f \star e_{x_1} \simeq_p f$ by $H : I \times I \to X$ such that 
         \[H(s,t) = \begin{cases*}
             f \fr{2 \cdot s}{2-t}, \, s \in \left [0, \frac{2-t}{2} \right ] \\ 
             x_1, \, s \in \left [\frac{2-t}{2},1 \right ] \\ 
         \end{cases*}\]
 
-        \item $f \star \overline f \simeq_p e_{x_0}$. 
-        
-        Define a path $\alpha(t)$ that starts at $x_0$ and ends at $f(t)$. Then the path-homotopy is given by $\alpha(t) \star \overline{\alpha}(t)$. 
+        \item To see $e_{x_0} \simeq_p f \star \overline f$
+        define a path $\alpha(t)$ that starts at $x_0$ and ends at $f(t)$. Then the path-homotopy is given by $\alpha(t) \star \overline{\alpha}(t)$. 
 
         \[H(s,t) = \begin{cases*}
             f(2st), \, s \in [0, 1/2] \\ 
             f(2t(1-s)), \, s \in [1/2, 1]
         \end{cases*}\]
-        \todo{straight line homotopy}
-        \item \todo{}
+
+        \item By well-definedness, 
+        \[[f] \star ([g]\star[h]) = [f] \star [g \star h] = [f \star g \star h] = [f \star g] \star h = ([f]\star [g]) \star [h]\]
     \end{enumerate}
 \end{proof}
 
@@ -206,9 +229,15 @@
     \begin{example}
         $\pi_1(\R^n, (0,0)) \equiv 0  \equiv \langle e_{\text{origin}} \rangle$
         \begin{proof}
-        Take any two loops $f(t), g(t)$ based at the origin. Then consider the straight-line homotopy 
+        Take any two loops $f(t), g(t)$ based at the origin. Then consider the straight-line homotopy,
         \[H(s,t) = f(s) (1-t) + tg(s)\]
-        \todo{(Check that it is a path homotopy)}
+        where, 
+        \begin{itemize}
+            \item $H(s, 0) = f(s)$
+            \item $H(s, 1) = g(s)$
+            \item $H(0, t) = f(0)(1-t) + tg(0) = (0,0)  = H(1, t)$
+        \end{itemize}
+        Hence, it is a path-homotopy. 
     \end{proof}
     \end{example}
 \end{definition}
@@ -292,12 +321,15 @@
 \end{theorem}
 
 \begin{proof}
+    \bbni
+
     \begin{enumerate}
-        \item [(a)] \begin{align*}
+        \item [(a)] We have, 
+        \begin{align*}
             (k \circ h)_\star ([f]) &= \left[(k \circ h) \circ (f)\right] \\
             &= [k(h(f))] \\ 
-            &= [k_\star(h_\star[f])]\\
-            &= (k_\star \circ h_\star) [f]
+            &= [k_\star(h_\star([f]))]\\
+            &= (k_\star \circ h_\star) ([f])
         \end{align*}
         \item [(b)] $(\id)_\star [f] = [\id \circ f] = [f]$
     \end{enumerate}
@@ -319,21 +351,27 @@
 
         \begin{enumerate}
         \item $\id: X \to X$. 
-        \item $X \times \{1, 2, \cdots, n\} \overset P \to X$ where $P(X, i)  = x$.
+        \item $X \times \{1, 2, \cdots, n\} \overset P \to X$ where $P(x, i)  = x$.
         \end{enumerate} 
     \end{example}
 \end{definition}
 
 \begin{theorem}
-    The map $P: \R \to S'$ such that $x \mapsto (\cos(2\pi x), \sin(2 \pi x))$ is a covereing space. 
+    The map $P: \R \to S^1$ such that $x \mapsto (\cos(2\pi x), \sin(2 \pi x))$ is a covereing map. 
 \end{theorem}
 
 \begin{proof}
-    $P^{-1}(U) = \underset{n \in \Z}{\bigsqcup} \left(n - \frac{1}{4}\right)\left(n + \frac{1}{4}\right) =: V_n$
+    
 
-    Restricted to each $V_n$ the map $P$ is a homeomorphism because $\sin(2 \pi x)$ is strictly monotonic on $V_n$ for all $n$. 
+    Let $U_1 = S^1 \setminus \{(1,0)\}$ and $U_2 = S^1 \setminus \{(-1, 0)\}$. Then it suffices to show that both of these sets is evenly covered. We have,
+    \[P^{-1}(U_1) = \sqcup_{n \in \Z} (n, n+1) =: V_n \]
+    And, 
+    \[P^{-1}(U_2) = \sqcup_{n \in \Z} \left( n - \frac{1}{2}, n + \frac{1}{2} \right) =: W_n \]
+    
 
-    \todo{finish}
+    Note that $P$ is injective on any interval of length less than $1$, because if $P(x) = P(y)$ then $(\cos(2\pi x), \sin(2 \pi x)) = (\cos(2\pi y), \sin(2 \pi y)) \iff x - y \in \Z$ but that is not possible if $x - y < 1$. $P \mid_{V_n}$ is surjective onto $U_1$ by IVT and is continuous because $P$ is continuous. It has a continuous inverse since it is a continuous bijection from an open interval onto an open subset of $S^1$. 
+    
+    Also, the invervals $(n, n+1)$ are pairwise disjoint for each $n$. A similar argument applies to $W_n$. Hence, both $U_1$ and $U_2$ are evenly covered and $P$ is a covering map. 
 \end{proof}
 
 \begin{definition}
@@ -349,7 +387,7 @@
 \end{proof}
 
 \begin{definition}
-    Let $p: E \to B$ be a surjective map, $f: X\to B$ be a map from $X \to B$. Then a map $\widetilde{f}: X \to E$ is called \textbf{lifting} of $f$ to $E$ if $p \circ \widetilde{f} = f$. 
+    Let $p: E \to B$ be a surjective map, and $f: X\to B$ be a map. Then a map $\widetilde{f}: X \to E$ is called \textbf{lifting} of $f$ to $E$ if $p \circ \widetilde{f} = f$. 
 
     \begin{center}
         \begin{tikzcd}
@@ -364,12 +402,12 @@
 \end{lemma}
 
 \begin{proof}
-    Cover $B$ by open sets $U$, each of which is evenly covered by $p$. We can find a subdivision (partition) defined by $s_0, \cdots, s_n \in [0,1]$ such that $f([s_i, s_{i+1}])$ is contained entirely inside a evenly covered $U$ for all $i$. \todo{Think about why this is possible}. Now we will define $\widetilde{f}$ inductively. Suppose that $\widetilde{f}(0) = e_0$ and it has been defined for $0 \leq s \leq s_i$ for some $i$. We will now define $\widetilde{f}$ at $[s_i, s_{i+1}]$. Suppose that $f([s_i, s_{i+1}]) \subset U$ where $U$ is evenly covered open set of $B$. This implies that $p^{-1}(U) = \sqcup_\alpha V_\alpha$. Now, $\widetilde{f}(s_i)$ lies in one such $V_\alpha$ say $V_0$. 
+    Cover $B$ by open sets $U$, each of which is evenly covered by $p$. We can find a subdivision (partition) defined by $s_0, \ldots, s_n \in [0,1]$ such that $f([s_i, s_{i+1}])$ is contained entirely inside a evenly covered $U$ for all $i$. Now we will define $\widetilde{f}$ inductively. Suppose that $\widetilde{f}(0) = e_0$ and it has been defined for $0 \leq s \leq s_i$ for some $i$. We will now define $\widetilde{f}$ at $[s_i, s_{i+1}]$. Suppose that $f([s_i, s_{i+1}]) \subset U$ where $U$ is evenly covered open set of $B$. This implies that $p^{-1}(U) = \sqcup_\alpha V_\alpha$. Now, $\widetilde{f}(s_i)$ lies in one such $V_\alpha$ say $V_0$. 
 
     Define $\widetilde{f}$ on $[s_i, s_{i+1}]$ as $\widetilde{f}(s) := (p |_{V_0})^{-1}(f(s))$ for all $s \in [s_i, s_{i+1}]$. 
-    By pasting lemma $\widetilde{f}$ is continuous on $[0,s_{i+1}]$ and we argue inductively to define $\widetilde{f}$ for $[0.1]$. 
+    By pasting lemma $\widetilde{f}$ is continuous on $[0,s_{i+1}]$ and we argue inductively to define $\widetilde{f}$ for $[0,1]$. 
     
-    By induction, we can again suppose that for another lift $\widetilde{f'}: [0,1] \to E$ of $f$ with $\widetilde{f'}(0) = e_0$, it agress with $\widetilde{f}$ of $0 \leq S \leq S_i$ for some $i$ \[\widetilde{f'}(s) = \widetilde{f}(s), \qquad \forall s \in [0, s_i]\]
+    By induction, we can again suppose that for another lift $\widetilde{f'}: [0,1] \to E$ of $f$ with $\widetilde{f'}(0) = e_0$, it agrees with $\widetilde{f}$ of $0 \leq s \leq s_i$ for some $i$ \[\widetilde{f'}(s) = \widetilde{f}(s), \qquad \forall s \in [0, s_i]\]
     Now we would like to show that 
     \[\widetilde{f'} (s) = \widetilde{f} (s), \qquad \forall s \in [s_i, s_{i+1}] \]
     \[\widetilde{f'} (s) =  (p|_{V_0})^{-1} \circ f (s), \qquad \forall s \in [s_i, s_{i+1}] \]
@@ -425,8 +463,8 @@
     
     \begin{center}
         \begin{tikzcd}
-            {} & \R \arrow[d] \\ 
-            I \arrow[ur, "\widetilde{f}"] \arrow[r, "f"] & S^1
+            {} & \R \arrow[d, two heads, "p"] \\ 
+            I \arrow[ur, "\widetilde{f}"] \arrow[r, "f", swap] & S^1
         \end{tikzcd}
     \end{center}
 
@@ -503,7 +541,47 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{remark}
 
 \begin{proof}
-    HW1 iirc
+    \bbni
+    \begin{enumerate}
+        \item [(a)] For $[\gamma] \in \pi_1(B, b_0)$, let $\gamma' : I \to E$ be the unique lift of $\gamma$ starting at $e_0$. Define
+        \[
+            \phi: \pi_1(B, b_0) \to p^{-1}(b_0), \quad \phi([\gamma])
+            = \gamma'(1).
+        \]
+        Note $\gamma'(1) \in p^{-1}(b_0)$ since $p(\gamma'(1)) = \gamma(1)
+        = b_0$, so $\phi$ is well-defined.
+
+        
+        % Moreover, if $\gamma \simeq \delta$ rel $\{0,1\}$, then by the
+        % homotopy lifting lemma their lifts satisfy $\gamma' \simeq \delta'$
+        % rel $\{0,1\}$, so $\gamma'(1) = \delta'(1)$ and $\phi$ is
+        % independent of representative.
+
+        To see surjectivity, let $e_\alpha \in p^{-1}(b_0)$. Since $E$ is path-connected, there exists a path $\sigma_\alpha: I \to E$ such that $\sigma_\alpha(0) = e_0$ and $\sigma_\alpha(1) = e_\alpha$. 
+        
+        Then $\gamma = p \circ \sigma_\alpha$ is a loop in $B$ based at $b_0$, since 
+        \[\gamma(0) = (p \circ \sigma_\alpha) (0) = p(e_0) = b_0 \quad \text{ and } \quad \gamma(1) = (p \circ \sigma_\alpha) (1) = p(e_\alpha) = b_0\]
+       
+        By uniqueness of lifts, $\sigma_\alpha$ is the unique lift of $\gamma$ starting at $e_0$, so $\phi([\gamma]) = \sigma_\alpha(1) = e_\alpha$. We can similarly define a unique lift for each $e_\alpha$ and thus $\phi$ is surjective.
+        
+        \item [(b)] 
+        By part (a) we already know that $\phi$ is surjective. To see that $\phi$ is injective, let $[f], [g] \in \pi_1(B, b_0)$ such that $\phi([f]) = \phi([g]) = e_\alpha$ for some $e_\alpha \in p^{-1}(b_0)$, and let $f', g'$ be the lifts of $f, g$ starting at $e_0$. 
+         
+        Then $f'(0) = g'(0) = e_0$ and $f'(1) = g'(1)= e_\alpha$. Since $E$ is simply connected, $\pi_1(E, e_0) \cong \{e\}$, i.e. any two paths with the same initial and final points in $E$ are path-homotopic. Thus, $[f'] = [g']$, let $F'$ be the homotopy between $f'$ and $g'$. Then we have
+        \[
+            F'(s,0) = f'(s) \quad \text{and} \quad F'(s,1) = g'(s).
+        \]
+        Applying $p$ to both sides,
+        \[
+            (p \circ F')(s,0) = p(f'(s)) = f(s) \implies p (f') = f
+        \]
+        \[
+            (p \circ F')(s,1) = p(g'(s)) = g(s)\implies p (g') = g
+        \]
+        Therefore $p \circ F' : I \times I \to B$ is a homotopy between $f$
+        and $g$.
+        Hence, $[f] = [g]$, $\phi$ is injective, and thus bijective.
+    \end{enumerate}
 \end{proof}
 
 \begin{theorem}
@@ -585,20 +663,40 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{definition}
 
 \begin{theorem}
-    Let $A$ be a deformation retract of $X$. Then $j: (A, x_0) \hookrightarrow (X,x_0)$ induces an isomorphism in $\pi_1(A, x_0)$ to $\pi_1(X,x_0)$. If $A$ in a retract of $X$, then $j$ is injective. 
+    Let $A$ be a deformation retract of $X$. Then $\iota: (A, x_0) \hookrightarrow (X,x_0)$ induces an isomorphism in $\pi_1(A, x_0)$ to $\pi_1(X,x_0)$. If $A$ in a retract of $X$, then $\iota$ is injective. 
 \end{theorem}
 
 \begin{proof}
-    \todo{hw}
+    \bbni
+    \begin{enumerate}
+        \item[(a)] Let $r$ be the map that retracts $X$ to $A$, and $r(x_0) = a_0$ in $A$. Note that the composition $r \circ \iota$ is the identity on $A$. Now consider the homomorphism $(r \circ \iota)_\star$. We have, 
+        \[(r \circ \iota)_\star = r_\star \circ \iota_\star = (\id_A)_\star = \id_{\pi_1(A, a_0)}\]
+
+        Let $\iota_\star([f]) = \iota_\star([g])$. Then,
+        \begin{align*}
+            &r_\star(\iota_\star([f])) = r_\star(\iota_\star[g]) \\ 
+            \implies & (\id_A)_\star([f]) = (\id_A)_\star([g]) \\ 
+            \implies & [f] = [g]
+        \end{align*}
+        Hence $\iota_\star$ is injective. 
+
+        \item [(b)] Let $H$ be the deformation retraction of $X$ to $A$, and $H(x_0, 1) = a_0$ in $A$. From part (a) we know that $\iota_\star$ is injective. So we only need to show that $\iota_\star$ is surjective. 
+        
+        \noindent
+        We define the continuous map $r = H(x, 1)$. Consider the map $\iota \circ r$ which maps $X \to A \to X$.  This map is homotopic to the identity map by $H$ (by definition),
+        \[\iota \circ r \simeq \id_X\] 
+        Then $(\iota \circ r)_\star = \iota_\star \circ r_\star \simeq (\id_X)_\star = \id_{\pi_1(X, x_0)}$ (Lemma 58.1). Since $\im(r_\star) = \pi_1(A, a_0)$, $\iota_\star$ is surjective.
+        Thus, we have an isomorphism $\pi_1(A, a_0) \cong \pi_1(X, x_0)$. 
+    \end{enumerate}
 \end{proof}
 
-\begin{remark}
-    If $X$ deformation retracts to $A$. then $\pi_1(X) \cong \pi_1(A)$. 
-\end{remark}
+% \begin{remark}
+%     If $X$ deformation retracts to $A$. then $\pi_1(X) \cong \pi_1(A)$. 
+% \end{remark}
 
-\begin{remark}
-    Let $\iota: A \hookrightarrow X$ then $\iota_\star: \pi_1(A) \to \pi_1(X)$ is injective if $X$ only retracts to $A$. \todo{only retracts??}
-\end{remark}
+% \begin{remark}
+%     Let $\iota: A \hookrightarrow X$ then $\iota_\star: \pi_1(A) \to \pi_1(X)$ is injective if $X$  retracts to $A$. 
+% \end{remark}
 
 \newpage 
 
@@ -653,17 +751,15 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
     where
     \[\phi([f]) = (P_1)_\star[f] \times (P_2)_\star[f]\]
     
-    $\phi$ is surjective: Let $[g] \in \pi_1(X, x_0)$ and $[h] \in \pi_1(Y, y_0)$. Then define $[g] \times [h]: I \to X \times Y$ by $s \mapsto g(s) \times h(s)$. Then $\phi([g\times h]) = [g] \times [h]$. 
+    \textbf{$\phi$ is surjective:} Let $[g] \in \pi_1(X, x_0)$ and $[h] \in \pi_1(Y, y_0)$. Then define $[g] \times [h]: I \to X \times Y$ by $s \mapsto g(s) \times h(s)$. Then $\phi([g\times h]) = [g] \times [h]$. 
     
-    $\phi$ is injective: Suppose that $[f] \in \pi_1(X \times Y, x_0 \times y_0)$ such that $\phi([f]) = (P_1)_\star([f]) \times (P_2)_\star([f]) = 0$. Then $P_1 \circ f \simeq_p e_{x_0}$ and $P_2 \circ f \simeq_p e_{x_1}$ by homotopies $F_t$ ans $G_t$. 
+    \textbf{$\phi$ is injective:} Suppose that $[f] \in \pi_1(X \times Y, x_0 \times y_0)$ such that $\phi([f]) = (P_1)_\star([f]) \times (P_2)_\star([f]) = 0 = ([e_{x_0}] \times [e_{y_0}])$. Then $P_1 \circ f \simeq_p e_{x_0}$ and $P_2 \circ f \simeq_p e_{y_0}$ by homotopies $F_t$ and $G_t$. 
 
-    Then, $F_t \times G_t: I \to X \times Y$ gives $f \simeq_p e_{x_0 \times y_0} \implies [f] =0$. 
-
-    $\implies \pi_1(S^1 \times S^1) \iso \Z \times \Z$. 
+    Then, $F_t \times G_t: I \to X \times Y$ gives $f \simeq_p e_{x_0 \times y_0} \implies [f] =0$.  
 \end{proof}
 
 \begin{definition}
-    We say $f: X \to Y$ is a homotopy equivalence if there exists a $g: Y \to X$ such that $f \circ g \simeq id_Y$ and $g \circ f \simeq id_X$. Then we say that $X$ is homotopy equivalent to $Y$ and write it as $X \simeq_h Y$.
+    We say $f: X \to Y$ is a homotopy equivalence if there exists  $g: Y \to X$ such that $f \circ g \simeq id_Y$ and $g \circ f \simeq id_X$. Then we say that $X$ is homotopy equivalent to $Y$ and write it as $X \simeq_h Y$.
 \end{definition}
 
 \begin{remark}
@@ -675,8 +771,12 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{proposition}
 
 \begin{proof}
-    Let $H_t: X \to A$ be the deformation retraction. Then consider $H_1(X) \subseteq A$, and $H_1|_A = id$. Let us call $r: = H_1$ and let $\iota: A \hookrightarrow X$ be the inclusion map. Then $r \simeq id \implies 
-    \iota \circ r \simeq id$ and $r \circ \iota = id \implies X \simeq_h A$.  
+    Let $H: X \times I \to A$ be the deformation retraction, and $\iota: A \hookrightarrow X$ be the inclusion map. Then let $r = H(x, 1)$ for all $x \in X$. Now note that, 
+    \[r \circ \iota \simeq \id_A\]
+    And, by definition of the deformation retraction $H$ gives us, 
+    \[\iota \circ r \simeq \id_X\]
+    
+    Thus, $X \simeq_h A$. 
 \end{proof}
 
 \begin{remark}
@@ -686,10 +786,6 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \begin{remark}
     $\pi_1$ is not only an invariant of homeomorphism class of a topological space but also an invariant of the homotopy equivalence class of the space. 
 \end{remark}
-
-\begin{theorem}
-    Let $\phi : X\to Y$ be a homotopy equivalence. Then $\phi_\star: \pi_1(X, x_0) \to \pi_1(Y, \phi(x_0))$ is an isomorphism. 
-\end{theorem}
 
 \begin{lemma}
     If $\phi_t: X\to Y$ be a homotopy and $h$ is the path given by $\phi_t(x_0)$ for a choice of $x_0 \in X$, then we have $(\phi_0)_\star = \widehat{\overline{h}}((\phi_1)_\star)$ on $\pi_1(X, x_0)$. That is, 
@@ -732,14 +828,13 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{lemma}
 
 \begin{proof}
-    Let $[f] \in \pi_1(X, x_0)$. Suppose that $0 = S_0 < S_1 < \ldots < S_m = 1$ is a subdivision of $[0,1]$ such that $f\mid_{[S_{i-1}, S_i]}$ is contained in a single $A_\alpha$ for all $i$ and some $\alpha$ dependening on $i$. Let us denote that $A_\alpha$ by $A_i$. 
-
+    Let $[f] \in \pi_1(X, x_0)$. Suppose that $0 = S_0 < S_1 < \ldots < S_m = 1$ is a subdivision of $[0,1]$ such that each interval ${[S_{i-1}, S_i]}$ is mapped by $f$ to a single $A_\alpha$, let $f_i$ be the path obtained by the restriction $f \mid_{[S_{i-1}, S_i]}$. Let us denote that $A_\alpha$ by $A_i$. 
     Note $f(0) = x_0$. Define $g_i$ to be the path from $x_0$ to $f(S_i) \in A_i \cap A_{i+1}$. 
     
     % Now consider a path $g_1$ connecting $x_0$ to $f(S_1)$. Note that $f\mid_{[S_1, S_2]}$ lies in $A_2$, and $x_0$ and $f(S_1)$ both lie in $A_1$ and $x_0$ and $f(S_2)$ both lie in $A_2$ and $A_3$. Now, let $g_2$ be a path in $A_2 \cap A_3$, from $x_0$ to $f(S_2)$.
     
     Consider, 
-    \[(f \star \overline{g_1}) \star (g_1 \star f \star \overline{g_2}) \star (g_2 \star f \star \overline{g_3}) \star \cdots \star (g_{m-1} \star f) \simeq_p f\]
+    \[(f_1 \star \overline{g_1}) \star (g_1 \star f_2 \star \overline{g_2}) \star (g_2 \star f_3 \star \overline{g_3}) \star \cdots \star (g_{m-1} \star f_m) \simeq_p f\]
     while each of them are loops based at $x_0$ in $A_i$s as $i$ varies. 
 \end{proof}
 
@@ -748,23 +843,33 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{theorem}
 
 \begin{proof}
-    On $S^2$ consider two open sets $A_1 = S^2 \setminus$\{north pole\} and $A_2 = S^2\setminus$\{south pole\}. Let $[f] \in \pi_1 (S^2, x_0)$. Then by the lemma $f \simeq_p g_1 \star g_2$ where $[g_1] \in \pi_1(A_1, x_0)$ and  $[g_2] \in \pi_1(A_2, x_0)$ for some $g_1$ and $g_2$ loops based at $x_0$. Then, 
+    On $S^2$ consider two open sets $A_1 = S^2 \setminus$\{north pole\} and $A_2 = S^2\setminus$\{south pole\}. Let $[f] \in \pi_1 (S^2, x_0)$. Then by the lemma $f \simeq_p g_1 \star g_2$ where $[g_1] \in \pi_1(A_1, x_0)$ and  $[g_2] \in \pi_1(A_2, x_0)$ for some $g_1$ and $g_2$ loops based at $x_0$. But since $\pi_1(A_1) = \pi_1(A_2) = 0$, 
     \[[f] = 0 \in \pi_1(S^2, x_0) \implies \pi_1(S^2, x_0) = 0\]
+    (Same proof for any $n \geq 2$). 
 \end{proof}
 
 \begin{remark}[Stereographic Projection]
     $S^n \setminus \{$ some pt $\}$ is homeomorphic to $\R^n$. 
 \end{remark}
 
+\newpage 
+
 \section{Covering Spaces (again)} 
 
+\begin{remark}
+    For every group $G$ there exists a space $X_G$ such that $\pi_1(X_G) \iso G$. 
+\end{remark}
+
 \begin{definition}
-    \todo{}
-    $\R P^n := S^n/\{x \sim -x\}$ (quotinent space)
+    $\RP^n$ can be defined the following ways: 
+    \begin{enumerate}
+        \item The quotient of $\R^{n+1} \setminus \{0\}$ under the equivalence relation $x \sim \lambda x$ for $0 \neq \lambda \in \R$.
+        \item The quotient of $S^n$ under the equivalence relation $x \sim -x$. 
+    \end{enumerate}
 \end{definition}
 
 \begin{theorem}
-    Define $p: S^n \to \R P^n$, $x \mapsto [x]$. Then $p$ is a covering map. 
+    Define $p: S^n \to \RP^n$, $x \mapsto [x]$. Then $p$ is a covering map. 
 \end{theorem}
 
 \begin{proof}
@@ -774,14 +879,14 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 
     Now we will show $p$ is a covering map. Let $y \in \R P^n$. Pick $x \in p^{-1}(y)$. Choose a small neighborhood $U$ of $x$ in $S^n$ such that $U$ contains no antipodal points. Then $p|_U: U \to p(U)$ is a homeomorphism (since $p$ is open and continuous and a bijection).
 
-    Similarly, $p|_{a(U)}: a(U) \to p(a(U))$ is also an homeomorphism. Note $p(a(U)) = p(U)$ which is an open set around $y \in \R P^n$. So each point in $\R P^n$ is evenly covered by an open set in $\R P^n$. Hence, $p$ is a covering map (specifically a $2$-fold covering). 
+    Similarly, $p|_{a(U)}: a(U) \to p(a(U))$ is also an homeomorphism. Note $p(a(U)) = p(U)$ which is an open set around $y \in \RP^n$. So each point in $\RP^n$ is evenly covered by an open set in $\RP^n$. Hence, $p$ is a covering map (specifically a $2$-fold covering). 
 
-    Then $\pi_1(\R P^n, x_0) \leftrightarrow p^{-1}(x_0) \implies |\pi_1(\R P^n, x_0)| = 2 \implies  |\pi_1(\R P^n, x_0)| = \Z/2\Z $. 
+    Then $\pi_1(\RP^n, x_0) \leftrightarrow p^{-1}(x_0) \implies |\pi_1(\RP^n, x_0)| = 2 \implies  |\pi_1(\RP^n, x_0)| = \Z/2\Z $. 
 \end{proof}
 
 
 \begin{corollary}
-    $\R P^n$ is not homotopy equivalent to $S^n$ for $n \geq 2$. 
+    $\RP^n$ is not homotopy equivalent to $S^n$ for $n \geq 2$. 
 \end{corollary}
 
 \begin{proof}
@@ -798,15 +903,22 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 
 \begin{proof}
 
-     Suppose for contradiction there exists a homeomorphism $f$ from $\R^2 \to \R^n$. Then $f\mid_{\R^2 \setminus \{\text{pt}\}}: \R^2 \setminus \langle x \rangle \to \R^n \setminus\{f(x)\}$ is also a homeomorphism. So $\R^2 \setminus \{ x \} \simeq_h \R^n \setminus \{f(x)\}$ must be homotopy equivalent, But $\pi_1$ is a homotopy equivalence so we should have $\pi_1(\R62 \setminus \{x\}) \cong \pi_1 (\R^n \setminus \{f(x)\}) \implies \Z \cong 0$. A contradiction!  
+     Suppose for contradiction there exists a homeomorphism $f$ from $\R^2 \to \R^n$. Then $f\mid_{\R^2 \setminus \{\text{pt}\}}: \R^2 \setminus \langle x \rangle \to \R^n \setminus\{f(x)\}$ is also a homeomorphism. So $\R^2 \setminus \{ x \} \simeq_h \R^n \setminus \{f(x)\}$ must be homotopy equivalent, But $\pi_1$ is a homotopy equivalence so we should have $\pi_1(\R^2 \setminus \{x\}) \cong \pi_1(S^1) \cong \pi_1 (\R^n \setminus \{f(x)\}) \implies \Z \cong 0$. A contradiction!  
 \end{proof}
 
 \begin{theorem}
     Fundamental group of the `figure eight space' is not abelian. 
 \end{theorem}
 
+
 \begin{proof}
-    Let $X$ be the figure eight space. Then $X = S^1 \sqcup S^1 \setminus (1,0) \tilde{} (1,0)$ with the quotient space topology. Let $x_0$ be the base point. Define a covering space $E \subseteq \R^2$, where  $E = \{\text{x-axis}\} \cup \{\text{y-axis}\} \cup \{\text{one circle tangent to each the x-axis  and y-axis at each nonzero integer point}\}$ (fig 2.1 in munkres). We claim that there exists a projection map $p: E \to X$. Consider two paths $\widetilde{f}, \widetilde{g}: I \to E$ defined by $\widetilde{f}(s) = (s,0),\, \widetilde{g}(s) = (0,s)$. Define $f := p \circ \widetilde{f}, \, g:= p \circ \widetilde{g}$. That is $f$ wraps once around $A$, $g$ wraps once around $B$. 
+    
+    Let $X$ be the figure eight space. Then $X = S^1 \sqcup S^1 / (1,0) \sim (1,0)$ with the quotient space topology. Let $x_0$ be the base point. Define a covering space $E \subseteq \R^2$, where
+    \[E = \{\text{x-axis}\} \cup \{\text{y-axis}\} \cup \{\text{a circle tangent to both axes at each nonzero integer point}\}\] 
+
+    \includegraphics[width=0.43\textwidth]{assests/fig8space.png}
+    
+    We claim that there exists a projection map $p: E \to X$. Consider two paths $\widetilde{f}, \widetilde{g}: I \to E$ defined by $\widetilde{f}(s) = (s,0),\, \widetilde{g}(s) = (0,s)$. Define $f := p \circ \widetilde{f}, \, g:= p \circ \widetilde{g}$. That is $f$ wraps once around $A$, $g$ wraps once around $B$. 
 
     Claim: $[f \star g] \neq [g \star f] \in \pi_1(\infty, x_0)$. 
 
@@ -814,7 +926,7 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{proof}
 
 \begin{corollary}
-    $\pi^2 \# \pi^2 \not \cong S^2. \R P^2$, where $\pi^2$ is the hollow torus, and $\#$ is the connected sum. 
+    $\pi^2 \# \pi^2 \not \cong S^2, \RP^2$, where $\pi^2$ is the hollow torus, and $\#$ is the connected sum. \todo{??}
 \end{corollary}
 
 \begin{proposition}
@@ -823,28 +935,100 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \begin{proof}
     ($\implies$)
 
-    Let $H: S^1 \times I \to Y$ be a homotopy from $h$ to a constant map $S^1 \to x_0$. Define $\pi: S^1 \times I \to D^2$ by $\pi(x,t) = (1-t)x$. Then $\pi\mid_{S^1 \times [0,1)}$ is a bijection to $D^2 \setminus \{0\}$ and it maps $S^1 \times \{1\}$ to $0 \in D^2$. Since $S \times I $ is compact and $D^2$ is Hausdorff, $\pi$ is a closed map. Now $H$ induces a map $g: D^2 \to Y$ such that $g \circ \pi = H$, given by 
+    Let $H: S^1 \times I \to Y$ be a homotopy from $h$ to a constant map $S^1 \to x_0$. Define $\pi: S^1 \times I \to D^2$ by $\pi(x,t) = (1-t)x$. Then $\pi\mid_{S^1 \times [0,1)}$ is a bijection to $D^2 \setminus \{0\}$ and it maps $S^1 \times \{1\}$ to $0 \in D^2$. 
+    
+    Since $S \times I $ is compact and $D^2$ is Hausdorff, $\pi$ is a closed map. Now $H$ induces a map $g: D^2 \to Y$ such that $g \circ \pi = H$, given by 
     \[g(x) = \begin{cases}
         H(\pi^{-1}(x)) & x \neq 0 \\ 
-        x_0 & x = 0
+        y_0 & x = 0
     \end{cases}\]
-    Then $g$ will be the extension we want ... 
+    The map $g$ is continuous since $\pi$ is a quotinent map. Thus the map $g$ is the desired extension of $h$ for if $x \in S^1$ then, 
+    \[g(x) = g(\pi(x,0)) = H(x,0) = h(x)\]
+
+    ($\impliedby$)
+
+    Let $g: D^2 \to Y$ be a continuous extension of $h$, and define $F: S^1 \times I \to Y$ by 
+    \[F(x,t) = g((1-t)x)\]
+    Then $F$ is a homotopy between $h$ and a constant map.  
 \end{proof}
 
 \todo{05/04 notes}
+
+\begin{remark}
+    By the Galois correspondence, covers of $X$ are in bijection with subgroups of $\pi_1(X)$. 
+\end{remark}
+
+\begin{proposition}
+    Let $p: (\widetilde{X}, \widetilde{x}_0) \to (X, x_0)$ be a covering map. Then the map $p_*$ is injective. Moreover, $p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$ consists of homotopy classes of loops in $X$ that lift to loops in $\widetilde{X}$ based at $\widetilde{x}_0$.
+\end{proposition}
+
+\begin{proof}
+    Let $[f] \in \pi_1(\widetilde{X}, \widetilde{x}_0)$ and suppose $p_*([f]) = 0 \in \pi_1(X, x_0)$. Then there exists a path homotopy $H$ between $p \circ f$ and the constant loop $c_{x_0}$. By the homotopy lifting lemma, we can lift this to a homotopy between $f$ and the trivial loop $c_{\widetilde{x_0}}$ in $\widetilde{X_0}$. Thus, $[f] \simeq_p 0$, and $p_{*}$ is injective. 
+    
+    Moreover, loops at $x_0$ lifting to loops at $\widetilde{x_0}$ certainly represent elements of $p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$, and conversely, a loop representing an element of $p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$ is homotopic to a loop having sucha lift, so by homotopy lifting, the loop itself must have such a lift. 
+\end{proof}
+
+\begin{definition}
+    Given $p: \widetilde{X} \to X$ a covering, $|p^{-1}(x)|$ for $x \in X$ is the number of \textbf{sheets}. 
+\end{definition}
+
+\begin{proposition}
+    Given $X$ and $\widetilde{X}$ path connected, then the number of sheets of $p: (\widetilde{X}, \widetilde{x}_0) \to (X, x_0)$ of the covering equals the index of $p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$ in $\pi_1(X, x_0)$.
+\end{proposition}
+
+\begin{proof}
+    Let $g$ be a loop based at $x_0$ in $X$. Let $\tilde{g}$ be its lift in $\widetilde{X}$, starting at $\widetilde{x}_0$. 
+    
+    Now let $[h] \in H:= p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$, and let $\widetilde{h} \circ \widetilde{g}$ be a lift based at $\widetilde{x}_0$, starting at $\widetilde{x}_0$. We look at the lift of ${h} \circ g$, $\widetilde{h} \circ \widetilde{g}$ which ends at the same point as $\widetilde{g}$ since $\widetilde{h}$ is a loop at $\widetilde{x_0}$. 
+
+    Thus we can define a function $\phi$ from the cosets $H[g]$ to $p^{-1}(x_0)$. $\phi$ is surjective since $\widetilde{X}$ is path-connected and hence $\widetilde{x_0}$ can be joined to any point in $p^{-1}(x_0)$ by a path $\widetilde{g}$ that projects to a loop $g$ at $x_0$. 
+
+    To see that $\phi$ is injective. Let $\phi(H[g_1]) = \phi(H[g_2])$. Then, the lifts correspoding to $g_1$ and $g_2$ end at the same point, and thus $[g_1 \circ \overline{g_2}] = [g_1][{g_2}]^{-1} \in H \implies H[g_1] = H[g_2]$.  
+
+    Thus there exists a bijection between the set of cosets of $\pi_1(X, x_0)$ and the fibre $p^{-1}(x_0)$ and $|p^{-1}(x_0)| = $ number of cosets $= [\pi_1(X, x_0) : H]$. 
+\end{proof}
+
+\begin{proposition}
+    Given a covering space $p: (\widetilde{X}, \widetilde{x_0}) \to (X, x_0)$ and a map $f: (Y, y_0) \to (X, x_0)$ with $p(\widetilde{x}_0) = x_0$ and $f(y_0) = y_0$ with $Y$ path-connected and locally path-connected, then there exists a lift $\widetilde{f}: (Y, y_0) \to (\widetilde{X}, \widetilde{x}_0)$ of $f$ iff $f_{*}(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x}_0))$.
+\end{proposition}
+
+\begin{proof}
+    ($\implies$)
+
+    Assume there exists a lift $\widetilde{f}$ then we know that $f_* = p_* \circ \widetilde{f}_*$, and thus 
+    \[\im(f_*) = \im(p_* \circ \widetilde{f}_*) \subseteq \im(p_*) \implies f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x_0}))\] 
+
+    ($\impliedby$)
+
+    Assume $f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x_0}))$. Let $y \in Y$ and $\gamma$ a path in $Y$ from $y_0$ to $y$. Let $\widetilde{f\gamma}$ be the unique lift of the path $f \circ \gamma$ in $X$ starting at $\widetilde{x}_0$. Now define $\widetilde{f}: (Y, y_0) \to (\widetilde{X}, \widetilde{x}_0)$
+    \[
+    \widetilde{f}(y) = \widetilde{f\gamma}(1)
+    \]
+
+    This is well-defined, let $\delta$ be some arbitrary path from $y_0$ to $y$. Then $f_\gamma \cdot \overline{f_\delta}$ is a loop based at $x_0$.
+    \[
+    [f_\gamma] \cdot [f_\delta]^{-1} \in f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\widetilde{X}, \widetilde{x}_0)), \quad \text{by hypothesis.}
+    \]
+    Thus there exists a path homotopy from $f\gamma$ to $f\delta$ to a loop in $X$ which lifts to a loop in $\widetilde{X}$, based at $\widetilde{x}_0$. \todo{details idrc}
+
+    Now we prove continuity of $\widetilde{f}$. Let $y \in Y$. Choose $U \subseteq X$ that is an openly covered neighbourhood of $f(y)$ having a lift $\widetilde{U}$ such that $p: \widetilde{U} \to U$ is a homeomorphism. Also pick a path-connected open neighbourhood $V$ of $y$ s.t.\ $f(V) \subseteq U$. 
+
+    Choose $y' \in V$. Let $\delta$ be a path from $y_0$ to $y$ and $\eta$ a path from $y$ to $y'$ in $V$. Thus $f\delta \cdot f\eta$ lifts to $\widetilde{f\delta} \cdot \widetilde{f\eta}$, where $\widetilde{f \eta} = p^{-1} f \eta$ and $p^{-1}: U \to \widetilde{U}$. Thus, $\widetilde{f}(V) \subset \widetilde{U}$ and $\widetilde{f} \mid_V = p^{-1} f$. Hence $\widetilde{f}$ is continuous at $y$. 
+\end{proof}
+
+\newpage 
 
 \section{Classification of Covering Space} 
 
 \begin{definition}
     We say that a covering space $\widetilde{X}$ of $X$ is a \textbf{}{universal cover} if $\pi_1(\widetilde{X}) = 0$. 
-
     \begin{example}
-        \bbni
+        
         \begin{enumerate}
             \item $\R$ is a universal cover of $S^1$. 
             \item Every simply connected space is a universal cover of itself. 
             \item $\C \to \C$ where $z \mapsto z^2$. 
-            \item $S^n$ is a universal cover of $\R P^n$ for $n \geq 2$
+            \item $S^n$ is a universal cover of $\RP^n$ for $n \geq 2$
         \end{enumerate}
     \end{example}
 \end{definition}
@@ -868,7 +1052,7 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{proof}
     
 \begin{lemma}
-    Suppose that $X, X_1, \widetilde{X}$ are all path-connected such that $X_1 \xrightarrow{p_1} X$, $\widetilde{X} \xrightarrow{p} X$ are covers with $\pi_1(\widetilde{X}) = 0$ then $\exists \, p_2: \widetilde{X} \to X_1$ such that $p_1 \circ p_2 = p$. 
+    Suppose that $X, X_1, \widetilde{X}$ are all path-connected such that $X_1 \xrightarrow{p_2} X$, $\widetilde{X} \xrightarrow{p} X$ are covers with $\pi_1(\widetilde{X}) = 0$ then $\exists \, p_1: \widetilde{X} \to X_1$ such that $p_1 \circ p_2 = p$. 
 \end{lemma}
 
 \begin{proof}
@@ -876,13 +1060,15 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \end{proof}
 
 \begin{lemma}
-    Let $X, X_1, \widetilde{X}, p, p_1, p_2$ be defined as before, then $p_2$ is a covering map.  
+    Let $X, X_1, \widetilde{X}, p, p_1, p_2$ be defined as before, then $p_1$ is a covering map.  
 \end{lemma}
 
 \begin{proof}
-    Let $x_1 \in X_1$ be a point, $U$ be a neighborhood of $p_1(x_1) \in X$ that is evenly covered by both $p_1$ and $p$. Now let $p^{-1}(U) = \sqcup_\alpha U_\alpha$ and $p_1^{-1}(U) = \sqcup_{\alpha'} V_{\alpha'}$. Moreover assume that $V$ is in the slice of $p_1^{-1}(U)$ where $x_1$ lies. 
-    Claim: $V$ is evenly covered by $p_2$. 
-    Proof: Consider the $U_\alpha$'s in $\widetilde{X}$ that are mapped to $V$. Lets say that collection is $\{U_\beta\}$. Then $p_2^{-1}(V) = \sqcup_\beta U_\beta$ and $p_2 |_{U_\beta}$ is a homeomorphism since it is a composition of $p|_{U_\beta}$ and $(p_1 |_V)^{-1}$ which are both homeomorphisms 
+    Let $x_1 \in X_1$ be a point, $U$ be a neighborhood of $p_2(x_1) \in X$ that is evenly covered by both $p_2$ and $p$. Now let $p^{-1}(U) = \sqcup_\alpha U_\alpha$ and $p_2^{-1}(U) = \sqcup_{\alpha'} V_{\alpha'}$. Moreover assume that $V$ is in the slice of $p_2^{-1}(U)$ where $x_1$ lies. 
+
+    Claim: $V$ is evenly covered by $p_1$. 
+
+    Proof: Consider the $U_\alpha$'s in $\widetilde{X}$ that are mapped to $V$. Lets say that collection is $\{U_\beta\}$. Then $p_1^{-1}(V) = \sqcup_\beta U_\beta$ and $p_1 |_{U_\beta}$ is a homeomorphism since it is a composition of $p|_{U_\beta}$ and $(p_2 |_V)^{-1}$ which are both homeomorphisms 
 \end{proof}
 
 \begin{theorem}
@@ -916,9 +1102,7 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 \todo{ Read this proof ??  For any sub space of $\pi_1(X) \leftrightarrow$ cover $X_1$ of $X$ with $p_\star(\pi_1(X_1)) \iso$ that subspace.} 
 
 \begin{remark}
-    Any collection of homomorphisms $\phi_\alpha: G_\alpha \to H$ extends uniquely to $\phi: \star_\alpha G_\alpha \to H$ such that $\phi(g_1 \cdots g_n) \mapsto \phi_{\alpha_1}(g_1)\phi_{\alpha_2}(g_2)\ldots \phi_{\alpha_n}(g_n)$. 
-
-    where $G_\alpha$ is a free group, $H$ is a group, and $\star_\alpha G_\alpha$ consists of all words of arbitrary length where each letter belongs to a $G_{\alpha_i}$ and consequetive letters are from different $G_{\alpha_i}$. 
+    Any collection of homomorphisms $\phi_\alpha: G_\alpha \to H$ extends uniquely to $\phi: \star_\alpha G_\alpha \to H$ such that $\phi(g_1 \cdots g_n) \mapsto \phi_{\alpha_1}(g_1)\phi_{\alpha_2}(g_2)\ldots \phi_{\alpha_n}(g_n)$ where $G_\alpha$ is a free group, $H$ is a group, and $\star_\alpha G_\alpha$ consists of all words of arbitrary length where each letter belongs to a $G_{\alpha_i}$ and consequetive letters are from different $G_{\alpha_i}$. 
 
     Now suppose that $X$ is decomposed as a union of path-connected spaces $\{A_\alpha\}$ each of which contains the base point $x_0 \in X$. Then inclusion $A_\alpha \hookrightarrow X \implies j_\alpha: \pi_1(A_\alpha) \to \pi_1(X)$ induce $\Phi: \star_\alpha \pi_1(A_\alpha)  \to \pi_1(X)$. 
 
@@ -931,7 +1115,7 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 
 \begin{theorem}[Seifert-Van Kampen Theorem]
 
-    If $X$ is a union of path-connected open sets $A_\alpha$ such that $x_0 \in X$, and $x_0 \in A_\alpha$ for all $\alpha$, and $A_\alpha \cap A_\beta$ is path-connected, and $A_\alpha \cap A_\beta \cap A_\gamma$ is also path-connected for all $\alpha, \beta, \gamma$. Then $\Phi$ induces an isomorphism
+    If $X$ is a union of path-connected open sets $A_\alpha$ such that $x_0 \in X$, and $x_0 \in A_\alpha$ for all $\alpha$, and $A_\alpha \cap A_\beta$ is path-connected, and $A_\alpha \cap A_\beta \cap A_\gamma$ is also path-connected for all $\alpha, \beta, \gamma$. Then $\Phi$ induces an isomorphism,
     \[\pi_1(X) \iso \star_\alpha \pi_1(A_\alpha) / N\]
 \end{theorem}
 
@@ -973,13 +1157,15 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
 
         Then, $\pi_1(\infty, x_0) \iso (\pi(A_1) \times \pi_1(A_2))/N = (\Z \times \Z ) /N$. 
         Since $N = A_1 \cap A_2$ deformation retracts to a point this is $\Z \times \Z$. 
-        \item $\pi_1(S^1 \wedge S^2) \iso \Z$
+        \item $\pi_1(S^1 \vee S^2) \iso \Z$
         
         $X_1 \wedge X_2 := (X_1 \sqcup X_2)/(x_1 \sim x_2)$ for some $x_1 \in X_1, \, x_2 \in X_2$. 
 
         \item $\pi_1(\R^3 \setminus S^1)$ \todo{}
     \end{enumerate}
 \end{example}
+
+\newpage
 
 \section{Cell Complexes}
 
@@ -1022,6 +1208,8 @@ Thus if $r > |a_1| + \cdots + |a_n|$, then
         \item $\pi_1(S^3, S^1) = ?$ \todo{}
     \end{enumerate} 
 \end{example}
+
+\newpage 
 
 \section{Homology}
 
@@ -1181,7 +1369,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
         \[H_1^\Delta(\RP^2) = \frac{\Z\langle a -b  \rangle \oplus \Z \langle c \rangle}{ \Z\langle a - b - c, \, a - b + c \rangle} \iso \frac{\Z\langle x \rangle }{2x} \iso \Z/2\Z\]
 
         
-        \item $H^\Delta_2(T_2) = \frac{\ker(\d_2)}{\im(\d_3)} = \frac{\{0\}}{\{0\}} \iso \{0\} $
+        \item $H^\Delta_2(\RP^2) = \frac{\ker(\d_2)}{\im(\d_3)} = \frac{\{0\}}{\{0\}} \iso \{0\} $
 
         \item $H_n^\Delta = 0$ if $n \geq 3$. 
     \end{itemize}
@@ -1226,7 +1414,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     \textbf{Claim:} $\ker(\varepsilon) = \im(\d_1)$. 
 
     \begin{proof}
-        Note that $\im(d_1) \subseteq \ker(\varepsilon)$ since for a singular $1$-simplex $\sigma: \Delta^1 \to X$ we have $\varepsilon(\d_1(\sigma)) = 0$. 
+        Note that $\im(\d_1) \subseteq \ker(\varepsilon)$ since for a singular $1$-simplex $\sigma: \Delta^1 \to X$ we have $\varepsilon(\d_1(\sigma)) = 0$. 
         
         Now for $\ker(\varepsilon) \subseteq \im(\d_1)$, let $\varepsilon\left(\sum_i n_i\sigma_i\right) = 0 \implies \sum_i n_i = 0$. 
         
@@ -1278,7 +1466,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 \end{definition}
 
 \begin{definition}
-    If $\alpha \in C_n(X)$ we say that $\alpha$ is a \textbf{chain}. $\alpha$ is a \textbf{cycle} if $\d_n(\alpha) = 0$ $\alpha$ is called a boundry if $\alpha = \d(\beta)$ for some $\beta \in C_{n+1}(X)$. 
+    If $\alpha \in C_n(X)$ we say that $\alpha$ is a \textbf{chain}. $\alpha$ is a \textbf{cycle} if $\d_n(\alpha) = 0$, and $\alpha$ is a \textbf{boundry} if $\alpha = \d(\beta)$ for some $\beta \in C_{n+1}(X)$. 
 \end{definition}
 
 \begin{definition}
@@ -1287,7 +1475,7 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
 
 \begin{proposition} [Homotopy Invariance of Singular Homology]
     Let $f: X \to Y$ then $\exists$ an induced homomorphism defined by 
-    \[f_{\#}:: C_n(X) \to C_n(Y), \quad \sigma \mapsto f \circ \sigma\]
+    \[f_{\#}: C_n(X) \to C_n(Y), \quad \sigma \mapsto f \circ \sigma\]
     which extends $\Z$-linearly.  This map satisfies $f_{\#}\d = \d f_{\#}$. 
 \end{proposition}
 
@@ -1349,6 +1537,8 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     $\widetilde{H_i} (D^n) = 0$ for all $i$. 
 \end{corollary}
 
+\newpage 
+
 \section{Exact Sequences}
 
 \begin{theorem}
@@ -1357,7 +1547,256 @@ We denote the deletion of $v_i$ from the simplex as $[v_0, \ldots, \widehat{v_i}
     where $i_\star$ is induced from $i: A \hookrightarrow X$ and $j_\star$ is induced from $j: X \to X/A$. 
 \end{theorem}
 
-\todo{2 classes}
+\begin{definition}
+    If $(X, A)$ satisfies the hypotheses of the previous definition of LES, say $(X, A)$ is \emph{``good''}.
+\end{definition}
+
+
+\begin{remark}
+    Any CW pair (complex, subcomplex) $(X,A)$ is good, i.e.\ admits a LES. (Hatcher for proof.)
+\end{remark}
+
+\begin{corollary}
+    $\widetilde{H}_i(S^n) \cong \mathbb{Z}$ if $i = n$, and $= 0$ otherwise.
+\end{corollary}
+
+\begin{proof}
+    Consider the LES of the pair $(D^n, S^{n-1})$. Since $D^n / S^{n-1} \cong S^n$, the LES becomes
+    \[
+        \widetilde{H}_i(S^{n-1}) \to \widetilde{H}_i(D^n) \xrightarrow{0} \widetilde{H}_i(S^n) \to \widetilde{H}_{i-1}(S^{n-1}) \to \widetilde{H}_i(D^n)
+    \]
+    Since $D^n$ is contractible, $\widetilde{H}_i(D^n) = 0$ for all $i$, so:
+    \[
+        0 \to \widetilde{H}_i(S^n) \xrightarrow{\partial} \widetilde{H}_{i-1}(S^{n-1}) \to 0
+    \]
+    Thus $H_i(S^n) \cong H_{i-1}(S^{n-1})$ for all $i$, and the computation follows by induction.
+\end{proof}
+
+
+\begin{example}
+    ${H}_0(S^0) \cong \mathbb{Z} \oplus \mathbb{Z}$, since $S^0$ has 2 path-connected components, so $\widetilde{H}_0(S^0) = \mathbb{Z}$.
+\end{example}
+
+\begin{corollary}
+    $S^n$ is not homeomorphic to $S^m$ when $n \neq m$.
+\end{corollary}
+
+
+\begin{definition}
+    Given a space $X$ and a subspace $A$ (where $(X,A)$ is not necessarily good), we define
+    \[
+        C_n(X, A) := C_n(X) / C_n(A).
+    \]
+    Note $\partial: C_n(X) \to C_{n-1}(X)$ sends $C_n(A) \to C_{n-1}(A)$, hence induces a map $\partial: C_n(X,A) \to C_{n-1}(X,A)$.
+
+    We get a sequence
+    \[
+        \cdots \to C_n(X,A) \to C_{n-1}(X,A) \to C_{n-2}(X,A) \to \cdots
+    \]
+    where $\partial^2 = 0$. We denote the \emph{relative homology} by
+    \[
+        H_n(X,A) := \ker \partial / \mathrm{im}\, \partial.
+    \]
+
+    Elements of $H_n(X,A)$ are \emph{relative cycles}, equivalence classes of $\alpha \in C_n(X)$ such that $\partial \alpha \in C_{n-1}(A)$ (i.e.\ ``$\partial \alpha = 0$''). A relative cycle $\alpha$ is \emph{trivial} if it is a \emph{relative boundary}, i.e.\ $\alpha = \partial\beta + \gamma$ for some $\beta \in C_{n+1}(X)$, $\gamma \in C_n(A)$.
+\end{definition}
+
+\todo{
+\begin{theorem}[Long Exact Sequence of a Pair]
+\[
+    \cdots \to H_n(A) \to H_n(X) \to H_n(X,A) \xrightarrow{\partial} H_{n-1}(A) \to \cdots
+\]
+\emph{(Proof: homework/reading.)}
+\end{theorem}
+This follows from the ``SES of chain complexes gives rise to LES in homology'': given 3 chain complexes $(A_n, \partial_n)$, $(B_n, \partial_n)$, $(C_n, \partial_n)$ (with different notation) and $0 \to C_n(A) \to C_n(B) \to C_n(C) \to 0$ exact for all $n$, we get
+\[
+\begin{array}{ccccccc}
+0 & \to & C_n(A) & \xrightarrow{i_*} & C_n(B) & \xrightarrow{j_*} & C_n(C) \to 0 \\
+  &     & \downarrow\partial & & \downarrow\partial & & \downarrow\partial \\
+0 & \to & C_{n-1}(A) & \xrightarrow{i_*} & C_{n-1}(B) & \xrightarrow{j_*} & C_{n-1}(C) \to 0
+\end{array}
+\]
+with $\partial i_* = i_* \partial$ and $\partial j_* = j_* \partial$, and LES:
+\[
+    \cdots \to H_n(A) \xrightarrow{i_*} H_n(B) \xrightarrow{j_*} H_n(C) \xrightarrow{\partial} H_{n-1}(A) \xrightarrow{i_*} H_{n-1}(B) \xrightarrow{j_*} H_{n-1}(C) \xrightarrow{\partial} \cdots
+\]
+In our case, the SES is $0 \to C_n(A) \xrightarrow{i_*} C_n(X) \xrightarrow{j_*} C_n(X)/C_n(A) \to 0$, given by inclusion on 8 quotient maps.}
+
+
+\textbf{Description of $\partial$:} Given $[\alpha] \in H_n(X,A)$, then by definition $\partial\alpha \in C_{n-1}(A)$. Define $\partial[\alpha] = [\partial\alpha] \in H_{n-1}(A)$. Then $\partial(\partial\alpha) = 0$.
+
+
+\begin{example}
+    $H_n(X, x_0) \cong \widetilde{H}_n(X)$ for any $x_0 \in X$.
+\end{example}
+
+\begin{proof}
+LES with $X = X$, $A = x_0$; since $x_0$ is reduced, $H_n(x_0) = 0$, so
+\[
+    \widetilde{H}_n(X) \cong \widetilde{H}_n(X, x_0).
+\]
+Then $H_n(X,A) \cong \widetilde{H}_n(X,A)$ implies $\widetilde{H}_n(X) \cong H_n(X, x_0)$.
+\end{proof}
+
+%% ============================================================
+\section*{May 27}
+%% ============================================================
+
+
+\textbf{Goal:} $H_n(X,A) \cong H_n(X', A')$ for some special $X' \subseteq X$, $A' \subseteq A$.
+
+\begin{theorem}[Excision]
+Let $A, B \subseteq X$ be subspaces whose interiors cover $X$. Then the inclusion $(B, A \cap B) \hookrightarrow (X, A)$ induces an isomorphism
+\[
+    H_n(B, A \cap B) \cong H_n(X, A) \quad \text{for all } n \in \mathbb{N}.
+\]
+\end{theorem}
+
+\textbf{Idea:} One can define a chain complex $C_n(A+B)$ as the subgroup generated by chains in $C_n(X)$ \text{ which can be written as a sum of a chain in } $A$ \text{ and a chain in } $B.$
+The idea is that $C_n(A+B) \hookrightarrow C_n(X)$ induces an isomorphism in homology. (See Hatcher for proof --- ``supposedly beautiful.'')
+
+\begin{theorem}
+If nonempty open sets $U \subseteq \mathbb{R}^n$, $V \subseteq \mathbb{R}^m$ are homeomorphic, then $n = m$.
+\end{theorem}
+
+\begin{proof}
+For $x \in U$, consider $\mathbb{R}^n = U \cup \mathbb{R}^n \setminus \{x\}$. Then by excision,
+\[
+    H_k(U, U \setminus \{x\}) \cong H_k(\mathbb{R}^n, \mathbb{R}^n \setminus \{x\}) \quad \forall k.
+\]
+Compute $H_k(\mathbb{R}^n, \mathbb{R}^n \setminus \{x\})$ via the LES:
+\[
+    \to H_k(\mathbb{R}^n \setminus \{x\}) \to H_k(\mathbb{R}^n) \to H_k(\mathbb{R}^n, \mathbb{R}^n \setminus \{x\}) \to H_{k-1}(\mathbb{R}^n \setminus \{x\}) \to H_k(\mathbb{R}^n)
+\]
+Since $\mathbb{R}^n \setminus \{x\} \simeq S^{n-1}$ and $\mathbb{R}^n$ is contractible:
+\[
+    H_k(S^{n-1}) \to 0 \to H_k(\mathbb{R}^n, \mathbb{R}^n \setminus \{x\}) \xrightarrow{\iso} H_k(S^{n-1}) \to 0
+\]
+So $H_k(\mathbb{R}^n, \mathbb{R}^n \setminus \{x\}) \cong H_k(S^{n-1}) \cong \mathbb{Z}$ if $k = n$, and $0$ otherwise.
+
+If $f: U \to V$ is a homeomorphism, then $f$ induces $f_*: (U, U\setminus\{x\}) \xrightarrow{\mathrm{homeo}} (V, V \setminus \{f(x)\})$, so
+\[
+    f_*: H_k(U, U\setminus\{x\}) \to H_k(V, V\setminus\{f(x)\})
+\]
+is an isomorphism, giving $H_k(\mathbb{R}^n, \mathbb{R}^n\setminus\{x\}) \cong H_k(\mathbb{R}^m, \mathbb{R}^m\setminus\{f(x)\})$.
+
+The LHS is $\mathbb{Z}$ when $k=n$ and $0$ otherwise; the RHS is $\mathbb{Z}$ when $k=m$ and $0$ otherwise. Therefore $n=m$.
+\end{proof}
+
+\subsection*{Equivalence of Simplicial and Singular Homology}
+
+Put a $\Delta$-complex structure on $X$, then show $H_n^\Delta(X) \cong H_n(X)$.
+
+To show this, we need the following definition.
+
+\begin{definition}
+If $A \subseteq X$ is a subspace, the \emph{relative simplicial chain complex} is
+\[
+    \Delta_n(X,A) := \Delta_n(X)/\Delta_n(A),
+\]
+with $\partial: \Delta_n(X) \to \Delta_{n-1}(X)$ inducing $\partial: \Delta_n(X,A) \to \Delta_{n-1}(X,A)$. Define
+\[
+    H_n^\Delta(X,A) := \ker\partial / \mathrm{im}\,\partial.
+\]
+We get a SES $0 \to \Delta_n(A) \to \Delta_n(X) \to \Delta_n(X,A) \to 0$ and hence a LES in homology $H_n^\Delta$ \quad $(*)$.
+\end{definition}
+
+Recall $\Delta_n(X) = \{\text{maps } \Delta^n \to X\}$ with some nice properties, and $C_n(X) = \{\text{maps } \Delta^n \to X\}$.
+
+There is a canonical map $\phi: \Delta_n(X) \to C_n(X)$, $(\Delta^n \to X) \mapsto (\Delta^n \to X)$, forgetting the nice properties.
+
+\textbf{Claim:} $\phi$ induces an isomorphism $H_n^\Delta(X) \xrightarrow{\sim} H_n(X)$.
+
+Today we prove this claim for the case where $X$ is finite-dimensional, i.e.\ $X^k = \varnothing$ for all $k \geq k_0$ ($X^k$ is the $k$-skeleton, using simplices of dimension $\leq k$).
+
+\begin{proof}
+We have a commutative diagram with LES rows:
+\begin{align*}
+    &\to H_{n+1}^\Delta(X^k, X^{k-1}) \to H_n^\Delta(X^{k-1}) \to H_n^\Delta(X^k) \to H_n^\Delta(X^k, X^{k-1}) \to H_{n-1}^\Delta(X^{k-1}) \to \\
+    &\quad\quad\quad \downarrow\phi_* \quad\quad\quad\quad \downarrow\phi_* \quad\quad\quad\quad \downarrow\phi_* \quad\quad\quad\quad \downarrow\phi_* \quad\quad\quad\quad \downarrow\phi_* \\
+    &\to H_{n+1}(X^k, X^{k-1}) \to H_n(X^{k-1}) \to H_n(X^k) \to H_n(X^k, X^{k-1}) \to H_{n-1}(X^{k-1}) \to
+\end{align*}
+We show maps \textcircled{1} and \textcircled{4} are isomorphisms.
+
+Note $\Delta_n(X^k, X^{k-1}) \cong \Delta_n(X^k)/\Delta_n(X^{k-1}) = \begin{cases} \Delta_n(X^k) & \text{if } n=k \\ 0 & \text{otherwise} \end{cases}$.
+
+Now if $d \in \Delta_n(X^n)$, then $\partial d \in \Delta_{n-1}(X^{n-1})$ by face properties, so $\partial_\mathrm{rel} = \Delta_n(X^n) \to 0$ implies $\mathrm{Im}\, \partial_\mathrm{rel} = 0$. Since $\partial(\cdot) = 0$, $H_n^\Delta(X^k, X^{k-1})$ is free abelian for $n=k$ and $0$ otherwise.
+
+Now consider $\bigsqcup_\alpha \Delta^k_\alpha / \bigsqcup_\alpha \partial \Delta^k_\alpha \xrightarrow{\sim} (X^k, X^{k-1})$.
+
+But $\bigsqcup_\alpha \Delta^k_\alpha / \bigsqcup_\alpha \partial \Delta^k_\alpha \cong X^k/X^{k-1}$ by quotient map / homeomorphism ($\cong$ means homeomorphism here).
+
+\textbf{$n$-simplices} (quotient by boundary): $\bigvee_\alpha S^k := \{\bigsqcup_\alpha S^k / x_\alpha \in S_\alpha^k \times \{\beta\}, \forall \alpha, \beta\}$ (\emph{wedge product}), so:
+\[
+    H_n\!\left(\bigvee_\alpha S^k\right) \cong \bigoplus_\alpha H_n(S^k) \to \text{free abelian for } n=k, \; 0 \text{ otherwise.}
+\]
+So the domains/codomains of \textcircled{1} and \textcircled{4} in the diagram are isomorphic. Why, induced by $\phi$, though? Because $\phi$ is almost the ``identity'' map; the isomorphism is the ``same'' map, so we use it.
+
+By the Five Lemma (applied to maps \textcircled{2} and \textcircled{3} isomorphisms), we get \textcircled{2} and \textcircled{5} isomorphisms. The five lemma says: if you have an exact sequence
+\[
+    A \to B \to C \to D \to E, \qquad A\to A',\; B\to B',\; D\to D',\; E\to E' \text{ isos},
+\]
+then $C \to C'$ is also an isomorphism.
+
+Repeat until $X = X^{k_0}$, and remaining things are $0$. Done.
+\end{proof}
+
+\textbf{Used in proof:}
+\begin{theorem}
+If $(X,A)$ is a good pair, then $q: (X,A) \to (X/A, A/A)$ induces an isomorphism
+\[
+    q_*: H_n(X,A) \to H_n(X/A, A/A) \cong H_n(X/A, \{p\}) \cong \widetilde{H}_n(X/A).
+\]
+This gives $H_n^\Delta(X^k, X^{k-1}) \cong H_n^\Delta(X^k/X^{k-1})$. Then since $X^k/X^{k-1} \cong \bigvee S^k$, use the LES of $(\bigsqcup S^k, \bigsqcup\{x_\alpha\})$ and $\widetilde{H}_n(\{p\}) = 0$:
+\[
+    \widetilde{H}_n\!\left(\bigsqcup S^k, \bigsqcup x_\alpha\right) \cong \widetilde{H}_n\!\left(\bigsqcup S^k\right) \cong \bigoplus_\alpha H_n(S^k).
+\]
+\end{theorem}
+
+\subsection*{Mayer--Vietoris Sequence}
+
+Suppose $X = A \cup B$, with $C_n(A+B) \hookrightarrow C_n(X)$.
+
+Claim: there is a SES
+\[
+    0 \to C_n(A \cap B) \xrightarrow{\phi} C_n(A) \oplus C_n(B) \xrightarrow{\psi} C_n(A+B) \to 0
+\]
+where $\phi(x) = (x, -x)$ and $\psi(x,y) = x+y$.
+
+If we prove it's exact, we'll get a LES in homology.
+\begin{itemize}
+    \item $\phi$ is injective since $\phi(x) = 0 \Rightarrow x = 0$.
+    \item $\ker\psi = \{(x,y) \mid x+y=0\} = \{(x,-x) \mid x \in C_n(A), -x \in C_n(B)\} = \{(x,-x) \mid x \in C_n(A \cap B)\} = \mathrm{im}\,\phi$.
+    \item $\psi$ is surjective (from definition of $C_n(A+B)$).
+\end{itemize}
+
+Thus the sequence is exact, so we get a LES in homology, called the \textbf{Mayer--Vietoris sequence}:
+\[
+    \cdots \to H_n(A \cap B) \to H_n(A) \oplus H_n(B) \xrightarrow{\psi_*} H_n(A+B) \xrightarrow{\partial} H_{n-1}(A \cap B) \to \cdots
+\]
+(also has a reduced version.)
+
+\textbf{Note:} If $A \cap B$ is path-connected, then
+\[
+    \widetilde{H}_1(A \cap B) \xrightarrow{\phi_*} \widetilde{H}_1(A) \oplus \widetilde{H}_1(B) \xrightarrow{\psi_*} \widetilde{H}_1(X) \to \widetilde{H}_0(A \cap B)^0
+\]
+then $H_1(X) \cong H_1(A) \oplus H_1(B) / \ker\psi_* \cong H_1(A) \oplus H_1(B) / \mathrm{im}\,\phi_*$. (Similar to Van Kampen's theorem.)
+
+\begin{remark}
+$H_1$ is the abelianization of $\pi_1$. In particular, $H_1(\Sigma_g) \cong \pi_1(\Sigma_g)^{\mathrm{ab}} \cong \mathbb{Z}^{2g}$.
+\end{remark}
+
+\subsection*{Suspension of a Space}
+
+Given a space $X$, its \emph{suspension} is
+\[
+    \Sigma X := X \times [-1,1] \;/\; (x_1 \sim x_2,\, x \times \{1\} \sim x \times \{-1\}\text{ for }x_1,x_2 \in X).
+\]
+Take $A = \text{upper cone} \cong \text{cone on } X$, $B = \text{lower cone} = \text{``slightly extended cone''}$; then $A \cup B = X$ and $\widetilde{H}_n(A) \cong \widetilde{H}_n(B) \cong 0$ since any cone on $X$ is contractible. So by Mayer--Vietoris:
+\[
+    \widetilde{H}_n(\Sigma X) \cong \widetilde{H}_n(A \cap B) \cong \widetilde{H}_{n-1}(X) \quad \text{by definition / reduction.}
+\]
+
 
 \newpage 
 
