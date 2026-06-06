@@ -331,9 +331,26 @@ This kind of translation---reformulating a covering condition as an ideal-member
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item If $r/1 = 0$ in $R[\frac{1}{f_i}]$ for all $i$. Then we have, $f^{n_i}_i r = 0$ for all $i$.  
+        \item 
+
+        Since $\{D(f_i)\}_{i=1}^n$ covers $\Spec(R)$, we know
+        $\langle f_1, \ldots, f_n\rangle = R$. And for any prime $\mathfrak{p}$ we have $f_i \in \mathfrak{p} \iff f_i^{\,n_i} \in \mathfrak{p}$, so $D(f_i) = D(f_i^{\,n_i})$.
+
+        Hence $\{D(f_i^{\,n_i})\}_{i=1}^n$ also covers $\Spec(R)$, and we have
+        \[
+        1 = \sum_{i=1}^{n} b_i\, f_i^{\,n_i} \implies 
+        r = 1 \cdot r = \sum_{i=1}^{n} b_i\, f_i^{\,n_i} r = \sum_{i=1}^{n} b_i \cdot 0 = 0.
+        \]
+        Thus, $r = 0$ in $R$.
+
+        \item If $R[\frac{1}{f_i}]=0$ for all $i$ then each $f_i$ is nilpotent in $R$. But ${D(f_i)}_{1 \leq i \leq n}$ covers $R$. Since $f_i \in \sqrt{\langle 0 \rangle} \subseteq \fp$ for all primes, $D(f_i) = \emptyset$ for all $i$. Thus, $\Spec(R) = \emptyset \implies R =0$. 
+        
+        \item Let $r \in R$ such that $r^m = 0$. Then for all $i$, in $R[\frac{1}{f_i}]$, we have $\frac{r^m}{1} = 0$. Since this ring is reduced, this implies $\frac{r}{1}= 0 \implies r = 0$ (by part 1).
     \end{enumerate}
 \end{solution}
+
+\newpage 
+
 \hrulefill
 
 An element $r\in R$ is \emph{nilpotent} if $r^n=0$ for some integer $n\geq 1$. If $ I \subset R$ is an ideal, the \emph{radical} of $I$ is
@@ -366,8 +383,12 @@ This has immediate geometric consequences. For example, this gives another proof
 
 \hrulefill
 
+\newpage 
+
 \begin{problem}{7}
-    \textbf{Nilradicals and Reduced Rings.} Let $R$ be a ring. 
+    \textbf{Nilradicals and Reduced Rings.} 
+    
+    Let $R$ be a ring. 
     \begin{enumerate}
         \item Explain why $\Nil(R)$ is an ideal and $\Nil(R)\subset \bigcap_{\fp\in \Spec(R)}\fp$.
         \item Prove that if $f \in R$ is not a nilpotent then $R[\frac{1}{f}] \neq 0$ and hence contains a prime ideal. Hint: If $R[\frac{1}{f}]=0$, then $1=0$ in $R[\frac{1}{f}]$. What does that say about some power of $f$?
@@ -391,6 +412,46 @@ This has immediate geometric consequences. For example, this gives another proof
         \end{multicols}
     \end{enumerate}
 \end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item We only need to show that $\Nil(R)$ is closed under addition and multiplication from the ring. 
+        \begin{enumerate}
+            \item Let $a, b \in \Nil(R)$ such that $a^n = b^m = 0$. Wlog assume $m>n$, then by the binomial theorem $(a+b)^(m+n)  = 0$. 
+            \item Let $r \in R$, and $a \in \Nil(R)$ such that $a^n = 0$. Then, $(ra)^n = r^n a^n = 0$. 
+        \end{enumerate}
+        Hence, $\Nil(R)$ is an ideal. Let $a \in \Nil(R)$ then $a^n = 0 \in \fp$ then by primeness of $\fp$ $a \in \fp$ for all $\fp$, hence $\Nil(r) \subset \cap_{p \in \Spec(r)} \fp$. 
+        
+        \item We will prove this by contrapositive. Assume $R[\frac{1}{f}] = 0$. Then $\frac{1}{1} = \frac{0}{1}$, and there exists $f^n$ such that $f^n \cdot 1 = 0 \implies f^n = 0 \implies f$ is a nilpotent. 
+        
+        \item Prime ideals in $R[\frac{1}{f}]$ correspond to prime ideals in $R$ not containing $f$. Since a non-zero ring has at least one maximal (and hence prime) ideal there is at lease one $\fp \subset R$ such that $f \notin \fp$. 
+        
+        \item We only need to show the containment $\bigcap_{\fp \in \Spec(R)} \subseteq \Nil(R)$. Let $f \in \bigcap_{\fp \in \Spec(R)}$ then $f \in \fp$ for all $\fp$. Hence $R[\frac{1}{f}] = 0$. By part (2), this implies that $f$ is nilpotent. Hence, 
+        \[
+        \Nil(R)=\bigcap_{\fp\in \Spec(R)}\fp. 
+        \]
+
+        \item Suppose $\bar a \in R_{\red} = R/\Nil(R)$ is nilpotent, say $\bar a^{\,k} = 0$ in $R_{\red}$. Then $a^k \in \Nil(R)$, so $(a^k)^\ell = 0$ in $R$ for some $\ell$, i.e. $a^{k\ell} = 0$. Thus $a \in \Nil(R)$, which means $\bar a = 0$ in $R_{\red}$. Hence the only nilpotent of $R_{\red}$ is $0$, so $R_{\red}$ is reduced.
+        
+        \item By Problem 3.9, we know that $\eta^{\#}: \Spec(R[\frac{1}{f}]) \to D(f)$ is a homeomorphism. If $f$ is nilpotent, then $\Spec(R[\frac{1}{f}]) = \emptyset$ and thus $D(f) = \emptyset$. Similarly, if $D(f) = \emptyset$ then $R[\frac{1}{f}] = 0$, then $f$ is a nilpotent. 
+        
+        \item If $f$ is unit, then $f \notin \fp$ for all $\fp$ hence $D(f) = \Spec(R)$. And if $D(f) = \Spec(R)$ then $f \notin \cup_{\fp \in \Spec(R)}\fp \implies f$ is not in any maximal ideal and hence is a unit. 
+        
+        \item We know that $\pi^{\#}$ is continuous. It is a bijection because ideals in $\Spec(R_{\red})$ correspond to ideals in $R$ containing $\Nil(R)$, by part 4 this is every prime ideal. To see that this map is closed, let $\V(I_{\red})$ be a closed set in $R_{\red}$. Then $\pi^{\#}(\V(I_{\red})) = \{\fp \mid \pi^{-1}{(I_{\red})} \subseteq \fp\} = \{\fp \mid I \subseteq \fp\} = \V(I)$, which is closed in $\Spec(R)$.   
+        
+        \item \begin{multicols}{2}
+        \begin{enumerate}
+            \item $\K$
+            \item $\K$
+            \item $\K[y]$
+            \item $\Z/6\Z$
+        \end{enumerate}
+        \end{multicols}
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \hrulefill
 
@@ -472,20 +533,24 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
 
 \hrulefill
 
+\newpage 
+
 \begin{problem}{8}
-    \textbf{Residue Field.} Let $R$ be a ring. Given a prime ideal $\fp \subset R$, the residue field of $R$ at $\fp$ is the ring $R_{\fp}/\fp R_{\fp}$, which we denote by $\kappa(\fp)$. 
+    \textbf{Residue Field.} 
+    
+    Let $R$ be a ring. Given a prime ideal $\fp \subset R$, the residue field of $R$ at $\fp$ is the ring $R_{\fp}/\fp R_{\fp}$, which we denote by $\kappa(\fp)$. 
     \begin{enumerate}
         \item Explain why $\fp R_{\fp}$ is the unique maximal ideal of $R_{\fp}$. Deduce that $\kappa(\fp)$ is a field.
         
         \item Show that the composite map
         \[
-        R\longrightarrow R_{\fp}\longrightarrow \kappa(\fp)
+        R\xrightarrow{\eta} R_{\fp}\xrightarrow{\pi} \kappa(\fp)
         \]
         has kernel $\fp$. Deduce that it induces an injective ring map $R/\fp \hookrightarrow \kappa(\fp)$.
 
         \item Prove that every nonzero element of $R/\fp$ becomes invertible in $\kappa(\fp)$. Conclude that $\kappa(\fp)\cong \Frac(R/\fp)$.
 
-        \item Use part (c) to compute the residue field $\kappa(\fp)$ in each of the following cases. In each case it may be helpful to first identify the quotient ring $R/\fp$:
+        \item Use part (3) to compute the residue field $\kappa(\fp)$ in each of the following cases. In each case it may be helpful to first identify the quotient ring $R/\fp$:
         \begin{multicols}{2}
         \begin{enumerate}
             \item $R=\Z$ and $\fp=\langle p\rangle$ for a prime $p$.
@@ -503,10 +568,48 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
     \end{enumerate}
 \end{problem}
 
-\hrulefill
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Prime ideals of $R_{\fp}$ correspond to prime ideals $\fq \subseteq R$ such that $\fq \subseteq \fp$, since $\fp$ is the largest such ideal it is maximal. $\kappa(\fp)$ is a field since quotienting by a maximal ideal gives us a field. 
+        
+        \item Consider $(\pi \circ \eta)^{-1} (0)$. 
+        \[ \eta^{-1}(\pi^{-1}(0)) = \eta^{-1}(\fp R_{\fp}) = \fp\]
+        by primeness.
+        Hence, $\fp = \ker(\pi \circ \eta)$. Then by the first isomorphism theorem, 
+        \[R/\fp \hookrightarrow \kappa(\fp)\]
+
+        \item Let $0 \neq f \in R/\fp$. Then $\eta(\pi(f)) \neq 0$. Since $\kappa(\fp)$ is a field, every element is a unit and hence $\eta(\pi(f))$ is invertible. 
+        Thus, $\Frac(R/\fp) \subseteq \kappa(\fp)$. 
+        
+        Every element of $\kappa(\fp) = R_{\fp} / \fp R_{\fp}$ is the class of some
+        $a/s$ with $a \in R$, $s \in R \setminus \fp$, and this class equals
+        $\iota(\bar a)\,\iota(\bar s)^{-1}$ with $\bar s \neq 0$ (as $s \notin \fp$). That is exactly
+        the image of $\bar a / \bar s \in \Frac(R/\fp)$. Hence there is an isomorphism,
+        $\kappa(\fp) \cong \Frac(R/\fp)$.
+        \item  \begin{multicols}{2}
+        \begin{enumerate}
+            \item $R/\fp = \Z/\fp\Z = \F_{\fp} = \kappa(\fp)$.
+            \item $R/\fp=\Z$ and $\kappa(\fp) = \Frac(\Z) = \Q$.
+            \item $R/\fp=\K[a] = \K = \kappa(\fp)$.
+            \item $R/\fp=\K[x]$ and $\kappa(\fp) = \K(x)$. 
+            \item $R/\fp=\R[i] = \C = \kappa(\fp)$.
+            \item $R/\fp=\K[x]$ and $\kappa(\fp) = \K(x)$. 
+            \item $R/\fp=\K = \kappa(\fp)$. 
+            \item $R/\fp = \Z/\fp\Z = \F_{\fp} = \kappa(\fp)$.
+            \item $R/\fp=\Z/2\Z = \F_2 = \kappa(\fp)$. 
+            \item $R/\fp=\Z/2\Z[\sqrt{-5}]/\langle 1 + \sqrt{5} \rangle = \F_2 = \kappa(\fp)$.
+        \end{enumerate}
+        \end{multicols}
+    \end{enumerate}
+\end{solution}
+
+\newpage 
 
 \begin{problem}{9}
-    \textbf{Fibre Ring.} Let $\phi:R\to S$ be a ring map and fix a point $[\fp]\in \Spec(R)$. Set $U \coloneqq R \setminus \fp$ and $T\coloneqq \phi(U) \subset S$. Let $\widetilde{\phi}:R_{\fp}\longrightarrow T^{-1}S$ be the map induced by the universal property of localization discussed above. 
+    \textbf{Fibre Ring.} 
+    
+    Let $\phi:R\to S$ be a ring map and fix a point $[\fp]\in \Spec(R)$. Set $U \coloneqq R \setminus \fp$ and $T\coloneqq \phi(U) \subset S$. Let $\widetilde{\phi}:R_{\fp}\longrightarrow T^{-1}S$ be the map induced by the universal property of localization discussed above. 
     \begin{enumerate}
         \item\label{ex-pt:fibre-ring-iso} Prove that there is a natural isomorphism
         \[
@@ -543,10 +646,69 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
     \end{enumerate}
 \end{problem}
 
-\hrulefill
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item From the universal property of localization applied twice we have, 
+        \[
+        \begin{tikzcd}[row sep=2.5em, column sep=2.5em]
+            R \arrow[r, "\phi"] \ar[d, "\eta", swap] \arrow[dr, "f"'] & S \arrow[d,] \\
+            R_{\fp} \ar[dashed, r, "\widetilde{\phi}", swap] & T^{-1}S
+        \end{tikzcd}
+        \]
+        Tensoring by $\otimes_R S$ gives us,  
+        \[
+        \begin{tikzcd}[row sep=2.5em, column sep=2.5em]
+            R \otimes_R S\arrow[r, "\phi \otimes_R \id_S"] \ar[d, "\eta \otimes_R \id_S", swap] \arrow[dr, "f\otimes_R \id_S"] & S \arrow[d,] \\
+            R_{\fp} \otimes_R S \ar[dashed, r, "\widetilde{\phi} \otimes_R \id_S", swap] & T^{-1}S
+        \end{tikzcd}
+        \]
+        Let $\widetilde{\phi}\otimes_R \id_S = \psi$. 
+        
+        \textbf{$\psi$ is injective:} We show this for simple tensors. Let $\frac{\phi(r)s}{\phi(u)} = 0$. Then, there exists $t \in T$ such that $t \phi(r) s = 0$. Let $t = \phi(u)$ for some $u \in U$. Then, $\phi(vr) s = 0$. That is, in $R_{\fp}\otimes_R S$,
+        \[
+        \frac{r}{u}\otimes s
+        =
+        \frac{vr}{vu}\otimes s
+        =
+        \frac{1}{vu}\otimes \phi(vr)s.
+        \]
+        Since $\phi(vr)s=0$, 
+        \[
+        \frac{1}{vu}\otimes \phi(vr)s
+        =
+        \frac{1}{vu}\otimes 0
+        =
+        0.
+        \]
+        Therefore
+        \[
+        \frac{r}{u}\otimes s = 0.
+        \]
+        Thus $\ker(\psi)=0$, and so $\psi$ is injective.
+
+        \textbf{$\psi$ is surjective: } An element in $T^{-1}S$ is of the form $\frac{s}{t}$, where $t = \phi(u)$ for some $u \in U$. Then, 
+        \[\psi\left(\frac{1}{u} \otimes s\right) = \frac{1}{t} \otimes S = \frac{s}{t}\]
+        Hence $\psi$ is surjective, and thus $R_{\fp} \otimes_R S \iso T^{-1}S$. 
+
+        \item Since tensoring is right-exact, and the sequence 
+         \[
+        \fp R_{\fp}\longrightarrow R_{\fp}\longrightarrow \kappa(\fp)\longrightarrow 0
+        \]
+        is exact, the obtained sequence is also exact,
+        \[
+        (\fp R_{\fp})\otimes_R S \xlongrightarrow{f} R_{\fp}\otimes_R S \xlongrightarrow{g} \kappa(\fp)\otimes_R S \longrightarrow 0.
+        \]
+
+        \item Since the sequence is exact at $R_{\fp} \otimes_R S$, we have $\ker(g) = \im(f)$. From question 8.2 we know that $\ker(g) = (\fp R_{\fp}) \otimes_R S$
+     \end{enumerate}    
+\end{solution}
+
 
 \begin{problem}{10}
-    \textbf{Fibres of Spec Maps.} Let $\phi:R\to S$ be a ring map and fix a point $[\fp]\in \Spec(R)$. Set $U \coloneqq R \setminus \fp$ and $T\coloneqq \phi(U) \subset S$. Let $\widetilde{\phi}:R_{\fp}\longrightarrow T^{-1}S$ be the map induced by the universal property of localization discussed above. 
+    \textbf{Fibres of Spec Maps.} 
+    
+    Let $\phi:R\to S$ be a ring map and fix a point $[\fp]\in \Spec(R)$. Set $U \coloneqq R \setminus \fp$ and $T\coloneqq \phi(U) \subset S$. Let $\widetilde{\phi}:R_{\fp}\longrightarrow T^{-1}S$ be the map induced by the universal property of localization discussed above. 
     \begin{enumerate}
         \item Show that the fibre $(\phi^{\#})^{-1}([\fp])$ is naturally homeomorphic to the fibre of $\widetilde{\phi}^{\#}:\Spec(T^{-1}S)\longrightarrow \Spec(R_{\fp})$ over the point $[\fp R_{\fp}]$.
         \item Let $\fq\in \Spec(T^{-1}S)$. Prove that $\widetilde{\phi}^{-1}(\fq)=\fp R_{\fp}$ if and only if $\fp(T^{-1}S)\subseteq \fq$. Hint: Use that $R_{\fp}$ is a local ring with unique maximal ideal $\fp R_{\fp}$.
@@ -560,10 +722,18 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
     \end{enumerate}
 \end{problem}
 
-\hrulefill
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\end{solution}
+
 
 \begin{problem}{11}
-    \textbf{Computing Fibres of Spec Maps.} In this problem, we use the previous exercise to compute several examples:
+    \textbf{Computing Fibres of Spec Maps.} 
+    
+    In this problem, we use the previous exercise to compute several examples:
     \begin{enumerate}
         \item Let $\phi:\Z\to \Z[x]$ be the inclusion. Compute the fibre of the induced map $\phi^{\#}:\Spec(\Z[x]) \to \Spec(\Z)$ over the generic point $\langle 0\rangle$ and over a closed point $\langle p\rangle$ for $p \in \Z$ prime. 
         \item Fix an integer $n\geq 2$, and consider the localization map $\eta: \Z\to \Z[\frac{1}{n}]$. For which points of $\Spec(\Z)$ is the fibre with respect to $\eta^{\#}$ empty? Compute the nonempty fibres.
@@ -584,6 +754,11 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
     \end{enumerate}
 \end{problem}
 
-\hrulefill
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\end{solution}
 
 \end{document}

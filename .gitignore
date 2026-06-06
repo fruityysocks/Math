@@ -3,5 +3,5 @@
 **/*.synctex.gz 
 **/*.fdb_latexmk 
 **/*.fls
-
+.md
 .DS_Store
