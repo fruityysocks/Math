@@ -153,4 +153,73 @@
 \end{solution}
 
 
+\newpage 
+
+\begin{problem}{9}
+    Prove that there is no Turing machine that decides the language
+    \[\textsc{infinite} := \{\langle M \rangle : L(M) \text{ contains infinitely many strings}\}\]
+    [Hint: You may either derive a contradiction directly, or perform a reduction from an existing uncomputable problem.]
+\end{problem}
+
+
+\begin{problem}{10}
+    Prove that the following problem is in NP:
+
+    \begin{tcolorbox}
+        \textsc{GraphIso}
+        \begin{itemize}
+            \item \textbf{Input:} Two undirected graphs $G$ and $G'$.
+            \item \textbf{Output:} Is there a mapping $\phi$ from $V_G$ to $V_{G'}$ such that
+            \[
+            xy \in E_G
+            \quad \text{if and only if} \quad
+            \phi(x)\phi(y) \in E_{G'}?
+            \]
+        \end{itemize}
+    \end{tcolorbox}
+\end{problem}
+
+\begin{problem}{11}
+    Describe a polynomial-time self-reduction for the following problem, assuming an oracle to the decision problem in Question~1.
+
+    \begin{tcolorbox}
+        \textsc{FindGraphIso}
+        \begin{itemize}
+            \item \textbf{Input:} Two undirected graphs $G$ and $G'$.
+            \item \textbf{Output:} Compute a mapping $\phi$ from $V_G$ to $V_{G'}$ such that
+            \[
+            xy \in E_G
+            \quad \text{if and only if} \quad
+            \phi(x)\phi(y) \in E_{G'}.
+            \]
+        \end{itemize}
+    \end{tcolorbox}
+\end{problem}
+
+\begin{problem}{12}
+    We want to prove the following problem to be NP-hard by reduction from some known NP-hard problem:
+
+    \begin{tcolorbox}
+         \textbf{SpanTree39}
+        \begin{itemize}
+            \item \textbf{Input:} An undirected graph $G$.
+            \item \textbf{Output:} Does $G$ have a spanning tree with at most $39$ leaves?
+        \end{itemize}
+    \end{tcolorbox}
+   
+    Why doesn't the following reduction work?
+
+    \begin{tcolorbox}
+        We will reduce the Hamiltonian path problem on undirected graphs, denoted \textsc{HamPath}, to \textsc{SpanTree39}. Given an undirected graph $G$, we modify the graph by adding $38$ special vertices, and connect every special vertex to an arbitrary vertex $u$ in $G$, to obtain a new graph $G'$. The construction can be carried out in polynomial time.
+
+        To prove yes instances are preserved, assume $G$ contains a Hamiltonian path $P$ starting at $u$. Now include all special vertices and their incident edges into $P$ to form a spanning tree $T$ of $G'$. $T$ has at most $2 - 1 + 38 = 39$ leaves.
+
+        To prove no instances are preserved, assume $G'$ contains a spanning tree $T$ with at most $39$ leaves. Because $T$ is spanning, all special vertices are in $T$. Remove all special vertices; the remaining subgraph is still a spanning tree in $G$ and has at most $2$ leaves, and therefore must be a Hamiltonian path in $G$.
+    \end{tcolorbox}
+\end{problem}
+
+\begin{problem}{13}
+    Prove that \textsc{SpanTree39} is NP-hard by modifying the above construction.
+\end{problem}
+
 \end{document}

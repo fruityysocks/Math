@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+
+\include{../style}
+
+\begin{document}
+
+\input{title}
+
+\begin{problem}{1}
+Consider the following problem, called \textsc{BoxDepth}:
+
+\begin{tcolorbox}
+    \textsc{BoxDepth}
+    \begin{itemize}
+        \item \textbf{Input:} A set of $n$ axis-aligned squares $R$ in the plane.
+        \item \textbf{Output:} Size of the largest subset of squares in $R$ containing a common point.
+    \end{itemize}
+\end{tcolorbox}
+    
+    \begin{enumerate}
+        \item Describe a polynomial-time reduction from \textsc{BoxDepth} to \textsc{MaxClique}.
+        
+        \item Describe a polynomial-time algorithm for \textsc{BoxDepth}. (No analysis of correctness is needed as long as the algorithm is indeed correct. Time analysis is required.)
+        
+        \item Why don't these two results imply that $P=NP$?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \bbni
+    \begin{enumerate}
+        \item Given a BoxDepth instance, we create a MaxClique instance as follows: 
+        \begin{itemize}
+            \item Create a undirected graph $G$, where each node corresponds to a square in the BoxDepth instance. 
+            \item We create an edge between two nodes iff they share a common point. 
+        \end{itemize}
+        Let $|R| = n$. This reduction is polynomial time since we create at most $n$ nodes and $\binom{n}{2}$ edges. 
+
+        ($\implies$) 
+
+        yes-instance of \textsc{BoxDepth} gives a yes-instance of \textsc{MaxClique} since the largest subset of squares in $R$ containing a common point would correspond to a clique in $G$. This is the largest clique since by construction we only have edges between nodes if they share a common point. 
+
+        ($\impliedby$)
+        
+        yes-instance of \textsc{MaxClique} gives a yes-instance of \textsc{BoxDepth} since the largest clique in $G$ implies all the squares corresponding to the nodes in the clique share a common point and once again we know this is the largest subset by construction. 
+        
+        \item Since there are at most $4|R|$ points, bruteforce checking how many squares share a given point and sorting the array would give us a polynomial time algorithm. 
+        
+        \item This doesn't imply $P = NP$ since we reduce to a `harder' problem. So solving MaxClique in $P$ time would imply we could solve BoxDepth in $P$ time but the converse is not true. 
+    \end{enumerate}
+\end{solution}
+
+\newpage 
+
+\begin{problem}{2}
+    Suppose you are given a magic black box that can determine (in an instant), given an arbitrary set $X$ of positive integers, whether $X$ can be partitioned into two sets $A$ and $B$ such that
+    \[
+    \sum_{a\in A} a = \sum_{b\in B} b.
+    \]
+
+    Describe and analyze a polynomial-time algorithm that either computes an equal partition of a given set of positive integers, or correctly reports that no such partition exists, using the magic black box as a subroutine.
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    Given a set $X$ we ask the box if there exists an equal partition of $X$.
+    \begin{enumerate}
+        \item If the box says no, we say no and we are done. 
+        \item If the box says yes, we do the following, 
+        \begin{enumerate}
+            \item We define singleton groups $g_i$ such that each group corresponds to a number in the set. 
+            \item Pick some group $g$, then loop over the other groups $h$ and check if the set $X_i$ with $g + h$ instead of $g, h$ still has a valid partition. If it does, repeat this process, if it doesn't for any $h$ then the partitions are $g$ and $X \setminus g$. 
+        \end{enumerate}
+    \end{enumerate}
+    Let $|X| = n$. Then we have at most $n-1$ runs of the algorithm described in step 2. And for each run, for a fixed $g$ there are at most $|X_i| - 1$ oracle queries (this is bounded by $n-1$). So we have $O((n-1)^2) = O(n^2)$ which is polynomial.  
+\end{solution}
+
+\newpage
+
+\begin{problem}{3}
+    Prove that the following language is undecidable:
+    \[
+    L=\left\{
+    \langle M,w\rangle :
+    \begin{array}{l}
+    M \text{ is a Turing machine with alphabet } \{0,1\},\\
+    \text{and at one step of } M(w), \text{ some empty cell } \square \\
+    \text{changes to } 0
+    \end{array}
+    \right\}.
+    \]
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    We reduce from the halting problem
+    \[
+    \mathrm{HALT} = \{\langle M, w\rangle : M \text{ halts on input } w\},
+    \]
+    which is undecidable. 
+
+    \textbf{The reduction.} Given $\langle M, w\rangle$, we construct a Turing machine $M'$ with alphabet $\{0,1\}$ such that on input $w$, the machine $M'$ does the following: 
+    \begin{enumerate} 
+        \item \emph{Simulate $M$ on $w$ step by step.} Throughout the simulation $M'$ maintains the invariant that \emph{whenever it needs to use a cell that is currently empty $(\square)$, it first writes a $1$ into that cell, and only afterwards may overwrite it.} Hence during the simulation every blank cell that is touched is changed $\square \to 1$ first, and {no} cell is ever changed $\square \to 0$. 
+        
+        \item \emph{If $M$ halts}, the simulation reaches a halting configuration of $M$. At that point         $M'$ scans right past all the cells it has used until it reaches an empty cell, writes a         $0$ there (changing $\square \to 0$), and halts. 
+    \end{enumerate} 
+    \textbf{Correctness.}
+
+    ($\implies$) 
+    
+    Suppose $\langle M, w\rangle \in \mathrm{HALT}$, so $M$ halts on $w$. Then the simulation in step~1 terminates, $M'$ executes step~2, and at that step an empty cell is changed to $0$. Hence $\langle M', w\rangle \in L$.
+
+    ($\impliedby$) 
+    
+    Suppose $\langle M, w\rangle \notin \mathrm{HALT}$, so $M$ runs forever on $w$. Then $M'$ never finishes step~1 and never executes step~2. By the invariant, no step of the simulation changes a cell from $\square$ to $0$. Therefore no step of $M'(w)$ ever changes an empty cell to $0$, so $\langle M', w\rangle \notin L$.
+    Combining the two directions,
+    \[
+    \langle M, w\rangle \in \mathrm{HALT} \iff \langle M', w\rangle \in L,
+    \]
+    so $f$ is a valid mapping reduction $\mathrm{HALT} \le_m L$. Since $\mathrm{HALT}$ is undecidable, $L$ is undecidable. 
+\end{solution}
+
+\newpage 
+
+\begin{problem}{4}
+    Let $G$ be an undirected graph. A subset $S$ of vertices in $G$ is \emph{half-independent} if each vertex in $S$ is adjacent to at most one other vertex in $S$.
+
+    Prove that finding the size of the largest half-independent set of vertices in a given undirected graph is NP-complete (that is, NP-hard and in NP).
+\end{problem}
+
+\begin{solution}
+    \bbni
+    
+    We use the decision version: given $G$ and an integer $k$, does $G$ have ahalf-independent set of size $\ge k$? Call this problem \textsc{HalfIS}.\textbf{\textsc{HalfIS} $\in$ NP.} A half-independent set $S$ with $|S|\ge k$ is acertificate: we check $|S| \ge k$ and, for each $v \in S$, count its neighbors in$S$ and verify the count is at most $1$. This runs in $O(|V|+|E|)$ time.\textbf{\textsc{HalfIS} is NP-hard.} We reduce from \textsc{IndependentSet}(NP-hard): given $G=(V,E)$ and $k$, decide whether $G$ has an independent set ofsize $\ge k$.\emph{Construction.} Let $n=|V|$. Form $H$ by attaching one new pendant leaf$\ell_v$ to each $v\in V$:\[  V(H)=V\cup L,\quad L=\{\ell_v:v\in V\},\qquad  E(H)=E\cup\{\,v\ell_v : v\in V\,\}.\]Output the instance $(H,\,k+n)$. $H$ has $2n$ vertices and $|E|+n$ edges, so it isbuilt in polynomial time. Let $\alpha(G)$ be the maximum independent-set size in $G$.We show the maximum half-independent set of $H$ has size exactly $n+\alpha(G)$.\emph{($\ge$).} Let $I$ be a maximum independent set of $G$ and set $S=I\cup L$, so$|S|=n+\alpha(G)$. Each leaf $\ell_v$ has only the neighbor $v$, hence at most oneneighbor in $S$. Each $v\in I$ has neighbors $N_G(v)\cup\{\ell_v\}$ in $H$; as $I$ isindependent, $N_G(v)\cap S=\emptyset$, so $v$'s only neighbor in $S$ is $\ell_v$.Thus $S$ is half-independent.\emph{($\le$).} Let $S$ be a \emph{maximum} half-independent set of $H$.\emph{No edge of $G$ lies inside $S$.} Suppose $u,v\in S$ with $uv\in E$. Then $u,v$are each other's single allowed neighbor in $S$, so $\ell_u,\ell_v\notin S$.Replace $S$ by $S'=(S\setminus\{u\})\cup\{\ell_u,\ell_v\}$. Now $v$'s only neighborin $S'$ is $\ell_v$; $\ell_v$ has only neighbor $v$; $\ell_u$ has neighbor $u\notin S'$;and no other vertex gains a neighbor. So $S'$ is half-independent with $|S'|=|S|+1$,contradicting maximality. Hence $S\cap V$ is independent in $G$.\emph{All leaves lie in $S$.} If $\ell_v\notin S$, then since $S\cap V$ isindependent, $v$ has no neighbor in $S$ besides $\ell_v$; adding $\ell_v$ keeps $S$half-independent and increases its size, contradicting maximality.Thus $S=L\cup(S\cap V)$ with $S\cap V$ independent, so $|S|=n+|S\cap V|\le n+\alpha(G)$.Combining the bounds, $H$'s maximum half-independent set has size exactly$n+\alpha(G)$, so\[  \alpha(G)\ge k \iff H \text{ has a half-independent set of size } \ge n+k,\]which is the produced instance. Hence \textsc{IndependentSet} $\le_p$ \textsc{HalfIS},so \textsc{HalfIS} is NP-hard.
+    Being in NP and NP-hard, \textsc{HalfIS} is NP-complete. 
+\end{solution}
+
+\end{document}
