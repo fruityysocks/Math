@@ -61,11 +61,62 @@
         
         And $\ev_p(1) = 1$ since $1$ is a constant function. 
 
-        \item \todo{}
-        \item \todo{}
-        \item \todo{}
+        \item Consider the map
+            \[
+            \phi:\K^n\longrightarrow
+            \left\{
+            \fm\in \mSpec(\K[x_1,\ldots,x_n]) :
+            \K[x_1,\ldots,x_n]/\fm\cong \K
+            \right\}, \qquad  \phi(p)=\fm_p
+            \]
+            To see that $\phi$ is injective, suppose
+            $\fm_p=\fm_q$ for $p=(a_1,\ldots,a_n)$ and $q=(b_1,\ldots,b_n)$. By part (a),
+            \[
+            \fm_p=(x_1-a_1,\ldots,x_n-a_n),
+            \qquad
+            \fm_q=(x_1-b_1,\ldots,x_n-b_n).
+            \]
+            Since $x_i-a_i\in \fm_q$, we have
+            \[
+            (x_i-a_i)(q)=b_i-a_i=0.
+            \]
+            Hence $a_i=b_i$ for all $i$, so $p=q$.
+
+            To prove surjectivity, let $\fm$ be a maximal ideal such that
+            \[
+            \K[x_1,\ldots,x_n]/\fm\cong \K
+            \]
+            as $\K$-algebras. Let $ \pi:\K[x_1,\ldots,x_n]\to
+            \K[x_1,\ldots,x_n]/\fm\cong\K$
+            be the quotient map, and 
+            $a_i=\pi(x_i)\in \K$. 
+            Since $\pi$ is a $\K$-algebra homomorphism, for every polynomial
+            $f\in \K[x_1,\ldots,x_n]$ we have
+            \[
+            \pi(f)=f(a_1,\ldots,a_n).
+            \]
+            Thus $\pi=\ev_p$, where $p=(a_1,\ldots,a_n)$, and therefore
+            \[
+            \fm=\ker(\pi)=\ker(\ev_p)=\fm_p.
+            \]
+            Hence $\phi$ is surjective and therefore a bijection.
+        \item Consider the ideal $\fm=(x^2+1,y)\subset \R[x,y]$. We have
+            \[
+            \R[x,y]/\fm
+            \cong
+            \R[x]/(x^2+1)
+            \cong
+            \C.
+            \]
+            Since $\C$ is a field, $\fm$ is maximal. But $\C \neq \R$ so $\fm$ is not of the form $\fm_p$
+            for any $p\in\R^2$.
+        \item Hilbert's Nullstellensatz can be restated as saying that the
+        radical of an ideal is the intersection of all maximal ideals of the
+        form $\fm_p$ that contain it.
     \end{enumerate}
 \end{solution}
+
+\newpage
 
 
 \begin{problem}{2}
@@ -350,7 +401,7 @@
         where $A$ is a $n\times n$ matrix, 
         and $SL_n(\K) = \V(\{f\})$. 
 
-        \item \todo{}
+        % \item \todo{}
     \end{enumerate}
 \end{solution}
 
@@ -449,7 +500,7 @@ At this point the basic affine dictionary is taking shape; Question~(4) asks you
 
     $\V(\cS) \overset{\V}{\ot} \sqrt{\langle \cS \rangle}$
 
-\todo{Diagram.}
+% \todo{Diagram.}
 \end{solution}
 
 \newpage
@@ -594,6 +645,8 @@ You should now think of $\K[V]$ as the algebraic avatar of $V$: its elements are
     By Hilbert's Nullstellensatz I, we know that maximal ideals of $\K[x_1, \cdots, x_n]$ are of the form $\langle x_1 - a_1, \cdots, x_n -a_n \rangle$, for some point $(a_1, \cdots, a_n)$. 
 \end{solution}
 
+\newpage 
+
 \begin{problem}{7}
     \textbf{Zariski Topology on Algebraic Sets.} Let $V \subseteq \K^n$ be an algebraic set. Define the \emph{Zariski topology} on $V$ by declaring the closed sets to be the subsets of $V$ of the form $\V(I)$ for some ideal $I \subset \K[x_1,\ldots,x_n]$. In other words, the closed sets are precisely the \emph{algebraic subsets} of $V$.
     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
@@ -639,66 +692,66 @@ You should now think of $\K[V]$ as the algebraic avatar of $V$: its elements are
     \end{enumerate}
 \end{solution}
 
-\hrulefill
+% \hrulefill
 
-By now you have recovered from $\K[V]$ not just the points of $V$, but also its Zariski topology. The next goal is to understand maps in the same way: a morphism of algebraic sets should be encoded contravariantly by a $\K$-algebra homomorphism of coordinate rings.
+% By now you have recovered from $\K[V]$ not just the points of $V$, but also its Zariski topology. The next goal is to understand maps in the same way: a morphism of algebraic sets should be encoded contravariantly by a $\K$-algebra homomorphism of coordinate rings.
 
-\hrulefill
+% \hrulefill
 
-\begin{problem}{8}
-    \textbf{Morphisms of Algebraic Sets.} A \emph{polynomial map} from $\K^n$ to $\K^m$ is a function of the form: 
-    \[
-    \Phi: \K^n \longrightarrow \K^m \quad p \mapsto (f_1(p), \dots, f_{m}(p)).
-    \]
-    where  $f_1, \dots, f_m \in \K[x_1,\dots,x_n]$.  A \emph{morphism of algebraic sets} $V \to W$ is defined to be the restriction of such a polynomial map $\Phi$ with $\Phi(V) \subset W$. Fix a polynomial map $\Phi$ as above. 
-    \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
-	\item Show that there is an induced $\K$-algebra homomorphism
-	\[
-	\phi: \K[\K^{m}] \longrightarrow \K[\K^{n}] \quad \text{given by} \quad  g \mapsto g \circ \Phi.
-	\]
-	Describe $\phi$ explicitly in terms of the coordinate function generators of $\K[\K^{m}]$.
-	\item Let $V \subset \K^n$ and $W \subset \K^m$ be algebraic sets. Show that $\Phi(V) \subset W$ if and only if $\phi(\I(W)) \subset \I(V)$.
-	\item Deduce that $\Phi$ restricts to a morphism of algebraic sets $\Phi|_V : V \longrightarrow W$ if and only if the composition
-	\[
-	\begin{tikzcd}[row sep = .3em, column sep = 3.5em]
-	\K[\K^m] \arrow[r, "\phi"] & \K[\K^n] \arrow[r, "\rho"] &\K[V]
-	\end{tikzcd}
-	\]
-	factors through $\K[W]$. Here $\rho$ is the restriction map.
-	\item For each of the given maps of coordinate rings, describe the corresponding map of algebraic sets. When possible draw pictures. Compare to the corresponding maps on spectra.
-	\begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
-		\item $\CC[x,y] \rightarrow \CC[t]$ given by $x\mapsto t$ and $y\mapsto t$.
-		\item $\CC[t] \rightarrow \CC[x,y]$ given by $t \mapsto x$.
-		\item $\CC[t] \rightarrow \CC[x,y,t]/\langle xy-t \rangle$ given by $t \mapsto t$. 
-	\end{enumerate}
-    \end{enumerate}
-\end{problem}
+% \begin{problem}{8}
+%     \textbf{Morphisms of Algebraic Sets.} A \emph{polynomial map} from $\K^n$ to $\K^m$ is a function of the form: 
+%     \[
+%     \Phi: \K^n \longrightarrow \K^m \quad p \mapsto (f_1(p), \dots, f_{m}(p)).
+%     \]
+%     where  $f_1, \dots, f_m \in \K[x_1,\dots,x_n]$.  A \emph{morphism of algebraic sets} $V \to W$ is defined to be the restriction of such a polynomial map $\Phi$ with $\Phi(V) \subset W$. Fix a polynomial map $\Phi$ as above. 
+%     \begin{enumerate}[label=(\alph*),ref=\theenumi\alph*]
+% 	\item Show that there is an induced $\K$-algebra homomorphism
+% 	\[
+% 	\phi: \K[\K^{m}] \longrightarrow \K[\K^{n}] \quad \text{given by} \quad  g \mapsto g \circ \Phi.
+% 	\]
+% 	Describe $\phi$ explicitly in terms of the coordinate function generators of $\K[\K^{m}]$.
+% 	\item Let $V \subset \K^n$ and $W \subset \K^m$ be algebraic sets. Show that $\Phi(V) \subset W$ if and only if $\phi(\I(W)) \subset \I(V)$.
+% 	\item Deduce that $\Phi$ restricts to a morphism of algebraic sets $\Phi|_V : V \longrightarrow W$ if and only if the composition
+% 	\[
+% 	\begin{tikzcd}[row sep = .3em, column sep = 3.5em]
+% 	\K[\K^m] \arrow[r, "\phi"] & \K[\K^n] \arrow[r, "\rho"] &\K[V]
+% 	\end{tikzcd}
+% 	\]
+% 	factors through $\K[W]$. Here $\rho$ is the restriction map.
+% 	\item For each of the given maps of coordinate rings, describe the corresponding map of algebraic sets. When possible draw pictures. Compare to the corresponding maps on spectra.
+% 	\begin{enumerate}[label=(\roman*), ref=\theenumi\roman*]
+% 		\item $\CC[x,y] \rightarrow \CC[t]$ given by $x\mapsto t$ and $y\mapsto t$.
+% 		\item $\CC[t] \rightarrow \CC[x,y]$ given by $t \mapsto x$.
+% 		\item $\CC[t] \rightarrow \CC[x,y,t]/\langle xy-t \rangle$ given by $t \mapsto t$. 
+% 	\end{enumerate}
+%     \end{enumerate}
+% \end{problem}
 
-\begin{problem}{9}
-    Prove that a morphism of algebraic sets is continuous with respect to the Zariski topology.
-\end{problem}
+% \begin{problem}{9}
+%     Prove that a morphism of algebraic sets is continuous with respect to the Zariski topology.
+% \end{problem}
 
-\begin{problem}{10}
-    Show that the image of $\K \to \K^3$ sending $t \to (t,t^2,t^3)$ is an algebraic set defined by two polynomials. Verify your answer by constructing the corresponding ring map in \textit{Macaualy2}. 
-\end{problem}
+% \begin{problem}{10}
+%     Show that the image of $\K \to \K^3$ sending $t \to (t,t^2,t^3)$ is an algebraic set defined by two polynomials. Verify your answer by constructing the corresponding ring map in \textit{Macaualy2}. 
+% \end{problem}
 
-\begin{problem}{11}
-    Prove or disprove: The image of every polynomial map $\K^n \to \K^m$ is an algebraic set. (Warning: this might be field dependent. As a hint, if $\K$ is finite, which subsets of $\K^n$ are algebraic sets?)
-\end{problem}
+% \begin{problem}{11}
+%     Prove or disprove: The image of every polynomial map $\K^n \to \K^m$ is an algebraic set. (Warning: this might be field dependent. As a hint, if $\K$ is finite, which subsets of $\K^n$ are algebraic sets?)
+% \end{problem}
 
 
-\hrulefill
+% \hrulefill
 
-You now have the main algebra-geometry dictionary in hand. Over any field $\K$, every algebraic set $V \subset \K^n$ has a coordinate ring $\K[V]$, points of $V$ are the same as $\K$-algebra maps $\K[V]\to \K$, and morphisms $V \to W$ correspond contravariantly to $\K$-algebra homomorphisms $\K[W]\to \K[V]$. Thus the assignment
-\[
-V \longmapsto \K[V]
-\]
-always gives a contravariant bridge from geometry to algebra. When $\K$ is algebraically closed, Hilbert's Nullstellensatz says that every finitely generated reduced $\K$-algebra comes from an algebraic set, so this bridge becomes an anti-equivalence of categories.
+% You now have the main algebra-geometry dictionary in hand. Over any field $\K$, every algebraic set $V \subset \K^n$ has a coordinate ring $\K[V]$, points of $V$ are the same as $\K$-algebra maps $\K[V]\to \K$, and morphisms $V \to W$ correspond contravariantly to $\K$-algebra homomorphisms $\K[W]\to \K[V]$. Thus the assignment
+% \[
+% V \longmapsto \K[V]
+% \]
+% always gives a contravariant bridge from geometry to algebra. When $\K$ is algebraically closed, Hilbert's Nullstellensatz says that every finitely generated reduced $\K$-algebra comes from an algebraic set, so this bridge becomes an anti-equivalence of categories.
 
-\hrulefill
-\begin{problem}{12}
-    \textbf{Putting It All Together.} Assume that $\K$ is algebraically closed. Use the previous parts together with Hilbert's Nullstellensatz II to show that every finitely generated reduced $\K$-algebra is isomorphic to $\K[V]$ for some algebraic set $V$.  Conclude that the assignment $V\mapsto \K[V]$ defines a  (anti-) equivalence from the category of algebraic sets over $\K$ to the category of finitely generated reduced $\K$-algebras. 
-\end{problem}
+% \hrulefill
+% \begin{problem}{12}
+%     \textbf{Putting It All Together.} Assume that $\K$ is algebraically closed. Use the previous parts together with Hilbert's Nullstellensatz II to show that every finitely generated reduced $\K$-algebra is isomorphic to $\K[V]$ for some algebraic set $V$.  Conclude that the assignment $V\mapsto \K[V]$ defines a  (anti-) equivalence from the category of algebraic sets over $\K$ to the category of finitely generated reduced $\K$-algebras. 
+% \end{problem}
 
 
 

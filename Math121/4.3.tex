@@ -699,17 +699,24 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
         \[
         (\fp R_{\fp})\otimes_R S \xlongrightarrow{f} R_{\fp}\otimes_R S \xlongrightarrow{g} \kappa(\fp)\otimes_R S \longrightarrow 0.
         \]
+        
+        \item Since the sequence is exact at $R_{\fp} \otimes_R S$, we have $\ker(g) = \im(f)$. An element of $(\fp R_{\fp}) \otimes_R S$ is of the form $\frac{p}{u} \otimes s$ for $p \in \fp$ and $u \in R \setminus \fp$. Then, 
+        
+        \[\iota \otimes \id_S \left(\frac{p}{u} \otimes s\right) = \frac{p}{u} \otimes s = p \left(\frac{1}{u} \otimes s\right) \in \fp (R_{\fp} \otimes_R S)\]
+        So we have $\im(f) \subseteq \fp (R_{\fp} \otimes_R S)$. To see the other containment, let note that an element of $\fp (R_{\fp} \otimes_R S)$ is of the form $p \left(\frac{r}{u} \otimes s\right)$ where $p \in \fp$ and $\frac{r}{u} \otimes s$ is a simple tensor in $R_{\fp} \otimes_R S$. Since $pr \in \fp$, the tensor $p \left(\frac{r}{u} \otimes s\right) \in f\left(\frac{pr}{u} \otimes s\right) \in \im(f)$. 
 
-        \item   The map $f=\iota \otimes \id_S$ is $(R_{\fp}\otimes_R S)$-linear, so $\im(f)$ is an ideal of
-        $R_{\fp}\otimes_R S$. 
-        
-        
-        Since the sequence is exact at $R_{\fp} \otimes_R S$, we have $\ker(g) = \im(f)$. From question 8.2 we know that $\ker(g) = (\fp R_{\fp}) \otimes_R S$ since this is tensored over $R$ $\fp$ flows through and we get $\ker(g) = \fp (R_{\fp} \otimes_R S)$. 
-        
-        \item 
+        Hence, $\im(f) = \fp \left(R_{\fp} \otimes_R S\right)$. 
+
+        \item By the First Isomorphism Theorem we have, 
+        \[\kappa(\fp) \otimes_R S \iso R_{\fp} \otimes_R S/\ker(g)\]
+        and exactness gives us $\ker(g) = \im(f)$, so,
+        \[\kappa(\fp) \otimes_R S \iso R_{\fp} \otimes_R S/\im(f) = R_{\fp} \otimes_R S / \fp(R_{\fp} \otimes_R S)\]
+        Since we have an isomorphism $R_{\fp} \otimes_R S \iso T^{-1}S$, we also have
+        \[\kappa(\fp) \otimes_R S \iso R_{\fp} \otimes_R S / \fp(R_{\fp} \otimes_R S) \iso T^{-1}S / \fp(T^{-1}S)\]
      \end{enumerate}    
 \end{solution}
 
+\newpage 
 
 \begin{problem}{10}
     \textbf{Fibres of Spec Maps.} 
@@ -731,10 +738,48 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item 
+        \item We have, 
+         \[
+        \begin{tikzcd}[row sep=2.5em, column sep=2.5em]
+            R \arrow[r, "\phi"] \ar[d, "\eta", swap] \arrow[dr, "f"'] & S \arrow[d, "\eta_S"] \\
+            R_{\fp} \ar[dashed, r, "\widetilde{\phi}", swap] & T^{-1}S
+        \end{tikzcd}
+        \] 
+        And the corresponding maps induced by $\Spec$ 
+        \[
+        \begin{tikzcd}[row sep=2.5em, column sep=2.5em]
+            \Spec(R)  & \Spec(S)   \arrow[l, "\phi^{\#}"'] \\
+            \Spec(R_{\fp}) \ar[u, "\eta^{\#}"]  & \Spec(T^{-1}S) \arrow[ul, "f^{\#}"'] \ar[u, "\eta_S^{\#}"'] \ar[dashed, l, "\widetilde{\phi}^{\#}", ] 
+        \end{tikzcd}
+        \] 
+        We know that both localization maps are homeomorphisms onto their image and also that $\fp R_{\fp} \in \Spec(R_{\fp})$ corresponds to $\fp \in \Spec(R)$, so the preimage of $\fp R_{\fp} \in \Spec(R_{\fp})$ corresponds to the preimage of $\fp \in \Spec(R)$ since the composition $\phi^{\#} \circ \eta_S^{\#} = \eta^{\#} \circ  \widetilde{\phi}^{\#}$. That is, 
+        \[\fq \in (\widetilde{\phi}^{\#})^{-1} ([\fp R_{\fp}]) \iff \widetilde{\phi}^{\#}(\fq) = [\fp R_{\fp}] \iff \eta^{\#}(\widetilde{\phi}^{\#}(\fq)) = [p] \iff \phi^{\#}(\eta_S^{\#}(\fq)) = [\fp]\]
+
+        \item ($\implies$) 
+        
+        Assume $\widetilde{\phi}^{-1}(\fq) = \fp R_{\fp}$. Since $\fp (T^{-1}S)$ is the extension of the contraction $\widetilde{\phi}^{-1}(\fq)$ we have $\fp(T^{-1}S) \subseteq \fq$. 
+
+        $(\impliedby)$ 
+
+        Assume $\fp(T^{-1}S) \subseteq \fq$. Then, 
+        \[\widetilde{\phi}^{-1}(\fp(T^{-1}S)) \subseteq \widetilde{\phi}^{-1}(\fq)\]
+        We know they are both ideals since pre-images of ideals are ideals. Since $R_{\fp}$ is a local ring with maximal ideal $\fp R_{\fp}$, the only proper ideal containing $\fp R_{\fp}$ is $\fp R_{\fp}$. So $\widetilde{\phi}^{-1}(\fq) = \fp R_{\fp}$. 
+
+        \item From parts 1 and 2 we have, 
+        \begin{align*}
+            (\phi^{\#})^{-1} ([\fp]) &\iso (\widetilde{\phi}^{\#})^{-1}([\fp R_{\fp}]) \\
+            &= \{[\fq] \in \Spec(T^{-1}S) \mid \fp(T^{-1}S) \subseteq \fq\} \\
+            &= \V(\fp T^{-1}S) \iso \Spec(T^{-1}S / \fp (T^{-1}S))
+        \end{align*}
+
+        \item From problem 9 we know that, 
+        \[\kappa(\fp) \otimes_R S \iso T^{-1}S / \fp(T^{-1}S) \implies \Spec(\kappa(\fp) \otimes_R S) \iso (\phi^{\#})^{-1}([\fp])\]
+
+        \item Thus, the fibre over $[\fp]$ is empty if and only if $\kappa(\fp)\otimes_R S=0$.
     \end{enumerate}
 \end{solution}
 
+\newpage 
 
 \begin{problem}{11}
     \textbf{Computing Fibres of Spec Maps.} 
@@ -750,7 +795,7 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
          t\longmapsto x.
         \]
         Compute the fibre of the induced map over $\langle 0\rangle\in \Spec(\K[t])$ and the fibre over $\langle t-a\rangle$ for $a\in \K$.
-        \item Consider the inclusion of $\CC$-algebras $\CC[t] \to \CC[x,y,t]/\langle xy-t\rangle$ given by $t \mapsto t$.
+        \item Consider the inclusion of $\C$-algebras $\C[t] \to \C[x,y,t]/\langle xy-t\rangle$ given by $t \mapsto t$.
         \begin{enumerate}
             \item Compute the fibre over the generic point $\langle 0\rangle$.
             \item Compute the fibre over $\langle t-a\rangle$ for $a\neq 0$.
@@ -763,7 +808,44 @@ Therefore the fibre of $\phi^{\#}$ over $[\fp]$ is naturally homeomorphic to $\S
 \begin{solution}
     \bbni
     \begin{enumerate}
-        \item 
+        \item We know that $(\phi^{\#})^{-1}([\fq]) \iso \Spec(\kappa(\fp) \otimes_R S)$. So in particular we have, 
+        \[(\phi^{\#})^{-1}([0]) \iso \Spec(\kappa(0) \otimes_{\Z} \Z[x]) = \Spec(\Q \otimes_{\Z} \Z[x]) \iso \Spec(\Q[x])\]
+        And, 
+        \[(\phi^{\#})^{-1}([\fp]) \iso \Spec(\kappa(\fp) \otimes_{\Z} \Z[x]) = \Spec(\F_{\fp} \otimes_{\Z} \Z[x]) \iso \Spec(\F_{\fp}[x])\]
+
+        \item Let $n \geq 2$. We know that ideals $\fq$ in $\Spec(\Z[\frac{1}{n}])$ are in bijection with ideals $\fp$ in $\Spec(\Z)$ such that $n \notin \fp$. So the fibre over all $\fp \in \Z$ such that $\fp \mid n$ is empty. And the non-empty fibres correspond to $\fp \in \Z$ such that $\fp \nmid n$, so
+        \[(\phi^{\#})^{-1}([\fp]) \iso \Spec\left(\kappa(\fp) \otimes_{\Z} \Z\left[\frac{1}{n}\right]\right) = \Spec(\F_{\fp})\]
+        And for $\langle 0 \rangle$ we have, 
+        \[(\phi^{\#})^{-1}([0]) \iso \Spec\left(\kappa(0) \otimes_{\Z} \Z\left[\frac{1}{n}\right]\right) = \Spec(\Q)\]
+
+        
+        \item We have, 
+        \[(\phi^{\#})^{-1}([0]) \iso \Spec\left(\kappa(0) \otimes_{\K[t]} \K[x,y]\right) = \Spec\left(\K(t) \otimes_{\K[t]} \K[x,y]\right)  \iso \Spec( \K[y] (x))\]
+        And, 
+
+        $(\phi^{\#})^{-1}([t-a]) \iso \Spec\left(\kappa(a) \otimes_{\K[t]} \K[x,y]/ \langle x-a \rangle\right) = \Spec\left(\K \otimes_{\K[t]} \K[x,y]\right)  \iso \Spec( \K[x,y]/\langle x - a\rangle) \iso \Spec(\K[y])$
+
+        
+        \item \begin{enumerate} 
+            \item \begin{align*}
+                (\phi^{\#})^{-1}([0]) &\iso \Spec\left((\kappa(0) \otimes_{\C[t]} \C[x,y,t])/\langle xy - t \rangle\right) \\
+                &\iso \Spec\left((\C(t) \otimes_{\C[t]} \C[x,y,t])/\langle xy - t \rangle\right) \\
+                &\iso \Spec(\C[x,y](t)/\langle xy - t \rangle) \iso \Spec(\C(t)[x, x^{-1}])
+            \end{align*}
+            
+            \item \begin{align*}
+                (\phi^{\#})^{-1}([t-a]) &\iso \Spec\left((\kappa(a) \otimes_{\C[t]} \C[x,y,t])/\langle xy - t \rangle\right) \\
+                &\iso \Spec\left((\C \otimes_{\C[t]} \C[x,y])/\langle xy - a \rangle\right) \\
+                &\iso \Spec(\C[x,y]/\langle xy - a \rangle) \iso \Spec(\C[x, x^{-1}])
+            \end{align*}
+            
+
+            \item \begin{align*}
+                (\phi^{\#})^{-1}([t]) &\iso \Spec\left((\kappa(t) \otimes_{\C[t]} \C[x,y,t])/\langle xy - t \rangle\right) \\
+                &\iso \Spec\left((\C(t) \otimes_{\C[t]} \C[x,y])/\langle xy - t \rangle\right) \\
+                &\iso \Spec\left((\C[x,y])/\langle xy \rangle\right) \\
+            \end{align*}
+        \end{enumerate}
     \end{enumerate}
 \end{solution}
 

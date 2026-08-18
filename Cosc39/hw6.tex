@@ -24,6 +24,224 @@
     \emph{[We have demonstrated in class that analyzing the behavior of a program in general is undecidable; here we see that even when the program has no access to memory we cannot expect to have efficient algorithms!]}
 \end{problem}
 
+
+\begin{solution}
+
+    \bbni
+    
+    To prove that the problem \textsc{NFA-Reject} is NP-Hard, we can demonstrate that it is at least as hard as any problem in NP. We achieve this by a polynomial time reduction from an already known NP-Hard problem to \textsc{NFA-Reject}. This reduction demonstrates that for any input of our NP-hard problem, we can convert it to an input of \textsc{NFA-Reject} and solve that, then convet it back to a solution for our NP-
+    Hard problem. Thus, \textsc{NFA-Reject} must be at least as hard as any NP-Hard problem, proving its NP-Hard.
+    
+    For our reduction, let problem $A$ be the \textsc{3-SAT} problem and problem $B$ be the \textsc{NFA-Reject} problem. We will prove the reduction:
+    \[
+    A \leq B
+    \]
+    
+    To begin, start with a generalized set up of the \textsc{3-SAT} problem. For example: 
+    
+    \[
+    (x \vee \bar{y} \vee w) \wedge (\bar{x} \vee y \vee \bar{z})
+    \]
+    
+    Assume we have $n$ variables and $m$ clauses, with each clause having $3$ literals. Our goal is to construct an NFA N such that it only rejects at least one string \textit{if and only if} the original \textsc{3-SAT} has a satisfiable solution. Construct an NFA $N$ as follows:
+    
+    First, arbitrarily decide an ordered sequence of the variables—any permutation is sufficient. For our example, we will have our order be $x, y, z, w$. Then proceed with the following construction:
+
+    Define the alphabet $\Sigma = \{0, 1 \}$
+    
+    Make a length enforcement gadget. It should accept all strings $w$ such that $|w| \ne n$, where $n$ is the number of variables. Now we can interpret the string $w$ as an assignment of $\{0, 1\}$ to each variable. Construct it as follows:
+    
+    \begin{enumerate}
+    \item Construct a start accepting state $q_0$
+    \item Create an edge with transition value $\Sigma$ to a new accepting state $q_i$. Repeat this for a total of $ 1 < i < n-1$ times.
+    \item For the $nth$ state in the chain, make it a reject state.
+    \item Lastly, make one for edge with transition value $\Sigma$ to a new trap accepting state such that this accepting state also has a self-loop with edge transition $\Sigma$
+    \end{enumerate}
+    
+    This gadget rejects string input $w$ \textbf{if and only if} the length of $|w| = n$.
+    
+    Right Direction $\rightharpoonup$:
+    Assume that the gadget rejects some input string $w$. The gadget has no fall-off opportunities or reject states other than $1$ state, state $q_n$. Since there is only one path to state $q_n$, follow that path. There are exactly $n$ edges between $q_0$ (the start state) and $q_n$, meaning the input string $w$ must have length $n$.
+    
+    Left Direction $\leftharpoonup$: Assume that the length of input string $|w| = n$. Starting from the start state, follow the only available path of $\Sigma$ transitions for the length of $w$. Since there are exactly $n$ transitions after the start state, following input string $w$ will yield final state $q_n$, which is a reject state.
+    
+    That proves that the gadget only rejects strings of length $n$, where $n$ represents the number of variables. This will be crucial for our reduction as we convert our $n$ variable assignment input to our 3-SAT to the $n$ length string input to our NFA N.
+    
+    An example of the NFA gadget is below for $n=4$
+    
+    
+    \newcount\N
+    \N=4   % <── set n here
+    
+    \begin{tikzpicture}[
+        >={Stealth},
+        shorten >=1pt,
+        auto,
+        node distance=2.2cm,
+        every state/.style={draw, circle, minimum size=1cm}
+    ]
+     
+    %% ── Build the chain programmatically ────────────────────────────────────────
+    %
+    %  States:  q_0, q_1, ..., q_N, q_{N+1}
+    %
+    %  q_0  .. q_{N-1}  : accept states  (inputs of length 0 .. N-1 accepted)
+    %  q_N              : reject state   (exactly N transitions consumed → length N
+    %                                     reached, but one more symbol forces reject)
+    %  q_{N+1}          : trap ACCEPT    (length > N, loops forever)
+    %
+    %  Transitions:
+    %    q_i  --Σ-->  q_{i+1}   for i = 0 .. N
+    %    q_{N+1} --Σ--> q_{N+1} (self-loop)
+     
+    \xdef\prevnode{q0}
+     
+    % q_0  (start, accept)
+    \node[state, accepting, initial, initial text={}] (q0) {$q_0$};
+     
+    % q_1 .. q_{N-1}  (accept states)
+    \foreach \i in {1,...,\numexpr\N-1\relax} {
+        \xdef\cur{q\i}
+        \node[state, accepting, right=of \prevnode] (\cur) {$q_{\i}$};
+        \draw[->] (\prevnode) edge node {$\Sigma$} (\cur);
+        \xdef\prevnode{\cur}
+    }
+     
+    % q_N  (reject state — NOT accepting)
+    \pgfmathsetmacro{\nval}{\N}
+    \xdef\rejectnode{q\N}
+    \node[state, right=of \prevnode] (qN) {$q_{\nval}$};
+    \draw[->] (\prevnode) edge node {$\Sigma$} (qN);
+     
+    % q_{N+1}  (trap accept — self-loop)
+    \pgfmathsetmacro{\nplus}{\N+1}
+    \xdef\trapnode{q\nplus}
+    \node[state, accepting, right=of qN] (qNp1) {$q_{\nplus}$};
+    \draw[->] (qN)   edge node {$\Sigma$} (qNp1);
+    \draw[->] (qNp1) edge[loop above] node {$\Sigma$} (qNp1);
+     
+    \end{tikzpicture}
+    
+    
+    Now, construct the set of gadgets that ensures NFA N rejects at least $1$ input string \textbf{if and only if} there is a satisfiable assignment to our 3-SAT problem. 
+    
+    For each clause $m$ comprised of 3 of the following variables $x, y, z, w$, build the following ``gadget".
+    
+    \begin{enumerate}
+    \item{If there exists a variable and its compliment—$x$ and $\bar{x}$ for example—within the same clause, then simply do not make the gadget. This clause will always evaluate to true. Thus, they can be dropped from the preprocessing step before construction, since they are trivially satisfied and do not affect satisfiability.
+    \item Otherwise, do the following:
+    \item Create a state for every variable (including the variables not in the clause) in a downward column in the order of the pre-defined sequence. The first variable in the pre-defined sequence is the start state.
+    \item Create a dedicated trap reject state
+    \item Create a dedicated trap accept state
+    \item Iterate through the variables based on the ordered sequence. 
+    \item If the variable is included in the clause, create a $1$ transition to the trap state and a $0$ transition to the next variable state in the sequence. The jump to the trap state represents identifying a true-valued literal and accepting the clause regardless of the other variables. The jump to the next variable represents the literal not evaluating to true and thus checking the next variable state. 
+    \item If the counterpart, or barred version of the variable is included in the clause, create a $0$ transition to the trap state and a $1$ transition to the next variable state in the sequence. This is the same logic as the previous point just with the value flipped.
+    \item For the last variable in the sequence, in our example $w$, rather than making an edge to the next variable, make that edge to the trap accept state, which serves as the final final state in the chain.
+    \item have self loops (with value alphabet) for the trap reject state and trap accept state
+    \end{enumerate}
+
+    That Completes our gadget logic.
+    
+    Below is an example of the gadget which is constructed for the clause:
+
+    \[
+    (x \vee \bar{y} \vee w)
+    \]
+    
+    \begin{tikzpicture}[
+        >={Stealth},
+        shorten >=1pt,
+        auto,
+        node distance=2cm,
+        every state/.style={
+            draw,
+            circle,
+            minimum size=1cm,
+            font=\large
+        }
+    ]
+     
+    %% ── Chain states (top to bottom) ────────────────────────────────────────────
+    \node[state, initial, initial text={}]          (x) {$x$};
+    \node[state, below=of x]                        (y) {$y$};
+    \node[state, below=of y]                        (z) {$z$};
+    \node[state, below=of z]                        (w) {$w$};
+    \node[state, accepting, below=of w]             (f) {};   % final, no label
+     
+    %% ── Trap / reject state (right, vertically centred between x and f) ─────────
+    \node[state, right=4cm of z]                    (t) {$r$};
+     
+    %% ── Transitions ─────────────────────────────────────────────────────────────
+     
+    % x → y  on 0
+    \draw[->] (x) edge node {$0$} (y);
+     
+    % x → trap on 1
+    \draw[->] (x) edge[bend left=30] node {$1$} (t);
+     
+    % y → z  on 1
+    \draw[->] (y) edge node {$1$} (z);
+     
+    % y → trap on 0
+    \draw[->] (y) edge[bend left=15] node {$0$} (t);
+     
+    % z → w  on 0,1
+    \draw[->] (z) edge node {$0,1$} (w);
+     
+    % w → final on 0
+    \draw[->] (w) edge node {$0$} (f);
+     
+    % w → trap on 1
+    \draw[->] (w) edge[bend left=30] node {$1$} (t);
+     
+    % final → self on 0,1
+    \draw[->] (f) edge[loop right] node {$0,1$} (f);
+     
+    % trap → self on 0,1
+    \draw[->] (t) edge[loop right] node {$0,1$} (t);
+     
+    \end{tikzpicture}
+    
+    I claim that the NFA N rejects an input \textbf{if and only if} the \textsc{3-SAT} has a satisfiable assignment.
+    
+    \[
+    \varphi\ \text{is\ satisfiable} \Leftrightarrow L(N) \ne \Sigma^*
+    \]
+    
+    Right Direction $\rightharpoonup$:
+    Assume that we have some satisfiable assignment to $\varphi$. Fix input $w$ as the sequence of $0s$ and $1s$ such that the $ith$ variable in the defined sequence has the $ith$ value in $w$. We argue that the constructed NFA $N$ rejects string $w$.
+    
+    First, the length gadget: Since $∣w∣=n$, the length gadget path ends in state $q_n$, which is a reject state.
+    
+    Next, the clause gadgets: Since $\varphi$ is satisfiable, that must mean that for \textbf{every} clause $m_i$ in the 3-SAT, \textit{some} literal has an assignment of $1$. By the construction of the clause gadgets, when the mentioned $jth$ variable satisfies the clause $m_i$, the $jth$ character in input string $w$ transitions from the $jth$ variable's state to the trap state, where it remains indefinitely. Thus, every clause gadget ends up in a reject state in addition to the length gadget. Since every path/finger of input string $w$ ends up in a reject state, that must mean $L(N) \ne \Sigma^*$.
+    
+    Left Direction $\leftharpoonup$:
+    Assume that there exists some string $w$ that NFA N rejects. We argue that we have some satisfiable assignment to $\varphi$. 
+    
+    First, the length gadget: Since NFA N rejects, it must have ended at state $q_n$, meaning $|w| = n$. Interpret $w$ as a sequence of $0s$ and $1s$ such that the $ith$ variable in the defined sequence has the $ith$ value in $w$.
+    
+    Since N rejects $w$, every path on $w$ ends in a reject state. For each clause gadget, $m_i$, the path through the gadget must end up in the trap reject state.
+    
+    By construction, the only way a clause gadget path ends in the trap state is if some variable state $s_j$ caused the path to go there, which only happens when the $jth$ variable (which is in the clause) is satisfied by the $jth$ character in $w$. If no literal in the clause $m_i$ were satisfied by $w$, then the path would pass through every variable state without going to the trap reject state, and end up in the trap accept state, which would contradict that every path rejects.
+    
+    Thus, for every clause $m_i$, at least one literal is satisfied by $w$, meaning $w$ satisfies $\varphi$, proving $\varphi$ is satisfiable.
+
+
+    Now that we have proven the reduction, including both directions, now we just need to prove that the reduction can be done in polynomial time.
+
+    \begin{enumerate}
+    \item The length gadget has $O(n)$ states
+    \item Each clause gadget has $O(n)$ states ($n$ + the $2$ trap states)
+    \item There are $m$ clauses, so there are $O(mn)$ states
+    \item Additionally, we need to check every possible pair in each clause to see if there is a variable $x$ and its compliment $\bar{x}$. Since each clause has only 3 literals max, we can check this in $O(1)$ time. Since there are $m$ clauses total, this check is $O(m)$ time.
+    \end{enumerate}
+
+    Since all of these processes occur in polynomial time, we can do our reduction in polynomial time. 
+
+\end{solution}
+
+\newpage
+
 \begin{problem}{2}
     \textbf{Unfinished coursework.} 
     
@@ -45,5 +263,55 @@
 
     Prove one of your favorite games is NP-hard. (To get full credit, you need to choose a game that has not been proven to be NP-hard before.)
 \end{problem}
+
+
+\begin{solution}
+    \bbni
+
+    We reduce a sparse $k$-\textsc{Sat} instance to a \textsc{DomSet} instance in the following manner: 
+
+    Let $q = n/\log n$. Create an undirected graph $G$ as follows: 
+    \begin{enumerate}
+        \item Create $q$ groups $X_1, \ldots, X_q$ of $n$ variables. Create a node $X_{i_j}$ for each possible assignment of a group $X_i$. That gives us $q2^{n/q}$ nodes. 
+        
+        Also create a node $n_s$ for each clause ($1 \leq s \leq m$).  
+        Hence we have a total of $q2^{n/q} + m$ nodes. 
+
+        \item Every $X_i$ is a complete subgraph. If there exists a node $X_{i_j}$ that satisfies some clause $n_s$ create an edge between them.
+    \end{enumerate}
+
+
+    We claim that $G$ has a dominating set of size $q$ if and only if the $k$-\textsc{Sat} instance is satisfiable.
+
+
+    $(\implies)$ 
+    
+    Let $S$ be a dominating set with $|S| = q$. Then $S$ contains exactly one node from each group $X_i$ since for any node $u \in X_i$ whose assignment satisfies no clause, $u$ has no edges to any clause node. Then $u$'s only neighbors are other nodes in $X_i$, so $u$ can only be dominated if $S \cap X_i \neq \emptyset$. Since this holds for every group and there are $q$ groups with $|S| = q$, we conclude $|S \cap X_i| = 1$ for each $i$. (If two nodes in $X_i$ satisfy a clause we just pick one since those nodes are neighbors anyway). 
+
+
+    $(\impliedby)$ 
+    
+    
+    Suppose $\sigma$ is a satisfying assignment. For each group $X_i$, let $v_i$ be the node corresponding to $\sigma$'s assignment on $X_i$'s variables, and let $S = \{v_1, \ldots, v_q\}$. We claim $S$ is a dominating set of size $q$:
+    \begin{itemize}
+        \item Every node $u \in X_i$ is dominated by $v_i$, since $X_i$ is a complete subgraph and thus $v_i$ is adjacent to every other node in $X_i$.
+        \item Every clause node $n_s$ is dominated: since $\sigma$ is satisfying, some group $X_i$ contains a variable that satisfies clause $s$. Then $v_i$, which agrees with $\sigma$ on $X_i$, also satisfies $s$, so the edge $v_i \sim n_s$ exists by construction.
+    \end{itemize}
+    
+
+    Thus we have reduced sparse $k$-\textsc{Sat} to \textsc{DomSet}. 
+    Now we show that if \textsc{DomSet} having an algorithm that solves it in $O(\fn^{o(q)})$ time, where $\fn$ is the number of nodes in the graph, by contradiction. Assume such an algorithm exists. Then, 
+    \begin{align*}
+        O(\fn^{o(q)}) &= O\left(\left(q2^{n/q} + m\right)^{o(q)}\right) = O\left(\left(\frac{n}{\log n}2^{\log n} + m\right)^{o\left(\frac{n}{\log n} \right)}\right) \\ 
+        \intertext{By the sparsification lemma we have $m = \Theta(n) = \alpha n$ for some $\alpha$. Also note that $2^{\log n} = n, so$}
+        O(\fn^{o(q)}) &= O\left(\left(\frac{n}{\log n}n + \alpha n\right)^{o\left(\frac{n}{\log n} \right)}\right) = O\left(\left(\frac{n^2}{\log n} + \alpha n\right)^{o\left(\frac{n}{\log n} \right)}\right)\\ 
+        \intertext{Note that $\frac{n^2}{\log n}$ clearly dominates, so we drop the other term.}
+        O(\fn^{o(q)}) &\leq O\left(\left(\frac{n^2}{\log n}\right)^{o\left(\frac{n}{\log n} \right)}\right)  = O\left(\left(2^{\log(n^2/\log n)}\right)^ {o\left(\frac{n}{\log n} \right)}\right)  \\
+        &= O\left(\left(2^{2 \log (n) - \log \log n}\right)^ {o\left(\frac{n}{\log n} \right)}\right)   \\ 
+        & \leq O\left(\left(2^{O(\log n)}\right)^{o\left(\frac{n}{\log n}\right)}\right) = O\left(2^{{O(\log n)} \cdot {o\left(\frac{n}{\log n}\right)}}\right) = O\left(2^{{o(n)}}\right)
+    \end{align*}
+    This gives us an $O(2^{o(n)})$  algorithm (which is strictly less than $O(2^n)$) that solves $k$-\textsc{Sat}, contradicting ETH. 
+    Thus we cannot solve \textsc{DomSet} in in $O(\fn^{o(q)})$ time.  
+\end{solution}
 
 \end{document}

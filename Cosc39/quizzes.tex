@@ -196,6 +196,59 @@
     \end{tcolorbox}
 \end{problem}
 
+
+\begin{solution}
+\bbni
+Let $\textsc{Iso}(A,B)$ be the decision oracle that returns \textsc{yes} iff $A\cong B$. Let
+$n=|V_G|$; if $|V_G|\neq|V_{G'}|$ or $\textsc{Iso}(G,G')=\textsc{no}$, report that no
+isomorphism exists. Otherwise we build $\phi$ vertex by vertex.
+
+\textbf{Pinning gadget.} For graphs we have committed a partial correspondence
+$u_1\mapsto w_1,\dots,u_k\mapsto w_k$ (the $u_j\in V_G$, $w_j\in V_{G'}$ distinct), define
+augmented graphs $\widehat G,\widehat G'$: for each $j=1,\dots,k$, attach to $u_j$ in
+$\widehat G$, and to $w_j$ in $\widehat G'$, a fresh clique on $n+j$ vertices joined to that
+vertex by a single \emph{bridge} edge.
+
+\emph{Lemma.} $\widehat G\cong\widehat G'$ iff there is an isomorphism $\psi:G\to G'$ with
+$\psi(u_j)=w_j$ for all $j$.
+
+\emph{Proof.} ($\Leftarrow$) Extend $\psi$ by mapping the size-$(n+j)$ gadget on $u_j$
+isomorphically onto the size-$(n+j)$ gadget on $w_j$ (matching bridge to bridge); this is an
+isomorphism $\widehat G\to\widehat G'$.
+($\Rightarrow$) Each attached clique has size $n+j>n$, and the original graphs (on $n$
+vertices, with the gadgets joined only by bridges) contain no clique larger than $n$. So the
+cliques of size $n+j$ are exactly the gadgets, and their sizes are distinct, so any
+isomorphism $\widehat\phi:\widehat G\to\widehat G'$ maps the size-$(n+j)$ gadget of
+$\widehat G$ onto that of $\widehat G'$. Within a gadget the bridge vertex is the unique one
+with a neighbour outside the gadget, so $\widehat\phi$ sends $u_j$'s gadget-bridge to $w_j$'s,
+hence $\widehat\phi(u_j)=w_j$. As $\widehat\phi$ maps gadget vertices to gadget vertices, its
+restriction to $V_G$ is an isomorphism $\psi:G\to G'$ with $\psi(u_j)=w_j$. \hfill$\square$
+
+\textbf{Algorithm.} Fix an ordering $u_1,\dots,u_n$ of $V_G$. Maintain a partial map $\pi$ and
+the set $\mathrm{used}$ of images taken. For $i=1,\dots,n$:
+\begin{quote}
+For each candidate $v'\in V_{G'}\setminus\mathrm{used}$: build $\widehat G,\widehat G'$ for the
+commitments $\pi(u_1),\dots,\pi(u_{i-1})$ together with the tentative pair $u_i\mapsto v'$, and
+call $\textsc{Iso}(\widehat G,\widehat G')$. At the first \textsc{yes}, set $\pi(u_i):=v'$, add
+$v'$ to $\mathrm{used}$, and proceed to $u_{i+1}$.
+\end{quote}
+Output $\phi:=\pi$ after all $n$ vertices are assigned.
+
+\textbf{Correctness.} Invariant: the committed partial map extends to some isomorphism
+$G\to G'$. It holds initially because $\textsc{Iso}(G,G')=\textsc{yes}$. Suppose it holds
+before processing $u_i$, witnessed by an isomorphism $\psi$ extending the commitments. Then
+$v'=\psi(u_i)$ is an untaken candidate for which, by the Lemma, the oracle answers
+\textsc{yes}; so the loop finds some valid $v'$ and the invariant is preserved (again by the
+Lemma, a \textsc{yes} answer means the extended commitment is realizable). After all $n$ steps,
+$\pi$ is a total commitment that extends to an isomorphism, i.e. $\pi$ itself is an
+isomorphism $G\to G'$, so $xy\in E_G\iff\phi(x)\phi(y)\in E_{G'}$.
+
+\textbf{Running time.} There are at most $n$ candidates per vertex, so $O(n^2)$ oracle calls.
+Each augmented graph has $O(n+\sum_{j\le n}(n+j))=O(n^2)$ vertices and is built in polynomial
+time. Hence the whole self-reduction runs in polynomial time given the oracle. \qed
+\end{solution}
+
+
 \begin{problem}{12}
     We want to prove the following problem to be NP-hard by reduction from some known NP-hard problem:
 
